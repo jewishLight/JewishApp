@@ -1,9 +1,13 @@
 import { StyleSheet } from "react-native";
+import { Metric } from "../../themes";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white"
+  },
+  rowView: {
+    flexDirection: "row"
   },
   buttonsLine: {
     flexDirection: "row",
@@ -17,5 +21,25 @@ export const styles = StyleSheet.create({
   addSearchLine: {
     flexDirection: "row"
   },
-  horizontalSpacing: { width: 10 }
+  horizontalSpacing: { width: 10 },
+  aroundEventsView: {
+    borderBottomColor: "gray",
+    borderBottomWidth: 0.5,
+    paddingVertical: 15
+  },
+  aroundEventsTopView: {
+    width: Metric.width,
+    flexDirection: "row",
+    paddingHorizontal: 15,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingBottom: 10
+  },
+  eventsText: {
+    fontSize: 17
+  },
+  viewAllText: {
+    fontSize: 17,
+    color: "gray"
+  }
 });

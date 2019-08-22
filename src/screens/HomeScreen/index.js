@@ -11,6 +11,7 @@ import {
   AddButton,
   FilterButton
 } from "../../components";
+import { AroundEvents } from "./AroundEvents";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -41,6 +42,7 @@ class HomeScreen extends Component {
             <SearchButton onPress={this.onSearch} />
           </View>
         </View>
+        <AroundEvents />
       </SafeAreaView>
     );
   }
