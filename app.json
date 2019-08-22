@@ -24,7 +24,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jewish.world",
+      "buildNumber": "1"
+    },
+    "android": {
+      "package": "com.jewish.world",
+      "versionCode": 1,
+      "permissions": []
     }
   }
 }
