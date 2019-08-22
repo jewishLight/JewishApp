@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { SafeAreaView } from "react-navigation";
-import { View, Platform, Text } from "react-native";
+import { View, Platform, ScrollView } from "react-native";
 import { styles } from "./styles";
 import { appSettingsSelector } from "../../redux/selector";
 import { AppSettingsActions } from "../../redux";
@@ -12,6 +12,9 @@ import {
   FilterButton
 } from "../../components";
 import { AroundEvents } from "./AroundEvents";
+import { TodayLessons } from "./TodayLessons";
+import { PopularLessons } from "./PopularLessons";
+import { RecentLessons } from "./RecentLessons";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -42,7 +45,12 @@ class HomeScreen extends Component {
             <SearchButton onPress={this.onSearch} />
           </View>
         </View>
-        <AroundEvents />
+        <ScrollView>
+          <AroundEvents />
+          <TodayLessons />
+          <PopularLessons />
+          <RecentLessons />
+        </ScrollView>
       </SafeAreaView>
     );
   }

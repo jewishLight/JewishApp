@@ -35,5 +35,45 @@ export const styles = StyleSheet.create({
   },
   eventTitle: { color: "white", fontSize: 18 },
   eventTimeView: { marginTop: 10, flexDirection: "row" },
-  eventTimeText: { color: Colors.eventCardText, fontSize: 13, marginLeft: 3 }
+  eventTimeText: { color: Colors.eventCardText, fontSize: 13, marginLeft: 3 },
+  eventLocationImage: {
+    width: 12,
+    height: 16,
+    resizeMode: "contain",
+    marginLeft: 10
+  },
+  eventTimeImage: { width: 16, height: 16, resizeMode: "contain" },
+  lessonCardContainer: {
+    width: 280,
+    height: 120,
+    borderRadius: 5,
+    backgroundColor: "white",
+    borderWidth: 0.5,
+    borderColor: "lightgray",
+    padding: 5,
+    flexDirection: "row"
+  },
+  lessonImageView: {
+    width: 110,
+    height: 110,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+    backgroundColor: Colors.primary
+  },
+  lessonCardImage: { width: 55, height: 55, resizeMode: "contain" },
+  lessonDetailView: {
+    flex: 1,
+    paddingLeft: 5,
+    justifyContent: "space-around"
+  },
+  lessonRoleText: { fontSize: 11, color: Colors.lessonLightText },
+  lessonTitleText: { fontSize: 16, color: "black" },
+  lessonLocationText: { fontSize: 13, color: Colors.lessonLightText },
+  lessonLocationImage: { width: 14, height: 18, resizeMode: "contain" },
+  lessonLocationImageView: { flexDirection: "row", alignItems: "center" },
+  lessonCalendarImage: { width: 14, height: 14, resizeMode: "contain" },
+  lessonCalendarImageView: { flexDirection: "row", alignItems: "center" },
+  lessonLikeImage: { width: 14, height: 12, resizeMode: "contain" },
+  lessonLikeImageView: { flexDirection: "row", alignItems: "center" }
 });
