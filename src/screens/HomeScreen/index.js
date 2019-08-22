@@ -5,7 +5,12 @@ import { styles } from "./styles";
 import { appSettingsSelector } from "../../redux/selector";
 import { AppSettingsActions } from "../../redux";
 import { connect } from "react-redux";
-import { HomeHeader } from "../../components";
+import {
+  HomeHeader,
+  SearchButton,
+  AddButton,
+  FilterButton
+} from "../../components";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -27,7 +32,14 @@ class HomeScreen extends Component {
               this.refHomeHeader = ref;
             }}
           />
-          <Text>Hello World !!!</Text>
+        </View>
+        <View style={styles.buttonsLine}>
+          <FilterButton onPress={this.onFilter} />
+          <View style={styles.addSearchLine}>
+            <AddButton onPress={this.onAdd} />
+            <View style={styles.horizontalSpacing} />
+            <SearchButton onPress={this.onSearch} />
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -39,6 +51,10 @@ class HomeScreen extends Component {
     }
   };
   onHeaderMenu = () => {};
+
+  onSearch = () => {};
+  onAdd = () => {};
+  onFilter = () => {};
 }
 
 const mapStateToProps = state => ({

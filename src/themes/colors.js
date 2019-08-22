@@ -1,22 +1,4 @@
 export default {
-  background: "#191f23",
-  topNavigationBar: "#253037",
-  menuBottomButton: "#35434B",
-  white: "white",
-  primary: "#BF946E",
-  secondary: "#BC936F",
-  lightWhite: "#F2EEEE",
-  darkSlate: "#283238",
-  green: "#63e260",
-  border: "#253037",
-  gray: "#85868b",
-  darkRed: "#981212",
-  darkBlue: "#207618",
-  grey: "#979797",
-  darkGray: "#565A5C",
-  darkGrey: "#3D3D3D",
-  dark: "#22292e",
-  border1: "#384650",
-  textInput: "#95949A",
-  lightPrimary: "#47433C"
+  primary: "#4542B8",
+  secondary: "#ECECF8"
 };

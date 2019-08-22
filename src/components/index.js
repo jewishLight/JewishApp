@@ -1,3 +1,4 @@
 import { HomeHeader } from "./Headers";
+import { SearchButton, AddButton, FilterButton } from "./Buttons";
 
-export { HomeHeader };
+export { HomeHeader, SearchButton, AddButton, FilterButton };

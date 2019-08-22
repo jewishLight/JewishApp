@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Metric, Colors } from "../../themes";
+import { Metric } from "../../themes";
 
 export const styles = StyleSheet.create({
   homeHeaderContainer: {
