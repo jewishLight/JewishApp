@@ -4,15 +4,15 @@ import {
   createDrawerNavigator,
   createAppContainer
 } from "react-navigation";
-import { HomeScreen } from "./screens";
+import { HomeScreen, DetailsScreen } from "./screens";
 import { Metric } from "./themes";
 
 const DrawerMenu = createDrawerNavigator(
   {
-    Drawer1: { screen: HomeScreen }
+    Home: { screen: HomeScreen }
   },
   {
-    initialRouteName: "Drawer1",
+    initialRouteName: "Home",
     drawerLockMode: "locked-closed",
     drawerWidth: Math.min(Metric.height, Metric.width) * 0.7,
     drawerPosition: "right"
@@ -21,7 +21,7 @@ const DrawerMenu = createDrawerNavigator(
 
 const Routing = createStackNavigator(
   {
-    HomeScreen: { screen: HomeScreen },
+    Details: { screen: DetailsScreen },
     DrawerMenu: { screen: DrawerMenu }
   },
   {

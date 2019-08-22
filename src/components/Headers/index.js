@@ -62,3 +62,69 @@ export class HomeHeader extends Component {
     );
   }
 }
+
+export class DetailsHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.detailsHeaderContainer}>
+        <TouchableOpacity
+          style={styles.detailsHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}
+        >
+          <View style={styles.detailsHeaderBackContainerOpacity} />
+          <Image
+            source={require("../../assets/icon_header_back.png")}
+            style={styles.detailsHeaderBackIcon}
+          />
+        </TouchableOpacity>
+        <View style={styles.detailsHeaderRightButtonsView}>
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onSend();
+            }}
+          >
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require("../../assets/icon_header_send.png")}
+              style={styles.detailsHeaderSendIcon}
+            />
+          </TouchableOpacity>
+          <View style={styles.horizontalSpacing} />
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onFavorite();
+            }}
+          >
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require("../../assets/icon_header_favorites.png")}
+              style={styles.detailsHeaderFavoriteIcon}
+            />
+          </TouchableOpacity>
+          <View style={styles.horizontalSpacing} />
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onEdit();
+            }}
+          >
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require("../../assets/icon_header_edit.png")}
+              style={styles.detailsHeaderBackIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}

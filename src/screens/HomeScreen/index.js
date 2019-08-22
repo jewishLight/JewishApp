@@ -46,7 +46,7 @@ class HomeScreen extends Component {
           </View>
         </View>
         <ScrollView>
-          <AroundEvents />
+          <AroundEvents onDetails={this.onDetails} />
           <TodayLessons />
           <PopularLessons />
           <RecentLessons />
@@ -60,11 +60,16 @@ class HomeScreen extends Component {
       this.refHomeHeader.updateLocation("London, UK");
     }
   };
-  onHeaderMenu = () => {};
+  onHeaderMenu = () => {
+    this.props.navigation.openDrawer();
+  };
 
   onSearch = () => {};
   onAdd = () => {};
   onFilter = () => {};
+  onDetails = () => {
+    this.props.navigation.navigate("Details");
+  };
 }
 
 const mapStateToProps = state => ({

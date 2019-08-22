@@ -48,7 +48,11 @@ export class AroundEvents extends Component {
   renderEventsData = ({ item, index }) => {
     return (
       <View style={styles.rowView}>
-        <EventCard />
+        <EventCard
+          onPress={() => {
+            this.props.onDetails();
+          }}
+        />
         {index < tempEventsData.length - 1 && (
           <View style={styles.horizontalSpacing} />
         )}
