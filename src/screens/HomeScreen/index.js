@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { SafeAreaView } from "react-navigation";
-import { View, Platform, ScrollView } from "react-native";
+import {
+  View,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import { styles } from "./styles";
 import { appSettingsSelector } from "../../redux/selector";
 import { AppSettingsActions } from "../../redux";
@@ -9,7 +15,8 @@ import {
   HomeHeader,
   SearchButton,
   AddButton,
-  FilterButton
+  FilterButton,
+  AddModal
 } from "../../components";
 import { AroundEvents } from "./AroundEvents";
 import { TodayLessons } from "./TodayLessons";
@@ -51,6 +58,11 @@ class HomeScreen extends Component {
           <PopularLessons />
           <RecentLessons />
         </ScrollView>
+        <AddModal
+          ref={ref => {
+            this.refAddModal = ref;
+          }}
+        />
       </SafeAreaView>
     );
   }
@@ -65,7 +77,11 @@ class HomeScreen extends Component {
   };
 
   onSearch = () => {};
-  onAdd = () => {};
+  onAdd = () => {
+    if (this.refAddModal) {
+      this.refAddModal.setModalVisible(true);
+    }
+  };
   onFilter = () => {};
   onDetails = () => {
     this.props.navigation.navigate("Details");

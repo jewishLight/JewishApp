@@ -25,7 +25,7 @@ const Routing = createStackNavigator(
     DrawerMenu: { screen: DrawerMenu }
   },
   {
-    initialRouteName: "Details",
+    initialRouteName: "DrawerMenu",
     headerMode: "none"
   }
 );
