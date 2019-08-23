@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { SafeAreaView } from "react-navigation";
-import { View, Platform, Text } from "react-native";
+import { View, Platform, Text, Image } from "react-native";
 import { styles } from "./styles";
 import { appSettingsSelector } from "../../redux/selector";
 import { AppSettingsActions } from "../../redux";
 import { connect } from "react-redux";
-import { DetailsHeader } from "../../components";
+import { DetailsHeader, LikeButton, CommentButton } from "../../components";
+import { Comments } from "./Comments";
 
 class DetailsScreen extends Component {
   static navigationOptions = {
@@ -28,6 +29,75 @@ class DetailsScreen extends Component {
               onFavorite={this.onFavorite}
               onSend={this.onSend}
             />
+            <View style={styles.detailBasicInfo}>
+              <Text style={styles.detailTitleText}>
+                The Weekly Shiur - On the parasha
+              </Text>
+              <View style={styles.detailBasic}>
+                <View style={styles.detailUserContainer}>
+                  <Image
+                    source={require("../../assets/icon_avatar.png")}
+                    style={styles.detailUserAvatar}
+                  />
+                  <View style={styles.userDetail}>
+                    <Text style={styles.userRole}>Speaker</Text>
+                    <Text style={styles.userName}>Silvan Radeh Meiv</Text>
+                  </View>
+                </View>
+                <View style={styles.detailUserContainer}>
+                  <Image
+                    source={require("../../assets/icon_detail_building.png")}
+                    style={styles.detailUserAvatar}
+                  />
+                  <View style={styles.userDetail}>
+                    <Text style={styles.userRole}>Speaker</Text>
+                    <Text style={styles.userName}>Silvan Radeh Meiv</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.detailClockLocation}>
+                <View style={styles.detailClockContainer}>
+                  <Image
+                    source={require("../../assets/icon_detail_clock.png")}
+                    style={styles.detailClockImage}
+                  />
+                  <Text style={styles.detailClockText}>Today, 22:30</Text>
+                </View>
+                <View style={styles.detailLocationContainer}>
+                  <Image
+                    source={require("../../assets/icon_detail_location.png")}
+                    style={styles.detailLocationImage}
+                  />
+                  <Text style={styles.detailLocationText}>
+                    King George 58, Jerusalem
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.detailDescContainer}>
+                <Text style={styles.detailDescText}>
+                  Sivan Rahav-Meir’s weekly shiur on the parasha takes place in
+                  Jerusalem every Wednesday evening at 9:00 pm at “Heichal
+                  Shlomo″, King George 58. Entrance is free.
+                </Text>
+              </View>
+            </View>
+            <View style={styles.separator} />
+            <View style={styles.likeBtnContainer}>
+              <View style={styles.buttonsContainer}>
+                <LikeButton />
+                <View style={styles.horizontalSpacing} />
+                <CommentButton />
+              </View>
+              <View style={styles.likesContainer}>
+                <Text style={styles.likesText}>43+ liked</Text>
+                <Image
+                  source={require("../../assets/icon_detail_liked.png")}
+                  style={{ width: 80, height: 36, resizeMode: "contain" }}
+                />
+              </View>
+            </View>
+            <View style={styles.paddingSeparator} />
+            <Comments />
           </View>
         </SafeAreaView>
       </Fragment>

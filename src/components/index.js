@@ -1,5 +1,11 @@
 import { HomeHeader, DetailsHeader } from "./Headers";
-import { SearchButton, AddButton, FilterButton } from "./Buttons";
+import {
+  SearchButton,
+  AddButton,
+  FilterButton,
+  LikeButton,
+  CommentButton
+} from "./Buttons";
 import { EventCard, LessonCard } from "./Cards";
 
 export {
@@ -8,6 +14,8 @@ export {
   SearchButton,
   AddButton,
   FilterButton,
+  LikeButton,
+  CommentButton,
   EventCard,
   LessonCard
 };

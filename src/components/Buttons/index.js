@@ -31,3 +31,20 @@ export const FilterButton = ({ onPress }) => (
     />
   </TouchableOpacity>
 );
+
+export const LikeButton = ({ onPress }) => (
+  <TouchableOpacity style={styles.likeBtnContainer} onPress={onPress}>
+    <Image
+      source={require("../../assets/icon_detail_like.png")}
+      style={styles.likeIcon}
+    />
+    <Text style={[Metric.font.h4, styles.likeText]}>Like</Text>
+  </TouchableOpacity>
+);
+
+export const CommentButton = ({ onPress }) => (
+  <TouchableOpacity style={styles.commentBtnContainer} onPress={onPress}>
+    <View style={styles.commentBtnContainerBack} />
+    <Text style={[Metric.font.h4, styles.commentText]}>Comment</Text>
+  </TouchableOpacity>
+);
