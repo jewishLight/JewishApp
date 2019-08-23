@@ -62,5 +62,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     justifyContent: "space-around"
+  },
+  filterModalMainView: {
+    backgroundColor: "white",
+    height: 330,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderColor: "rgba(0, 0, 0, 0.1)",
+    paddingVertical: 20
   }
 });

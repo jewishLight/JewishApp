@@ -16,7 +16,8 @@ import {
   SearchButton,
   AddButton,
   FilterButton,
-  AddModal
+  AddModal,
+  FilterModal
 } from "../../components";
 import { AroundEvents } from "./AroundEvents";
 import { TodayLessons } from "./TodayLessons";
@@ -63,6 +64,11 @@ class HomeScreen extends Component {
             this.refAddModal = ref;
           }}
         />
+        <FilterModal
+          ref={ref => {
+            this.refFilterModal = ref;
+          }}
+        />
       </SafeAreaView>
     );
   }
@@ -82,7 +88,11 @@ class HomeScreen extends Component {
       this.refAddModal.setModalVisible(true);
     }
   };
-  onFilter = () => {};
+  onFilter = () => {
+    if (this.refFilterModal) {
+      this.refFilterModal.setModalVisible(true);
+    }
+  };
   onDetails = () => {
     this.props.navigation.navigate("Details");
   };
