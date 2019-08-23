@@ -9,7 +9,8 @@ import {
 } from "./Buttons";
 import { EventCard, LessonCard } from "./Cards";
 import { CommentListItem } from "./ListItems";
-import { AddModal, FilterModal } from "./Modals";
+import { AddModal, FilterModal, NewLessonModal } from "./Modals";
+import { NormalInput } from "./Inputs";
 
 export {
   HomeHeader,
@@ -24,5 +25,7 @@ export {
   LessonCard,
   CommentListItem,
   AddModal,
-  FilterModal
+  FilterModal,
+  NewLessonModal,
+  NormalInput
 };

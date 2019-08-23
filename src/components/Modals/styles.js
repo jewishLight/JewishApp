@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     height: 50,
-    paddingHorizontal: 20
+    paddingHorizontal: 15
   },
   addNewText: { fontSize: 18 },
   addModalSeparator: {
@@ -59,7 +59,7 @@ export const styles = StyleSheet.create({
   synText: { color: Colors.primary, fontSize: 18 },
   addBtnsContainer: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     paddingVertical: 10,
     justifyContent: "space-around"
   },
@@ -70,5 +70,20 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderColor: "rgba(0, 0, 0, 0.1)",
     paddingVertical: 20
+  },
+  newLessonModalMainView: {
+    backgroundColor: "white",
+    height: Metric.height - 50,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderColor: "rgba(0, 0, 0, 0.1)",
+    paddingVertical: 20
+  },
+  newLessonModalContainer: {
+    paddingHorizontal: 15
+  },
+  newLessonModalTextInputTitle: {
+    fontSize: 14,
+    marginTop: 10
   }
 });

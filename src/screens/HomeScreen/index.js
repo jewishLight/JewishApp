@@ -17,12 +17,14 @@ import {
   AddButton,
   FilterButton,
   AddModal,
-  FilterModal
+  FilterModal,
+  NewLessonModal
 } from "../../components";
 import { AroundEvents } from "./AroundEvents";
 import { TodayLessons } from "./TodayLessons";
 import { PopularLessons } from "./PopularLessons";
 import { RecentLessons } from "./RecentLessons";
+import { Strings } from "../../themes";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -63,15 +65,33 @@ class HomeScreen extends Component {
           ref={ref => {
             this.refAddModal = ref;
           }}
+          callBack={this.callBackAddModal}
         />
         <FilterModal
           ref={ref => {
             this.refFilterModal = ref;
           }}
         />
+        <NewLessonModal
+          ref={ref => {
+            this.refNewLessonModal = ref;
+          }}
+        />
       </SafeAreaView>
     );
   }
+
+  callBackAddModal = flag => {
+    switch (flag) {
+      case Strings.MODAL_FLAG_ADD_LESSON:
+        this.refNewLessonModal.show();
+        break;
+      case Strings.MODAL_FLAG_ADD_SYN:
+        break;
+      default:
+        break;
+    }
+  };
 
   onHeaderLocation = () => {
     if (this.refHomeHeader) {
@@ -85,12 +105,12 @@ class HomeScreen extends Component {
   onSearch = () => {};
   onAdd = () => {
     if (this.refAddModal) {
-      this.refAddModal.setModalVisible(true);
+      this.refAddModal.show();
     }
   };
   onFilter = () => {
     if (this.refFilterModal) {
-      this.refFilterModal.setModalVisible(true);
+      this.refFilterModal.show();
     }
   };
   onDetails = () => {
