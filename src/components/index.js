@@ -7,6 +7,7 @@ import {
   CommentButton
 } from "./Buttons";
 import { EventCard, LessonCard } from "./Cards";
+import { CommentListItem } from "./ListItems";
 
 export {
   HomeHeader,
@@ -17,5 +18,6 @@ export {
   LikeButton,
   CommentButton,
   EventCard,
-  LessonCard
+  LessonCard,
+  CommentListItem
 };

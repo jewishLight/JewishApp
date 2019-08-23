@@ -3,7 +3,7 @@ import { Metric, Colors } from "../../themes";
 
 export const styles = StyleSheet.create({
   topSafeAreaView: { flex: 0, backgroundColor: Colors.primary },
-  bottomSafeAreaView: { flex: 0, backgroundColor: "white" },
+  bottomSafeAreaView: { flex: 1, backgroundColor: "white" },
   container: {
     backgroundColor: "white"
   },
@@ -100,5 +100,27 @@ export const styles = StyleSheet.create({
     color: "black",
     fontSize: 13,
     opacity: 0.5
-  }
+  },
+  iconDetailLikedImage: { width: 80, height: 36, resizeMode: "contain" },
+  commentInputText: { height: 50, fontSize: 20 },
+  commentSendView: {
+    width: 32,
+    height: 32,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    right: 20,
+    top: 9
+  },
+  commentSendImage: {
+    width: 32,
+    height: 32,
+    resizeMode: "contain"
+  },
+  commentInputView: {
+    height: 50,
+    paddingHorizontal: 15,
+    backgroundColor: Colors.commentInputBackColor
+  },
+  flexFull: { flex: 1 }
 });

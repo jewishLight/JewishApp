@@ -32,7 +32,7 @@ export class AroundEvents extends Component {
             <Text style={styles.viewAllText}>View All</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ paddingHorizontal: 15 }}>
+        <View style={styles.spacingHorizontal}>
           <FlatList
             data={tempEventsData}
             renderItem={this.renderEventsData}

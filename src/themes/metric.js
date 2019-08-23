@@ -1,7 +1,8 @@
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import Colors from "./colors";
 
 const { width, height } = Dimensions.get("window");
+const headerHeight = Platform.OS === "ios" ? 70 : 100;
 
 export default {
   width,
@@ -42,5 +43,5 @@ export default {
       fontSize: 12
     }
   },
-  headerHeight: 70
+  headerHeight
 };

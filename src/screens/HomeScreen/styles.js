@@ -41,5 +41,6 @@ export const styles = StyleSheet.create({
   viewAllText: {
     fontSize: 17,
     color: "gray"
-  }
+  },
+  spacingHorizontal: { paddingHorizontal: 15 }
 });

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Platform, Text, TouchableOpacity, FlatList } from "react-native";
-import { EventCard } from "../../components";
+import { CommentListItem } from "../../components";
 import { styles } from "./styles";
 
 const tempCommentsData = [
@@ -12,6 +12,15 @@ const tempCommentsData = [
   },
   {
     id: 3
+  },
+  {
+    id: 4
+  },
+  {
+    id: 5
+  },
+  {
+    id: 6
   }
 ];
 
@@ -21,7 +30,7 @@ export class Comments extends Component {
     this.state = {};
   }
 
-  // _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => item.id.toString();
 
   render() {
     return (
@@ -30,22 +39,23 @@ export class Comments extends Component {
           <Text style={styles.commentsText}>Comments</Text>
           <Text style={styles.commentsNumberText}>82 Comments</Text>
         </View>
+        <View>
+          <FlatList
+            data={tempCommentsData}
+            renderItem={this.renderComments}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={this._keyExtractor}
+          />
+        </View>
       </View>
     );
   }
 
-  // renderEventsData = ({ item, index }) => {
-  //   return (
-  //     <View style={styles.rowView}>
-  //       <EventCard
-  //         onPress={() => {
-  //           this.props.onDetails();
-  //         }}
-  //       />
-  //       {index < tempEventsData.length - 1 && (
-  //         <View style={styles.horizontalSpacing} />
-  //       )}
-  //     </View>
-  //   );
-  // };
+  renderComments = ({ item, index }) => {
+    return (
+      <View style={styles.rowView}>
+        <CommentListItem onPress={() => {}} />
+      </View>
+    );
+  };
 }

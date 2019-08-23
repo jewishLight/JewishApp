@@ -4,5 +4,6 @@ export default {
   torah: "#5956C0",
   eventCardText: "#A1A0D8",
   lessonLightText: "#9B9B9B",
-  separator: "#D8D8D8"
+  separator: "#D8D8D8",
+  commentInputBackColor: "#EDEFF1"
 };

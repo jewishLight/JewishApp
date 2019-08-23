@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import { Metric, Colors } from "../../themes";
 
 export const styles = StyleSheet.create({
@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 15,
     paddingRight: 10,
-    paddingTop: 5,
+    paddingTop: Platform.OS === "ios" ? 5 : 30,
     borderBottomColor: "gray",
     borderBottomWidth: 0.5
   },
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     paddingLeft: 15,
     paddingRight: 10,
-    paddingTop: 5,
+    paddingTop: Platform.OS === "ios" ? 5 : 30,
     backgroundColor: Colors.primary
   },
   detailsHeaderBackContainer: {
