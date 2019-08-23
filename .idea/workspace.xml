@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8b5087fa-8b89-4008-96ee-5b82c905cf15" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Modals/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Modals/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Modals/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Modals/styles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/HomeScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/HomeScreen/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Headers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Headers/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="797">
-              <caret line="94" column="4" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="94" selection-end-column="4" />
+            <state relative-caret-position="226">
+              <caret line="90" column="20" lean-forward="true" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -33,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Modals/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="115" selection-start-line="115" selection-end-line="115" />
+            <state relative-caret-position="295">
+              <caret line="107" column="31" lean-forward="true" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -102,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Headers/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="3" selection-start-line="6" selection-start-column="2" selection-end-line="15" selection-end-column="3" />
+            <state relative-caret-position="353">
+              <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -149,7 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>horizontalspacing</find>
       <find>likesText</find>
       <find>aroundeven</find>
       <find>commentItemContainer</find>
@@ -179,6 +172,7 @@
       <find>filter</find>
       <find>AddModal</find>
       <find>modalmain</find>
+      <find>onfilter</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -197,7 +191,6 @@
         <option value="$PROJECT_DIR$/src/components/Cards/index.js" />
         <option value="$PROJECT_DIR$/src/components/Cards/styles.js" />
         <option value="$PROJECT_DIR$/src/screens/index.js" />
-        <option value="$PROJECT_DIR$/src/components/Headers/index.js" />
         <option value="$PROJECT_DIR$/App.js" />
         <option value="$PROJECT_DIR$/src/app.js" />
         <option value="$PROJECT_DIR$/src/themes/metric.js" />
@@ -220,6 +213,7 @@
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/index.js" />
         <option value="$PROJECT_DIR$/src/components/Modals/styles.js" />
         <option value="$PROJECT_DIR$/src/components/Modals/index.js" />
+        <option value="$PROJECT_DIR$/src/components/Headers/index.js" />
       </list>
     </option>
   </component>
@@ -254,6 +248,13 @@
               <item name="Jewish" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Jewish" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jewish" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Headers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Jewish" type="b2602c69:ProjectViewProjectNode" />
@@ -327,7 +328,7 @@
       <option name="presentableId" value="Default" />
       <updated>1566485609655</updated>
       <workItem from="1566485610834" duration="6272000" />
-      <workItem from="1566539327623" duration="20972000" />
+      <workItem from="1566539327623" duration="21189000" />
     </task>
     <task id="LOCAL-00001" summary="update app.json">
       <created>1566485931270</created>
@@ -392,11 +393,18 @@
       <option name="project" value="LOCAL" />
       <updated>1566578104633</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="filter modal">
+      <created>1566578912740</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1566578912740</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43489000" />
+    <option name="totallyTimeSpent" value="43706000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="981" extended-state="6" />
@@ -437,7 +445,8 @@
     <MESSAGE value="Details Page" />
     <MESSAGE value="add modal" />
     <MESSAGE value="modal style" />
-    <option name="LAST_COMMIT_MESSAGE" value="modal style" />
+    <MESSAGE value="filter modal" />
+    <option name="LAST_COMMIT_MESSAGE" value="filter modal" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/app.json">
@@ -638,16 +647,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Headers/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="3" selection-start-line="6" selection-start-column="2" selection-end-line="15" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/themes/colors.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -712,16 +711,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="797">
-          <caret line="94" column="4" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="94" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Modals/styles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -734,8 +723,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Modals/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="115" selection-start-line="115" selection-end-line="115" />
+        <state relative-caret-position="295">
+          <caret line="107" column="31" lean-forward="true" selection-start-line="107" selection-start-column="31" selection-end-line="107" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="90" column="20" lean-forward="true" selection-start-line="90" selection-start-column="20" selection-end-line="90" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Headers/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="27" column="4" lean-forward="true" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>

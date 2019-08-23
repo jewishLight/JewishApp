@@ -24,7 +24,7 @@ export class HomeHeader extends Component {
   };
 
   updateLocation = location => {
-    this.setState({ location });
+    // this.setState({ location });
   };
 
   render() {
