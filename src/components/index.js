@@ -4,7 +4,8 @@ import {
   AddButton,
   FilterButton,
   LikeButton,
-  CommentButton
+  CommentButton,
+  AddModalCloseButton
 } from "./Buttons";
 import { EventCard, LessonCard } from "./Cards";
 import { CommentListItem } from "./ListItems";
@@ -18,6 +19,7 @@ export {
   FilterButton,
   LikeButton,
   CommentButton,
+  AddModalCloseButton,
   EventCard,
   LessonCard,
   CommentListItem,

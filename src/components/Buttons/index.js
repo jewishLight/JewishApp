@@ -48,3 +48,10 @@ export const CommentButton = ({ onPress }) => (
     <Text style={[Metric.font.h4, styles.commentText]}>Comment</Text>
   </TouchableOpacity>
 );
+
+export const AddModalCloseButton = ({ onPress }) => (
+  <TouchableOpacity style={styles.addModalCloseBtnContainer} onPress={onPress}>
+    <View style={styles.addModalCloseBtnContainerBack} />
+    <Text style={[Metric.font.h4, styles.commentText]}>Close</Text>
+  </TouchableOpacity>
+);

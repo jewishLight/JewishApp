@@ -102,7 +102,7 @@ export const styles = StyleSheet.create({
     opacity: 0.5
   },
   iconDetailLikedImage: { width: 80, height: 36, resizeMode: "contain" },
-  commentInputText: { height: 50, fontSize: 20 },
+  commentInputText: { height: 50, fontSize: 18 },
   commentSendView: {
     width: 32,
     height: 32,

@@ -31,6 +31,21 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  addModalCloseBtnContainer: {
+    width: 100,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  addModalCloseBtnContainerBack: {
+    width: 90,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: Colors.modalCloseBtnBackColor,
+    opacity: 0.1,
+    position: "absolute"
+  },
   commentBtnContainerBack: {
     width: 90,
     height: 34,

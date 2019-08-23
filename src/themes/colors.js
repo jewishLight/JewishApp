@@ -5,5 +5,7 @@ export default {
   eventCardText: "#A1A0D8",
   lessonLightText: "#9B9B9B",
   separator: "#D8D8D8",
-  commentInputBackColor: "#EDEFF1"
+  commentInputBackColor: "#EDEFF1",
+  modalCloseBtnBackColor: "#929598",
+  modalSeparator: "#EFEFEF"
 };
