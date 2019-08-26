@@ -19,7 +19,7 @@ import {
   DescriptionInput,
   SynMinTimes,
   NormalSwitch,
-  Tags
+  TagView
 } from "../../components";
 
 export class AddModal extends Component {
@@ -333,36 +333,64 @@ export class NewSynModal extends Component {
                   <Text style={styles.newLessonModalPickerTitle}>
                     Amenities
                   </Text>
-                  <Tags />
+                  <NormalPicker />
+                  <TagView />
+
+                  <Text style={styles.newLessonModalPickerTitle}>Notes</Text>
+                  <DescriptionInput />
 
                   <Text style={styles.newLessonModalPickerTitle}>
-                    Description
+                    Owner Contact Number
                   </Text>
-                  <DescriptionInput />
+                  <NormalInput placeholder={"Enter contact number..."} />
                 </View>
+
                 <View style={styles.verticalSpacing} />
                 <View style={styles.addModalSeparator} />
                 <View style={styles.verticalSpacingSmall} />
+
                 <View style={styles.newLessonModalContainer}>
-                  <Text style={styles.newLessonModalTextInputTitle}>
-                    Contact Name
-                  </Text>
-                  <NormalInput placeholder={"Enter name here..."} />
-                  <Text style={styles.newLessonModalTextInputTitle}>
-                    Contact Number
-                  </Text>
-                  <NormalInput placeholder={"Enter number here..."} />
-                  <Text style={styles.newLessonModalPickerTitle}>
-                    Select Audience
-                  </Text>
-                  <NormalPicker />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Text style={styles.newLessonModalTextInputTitle}>
+                      Syna Picture
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        backgroundColor: Colors.uploadImage,
+                        width: 160,
+                        height: 50,
+                        borderRadius: 25,
+                        marginTop: 5
+                      }}
+                    >
+                      <Image
+                        source={require("../../assets/icon_modal_upload.png")}
+                        style={{ width: 20, height: 13, resizeMode: "contain" }}
+                      />
+                      <Text
+                        style={{ color: "white", marginLeft: 5, fontSize: 15 }}
+                      >
+                        Upload
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
                   <TouchableOpacity
                     style={styles.publishLessonContainer}
                     onPress={() => {
                       this.props.onPublish();
                     }}
                   >
-                    <Text style={styles.bigBtnText}>Publish Lesson</Text>
+                    <Text style={styles.bigBtnText}>Add New Syna</Text>
                   </TouchableOpacity>
                   <View style={styles.verticalSpacingBig} />
                 </View>

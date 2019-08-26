@@ -19,7 +19,7 @@ import {
   SynMinTimes,
   NormalSwitch
 } from "./Inputs";
-import { Tags } from "./Tags";
+import { TagView } from "./Tags";
 
 export {
   HomeHeader,
@@ -44,5 +44,5 @@ export {
   NewSynModal,
   SynMinTimes,
   NormalSwitch,
-  Tags
+  TagView
 };

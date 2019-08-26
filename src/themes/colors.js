@@ -9,5 +9,7 @@ export default {
   modalCloseBtnBackColor: "#929598",
   modalSeparator: "#EFEFEF",
   dayText: "#4B5461",
-  redText: "#EC4256"
+  redText: "#EC4256",
+  tagBack: "#EDEDEF",
+  uploadImage: "#5D6671"
 };
