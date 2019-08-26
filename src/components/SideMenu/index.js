@@ -29,12 +29,13 @@ export class SideMenu extends Component {
   }
 
   onPressMenu = async index => {
+    this.closeMenu();
     switch (index) {
       case 0:
-        this.props.navigation.navigate("Details");
+        this.props.navigation.navigate("Settings");
         break;
       case 1:
-        this.props.navigation.navigate("Details");
+        this.props.navigation.navigate("Settings");
         break;
       case 2:
         break;
@@ -51,23 +52,21 @@ export class SideMenu extends Component {
     this.closeMenu();
   };
 
+  goHome = () => {
+    this.closeMenu();
+    this.props.navigation.navigate("Home");
+  };
+
   renderListItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => this.onPressMenu(index)}
       >
-        <View
-          style={{
-            width: 55,
-            height: 50,
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
+        <View style={styles.logoImageView}>
           <Image source={item.source} style={styles.iconMenu} />
         </View>
-        <Text style={{ fontSize: 18 }}>{item.name}</Text>
+        <Text style={styles.logoutText}>{item.name}</Text>
       </TouchableOpacity>
     );
   };
@@ -75,22 +74,15 @@ export class SideMenu extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.logoContainer}>
-          <View
-            style={{
-              width: 55,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
+        <TouchableOpacity style={styles.logoContainer} onPress={this.goHome}>
+          <View style={styles.logoImageView}>
             <Image
               source={require("./../../assets/icon_logo.png")}
               style={styles.imgLogo}
             />
           </View>
-          <Text style={{ fontSize: 30, color: "#9EA3BA" }}>Jewish</Text>
-        </View>
+          <Text style={styles.logoText}>Jewish</Text>
+        </TouchableOpacity>
         <FlatList
           data={MENU_ITEMS}
           keyExtractor={(item, index) => `key-${index}`}
@@ -99,25 +91,18 @@ export class SideMenu extends Component {
           scrollEnabled={false}
         />
         <View style={styles.bottomContainer}>
-          <View style={{ height: 1, backgroundColor: Colors.separator }} />
+          <View style={styles.separator} />
           <TouchableOpacity
             style={styles.itemContainer}
             onPress={this.onLogout}
           >
-            <View
-              style={{
-                width: 55,
-                height: 50,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+            <View style={styles.logoImageView}>
               <Image
                 source={require("../../assets/icon_menu_close.png")}
                 style={styles.iconMenu}
               />
             </View>
-            <Text style={{ fontSize: 18 }}>Logout</Text>
+            <Text style={styles.logoutText}>Logout</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

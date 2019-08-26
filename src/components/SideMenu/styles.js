@@ -17,13 +17,17 @@ export const styles = StyleSheet.create({
     height: 40,
     resizeMode: "contain"
   },
+  logoImageView: {
+    width: 55,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  logoText: { fontSize: 30, color: "#9EA3BA" },
   itemContainer: {
     flexDirection: "row",
     height: 50,
     alignItems: "center"
-  },
-  whiteText: {
-    color: Colors.white
   },
   listContainer: {
     marginTop: 30
@@ -32,31 +36,9 @@ export const styles = StyleSheet.create({
     height: 50,
     resizeMode: "contain"
   },
-  primaryBoldText: {
-    ...Metric.font.h1,
-    fontWeight: "500",
-    color: Colors.primary
-  },
-  imgLogoText: {
-    height: Metric.topNavBarHeight - 35,
-    width: 110,
-    resizeMode: "contain"
-  },
-  iconClose: {
-    width: 15,
-    height: 15,
-    resizeMode: "contain"
-  },
   bottomContainer: {
     marginBottom: 50
   },
-  closeContainer: {
-    position: "absolute",
-    right: 10,
-    top: 5,
-    width: 50,
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center"
-  }
+  separator: { height: 1, backgroundColor: Colors.separator },
+  logoutText: { fontSize: 18 }
 });

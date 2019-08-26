@@ -4,14 +4,14 @@ import {
   createDrawerNavigator,
   createAppContainer
 } from "react-navigation";
-import { HomeScreen, DetailsScreen } from "./screens";
+import { HomeScreen, DetailsScreen, SettingsScreen } from "./screens";
 import { Metric } from "./themes";
 import { SideMenu } from "./components";
 
 const DrawerMenu = createDrawerNavigator(
   {
     Home: { screen: HomeScreen },
-    Details: { screen: DetailsScreen }
+    Settings: { screen: SettingsScreen }
   },
   {
     contentComponent: props => <SideMenu {...props} />,
