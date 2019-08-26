@@ -20,7 +20,8 @@ import {
   FilterButton,
   AddModal,
   FilterModal,
-  NewLessonModal
+  NewLessonModal,
+  NewSynModal
 } from "../../components";
 import { AroundEvents } from "./AroundEvents";
 import { TodayLessons } from "./TodayLessons";
@@ -80,6 +81,12 @@ class HomeScreen extends Component {
           }}
           onPublish={this.onPublish}
         />
+        <NewSynModal
+          ref={ref => {
+            this.refSynModal = ref;
+          }}
+          onPublish={this.onAddSyn}
+        />
       </SafeAreaView>
     );
   }
@@ -90,6 +97,7 @@ class HomeScreen extends Component {
         this.refNewLessonModal.show();
         break;
       case Strings.MODAL_FLAG_ADD_SYN:
+        this.refSynModal.show();
         break;
       default:
         break;
@@ -124,6 +132,9 @@ class HomeScreen extends Component {
   };
   onPublish = () => {
     this.refNewLessonModal.hide();
+  };
+  onAddSyn = () => {
+    this.refSynModal.hide();
   };
 }
 

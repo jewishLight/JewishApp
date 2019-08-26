@@ -90,6 +90,11 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 20
   },
+  newLessonModalPickerTitleRed: {
+    fontSize: 14,
+    marginTop: 20,
+    color: Colors.redText
+  },
   flexFull: {
     flex: 1
   },

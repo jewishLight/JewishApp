@@ -31,5 +31,14 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
+  },
+  descriptionInputStyle: {
+    borderRadius: 10,
+    height: 60,
+    borderWidth: 1,
+    borderColor: Colors.lessonLightText,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
+    marginTop: 10
   }
 });

@@ -16,7 +16,10 @@ import {
   NormalPicker,
   LocationInput,
   DateTimeSetter,
-  DescriptionInput
+  DescriptionInput,
+  SynMinTimes,
+  NormalSwitch,
+  Tags
 } from "../../components";
 
 export class AddModal extends Component {
@@ -201,6 +204,137 @@ export class NewLessonModal extends Component {
                     sat={false}
                     sun={false}
                   />
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Description
+                  </Text>
+                  <DescriptionInput />
+                </View>
+                <View style={styles.verticalSpacing} />
+                <View style={styles.addModalSeparator} />
+                <View style={styles.verticalSpacingSmall} />
+                <View style={styles.newLessonModalContainer}>
+                  <Text style={styles.newLessonModalTextInputTitle}>
+                    Contact Name
+                  </Text>
+                  <NormalInput placeholder={"Enter name here..."} />
+                  <Text style={styles.newLessonModalTextInputTitle}>
+                    Contact Number
+                  </Text>
+                  <NormalInput placeholder={"Enter number here..."} />
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Select Audience
+                  </Text>
+                  <NormalPicker />
+                  <TouchableOpacity
+                    style={styles.publishLessonContainer}
+                    onPress={() => {
+                      this.props.onPublish();
+                    }}
+                  >
+                    <Text style={styles.bigBtnText}>Publish Lesson</Text>
+                  </TouchableOpacity>
+                  <View style={styles.verticalSpacingBig} />
+                </View>
+              </ScrollView>
+            </KeyboardAvoidingView>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+}
+
+export class NewSynModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false
+    };
+  }
+
+  componentDidMount() {}
+
+  show = () => {
+    this.setState({ modalVisible: true });
+  };
+
+  hide = () => {
+    this.setState({ modalVisible: false });
+  };
+
+  render() {
+    return (
+      <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
+        <View style={styles.addModalView}>
+          <View style={styles.addModalDropdownView} />
+          <View style={styles.newLessonModalMainView}>
+            <View style={styles.addNewLine}>
+              <Text style={styles.addNewText}>Add New Synagogue</Text>
+              <AddModalCloseButton
+                onPress={() => {
+                  this.hide();
+                }}
+              />
+            </View>
+            <View style={styles.addModalSeparator} />
+            <KeyboardAvoidingView behavior="padding" style={styles.flexFull}>
+              <ScrollView>
+                <View style={styles.newLessonModalContainer}>
+                  <Text style={styles.newLessonModalTextInputTitle}>
+                    Syn Name *
+                  </Text>
+                  <NormalInput placeholder={"Enter syn name here..."} />
+
+                  <Text style={styles.newLessonModalPickerTitle}>Nosach</Text>
+                  <NormalPicker />
+
+                  <Text style={styles.newLessonModalPickerTitle}>Location</Text>
+                  <LocationInput placeholder={"Enter location..."} />
+
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Add min times
+                  </Text>
+                  <SynMinTimes
+                    mon={false}
+                    tue={false}
+                    wed={false}
+                    thu={false}
+                    fri={false}
+                    sat={false}
+                    sun={false}
+                    type={"week"}
+                  />
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center"
+                    }}
+                  >
+                    <View />
+                    <Text style={styles.newLessonModalPickerTitleRed}>
+                      Remove
+                    </Text>
+                  </View>
+                  <SynMinTimes
+                    mon={false}
+                    tue={false}
+                    wed={false}
+                    thu={false}
+                    fri={false}
+                    sat={false}
+                    sun={false}
+                    type={"day"}
+                  />
+
+                  <NormalSwitch type={"Shtiblach"} initialStatus={false} />
+
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Amenities
+                  </Text>
+                  <Tags />
+
                   <Text style={styles.newLessonModalPickerTitle}>
                     Description
                   </Text>

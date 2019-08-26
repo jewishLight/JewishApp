@@ -9,14 +9,17 @@ import {
 } from "./Buttons";
 import { EventCard, LessonCard } from "./Cards";
 import { CommentListItem } from "./ListItems";
-import { AddModal, FilterModal, NewLessonModal } from "./Modals";
+import { AddModal, FilterModal, NewLessonModal, NewSynModal } from "./Modals";
 import {
   NormalInput,
   NormalPicker,
   LocationInput,
   DateTimeSetter,
-  DescriptionInput
+  DescriptionInput,
+  SynMinTimes,
+  NormalSwitch
 } from "./Inputs";
+import { Tags } from "./Tags";
 
 export {
   HomeHeader,
@@ -37,5 +40,9 @@ export {
   NormalPicker,
   LocationInput,
   DateTimeSetter,
-  DescriptionInput
+  DescriptionInput,
+  NewSynModal,
+  SynMinTimes,
+  NormalSwitch,
+  Tags
 };
