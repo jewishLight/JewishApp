@@ -5,7 +5,9 @@ import {
   Platform,
   ScrollView,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  I18nManager,
+  NativeModules
 } from "react-native";
 import { styles } from "./styles";
 import { appSettingsSelector } from "../../redux/selector";
@@ -76,6 +78,7 @@ class HomeScreen extends Component {
           ref={ref => {
             this.refNewLessonModal = ref;
           }}
+          onPublish={this.onPublish}
         />
       </SafeAreaView>
     );
@@ -102,7 +105,10 @@ class HomeScreen extends Component {
     this.props.navigation.openDrawer();
   };
 
-  onSearch = () => {};
+  onSearch = () => {
+    // I18nManager.forceRTL(false);
+    // NativeModules.DevSettings.reload();
+  };
   onAdd = () => {
     if (this.refAddModal) {
       this.refAddModal.show();
@@ -115,6 +121,9 @@ class HomeScreen extends Component {
   };
   onDetails = () => {
     this.props.navigation.navigate("Details");
+  };
+  onPublish = () => {
+    this.refNewLessonModal.hide();
   };
 }
 

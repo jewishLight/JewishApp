@@ -10,7 +10,13 @@ import {
 import { EventCard, LessonCard } from "./Cards";
 import { CommentListItem } from "./ListItems";
 import { AddModal, FilterModal, NewLessonModal } from "./Modals";
-import { NormalInput } from "./Inputs";
+import {
+  NormalInput,
+  NormalPicker,
+  LocationInput,
+  DateTimeSetter,
+  DescriptionInput
+} from "./Inputs";
 
 export {
   HomeHeader,
@@ -27,5 +33,9 @@ export {
   AddModal,
   FilterModal,
   NewLessonModal,
-  NormalInput
+  NormalInput,
+  NormalPicker,
+  LocationInput,
+  DateTimeSetter,
+  DescriptionInput
 };

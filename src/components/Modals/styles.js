@@ -85,5 +85,31 @@ export const styles = StyleSheet.create({
   newLessonModalTextInputTitle: {
     fontSize: 14,
     marginTop: 10
-  }
+  },
+  newLessonModalPickerTitle: {
+    fontSize: 14,
+    marginTop: 20
+  },
+  flexFull: {
+    flex: 1
+  },
+  verticalSpacing: {
+    height: 15
+  },
+  verticalSpacingSmall: {
+    height: 10
+  },
+  verticalSpacingBig: {
+    height: 60
+  },
+  publishLessonContainer: {
+    flex: 1,
+    height: 50,
+    backgroundColor: Colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25,
+    marginTop: 40
+  },
+  bigBtnText: { color: "white", fontSize: 20 }
 });

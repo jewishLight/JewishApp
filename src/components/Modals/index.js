@@ -1,9 +1,23 @@
 import React, { Component } from "react";
-import { View, TouchableOpacity, Text, Image } from "react-native";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView
+} from "react-native";
 import { styles } from "./styles";
 import Modal from "react-native-modal";
 import { Colors, Metric, Strings } from "../../themes";
-import { AddModalCloseButton, NormalInput } from "../../components";
+import {
+  AddModalCloseButton,
+  NormalInput,
+  NormalPicker,
+  LocationInput,
+  DateTimeSetter,
+  DescriptionInput
+} from "../../components";
 
 export class AddModal extends Component {
   constructor(props) {
@@ -164,12 +178,62 @@ export class NewLessonModal extends Component {
               />
             </View>
             <View style={styles.addModalSeparator} />
-            <View style={styles.newLessonModalContainer}>
-              <Text style={styles.newLessonModalTextInputTitle}>
-                Enter Subject
-              </Text>
-              <NormalInput />
-            </View>
+            <KeyboardAvoidingView behavior="padding" style={styles.flexFull}>
+              <ScrollView>
+                <View style={styles.newLessonModalContainer}>
+                  <Text style={styles.newLessonModalTextInputTitle}>
+                    Enter Subject
+                  </Text>
+                  <NormalInput placeholder={"Enter subject here..."} />
+                  <Text style={styles.newLessonModalPickerTitle}>Speaker</Text>
+                  <NormalPicker />
+                  <Text style={styles.newLessonModalPickerTitle}>Location</Text>
+                  <LocationInput placeholder={"Enter location..."} />
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Time and Date
+                  </Text>
+                  <DateTimeSetter
+                    mon={false}
+                    tue={false}
+                    wed={false}
+                    thu={false}
+                    fri={false}
+                    sat={false}
+                    sun={false}
+                  />
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Description
+                  </Text>
+                  <DescriptionInput />
+                </View>
+                <View style={styles.verticalSpacing} />
+                <View style={styles.addModalSeparator} />
+                <View style={styles.verticalSpacingSmall} />
+                <View style={styles.newLessonModalContainer}>
+                  <Text style={styles.newLessonModalTextInputTitle}>
+                    Contact Name
+                  </Text>
+                  <NormalInput placeholder={"Enter name here..."} />
+                  <Text style={styles.newLessonModalTextInputTitle}>
+                    Contact Number
+                  </Text>
+                  <NormalInput placeholder={"Enter number here..."} />
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    Select Audience
+                  </Text>
+                  <NormalPicker />
+                  <TouchableOpacity
+                    style={styles.publishLessonContainer}
+                    onPress={() => {
+                      this.props.onPublish();
+                    }}
+                  >
+                    <Text style={styles.bigBtnText}>Publish Lesson</Text>
+                  </TouchableOpacity>
+                  <View style={styles.verticalSpacingBig} />
+                </View>
+              </ScrollView>
+            </KeyboardAvoidingView>
           </View>
         </View>
       </Modal>

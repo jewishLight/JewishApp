@@ -7,5 +7,6 @@ export default {
   separator: "#D8D8D8",
   commentInputBackColor: "#EDEFF1",
   modalCloseBtnBackColor: "#929598",
-  modalSeparator: "#EFEFEF"
+  modalSeparator: "#EFEFEF",
+  dayText: "#4B5461"
 };
