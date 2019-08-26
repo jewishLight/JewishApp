@@ -6,12 +6,15 @@ import {
 } from "react-navigation";
 import { HomeScreen, DetailsScreen } from "./screens";
 import { Metric } from "./themes";
+import { SideMenu } from "./components";
 
 const DrawerMenu = createDrawerNavigator(
   {
-    Home: { screen: HomeScreen }
+    Home: { screen: HomeScreen },
+    Details: { screen: DetailsScreen }
   },
   {
+    contentComponent: props => <SideMenu {...props} />,
     initialRouteName: "Home",
     drawerLockMode: "locked-closed",
     drawerWidth: Math.min(Metric.height, Metric.width) * 0.7,

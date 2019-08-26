@@ -20,6 +20,7 @@ import {
   NormalSwitch
 } from "./Inputs";
 import { TagView } from "./Tags";
+import { SideMenu } from "./SideMenu";
 
 export {
   HomeHeader,
@@ -44,5 +45,6 @@ export {
   NewSynModal,
   SynMinTimes,
   NormalSwitch,
-  TagView
+  TagView,
+  SideMenu
 };
