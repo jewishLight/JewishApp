@@ -7,16 +7,25 @@ export class HomeHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      location: ""
+      location: "",
+      language: ""
     };
   }
 
   componentDidMount() {
-    this.setState({ location: "Jerusalem, Israel" });
+    console.info("language = ", this.props.language);
+    this.setState({
+      location: "Jerusalem, Israel",
+      language: this.props.language
+    });
   }
 
   onLocation = () => {
     this.props.onLocation();
+  };
+
+  updateLanguage = language => {
+    this.setState({ language });
   };
 
   onMenu = () => {
@@ -28,7 +37,7 @@ export class HomeHeader extends Component {
   };
 
   render() {
-    const { location } = this.state;
+    const { location, language } = this.state;
     return (
       <View style={styles.homeHeaderContainer}>
         <TouchableOpacity
@@ -52,12 +61,28 @@ export class HomeHeader extends Component {
             />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.iconMenuTouch} onPress={this.onMenu}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
           <Image
-            source={require("../../assets/icon_menu.png")}
+            source={
+              language === "English"
+                ? require("../../assets/icon_flag_usa.png")
+                : require("../../assets/icon_flag_israel.png")
+            }
             style={styles.iconMenuImg}
           />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.iconMenuTouch} onPress={this.onMenu}>
+            <Image
+              source={require("../../assets/icon_menu.png")}
+              style={styles.iconMenuImg}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }

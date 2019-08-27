@@ -27,7 +27,7 @@ import { AroundEvents } from "./AroundEvents";
 import { TodayLessons } from "./TodayLessons";
 import { PopularLessons } from "./PopularLessons";
 import { RecentLessons } from "./RecentLessons";
-import { Strings } from "../../utils";
+import { Strings, LocalStorage } from "../../utils";
 
 class HomeScreen extends Component {
   static navigationOptions = {
@@ -36,6 +36,25 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  async componentDidMount() {
+    let language = await LocalStorage.getLanguage();
+    if (language) {
+    } else {
+      language = "English";
+      await LocalStorage.setLanguage(language);
+    }
+    this.props.updateLanguage(language);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (this.props.appSettings.language !== nextProps.appSettings.language) {
+      this.setState({ language: nextProps.appSettings.language });
+      if (this.refHomeHeader) {
+        this.refHomeHeader.updateLanguage(nextProps.appSettings.language);
+      }
+    }
   }
 
   render() {
@@ -48,6 +67,7 @@ class HomeScreen extends Component {
             ref={ref => {
               this.refHomeHeader = ref;
             }}
+            language={this.props.appSettings.language}
           />
         </View>
         <View style={styles.buttonsLine}>
@@ -145,7 +165,9 @@ const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
     dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
   updateLightStatus: isLightTurnON =>
-    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON))
+    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
+  updateLanguage: language =>
+    dispatch(AppSettingsActions.updateLanguage(language))
 });
 
 export default connect(

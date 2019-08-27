@@ -11,21 +11,64 @@ import {
 import { styles } from "./styles";
 // import LocalStorage from "../../utils/localStorage";
 import { Colors } from "../../themes";
+import { appSettingsSelector } from "../../redux/selector";
+import { AppSettingsActions } from "../../redux";
+import { connect } from "react-redux";
 
-const MENU_ITEMS = [
-  { source: require("../../assets/icon_menu_profile.png"), name: "My Profile" },
-  { source: require("../../assets/icon_menu_settings.png"), name: "Settings" },
-  { source: require("../../assets/icon_menu_favorite.png"), name: "Favorite" },
+const MENU_ITEM_1 = [
+  {
+    source: require("../../assets/icon_menu_profile.png"),
+    name: "My Profile"
+  },
+  {
+    source: require("../../assets/icon_menu_settings.png"),
+    name: "Settings"
+  },
+  {
+    source: require("../../assets/icon_menu_favorite.png"),
+    name: "Favorite"
+  },
   {
     source: require("../../assets/icon_flag_israel.png"),
     name: "Move to Hebrew"
   }
 ];
 
-export class SideMenu extends Component {
+const MENU_ITEM_2 = [
+  {
+    source: require("../../assets/icon_menu_profile.png"),
+    name: "My Profile"
+  },
+  {
+    source: require("../../assets/icon_menu_settings.png"),
+    name: "Settings"
+  },
+  {
+    source: require("../../assets/icon_menu_favorite.png"),
+    name: "Favorite"
+  },
+  {
+    source: require("../../assets/icon_flag_usa.png"),
+    name: "Move to English"
+  }
+];
+
+class SideMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      MENU_ITEMS: MENU_ITEM_1
+    };
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (this.props.appSettings.language !== nextProps.appSettings.language) {
+      if (this.props.appSettings.language === "English") {
+        this.setState({ MENU_ITEMS: MENU_ITEM_2 });
+      } else {
+        this.setState({ MENU_ITEMS: MENU_ITEM_1 });
+      }
+    }
   }
 
   onPressMenu = async index => {
@@ -38,6 +81,13 @@ export class SideMenu extends Component {
         this.props.navigation.navigate("Settings");
         break;
       case 2:
+        break;
+      case 3:
+        if (this.props.appSettings.language === "English") {
+          this.props.updateLanguage("Hebrew");
+        } else {
+          this.props.updateLanguage("English");
+        }
         break;
       default:
         break;
@@ -84,7 +134,7 @@ export class SideMenu extends Component {
           <Text style={styles.logoText}>Jewish</Text>
         </TouchableOpacity>
         <FlatList
-          data={MENU_ITEMS}
+          data={this.state.MENU_ITEMS}
           keyExtractor={(item, index) => `key-${index}`}
           renderItem={this.renderListItem}
           style={styles.listContainer}
@@ -109,3 +159,20 @@ export class SideMenu extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  ...appSettingsSelector(state)
+});
+const mapDispatchToProps = dispatch => ({
+  updateDeviceStatus: isDeviceTurnON =>
+    dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
+  updateLightStatus: isLightTurnON =>
+    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
+  updateLanguage: language =>
+    dispatch(AppSettingsActions.updateLanguage(language))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SideMenu);

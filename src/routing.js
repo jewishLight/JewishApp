@@ -6,7 +6,7 @@ import {
 } from "react-navigation";
 import { HomeScreen, DetailsScreen, SettingsScreen } from "./screens";
 import { Metric } from "./themes";
-import { SideMenu } from "./components";
+import SideMenu from "./components/SideMenu";
 
 const DrawerMenu = createDrawerNavigator(
   {

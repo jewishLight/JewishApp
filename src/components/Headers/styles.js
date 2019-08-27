@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
   },
   homeHeaderLeftView: {},
   iconMenuTouch: {
+    marginLeft: 10,
     padding: 10
   },
   iconMenuImg: {

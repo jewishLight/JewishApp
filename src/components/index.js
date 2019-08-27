@@ -45,6 +45,5 @@ export {
   NewSynModal,
   SynMinTimes,
   NormalSwitch,
-  TagView,
-  SideMenu
+  TagView
 };
