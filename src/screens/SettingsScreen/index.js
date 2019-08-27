@@ -18,6 +18,7 @@ import { AroundEvents } from "../HomeScreen/AroundEvents";
 import { TodayLessons } from "../HomeScreen/TodayLessons";
 import { PopularLessons } from "../HomeScreen/PopularLessons";
 import { RecentLessons } from "../HomeScreen/RecentLessons";
+import { LocalStorage } from "../../utils";
 
 class SettingsScreen extends Component {
   static navigationOptions = {
@@ -27,6 +28,15 @@ class SettingsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (this.props.appSettings.language !== nextProps.appSettings.language) {
+      this.setState({ language: nextProps.appSettings.language });
+      if (this.refHomeHeader) {
+        this.refHomeHeader.updateLanguage(nextProps.appSettings.language);
+      }
+    }
   }
 
   render() {
@@ -39,6 +49,7 @@ class SettingsScreen extends Component {
             ref={ref => {
               this.refHomeHeader = ref;
             }}
+            language={this.props.appSettings.language}
           />
         </View>
       </SafeAreaView>
@@ -62,7 +73,9 @@ const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
     dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
   updateLightStatus: isLightTurnON =>
-    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON))
+    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
+  updateLanguage: language =>
+    dispatch(AppSettingsActions.updateLanguage(language))
 });
 
 export default connect(
