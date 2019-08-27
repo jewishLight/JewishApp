@@ -13,16 +13,7 @@ import { styles } from "./styles";
 import { appSettingsSelector } from "../../redux/selector";
 import { AppSettingsActions } from "../../redux";
 import { connect } from "react-redux";
-import {
-  AddButton,
-  AddModal,
-  FilterButton,
-  FilterModal,
-  HomeHeader,
-  NewLessonModal,
-  NewSynModal,
-  SearchButton
-} from "../../components";
+import { HomeHeader } from "../../components";
 import { AroundEvents } from "../HomeScreen/AroundEvents";
 import { TodayLessons } from "../HomeScreen/TodayLessons";
 import { PopularLessons } from "../HomeScreen/PopularLessons";

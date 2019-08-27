@@ -27,7 +27,7 @@ import { AroundEvents } from "./AroundEvents";
 import { TodayLessons } from "./TodayLessons";
 import { PopularLessons } from "./PopularLessons";
 import { RecentLessons } from "./RecentLessons";
-import { Strings } from "../../themes";
+import { Strings } from "../../utils";
 
 class HomeScreen extends Component {
   static navigationOptions = {

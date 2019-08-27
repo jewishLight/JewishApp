@@ -9,7 +9,8 @@ import {
 } from "react-native";
 import { styles } from "./styles";
 import Modal from "react-native-modal";
-import { Colors, Metric, Strings } from "../../themes";
+import { Colors, Metric } from "../../themes";
+import { Strings } from "../../utils";
 import {
   AddModalCloseButton,
   NormalInput,
