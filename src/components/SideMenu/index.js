@@ -6,7 +6,8 @@ import {
   FlatList,
   Text,
   TouchableOpacity,
-  Linking
+  Linking,
+  NativeModules
 } from "react-native";
 import { styles } from "./styles";
 // import LocalStorage from "../../utils/localStorage";
@@ -14,6 +15,7 @@ import { Colors } from "../../themes";
 import { appSettingsSelector } from "../../redux/selector";
 import { AppSettingsActions } from "../../redux";
 import { connect } from "react-redux";
+import { LocalStorage } from "../../utils";
 
 const MENU_ITEM_1 = [
   {
@@ -84,10 +86,13 @@ class SideMenu extends Component {
         break;
       case 3:
         if (this.props.appSettings.language === "English") {
+          await LocalStorage.setLanguage("Hebrew");
           this.props.updateLanguage("Hebrew");
         } else {
+          await LocalStorage.setLanguage("English");
           this.props.updateLanguage("English");
         }
+        NativeModules.DevSettings.reload();
         break;
       default:
         break;

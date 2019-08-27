@@ -41,14 +41,20 @@ class HomeScreen extends Component {
   async componentDidMount() {
     let language = await LocalStorage.getLanguage();
     if (language) {
+      if (language === "English") {
+        I18nManager.forceRTL(false);
+      } else {
+        I18nManager.forceRTL(true);
+      }
     } else {
       language = "English";
+      I18nManager.forceRTL(false);
       await LocalStorage.setLanguage(language);
     }
     this.props.updateLanguage(language);
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
+  async componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.appSettings.language !== nextProps.appSettings.language) {
       this.setState({ language: nextProps.appSettings.language });
       if (this.refHomeHeader) {
