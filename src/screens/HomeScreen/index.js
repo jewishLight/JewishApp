@@ -42,13 +42,13 @@ class HomeScreen extends Component {
     let language = await LocalStorage.getLanguage();
     if (language) {
       if (language === "English") {
-        I18nManager.forceRTL(false);
+        // I18nManager.forceRTL(false);
       } else {
-        I18nManager.forceRTL(true);
+        // I18nManager.forceRTL(true);
       }
     } else {
       language = "English";
-      I18nManager.forceRTL(false);
+      // I18nManager.forceRTL(false);
       await LocalStorage.setLanguage(language);
     }
     this.props.updateLanguage(language);
@@ -140,7 +140,6 @@ class HomeScreen extends Component {
   };
 
   onSearch = () => {
-    // I18nManager.forceRTL(false);
     // NativeModules.DevSettings.reload();
   };
   onAdd = () => {

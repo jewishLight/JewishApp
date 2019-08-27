@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
   Linking,
-  NativeModules
+  I18nManager
 } from "react-native";
 import { styles } from "./styles";
 // import LocalStorage from "../../utils/localStorage";
@@ -88,11 +88,13 @@ class SideMenu extends Component {
         if (this.props.appSettings.language === "English") {
           await LocalStorage.setLanguage("Hebrew");
           this.props.updateLanguage("Hebrew");
+          I18nManager.forceRTL(true);
         } else {
           await LocalStorage.setLanguage("English");
           this.props.updateLanguage("English");
+          I18nManager.forceRTL(false);
         }
-        NativeModules.DevSettings.reload();
+        // NativeModules.DevSettings.reload();
         break;
       default:
         break;
