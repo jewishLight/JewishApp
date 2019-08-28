@@ -1,5 +1,5 @@
-import React, { Component, Fragment } from "react";
-import { SafeAreaView } from "react-navigation";
+import React, {Component, Fragment} from 'react';
+import {SafeAreaView} from 'react-navigation';
 import {
   View,
   Platform,
@@ -8,24 +8,38 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView
-} from "react-native";
-import { styles } from "./styles";
-import { appSettingsSelector } from "../../redux/selector";
-import { AppSettingsActions } from "../../redux";
-import { connect } from "react-redux";
-import { DetailsHeader, LikeButton, CommentButton } from "../../components";
-import { Comments } from "./Comments";
-import { Colors } from "../../themes";
+  KeyboardAvoidingView,
+  BackHandler,
+} from 'react-native';
+import {styles} from './styles';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions} from '../../redux';
+import {connect} from 'react-redux';
+import {DetailsHeader, LikeButton, CommentButton} from '../../components';
+import {Comments} from './Comments';
+import {Colors} from '../../themes';
 
 class DetailsScreen extends Component {
   static navigationOptions = {
-    gesturesEnabled: Platform.OS !== "ios"
+    gesturesEnabled: Platform.OS !== 'ios',
   };
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  componentDidMount(): void {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount(): void {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    this.props.navigation.goBack();
+    return true;
+  };
 
   render() {
     return (
@@ -39,7 +53,7 @@ class DetailsScreen extends Component {
             onSend={this.onSend}
           />
           <KeyboardAvoidingView behavior="height" style={styles.flexFull}>
-            <ScrollView keyboardShouldPersistTaps={"always"}>
+            <ScrollView keyboardShouldPersistTaps={'always'}>
               <View style={styles.detailBasicInfo}>
                 <Text style={styles.detailTitleText}>
                   The Weekly Shiur - On the parasha
@@ -47,7 +61,7 @@ class DetailsScreen extends Component {
                 <View style={styles.detailBasic}>
                   <View style={styles.detailUserContainer}>
                     <Image
-                      source={require("../../assets/icon_avatar.png")}
+                      source={require('../../assets/icon_avatar.png')}
                       style={styles.detailUserAvatar}
                     />
                     <View style={styles.userDetail}>
@@ -57,7 +71,7 @@ class DetailsScreen extends Component {
                   </View>
                   <View style={styles.detailUserContainer}>
                     <Image
-                      source={require("../../assets/icon_detail_building.png")}
+                      source={require('../../assets/icon_detail_building.png')}
                       style={styles.detailUserAvatar}
                     />
                     <View style={styles.userDetail}>
@@ -69,14 +83,14 @@ class DetailsScreen extends Component {
                 <View style={styles.detailClockLocation}>
                   <View style={styles.detailClockContainer}>
                     <Image
-                      source={require("../../assets/icon_detail_clock.png")}
+                      source={require('../../assets/icon_detail_clock.png')}
                       style={styles.detailClockImage}
                     />
                     <Text style={styles.detailClockText}>Today, 22:30</Text>
                   </View>
                   <View style={styles.detailLocationContainer}>
                     <Image
-                      source={require("../../assets/icon_detail_location.png")}
+                      source={require('../../assets/icon_detail_location.png')}
                       style={styles.detailLocationImage}
                     />
                     <Text style={styles.detailLocationText}>
@@ -102,7 +116,7 @@ class DetailsScreen extends Component {
                 <View style={styles.likesContainer}>
                   <Text style={styles.likesText}>43+ liked</Text>
                   <Image
-                    source={require("../../assets/icon_detail_liked.png")}
+                    source={require('../../assets/icon_detail_liked.png')}
                     style={styles.iconDetailLikedImage}
                   />
                 </View>
@@ -111,12 +125,12 @@ class DetailsScreen extends Component {
               <Comments />
               <View style={styles.commentInputView}>
                 <TextInput
-                  placeholder={"Type comment here..."}
+                  placeholder={'Type comment here...'}
                   style={styles.commentInputText}
                 />
                 <TouchableOpacity style={styles.commentSendView}>
                   <Image
-                    source={require("../../assets/icon_detail_sendbtn.png")}
+                    source={require('../../assets/icon_detail_sendbtn.png')}
                     style={styles.commentSendImage}
                   />
                 </TouchableOpacity>
@@ -137,16 +151,16 @@ class DetailsScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...appSettingsSelector(state)
+  ...appSettingsSelector(state),
 });
 const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
     dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
   updateLightStatus: isLightTurnON =>
-    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON))
+    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DetailsScreen);

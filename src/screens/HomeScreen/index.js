@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { SafeAreaView } from "react-navigation";
+import React, {Component} from 'react';
+import {SafeAreaView} from 'react-navigation';
 import {
   View,
   Platform,
@@ -7,12 +7,13 @@ import {
   Text,
   TouchableOpacity,
   I18nManager,
-  NativeModules
-} from "react-native";
-import { styles } from "./styles";
-import { appSettingsSelector } from "../../redux/selector";
-import { AppSettingsActions } from "../../redux";
-import { connect } from "react-redux";
+  NativeModules,
+  BackHandler,
+} from 'react-native';
+import {styles} from './styles';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions} from '../../redux';
+import {connect} from 'react-redux';
 import {
   HomeHeader,
   SearchButton,
@@ -21,17 +22,17 @@ import {
   AddModal,
   FilterModal,
   NewLessonModal,
-  NewSynModal
-} from "../../components";
-import { AroundEvents } from "./AroundEvents";
-import { TodayLessons } from "./TodayLessons";
-import { PopularLessons } from "./PopularLessons";
-import { RecentLessons } from "./RecentLessons";
-import { Strings, LocalStorage } from "../../utils";
+  NewSynModal,
+} from '../../components';
+import {AroundEvents} from './AroundEvents';
+import {TodayLessons} from './TodayLessons';
+import {PopularLessons} from './PopularLessons';
+import {RecentLessons} from './RecentLessons';
+import {Strings, LocalStorage} from '../../utils';
 
 class HomeScreen extends Component {
   static navigationOptions = {
-    gesturesEnabled: Platform.OS !== "ios"
+    gesturesEnabled: Platform.OS !== 'ios',
   };
   constructor(props) {
     super(props);
@@ -39,24 +40,33 @@ class HomeScreen extends Component {
   }
 
   async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     let language = await LocalStorage.getLanguage();
     if (language) {
-      if (language === "English") {
+      if (language === 'English') {
         // I18nManager.forceRTL(false);
       } else {
         // I18nManager.forceRTL(true);
       }
     } else {
-      language = "English";
+      language = 'English';
       // I18nManager.forceRTL(false);
       await LocalStorage.setLanguage(language);
     }
     this.props.updateLanguage(language);
   }
 
+  componentWillUnmount(): void {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton = () => {
+    return true;
+  };
+
   async componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.appSettings.language !== nextProps.appSettings.language) {
-      this.setState({ language: nextProps.appSettings.language });
+      this.setState({language: nextProps.appSettings.language});
       if (this.refHomeHeader) {
         this.refHomeHeader.updateLanguage(nextProps.appSettings.language);
       }
@@ -86,9 +96,9 @@ class HomeScreen extends Component {
         </View>
         <ScrollView>
           <AroundEvents onDetails={this.onDetails} />
-          <TodayLessons />
-          <PopularLessons />
-          <RecentLessons />
+          <TodayLessons onDetails={this.onDetails} />
+          <PopularLessons onDetails={this.onDetails} />
+          <RecentLessons onDetails={this.onDetails} />
         </ScrollView>
         <AddModal
           ref={ref => {
@@ -132,7 +142,7 @@ class HomeScreen extends Component {
 
   onHeaderLocation = () => {
     if (this.refHomeHeader) {
-      this.refHomeHeader.updateLocation("London, UK");
+      this.refHomeHeader.updateLocation('London, UK');
     }
   };
   onHeaderMenu = () => {
@@ -140,7 +150,7 @@ class HomeScreen extends Component {
   };
 
   onSearch = () => {
-    // NativeModules.DevSettings.reload();
+    this.props.navigation.navigate('Search');
   };
   onAdd = () => {
     if (this.refAddModal) {
@@ -153,7 +163,7 @@ class HomeScreen extends Component {
     }
   };
   onDetails = () => {
-    this.props.navigation.navigate("Details");
+    this.props.navigation.navigate('Details');
   };
   onPublish = () => {
     this.refNewLessonModal.hide();
@@ -164,7 +174,7 @@ class HomeScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...appSettingsSelector(state)
+  ...appSettingsSelector(state),
 });
 const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
@@ -172,10 +182,10 @@ const mapDispatchToProps = dispatch => ({
   updateLightStatus: isLightTurnON =>
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
   updateLanguage: language =>
-    dispatch(AppSettingsActions.updateLanguage(language))
+    dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(HomeScreen);

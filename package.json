@@ -1,25 +1,22 @@
 {
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "Jewish",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
-    "@expo/react-native-action-sheet": "^3.0.3",
-    "expo": "^34.0.1",
-    "react": "16.8.3",
-    "react-dom": "^16.8.6",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
+    "react": "16.8.6",
+    "react-native": "0.60.5",
     "react-native-gesture-handler": "^1.4.0",
     "react-native-modal": "^11.3.1",
     "react-native-picker-select": "^6.3.2",
-    "react-native-reanimated": "^1.2.0",
+    "react-native-restart": "0.0.12",
     "react-native-shapes": "^0.1.0",
     "react-native-tags": "^2.1.0",
-    "react-native-web": "^0.11.4",
+    "react-native-unimodules": "~0.5.2",
     "react-navigation": "^3.12.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
@@ -27,8 +24,16 @@
     "reselect": "^4.0.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^6.0.0",
-    "prettier": "1.18.2"
+    "@babel/core": "^7.5.5",
+    "@babel/runtime": "^7.5.5",
+    "@react-native-community/eslint-config": "^0.0.5",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.2.2",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.56.0",
+    "react-test-renderer": "16.8.6"
   },
-  "private": true
+  "jest": {
+    "preset": "react-native"
+  }
 }

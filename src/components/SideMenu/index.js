@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { SafeAreaView } from "react-navigation";
+import React, {Component} from 'react';
+import {SafeAreaView} from 'react-navigation';
 import {
   View,
   Image,
@@ -7,68 +7,69 @@ import {
   Text,
   TouchableOpacity,
   Linking,
-  I18nManager
-} from "react-native";
-import { styles } from "./styles";
+  I18nManager,
+} from 'react-native';
+import {styles} from './styles';
 // import LocalStorage from "../../utils/localStorage";
-import { Colors } from "../../themes";
-import { appSettingsSelector } from "../../redux/selector";
-import { AppSettingsActions } from "../../redux";
-import { connect } from "react-redux";
-import { LocalStorage } from "../../utils";
+import {Colors} from '../../themes';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions} from '../../redux';
+import {connect} from 'react-redux';
+import {LocalStorage} from '../../utils';
+import RNRestart from 'react-native-restart';
 
 const MENU_ITEM_1 = [
   {
-    source: require("../../assets/icon_menu_profile.png"),
-    name: "My Profile"
+    source: require('../../assets/icon_menu_profile.png'),
+    name: 'My Profile',
   },
   {
-    source: require("../../assets/icon_menu_settings.png"),
-    name: "Settings"
+    source: require('../../assets/icon_menu_settings.png'),
+    name: 'Settings',
   },
   {
-    source: require("../../assets/icon_menu_favorite.png"),
-    name: "Favorite"
+    source: require('../../assets/icon_menu_favorite.png'),
+    name: 'Favorite',
   },
   {
-    source: require("../../assets/icon_flag_israel.png"),
-    name: "Move to Hebrew"
-  }
+    source: require('../../assets/icon_flag_israel.png'),
+    name: 'Move to Hebrew',
+  },
 ];
 
 const MENU_ITEM_2 = [
   {
-    source: require("../../assets/icon_menu_profile.png"),
-    name: "My Profile"
+    source: require('../../assets/icon_menu_profile.png'),
+    name: 'My Profile',
   },
   {
-    source: require("../../assets/icon_menu_settings.png"),
-    name: "Settings"
+    source: require('../../assets/icon_menu_settings.png'),
+    name: 'Settings',
   },
   {
-    source: require("../../assets/icon_menu_favorite.png"),
-    name: "Favorite"
+    source: require('../../assets/icon_menu_favorite.png'),
+    name: 'Favorite',
   },
   {
-    source: require("../../assets/icon_flag_usa.png"),
-    name: "Move to English"
-  }
+    source: require('../../assets/icon_flag_usa.png'),
+    name: 'Move to English',
+  },
 ];
 
 class SideMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      MENU_ITEMS: MENU_ITEM_1
+      MENU_ITEMS: MENU_ITEM_1,
     };
   }
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.appSettings.language !== nextProps.appSettings.language) {
-      if (this.props.appSettings.language === "English") {
-        this.setState({ MENU_ITEMS: MENU_ITEM_2 });
+      if (this.props.appSettings.language === 'English') {
+        this.setState({MENU_ITEMS: MENU_ITEM_2});
       } else {
-        this.setState({ MENU_ITEMS: MENU_ITEM_1 });
+        this.setState({MENU_ITEMS: MENU_ITEM_1});
       }
     }
   }
@@ -77,22 +78,24 @@ class SideMenu extends Component {
     this.closeMenu();
     switch (index) {
       case 0:
-        this.props.navigation.navigate("Settings");
+        this.props.navigation.navigate('Settings');
         break;
       case 1:
-        this.props.navigation.navigate("Settings");
+        this.props.navigation.navigate('Settings');
         break;
       case 2:
         break;
       case 3:
-        if (this.props.appSettings.language === "English") {
-          await LocalStorage.setLanguage("Hebrew");
-          this.props.updateLanguage("Hebrew");
+        if (this.props.appSettings.language === 'English') {
+          await LocalStorage.setLanguage('Hebrew');
+          this.props.updateLanguage('Hebrew');
           I18nManager.forceRTL(true);
+          RNRestart.Restart();
         } else {
-          await LocalStorage.setLanguage("English");
-          this.props.updateLanguage("English");
+          await LocalStorage.setLanguage('English');
+          this.props.updateLanguage('English');
           I18nManager.forceRTL(false);
+          RNRestart.Restart();
         }
         // NativeModules.DevSettings.reload();
         break;
@@ -111,15 +114,14 @@ class SideMenu extends Component {
 
   goHome = () => {
     this.closeMenu();
-    this.props.navigation.navigate("Home");
+    this.props.navigation.navigate('Home');
   };
 
-  renderListItem = ({ item, index }) => {
+  renderListItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.itemContainer}
-        onPress={() => this.onPressMenu(index)}
-      >
+        onPress={() => this.onPressMenu(index)}>
         <View style={styles.logoImageView}>
           <Image source={item.source} style={styles.iconMenu} />
         </View>
@@ -134,7 +136,7 @@ class SideMenu extends Component {
         <TouchableOpacity style={styles.logoContainer} onPress={this.goHome}>
           <View style={styles.logoImageView}>
             <Image
-              source={require("./../../assets/icon_logo.png")}
+              source={require('./../../assets/icon_logo.png')}
               style={styles.imgLogo}
             />
           </View>
@@ -151,11 +153,10 @@ class SideMenu extends Component {
           <View style={styles.separator} />
           <TouchableOpacity
             style={styles.itemContainer}
-            onPress={this.onLogout}
-          >
+            onPress={this.onLogout}>
             <View style={styles.logoImageView}>
               <Image
-                source={require("../../assets/icon_menu_close.png")}
+                source={require('../../assets/icon_menu_close.png')}
                 style={styles.iconMenu}
               />
             </View>
@@ -168,7 +169,7 @@ class SideMenu extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...appSettingsSelector(state)
+  ...appSettingsSelector(state),
 });
 const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
@@ -176,10 +177,10 @@ const mapDispatchToProps = dispatch => ({
   updateLightStatus: isLightTurnON =>
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
   updateLanguage: language =>
-    dispatch(AppSettingsActions.updateLanguage(language))
+    dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SideMenu);

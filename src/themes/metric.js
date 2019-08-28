@@ -1,9 +1,9 @@
-import { Dimensions, Platform } from "react-native";
-import Colors from "./colors";
+import {Dimensions, Platform} from 'react-native';
+import Colors from './colors';
 
-const { width, height } = Dimensions.get("window");
-const headerHeight = Platform.OS === "ios" ? 70 : 100;
-
+const {width, height} = Dimensions.get('window');
+const headerHeight = Platform.OS === 'ios' ? 70 : 100;
+const searchHeaderHeight = Platform.OS === 'ios' ? 90 : 120;
 export default {
   width,
   height,
@@ -13,35 +13,36 @@ export default {
   marginHorizontal: 10,
   separatorHeight: 1,
   tabBar: {
-    height: 65
+    height: 65,
   },
   font: {
     title: {
-      fontSize: 14
+      fontSize: 14,
     },
     subTitle: {
       fontSize: 22,
-      fontWeight: "500",
-      color: Colors.primary
+      fontWeight: '500',
+      color: Colors.primary,
     },
     button: {
-      fontSize: 13
+      fontSize: 13,
     },
     h1: {
-      fontSize: 22
+      fontSize: 22,
     },
     h2: {
-      fontSize: 18
+      fontSize: 18,
     },
     h3: {
-      fontSize: 15
+      fontSize: 15,
     },
     h4: {
-      fontSize: 13
+      fontSize: 13,
     },
     h5: {
-      fontSize: 12
-    }
+      fontSize: 12,
+    },
   },
-  headerHeight
+  headerHeight,
+  searchHeaderHeight,
 };

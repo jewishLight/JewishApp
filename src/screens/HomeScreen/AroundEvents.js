@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { View, Platform, Text, TouchableOpacity, FlatList } from "react-native";
-import { EventCard } from "../../components";
-import { styles } from "./styles";
+import React, {Component} from 'react';
+import {View, Platform, Text, TouchableOpacity, FlatList} from 'react-native';
+import {EventCard} from '../../components';
+import {styles} from './styles';
 
 const tempEventsData = [
   {
-    id: 1
+    id: 1,
   },
   {
-    id: 2
+    id: 2,
   },
   {
-    id: 3
-  }
+    id: 3,
+  },
 ];
 
 export class AroundEvents extends Component {
@@ -45,7 +45,7 @@ export class AroundEvents extends Component {
     );
   }
 
-  renderEventsData = ({ item, index }) => {
+  renderEventsData = ({item, index}) => {
     return (
       <View style={styles.rowView}>
         <EventCard

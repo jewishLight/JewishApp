@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { SafeAreaView } from "react-navigation";
+import React, {Component} from 'react';
+import {SafeAreaView} from 'react-navigation';
 import {
   View,
   Platform,
@@ -7,22 +7,22 @@ import {
   Text,
   TouchableOpacity,
   I18nManager,
-  NativeModules
-} from "react-native";
-import { styles } from "./styles";
-import { appSettingsSelector } from "../../redux/selector";
-import { AppSettingsActions } from "../../redux";
-import { connect } from "react-redux";
-import { HomeHeader } from "../../components";
-import { AroundEvents } from "../HomeScreen/AroundEvents";
-import { TodayLessons } from "../HomeScreen/TodayLessons";
-import { PopularLessons } from "../HomeScreen/PopularLessons";
-import { RecentLessons } from "../HomeScreen/RecentLessons";
-import { LocalStorage } from "../../utils";
+  NativeModules,
+} from 'react-native';
+import {styles} from './styles';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions} from '../../redux';
+import {connect} from 'react-redux';
+import {HomeHeader} from '../../components';
+import {AroundEvents} from '../HomeScreen/AroundEvents';
+import {TodayLessons} from '../HomeScreen/TodayLessons';
+import {PopularLessons} from '../HomeScreen/PopularLessons';
+import {RecentLessons} from '../HomeScreen/RecentLessons';
+import {LocalStorage} from '../../utils';
 
 class SettingsScreen extends Component {
   static navigationOptions = {
-    gesturesEnabled: Platform.OS !== "ios"
+    gesturesEnabled: Platform.OS !== 'ios',
   };
 
   constructor(props) {
@@ -32,7 +32,7 @@ class SettingsScreen extends Component {
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.appSettings.language !== nextProps.appSettings.language) {
-      this.setState({ language: nextProps.appSettings.language });
+      this.setState({language: nextProps.appSettings.language});
       if (this.refHomeHeader) {
         this.refHomeHeader.updateLanguage(nextProps.appSettings.language);
       }
@@ -58,7 +58,7 @@ class SettingsScreen extends Component {
 
   onHeaderLocation = () => {
     if (this.refHomeHeader) {
-      this.refHomeHeader.updateLocation("London, UK");
+      this.refHomeHeader.updateLocation('London, UK');
     }
   };
   onHeaderMenu = () => {
@@ -67,7 +67,7 @@ class SettingsScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  ...appSettingsSelector(state)
+  ...appSettingsSelector(state),
 });
 const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
@@ -75,10 +75,10 @@ const mapDispatchToProps = dispatch => ({
   updateLightStatus: isLightTurnON =>
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
   updateLanguage: language =>
-    dispatch(AppSettingsActions.updateLanguage(language))
+    dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SettingsScreen);

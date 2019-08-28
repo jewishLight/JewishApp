@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { StatusBar, Platform } from "react-native";
-import AppNavigation from "./routing";
+import React, {Component} from 'react';
+import {StatusBar, Platform} from 'react-native';
+import AppNavigation from './routing';
 
 StatusBar.setHidden(false);
-StatusBar.setBarStyle("light-content");
+StatusBar.setBarStyle('light-content');
 
 class App extends Component {
   constructor(props) {

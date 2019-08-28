@@ -1,46 +1,47 @@
-import { StyleSheet } from "react-native";
-import { Metric } from "../../themes";
+import {StyleSheet} from 'react-native';
+import {Metric} from '../../themes';
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: 'white',
   },
   rowView: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
+  searchHistoryRowView: {},
   buttonsLine: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderBottomWidth: 0.5,
-    borderBottomColor: "gray"
+    borderBottomColor: 'gray',
   },
   addSearchLine: {
-    flexDirection: "row"
+    flexDirection: 'row',
   },
-  horizontalSpacing: { width: 10 },
+  horizontalSpacing: {width: 10},
   aroundEventsView: {
-    borderBottomColor: "gray",
+    borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
-    paddingVertical: 15
+    paddingVertical: 15,
   },
   aroundEventsTopView: {
     width: Metric.width,
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingHorizontal: 15,
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 10
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 10,
   },
   eventsText: {
-    fontSize: 17
+    fontSize: 17,
   },
   viewAllText: {
     fontSize: 17,
-    color: "gray"
+    color: 'gray',
   },
-  spacingHorizontal: { paddingHorizontal: 15 }
+  spacingHorizontal: {paddingHorizontal: 15},
 });

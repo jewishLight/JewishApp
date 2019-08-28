@@ -1,18 +1,18 @@
-import React, { Component } from "react";
-import { View, Platform, Text, TouchableOpacity, FlatList } from "react-native";
-import { LessonCard } from "../../components";
-import { styles } from "./styles";
+import React, {Component} from 'react';
+import {View, Platform, Text, TouchableOpacity, FlatList} from 'react-native';
+import {LessonCard} from '../../components';
+import {styles} from './styles';
 
 const tempTodayLessonData = [
   {
-    id: 1
+    id: 1,
   },
   {
-    id: 2
+    id: 2,
   },
   {
-    id: 3
-  }
+    id: 3,
+  },
 ];
 
 export class TodayLessons extends Component {
@@ -45,10 +45,14 @@ export class TodayLessons extends Component {
     );
   }
 
-  renderEventsData = ({ item, index }) => {
+  renderEventsData = ({item, index}) => {
     return (
       <View style={styles.rowView}>
-        <LessonCard />
+        <LessonCard
+          onPress={() => {
+            this.props.onDetails();
+          }}
+        />
         {index < tempTodayLessonData.length - 1 && (
           <View style={styles.horizontalSpacing} />
         )}

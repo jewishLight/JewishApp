@@ -1,15 +1,15 @@
-import { HomeHeader, DetailsHeader } from "./Headers";
+import {HomeHeader, DetailsHeader, SearchHeader} from './Headers';
 import {
   SearchButton,
   AddButton,
   FilterButton,
   LikeButton,
   CommentButton,
-  AddModalCloseButton
-} from "./Buttons";
-import { EventCard, LessonCard } from "./Cards";
-import { CommentListItem } from "./ListItems";
-import { AddModal, FilterModal, NewLessonModal, NewSynModal } from "./Modals";
+  AddModalCloseButton,
+} from './Buttons';
+import {EventCard, LessonCard} from './Cards';
+import {CommentListItem, SearchHistoryItem} from './ListItems';
+import {AddModal, FilterModal, NewLessonModal, NewSynModal} from './Modals';
 import {
   NormalInput,
   NormalPicker,
@@ -17,14 +17,14 @@ import {
   DateTimeSetter,
   DescriptionInput,
   SynMinTimes,
-  NormalSwitch
-} from "./Inputs";
-import { TagView } from "./Tags";
-import { SideMenu } from "./SideMenu";
+  NormalSwitch,
+} from './Inputs';
+import {TagView} from './Tags';
 
 export {
   HomeHeader,
   DetailsHeader,
+  SearchHeader,
   SearchButton,
   AddButton,
   FilterButton,
@@ -34,6 +34,7 @@ export {
   EventCard,
   LessonCard,
   CommentListItem,
+  SearchHistoryItem,
   AddModal,
   FilterModal,
   NewLessonModal,
@@ -45,5 +46,5 @@ export {
   NewSynModal,
   SynMinTimes,
   NormalSwitch,
-  TagView
+  TagView,
 };
