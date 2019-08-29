@@ -40,7 +40,7 @@ const Routing = createStackNavigator(
     Filter: {screen: FilterScreen},
   },
   {
-    initialRouteName: 'Splash',
+    initialRouteName: 'Filter',
     headerMode: 'none',
   },
 );

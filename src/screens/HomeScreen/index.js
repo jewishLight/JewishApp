@@ -116,12 +116,18 @@ class HomeScreen extends Component {
             this.refNewLessonModal = ref;
           }}
           onPublish={this.onPublish}
+          direction={
+            this.props.appSettings.language === 'English' ? 'ltr' : 'rtl'
+          }
         />
         <NewSynModal
           ref={ref => {
             this.refSynModal = ref;
           }}
           onPublish={this.onAddSyn}
+          direction={
+            this.props.appSettings.language === 'English' ? 'ltr' : 'rtl'
+          }
         />
       </SafeAreaView>
     );
