@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* JewishTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* JewishTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -20,6 +19,7 @@
 		917F6FBF29811C6DBF7E12E3 /* libPods-JewishTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 166196D469BAAE4853DC683B /* libPods-JewishTests.a */; };
 		C2A9A05AD387E55042BAA7D9 /* libPods-Jewish-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AE42A2EB7ADC89AFA92F416 /* libPods-Jewish-tvOSTests.a */; };
 		C829785A41C22F6E0AE453A9 /* libPods-Jewish.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95A340C11A53AB1BBF7D41E8 /* libPods-Jewish.a */; };
+		9EBF9F6443204E8CB8E6E1E0 /* libRangeSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA32D82E9A784FC6A8D02840 /* libRangeSlider.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +75,8 @@
 		E927594922D5DB4374B89E2A /* Pods-Jewish-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Jewish-tvOS/Pods-Jewish-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		64D02388D67645A9A80BB161 /* RangeSlider.xcodeproj */ = {isa = PBXFileReference; name = "RangeSlider.xcodeproj"; path = "../node_modules/react-native-range-slider/ios/RangeSlider.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		FA32D82E9A784FC6A8D02840 /* libRangeSlider.a */ = {isa = PBXFileReference; name = "libRangeSlider.a"; path = "libRangeSlider.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C829785A41C22F6E0AE453A9 /* libPods-Jewish.a in Frameworks */,
+				9EBF9F6443204E8CB8E6E1E0 /* libRangeSlider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				CE8039EB231696790059A6E7 /* RCTRestart.xcodeproj */,
+				64D02388D67645A9A80BB161 /* RangeSlider.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -301,7 +305,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -631,6 +635,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jewish.app/Jewish";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -651,6 +663,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jewish.app/Jewish";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
+				);
 			};
 			name = Release;
 		};
@@ -685,6 +705,7 @@
 					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/yoga\"",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
 				);
 				INFOPLIST_FILE = Jewish/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -754,6 +775,7 @@
 					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
 					"\"${PODS_ROOT}/Headers/Public/glog\"",
 					"\"${PODS_ROOT}/Headers/Public/yoga\"",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
 				);
 				INFOPLIST_FILE = Jewish/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -818,6 +840,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -846,6 +876,14 @@
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
+				);
 			};
 			name = Release;
 		};
@@ -873,6 +911,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jewish-tvOS.app/Jewish-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -900,6 +946,14 @@
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jewish-tvOS.app/Jewish-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-range-slider/ios/**",
+				);
 			};
 			name = Release;
 		};
