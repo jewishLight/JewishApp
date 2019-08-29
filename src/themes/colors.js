@@ -14,4 +14,6 @@ export default {
   uploadImage: '#5D6671',
   searchPageBackColor: '#F5F7F9',
   searchHeaderText: '#494949',
+  searchResultText: '#636B80',
+  searchResultButtonBorder: '#C3C2D3',
 };

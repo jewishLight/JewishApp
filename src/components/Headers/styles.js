@@ -116,4 +116,9 @@ export const styles = StyleSheet.create({
     color: Colors.searchHeaderText,
     marginTop: 5,
   },
+  filterHeaderBackIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+  },
 });

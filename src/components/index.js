@@ -1,4 +1,10 @@
-import {HomeHeader, DetailsHeader, SearchHeader} from './Headers';
+import {
+  HomeHeader,
+  DetailsHeader,
+  SearchHeader,
+  SearchResultHeader,
+  FilterHeader,
+} from './Headers';
 import {
   SearchButton,
   AddButton,
@@ -8,7 +14,11 @@ import {
   AddModalCloseButton,
 } from './Buttons';
 import {EventCard, LessonCard} from './Cards';
-import {CommentListItem, SearchHistoryItem} from './ListItems';
+import {
+  CommentListItem,
+  SearchHistoryItem,
+  SearchResultItem,
+} from './ListItems';
 import {AddModal, FilterModal, NewLessonModal, NewSynModal} from './Modals';
 import {
   NormalInput,
@@ -25,6 +35,8 @@ export {
   HomeHeader,
   DetailsHeader,
   SearchHeader,
+  SearchResultHeader,
+  FilterHeader,
   SearchButton,
   AddButton,
   FilterButton,
@@ -35,6 +47,7 @@ export {
   LessonCard,
   CommentListItem,
   SearchHistoryItem,
+  SearchResultItem,
   AddModal,
   FilterModal,
   NewLessonModal,

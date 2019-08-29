@@ -18,4 +18,20 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.separator,
   },
+  searchResultItemContainer: {
+    padding: 5,
+    height: 120,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: Colors.separator,
+    flexDirection: 'row',
+  },
+  searchResultItemImageContainer: {
+    width: 110,
+    height: 110,
+    borderRadius: 5,
+    backgroundColor: '#E6E5F5',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

@@ -10,6 +10,8 @@ import {
   SettingsScreen,
   SplashScreen,
   SearchScreen,
+  SearchResultScreen,
+  FilterScreen,
 } from './screens';
 import {Metric} from './themes';
 import SideMenu from './components/SideMenu';
@@ -34,6 +36,8 @@ const Routing = createStackNavigator(
     DrawerMenu: {screen: DrawerMenu},
     Details: {screen: DetailsScreen},
     Search: {screen: SearchScreen},
+    SearchResult: {screen: SearchResultScreen},
+    Filter: {screen: FilterScreen},
   },
   {
     initialRouteName: 'Splash',

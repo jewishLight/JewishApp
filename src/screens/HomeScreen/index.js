@@ -46,7 +46,7 @@ class HomeScreen extends Component {
       if (language === 'English') {
         // I18nManager.forceRTL(false);
       } else {
-        // I18nManager.forceRTL(true);
+        // I18nManager.forceRTL(false);
       }
     } else {
       language = 'English';

@@ -172,3 +172,72 @@ export class SearchHeader extends Component {
     );
   }
 }
+
+export class SearchResultHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.searchHeaderContainer}>
+        <TouchableOpacity
+          style={styles.searchHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}>
+          <Image
+            source={require('../../assets/icon_search_back.png')}
+            style={styles.searchHeaderBackIcon}
+          />
+          <Text style={styles.searchHeaderText}>New Search</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 30,
+            bottom: 30,
+            paddingHorizontal: 20,
+            height: 40,
+            borderRadius: 20,
+            backgroundColor: Colors.primary,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Image
+            source={require('../../assets/icon_search_header_mapview.png')}
+            style={{width: 17, height: 17, resizeMode: 'contain'}}
+          />
+          <Text style={{color: 'white', marginLeft: 5}}>MapView</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+
+export class FilterHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.searchHeaderContainer}>
+        <TouchableOpacity
+          style={styles.searchHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}>
+          <Image
+            source={require('../../assets/icon_header_filter_cancel.png')}
+            style={styles.filterHeaderBackIcon}
+          />
+          <Text style={styles.searchHeaderText}>Filter</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}

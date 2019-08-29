@@ -75,6 +75,10 @@ class SearchScreen extends Component {
     );
   };
 
+  onNewSearch = () => {
+    this.props.navigation.navigate('SearchResult');
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.searchContainer}>
@@ -88,7 +92,9 @@ class SearchScreen extends Component {
           />
         </View>
         <View style={styles.newSearchButtonContainer}>
-          <TouchableOpacity style={styles.newSearchButton}>
+          <TouchableOpacity
+            style={styles.newSearchButton}
+            onPress={this.onNewSearch}>
             <Image
               source={require('../../assets/icon_search_newicon.png')}
               style={styles.newSearchImage}
