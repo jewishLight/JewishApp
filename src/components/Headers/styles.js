@@ -86,6 +86,11 @@ export const styles = StyleSheet.create({
     height: 17,
     resizeMode: 'contain',
   },
+  synaHeaderShareIcon: {
+    width: 17,
+    height: 15,
+    resizeMode: 'contain',
+  },
   detailsHeaderRightButtonsView: {
     flexDirection: 'row',
   },

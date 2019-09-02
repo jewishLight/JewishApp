@@ -31,9 +31,9 @@ import {RecentLessons} from './RecentLessons';
 import {Strings, LocalStorage} from '../../utils';
 
 class HomeScreen extends Component {
-  static navigationOptions = {
-    gesturesEnabled: Platform.OS !== 'ios',
-  };
+  // static navigationOptions = {
+  //   gesturesEnabled: Platform.OS !== 'ios',
+  // };
   constructor(props) {
     super(props);
     this.state = {};
@@ -43,14 +43,9 @@ class HomeScreen extends Component {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     let language = await LocalStorage.getLanguage();
     if (language) {
-      if (language === 'English') {
-        // I18nManager.forceRTL(false);
-      } else {
-        // I18nManager.forceRTL(false);
-      }
     } else {
       language = 'English';
-      // I18nManager.forceRTL(false);
+      I18nManager.forceRTL(false);
       await LocalStorage.setLanguage(language);
     }
     this.props.updateLanguage(language);

@@ -363,6 +363,9 @@ class FilterScreen extends Component {
                     height: 50,
                     borderRadius: 25,
                     paddingHorizontal: 40,
+                  }}
+                  onPress={() => {
+                    this.props.navigation.goBack();
                   }}>
                   <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
                     Filters

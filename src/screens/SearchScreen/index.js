@@ -69,7 +69,11 @@ class SearchScreen extends Component {
   renderSearchHistories = ({item, index}) => {
     return (
       <View style={styles.searchHistoryRowView}>
-        <SearchHistoryItem onPress={() => {}} />
+        <SearchHistoryItem
+          onPress={() => {
+            this.props.navigation.navigate('SearchResult');
+          }}
+        />
         <View style={styles.verticalSpacing} />
       </View>
     );

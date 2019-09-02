@@ -39,7 +39,7 @@ export class Comments extends Component {
           <Text style={styles.commentsText}>Comments</Text>
           <Text style={styles.commentsNumberText}>82 Comments</Text>
         </View>
-        <View>
+        <View style={{marginTop: 10}}>
           <FlatList
             data={tempCommentsData}
             renderItem={this.renderComments}

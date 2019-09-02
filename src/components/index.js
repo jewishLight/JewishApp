@@ -4,6 +4,7 @@ import {
   SearchHeader,
   SearchResultHeader,
   FilterHeader,
+  SynaHeader,
 } from './Headers';
 import {
   SearchButton,
@@ -29,7 +30,7 @@ import {
   SynMinTimes,
   NormalSwitch,
 } from './Inputs';
-import {TagView} from './Tags';
+import {TagView, AmView, TimeTagView} from './Tags';
 
 export {
   HomeHeader,
@@ -37,6 +38,7 @@ export {
   SearchHeader,
   SearchResultHeader,
   FilterHeader,
+  SynaHeader,
   SearchButton,
   AddButton,
   FilterButton,
@@ -60,4 +62,6 @@ export {
   SynMinTimes,
   NormalSwitch,
   TagView,
+  AmView,
+  TimeTagView,
 };

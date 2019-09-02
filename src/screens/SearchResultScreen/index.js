@@ -69,7 +69,11 @@ class SearchResultScreen extends Component {
   renderSearchHistories = ({item, index}) => {
     return (
       <View style={styles.searchHistoryRowView}>
-        <SearchResultItem onPress={() => {}} />
+        <SearchResultItem
+          onPress={() => {
+            this.props.navigation.navigate('Syna');
+          }}
+        />
         <View style={styles.verticalSpacing} />
       </View>
     );

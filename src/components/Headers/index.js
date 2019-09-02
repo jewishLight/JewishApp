@@ -241,3 +241,77 @@ export class FilterHeader extends Component {
     );
   }
 }
+
+export class SynaHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.detailsHeaderContainer}>
+        <TouchableOpacity
+          style={styles.detailsHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}>
+          <View style={styles.detailsHeaderBackContainerOpacity} />
+          <Image
+            source={require('../../assets/icon_header_back.png')}
+            style={styles.detailsHeaderBackIcon}
+          />
+        </TouchableOpacity>
+        <View style={styles.detailsHeaderRightButtonsView}>
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onSend();
+            }}>
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require('../../assets/icon_header_send.png')}
+              style={styles.detailsHeaderSendIcon}
+            />
+          </TouchableOpacity>
+          <View style={styles.horizontalSpacing} />
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onFavorite();
+            }}>
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require('../../assets/icon_header_favorites_white.png')}
+              style={styles.detailsHeaderFavoriteIcon}
+            />
+          </TouchableOpacity>
+          <View style={styles.horizontalSpacing} />
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onShare();
+            }}>
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require('../../assets/icon_header_share.png')}
+              style={styles.synaHeaderShareIcon}
+            />
+          </TouchableOpacity>
+          <View style={styles.horizontalSpacing} />
+          <TouchableOpacity
+            style={styles.detailsHeaderBackContainer}
+            onPress={() => {
+              this.props.onEdit();
+            }}>
+            <View style={styles.detailsHeaderBackContainerOpacity} />
+            <Image
+              source={require('../../assets/icon_header_edit.png')}
+              style={styles.detailsHeaderBackIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}

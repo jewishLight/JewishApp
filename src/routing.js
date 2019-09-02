@@ -12,6 +12,7 @@ import {
   SearchScreen,
   SearchResultScreen,
   FilterScreen,
+  SynaScreen,
 } from './screens';
 import {Metric} from './themes';
 import SideMenu from './components/SideMenu';
@@ -38,9 +39,10 @@ const Routing = createStackNavigator(
     Search: {screen: SearchScreen},
     SearchResult: {screen: SearchResultScreen},
     Filter: {screen: FilterScreen},
+    Syna: {screen: SynaScreen},
   },
   {
-    initialRouteName: 'Filter',
+    initialRouteName: 'Syna',
     headerMode: 'none',
   },
 );
