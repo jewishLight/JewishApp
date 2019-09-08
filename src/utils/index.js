@@ -1,4 +1,4 @@
-import Strings from "./string";
-import LocalStorage from "./localStorage";
+import Strings from './string';
+import LocalStorage from './localStorage';
 
-export { LocalStorage, Strings };
+export {LocalStorage, Strings};

@@ -1,5 +1,5 @@
-import Storage from "./storageModel";
-import Strings from "./string";
+import Storage from './storageModel';
+import Strings from './string';
 
 class LocalStorage {
   static setLanguage = async language => {
@@ -23,6 +23,38 @@ class LocalStorage {
     } catch (e) {
       return false;
     }
+  };
+
+  static setIntroChecked = async checked => {
+    let stringChecked =
+      checked === true ? Strings.FLAG_TRUE : Strings.FLAG_FALSE;
+    try {
+      await Storage.setItem(Strings.INTRO_CHECKED, stringChecked);
+    } catch (e) {}
+  };
+
+  static getIntroChecked = async () => {
+    let checked = null;
+    try {
+      checked = await Storage.getItem(Strings.INTRO_CHECKED);
+    } catch (e) {}
+    return checked === Strings.FLAG_TRUE;
+  };
+
+  static setLoggedIn = async isLoggedIn => {
+    let stringLogged =
+      isLoggedIn === true ? Strings.FLAG_TRUE : Strings.FLAG_FALSE;
+    try {
+      await Storage.setItem(Strings.LOGGED_IN, stringLogged);
+    } catch (e) {}
+  };
+
+  static getLoggedIn = async () => {
+    let isLoggedIn = null;
+    try {
+      isLoggedIn = await Storage.getItem(Strings.LOGGED_IN);
+    } catch (e) {}
+    return isLoggedIn === Strings.FLAG_TRUE;
   };
 }
 

@@ -11,6 +11,7 @@ import {styles} from './styles';
 import Modal from 'react-native-modal';
 import {Colors, Metric} from '../../themes';
 import {Strings} from '../../utils';
+import {en, he} from '../../constants';
 import {
   AddModalCloseButton,
   NormalInput,
@@ -21,6 +22,7 @@ import {
   SynMinTimes,
   NormalSwitch,
   TagView,
+  AtoZList,
 } from '../../components';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -43,17 +45,21 @@ export class AddModal extends Component {
   };
 
   render() {
+    const isEnglish = this.props.isEnglish;
     return (
       <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
         <View style={styles.addModalView}>
           <View style={styles.addModalDropdownView} />
           <View style={styles.addModalMainView}>
             <View style={styles.addNewLine}>
-              <Text style={styles.addNewText}>Add New</Text>
+              <Text style={styles.addNewText}>
+                {isEnglish ? en.modal.addNew : he.modal.addNew}
+              </Text>
               <AddModalCloseButton
                 onPress={() => {
                   this.hide();
                 }}
+                text={isEnglish ? en.modal.close : he.modal.close}
               />
             </View>
             <View style={styles.addModalSeparator} />
@@ -64,7 +70,9 @@ export class AddModal extends Component {
                   this.hide();
                   this.props.callBack(Strings.MODAL_FLAG_ADD_SYN);
                 }}>
-                <Text style={styles.synText}>Synagogue</Text>
+                <Text style={styles.synText}>
+                  {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.addLessonBtn}
@@ -72,7 +80,9 @@ export class AddModal extends Component {
                   this.hide();
                   this.props.callBack(Strings.MODAL_FLAG_ADD_LESSON);
                 }}>
-                <Text style={styles.lessonText}>Lesson</Text>
+                <Text style={styles.lessonText}>
+                  {isEnglish ? en.modal.lesson : he.modal.lesson}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -101,17 +111,21 @@ export class FilterModal extends Component {
   };
 
   render() {
+    const isEnglish = this.props.isEnglish;
     return (
       <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
         <View style={styles.addModalView}>
           <View style={styles.addModalDropdownView} />
           <View style={styles.filterModalMainView}>
             <View style={styles.addNewLine}>
-              <Text style={styles.addNewText}>Filter</Text>
+              <Text style={styles.addNewText}>
+                {isEnglish ? en.modal.filter : he.modal.filter}
+              </Text>
               <AddModalCloseButton
                 onPress={() => {
                   this.hide();
                 }}
+                text={isEnglish ? en.modal.close : he.modal.close}
               />
             </View>
             <View style={styles.addModalSeparator} />
@@ -121,21 +135,29 @@ export class FilterModal extends Component {
                 onPress={() => {
                   this.hide();
                 }}>
-                <Text style={styles.synText}>Lessons</Text>
+                <Text style={styles.synText}>
+                  {isEnglish ? en.modal.lesson : he.modal.lesson}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.addSynBtn}
                 onPress={() => {
                   this.hide();
                 }}>
-                <Text style={styles.synText}>Synagogue</Text>
+                <Text style={styles.synText}>
+                  {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.addSynBtn}
                 onPress={() => {
                   this.hide();
                 }}>
-                <Text style={styles.synText}>Both Lessons & Synagogue</Text>
+                <Text style={styles.synText}>
+                  {isEnglish
+                    ? en.modal.bothLessonsAndSynagogue
+                    : he.modal.bothLessonsAndSynagogue}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -164,6 +186,7 @@ export class NewLessonModal extends Component {
   };
 
   render() {
+    const isEnglish = this.props.isEnglish;
     return (
       <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
         <View style={styles.addModalView}>
@@ -173,11 +196,14 @@ export class NewLessonModal extends Component {
               keyboardShouldPersistTaps="always"
               style={{flex: 1}}>
               <View style={styles.addNewLine}>
-                <Text style={styles.addNewText}>Add New Lesson</Text>
+                <Text style={styles.addNewText}>
+                  {isEnglish ? en.modal.addNewLesson : he.modal.addNewLesson}
+                </Text>
                 <AddModalCloseButton
                   onPress={() => {
                     this.hide();
                   }}
+                  text={isEnglish ? en.modal.close : he.modal.close}
                 />
               </View>
               <View style={styles.addModalSeparator} />
@@ -185,21 +211,31 @@ export class NewLessonModal extends Component {
               {/*<KeyboardAwareScrollView>*/}
               <View style={styles.newLessonModalContainer}>
                 <Text style={styles.newLessonModalTextInputTitle}>
-                  Enter Subject
+                  {isEnglish ? en.modal.enterSubject : he.modal.enterSubject}
                 </Text>
                 <NormalInput
                   direction={this.props.direction}
-                  placeholder={'Enter subject here...'}
-                />
-                <Text style={styles.newLessonModalPickerTitle}>Speaker</Text>
-                <NormalPicker direction={this.props.direction} />
-                <Text style={styles.newLessonModalPickerTitle}>Location</Text>
-                <LocationInput
-                  direction={this.props.direction}
-                  placeholder={'Enter location...'}
+                  placeholder={
+                    isEnglish
+                      ? en.modal.enterSubjectHere
+                      : he.modal.enterSubjectHere
+                  }
                 />
                 <Text style={styles.newLessonModalPickerTitle}>
-                  Time and Date
+                  {isEnglish ? en.modal.speaker : he.modal.speaker}
+                </Text>
+                <NormalPicker direction={this.props.direction} />
+                <Text style={styles.newLessonModalPickerTitle}>
+                  {isEnglish ? en.modal.location : he.modal.location}
+                </Text>
+                <LocationInput
+                  direction={this.props.direction}
+                  placeholder={
+                    isEnglish ? en.modal.enterLocation : he.modal.enterLocation
+                  }
+                />
+                <Text style={styles.newLessonModalPickerTitle}>
+                  {isEnglish ? en.modal.timeAndDate : he.modal.timeAndDate}
                 </Text>
                 <DateTimeSetter
                   mon={false}
@@ -209,9 +245,10 @@ export class NewLessonModal extends Component {
                   fri={false}
                   sat={false}
                   sun={false}
+                  isEnglish={isEnglish}
                 />
                 <Text style={styles.newLessonModalPickerTitle}>
-                  Description
+                  {isEnglish ? en.modal.description : he.modal.description}
                 </Text>
                 <DescriptionInput direction={this.props.direction} />
               </View>
@@ -220,21 +257,27 @@ export class NewLessonModal extends Component {
               <View style={styles.verticalSpacingSmall} />
               <View style={styles.newLessonModalContainer}>
                 <Text style={styles.newLessonModalTextInputTitle}>
-                  Contact Name
+                  {isEnglish ? en.modal.contactName : he.modal.contactName}
                 </Text>
                 <NormalInput
                   direction={this.props.direction}
-                  placeholder={'Enter name here...'}
+                  placeholder={
+                    isEnglish ? en.modal.enterNameHere : he.modal.enterNameHere
+                  }
                 />
                 <Text style={styles.newLessonModalTextInputTitle}>
-                  Contact Number
+                  {isEnglish ? en.modal.contactNumber : he.modal.contactNumber}
                 </Text>
                 <NormalInput
                   direction={this.props.direction}
-                  placeholder={'Enter number here...'}
+                  placeholder={
+                    isEnglish
+                      ? en.modal.enterNumberHere
+                      : he.modal.enterNumberHere
+                  }
                 />
                 <Text style={styles.newLessonModalPickerTitle}>
-                  Select Audience
+                  {isEnglish ? en.modal.audience : he.modal.audience}
                 </Text>
                 <NormalPicker direction={this.props.direction} />
                 <TouchableOpacity
@@ -242,7 +285,11 @@ export class NewLessonModal extends Component {
                   onPress={() => {
                     this.props.onPublish();
                   }}>
-                  <Text style={styles.bigBtnText}>Publish Lessons</Text>
+                  <Text style={styles.bigBtnText}>
+                    {isEnglish
+                      ? en.modal.publishLessons
+                      : he.modal.publishLessons}
+                  </Text>
                 </TouchableOpacity>
                 <View style={styles.verticalSpacingBig} />
               </View>
@@ -275,17 +322,23 @@ export class NewSynModal extends Component {
   };
 
   render() {
+    const isEnglish = this.props.isEnglish;
     return (
       <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
         <View style={styles.addModalView}>
           <View style={styles.addModalDropdownView} />
           <View style={styles.newLessonModalMainView}>
             <View style={styles.addNewLine}>
-              <Text style={styles.addNewText}>Add New Synagogue</Text>
+              <Text style={styles.addNewText}>
+                {isEnglish
+                  ? en.modal.addNewSynagogue
+                  : he.modal.addNewSynagogue}
+              </Text>
               <AddModalCloseButton
                 onPress={() => {
                   this.hide();
                 }}
+                text={isEnglish ? en.modal.close : he.modal.close}
               />
             </View>
             <View style={styles.addModalSeparator} />
@@ -293,24 +346,38 @@ export class NewSynModal extends Component {
               <ScrollView>
                 <View style={styles.newLessonModalContainer}>
                   <Text style={styles.newLessonModalTextInputTitle}>
-                    Syn Name *
+                    {isEnglish
+                      ? en.modal.synagogueName
+                      : he.modal.synagogueName}
                   </Text>
                   <NormalInput
                     direction={this.props.direction}
-                    placeholder={'Enter syn name here...'}
-                  />
-
-                  <Text style={styles.newLessonModalPickerTitle}>Nosach</Text>
-                  <NormalPicker direction={this.props.direction} />
-
-                  <Text style={styles.newLessonModalPickerTitle}>Location</Text>
-                  <LocationInput
-                    direction={this.props.direction}
-                    placeholder={'Enter location...'}
+                    placeholder={
+                      isEnglish
+                        ? en.modal.enterSynagogueNameHere
+                        : he.modal.enterSynagogueNameHere
+                    }
                   />
 
                   <Text style={styles.newLessonModalPickerTitle}>
-                    Add min times
+                    {isEnglish ? en.modal.nosach : he.modal.nosach}
+                  </Text>
+                  <NormalPicker direction={this.props.direction} />
+
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    {isEnglish ? en.modal.location : he.modal.location}
+                  </Text>
+                  <LocationInput
+                    direction={this.props.direction}
+                    placeholder={
+                      isEnglish
+                        ? en.modal.enterLocation
+                        : he.modal.enterLocation
+                    }
+                  />
+
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}
                   </Text>
                   <SynMinTimes
                     mon={false}
@@ -321,6 +388,7 @@ export class NewSynModal extends Component {
                     sat={false}
                     sun={false}
                     type={'week'}
+                    isEnglish={isEnglish}
                   />
 
                   <View
@@ -331,7 +399,7 @@ export class NewSynModal extends Component {
                     }}>
                     <View />
                     <Text style={styles.newLessonModalPickerTitleRed}>
-                      Remove
+                      {isEnglish ? en.modal.remove : he.modal.remove}
                     </Text>
                   </View>
                   <SynMinTimes
@@ -343,25 +411,37 @@ export class NewSynModal extends Component {
                     sat={false}
                     sun={false}
                     type={'day'}
+                    isEnglish={isEnglish}
                   />
 
-                  <NormalSwitch type={'Shtiblach'} initialStatus={false} />
+                  <NormalSwitch
+                    type={isEnglish ? en.modal.shtiblach : he.modal.shtiblach}
+                    initialStatus={false}
+                  />
 
                   <Text style={styles.newLessonModalPickerTitle}>
-                    Amenities
+                    {isEnglish ? en.modal.amenities : he.modal.amenities}
                   </Text>
                   <NormalPicker direction={this.props.direction} />
                   <TagView />
 
-                  <Text style={styles.newLessonModalPickerTitle}>Notes</Text>
+                  <Text style={styles.newLessonModalPickerTitle}>
+                    {isEnglish ? en.modal.notes : he.modal.notes}
+                  </Text>
                   <DescriptionInput direction={this.props.direction} />
 
                   <Text style={styles.newLessonModalPickerTitle}>
-                    Owner Contact Number
+                    {isEnglish
+                      ? en.modal.ownerContactNumber
+                      : he.modal.ownerContactNumber}
                   </Text>
                   <NormalInput
                     direction={this.props.direction}
-                    placeholder={'Enter contact number...'}
+                    placeholder={
+                      isEnglish
+                        ? en.modal.enterNumberHere
+                        : he.modal.enterNumberHere
+                    }
                   />
                 </View>
 
@@ -377,7 +457,9 @@ export class NewSynModal extends Component {
                       alignItems: 'center',
                     }}>
                     <Text style={styles.newLessonModalTextInputTitle}>
-                      Syna Picture
+                      {isEnglish
+                        ? en.modal.synagoguePicture
+                        : he.modal.synagoguePicture}
                     </Text>
                     <TouchableOpacity
                       style={{
@@ -396,7 +478,7 @@ export class NewSynModal extends Component {
                       />
                       <Text
                         style={{color: 'white', marginLeft: 5, fontSize: 15}}>
-                        Upload
+                        {isEnglish ? en.modal.upload : he.modal.upload}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -406,12 +488,107 @@ export class NewSynModal extends Component {
                     onPress={() => {
                       this.props.onPublish();
                     }}>
-                    <Text style={styles.bigBtnText}>Add New Syna</Text>
+                    <Text style={styles.bigBtnText}>
+                      {isEnglish
+                        ? en.modal.addNewSynagogue
+                        : he.modal.addNewSynagogue}
+                    </Text>
                   </TouchableOpacity>
                   <View style={styles.verticalSpacingBig} />
                 </View>
               </ScrollView>
             </KeyboardAvoidingView>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+}
+
+import AlphaScrollFlatList from 'alpha-scroll-flat-list';
+const ITEM_HEIGHT = 50;
+import people from './names';
+
+export class ChangeLocationModal extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      modalVisible: false,
+    };
+  }
+
+  componentDidMount() {}
+
+  show = () => {
+    this.setState({modalVisible: true});
+  };
+
+  hide = () => {
+    this.setState({modalVisible: false});
+  };
+
+  onSelectLocation = (index, name) => {
+    this.hide();
+    this.props.onSelectLocation(index, name);
+  };
+
+  renderItem = ({item, index}) => {
+    return (
+      <View style={{paddingRight: 30}}>
+        <TouchableOpacity
+          style={{
+            height: 50,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            this.onSelectLocation(index, item.name);
+          }}>
+          <Text>{item.name}</Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: Colors.separator,
+          }}
+        />
+      </View>
+    );
+  };
+
+  keyExtractor = item => {
+    return item.code;
+  };
+
+  render() {
+    return (
+      <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
+        <View style={styles.addModalView}>
+          <View style={styles.addModalDropdownView} />
+          <View style={styles.alphaModalMainView}>
+            <View style={styles.addNewLine}>
+              <Text style={styles.addNewText}>Change Location</Text>
+              <AddModalCloseButton
+                onPress={() => {
+                  this.hide();
+                }}
+                text={this.props.isEnglish ? en.modal.close : he.modal.close}
+              />
+            </View>
+            <View style={styles.addModalSeparator} />
+            <View style={styles.alphaListModalContainer}>
+              <AlphaScrollFlatList
+                keyExtractor={this.keyExtractor.bind(this)}
+                data={people.sort((prev, next) =>
+                  prev.name.localeCompare(next.name),
+                )}
+                renderItem={this.renderItem}
+                scrollKey={'name'}
+                reverse={false}
+                itemHeight={ITEM_HEIGHT}
+              />
+            </View>
           </View>
         </View>
       </Modal>

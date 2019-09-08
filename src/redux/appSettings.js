@@ -1,11 +1,12 @@
-import { createReducer, createActions } from "reduxsauce";
+import {createReducer, createActions} from 'reduxsauce';
+import {Strings} from '../utils';
 
 /* ------------- Types and Action Creators ------------- */
-const { Types, Creators } = createActions({
+const {Types, Creators} = createActions({
   clearSettings: [],
-  updateDeviceStatus: ["isDeviceTurnON"],
-  updateLightStatus: ["isLightTurnON"],
-  updateLanguage: ["language"]
+  updateDeviceStatus: ['isDeviceTurnON'],
+  updateLightStatus: ['isLightTurnON'],
+  updateLanguage: ['language'],
 });
 
 export const AppSettingsTypes = Types;
@@ -16,23 +17,23 @@ export default Creators;
 const defaultState = {
   isDeviceTurnON: false,
   isLightTurnON: true,
-  language: "English"
+  language: Strings.ENGLISH,
 };
 
 /* ------------- Reducers ------------- */
 
-const clear = () => ({ ...defaultState });
-const updateDeviceStatus = (state, { isDeviceTurnON }) => ({
+const clear = () => ({...defaultState});
+const updateDeviceStatus = (state, {isDeviceTurnON}) => ({
   ...state,
-  isDeviceTurnON
+  isDeviceTurnON,
 });
-const updateLightStatus = (state, { isLightTurnON }) => ({
+const updateLightStatus = (state, {isLightTurnON}) => ({
   ...state,
-  isLightTurnON
+  isLightTurnON,
 });
-const updateLanguage = (state, { language }) => ({
+const updateLanguage = (state, {language}) => ({
   ...state,
-  language
+  language,
 });
 
 /* ---------------- Hookup Reducers to Types --------------- */
@@ -41,5 +42,5 @@ export const appSettingsReducer = createReducer(defaultState, {
   [Types.CLEAR_SETTINGS]: clear,
   [Types.UPDATE_DEVICE_STATUS]: updateDeviceStatus,
   [Types.UPDATE_LIGHT_STATUS]: updateLightStatus,
-  [Types.UPDATE_LANGUAGE]: updateLanguage
+  [Types.UPDATE_LANGUAGE]: updateLanguage,
 });

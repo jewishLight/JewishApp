@@ -15,6 +15,8 @@ import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {SearchResultItem, SearchResultHeader} from '../../components';
 import {Colors} from '../../themes';
+import {Strings} from '../../utils';
+import {en, he} from '../../constants';
 
 const tempSearchHistoryData = [
   {
@@ -44,17 +46,28 @@ class SearchResultScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      language: Strings.ENGLISH,
+    };
   }
 
   _keyExtractor = (item, index) => item.id.toString();
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.setState({language: this.props.appSettings.language});
   }
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  async componentWillReceiveProps(nextProps, nextContext) {
+    const originLanguage = this.props.appSettings.language;
+    const newLanguage = nextProps.appSettings.language;
+    if (originLanguage !== newLanguage) {
+      this.setState({language: newLanguage});
+    }
   }
 
   handleBackButton = () => {
@@ -83,10 +96,20 @@ class SearchResultScreen extends Component {
     this.props.navigation.navigate('Filter');
   };
 
+  onMapView = () => {
+    this.props.navigation.navigate('MapView');
+  };
+
   render() {
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.searchContainer}>
-        <SearchResultHeader onBack={this.onBack} />
+        <SearchResultHeader
+          onBack={this.onBack}
+          isEnglish={isEnglish}
+          onMapView={this.onMapView}
+        />
         <View style={{flex: 1, paddingHorizontal: 10}}>
           <View
             style={{
@@ -111,7 +134,8 @@ class SearchResultScreen extends Component {
               />
               <Text
                 style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                3 km radius
+                3 km{' '}
+                {isEnglish ? en.searchResult.radius : he.searchResult.radius}
               </Text>
             </View>
             <View style={styles.searchResultTopTagView}>
@@ -121,7 +145,7 @@ class SearchResultScreen extends Component {
               />
               <Text
                 style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                Syna
+                {isEnglish ? en.modal.synagogue : he.modal.synagogue}
               </Text>
             </View>
           </View>
@@ -136,7 +160,12 @@ class SearchResultScreen extends Component {
         </View>
         <View style={styles.newSearchResultButtonContainer}>
           <View style={styles.searchResultFilterButton}>
-            <Text style={styles.searchResultsText}>4 results found</Text>
+            <Text style={styles.searchResultsText}>
+              4{' '}
+              {isEnglish
+                ? en.searchResult.resultsFound
+                : he.searchResult.resultsFound}
+            </Text>
             <TouchableOpacity
               style={{
                 justifyContent: 'center',
@@ -153,7 +182,7 @@ class SearchResultScreen extends Component {
                 style={styles.newSearchImage}
               />
               <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
-                Filters
+                {isEnglish ? en.modal.filter : he.modal.filter}
               </Text>
             </TouchableOpacity>
           </View>

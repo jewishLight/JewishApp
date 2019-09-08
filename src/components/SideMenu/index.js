@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView} from 'react-navigation';
+import {SafeAreaView, StackActions, NavigationActions} from 'react-navigation';
 import {
   View,
   Image,
@@ -8,14 +8,14 @@ import {
   TouchableOpacity,
   Linking,
   I18nManager,
+  NativeModules,
 } from 'react-native';
 import {styles} from './styles';
-// import LocalStorage from "../../utils/localStorage";
 import {Colors} from '../../themes';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
-import {LocalStorage} from '../../utils';
+import {LocalStorage, Strings} from '../../utils';
 import RNRestart from 'react-native-restart';
 
 const MENU_ITEM_1 = [
@@ -66,10 +66,10 @@ class SideMenu extends Component {
 
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.appSettings.language !== nextProps.appSettings.language) {
-      if (this.props.appSettings.language === 'English') {
-        this.setState({MENU_ITEMS: MENU_ITEM_2});
-      } else {
+      if (nextProps.appSettings.language === Strings.ENGLISH) {
         this.setState({MENU_ITEMS: MENU_ITEM_1});
+      } else {
+        this.setState({MENU_ITEMS: MENU_ITEM_2});
       }
     }
   }
@@ -86,15 +86,16 @@ class SideMenu extends Component {
       case 2:
         break;
       case 3:
-        if (this.props.appSettings.language === 'English') {
-          await LocalStorage.setLanguage('Hebrew');
-          this.props.updateLanguage('Hebrew');
-          I18nManager.forceRTL(true);
+        if (this.props.appSettings.language === Strings.ENGLISH) {
+          await LocalStorage.setLanguage(Strings.HEBREW);
+          this.props.updateLanguage(Strings.HEBREW);
+          // I18nManager.forceRTL(false);
+          I18nManager.allowRTL(true);
           RNRestart.Restart();
         } else {
-          await LocalStorage.setLanguage('English');
-          this.props.updateLanguage('English');
-          I18nManager.forceRTL(false);
+          await LocalStorage.setLanguage(Strings.ENGLISH);
+          this.props.updateLanguage(Strings.ENGLISH);
+          I18nManager.allowRTL(false);
           RNRestart.Restart();
         }
         // NativeModules.DevSettings.reload();
@@ -108,8 +109,15 @@ class SideMenu extends Component {
     this.props.navigation.closeDrawer();
   };
 
-  onLogout = () => {
+  onLogout = async () => {
     this.closeMenu();
+    await LocalStorage.setLoggedIn(false);
+    this.props.navigation.dispatch(
+      StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({routeName: 'Login'})],
+      }),
+    );
   };
 
   goHome = () => {
@@ -160,7 +168,7 @@ class SideMenu extends Component {
                 style={styles.iconMenu}
               />
             </View>
-            <Text style={styles.logoutText}>Logout</Text>
+            <Text style={styles.logoutText}>Logout (Version 0.0.3)</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

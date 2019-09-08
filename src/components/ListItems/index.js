@@ -2,6 +2,7 @@ import React from 'react';
 import {View, TouchableOpacity, Text, Image} from 'react-native';
 import {styles} from './styles';
 import {Metric, Colors} from '../../themes';
+import {en, he} from '../../constants';
 
 export const CommentListItem = ({onPress}) => (
   <TouchableOpacity style={styles.commentItemContainer} onPress={onPress}>
@@ -26,9 +27,11 @@ export const CommentListItem = ({onPress}) => (
   </TouchableOpacity>
 );
 
-export const SearchHistoryItem = ({onPress}) => (
+export const SearchHistoryItem = ({onPress, isEnglish}) => (
   <TouchableOpacity style={styles.searchHistoryItemContainer} onPress={onPress}>
-    <Text style={{color: '#9B9B9B', fontSize: 15}}>Date : 23.2.2019</Text>
+    <Text style={{color: '#9B9B9B', fontSize: 15}}>
+      {isEnglish ? en.searchHistory.date : he.searchHistory.date} : 23.2.2019
+    </Text>
     <View
       style={{
         flexDirection: 'row',

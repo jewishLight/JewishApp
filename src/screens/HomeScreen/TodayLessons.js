@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Platform, Text, TouchableOpacity, FlatList} from 'react-native';
 import {LessonCard} from '../../components';
 import {styles} from './styles';
+import {en, he} from '../../constants';
 
 const tempTodayLessonData = [
   {
@@ -27,9 +28,13 @@ export class TodayLessons extends Component {
     return (
       <View style={styles.aroundEventsView}>
         <View style={styles.aroundEventsTopView}>
-          <Text style={styles.eventsText}>Today's Lessons</Text>
+          <Text style={styles.eventsText}>
+            {this.props.isEnglish ? en.home.todayLessons : he.home.todayLessons}
+          </Text>
           <TouchableOpacity>
-            <Text style={styles.viewAllText}>View All</Text>
+            <Text style={styles.viewAllText}>
+              {this.props.isEnglish ? en.home.viewAll : he.home.viewAll}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.spacingHorizontal}>

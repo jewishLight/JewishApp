@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'Jewish' do
-  # Pods for Jewish
+target 'Jewish3' do
+  # Pods for Jewish3
   pod 'React', :path => '../node_modules/react-native/'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
@@ -27,9 +27,7 @@ target 'Jewish' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  pod 'RCTRestart', :path => '../node_modules/react-native-restart/ios'
-
-  target 'JewishTests' do
+  target 'Jewish3Tests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -37,10 +35,10 @@ target 'Jewish' do
   use_native_modules!
 end
 
-target 'Jewish-tvOS' do
-  # Pods for Jewish-tvOS
+target 'Jewish3-tvOS' do
+  # Pods for Jewish3-tvOS
 
-  target 'Jewish-tvOSTests' do
+  target 'Jewish3-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

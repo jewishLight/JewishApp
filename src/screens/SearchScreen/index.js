@@ -15,6 +15,8 @@ import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {SearchHistoryItem, SearchHeader} from '../../components';
 import {Colors} from '../../themes';
+import {Strings} from '../../utils';
+import {en, he} from '../../constants';
 
 const tempSearchHistoryData = [
   {
@@ -44,17 +46,28 @@ class SearchScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      language: Strings.ENGLISH,
+    };
   }
 
   _keyExtractor = (item, index) => item.id.toString();
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.setState({language: this.props.appSettings.language});
   }
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  async componentWillReceiveProps(nextProps, nextContext) {
+    const originLanguage = this.props.appSettings.language;
+    const newLanguage = nextProps.appSettings.language;
+    if (originLanguage !== newLanguage) {
+      this.setState({language: newLanguage});
+    }
   }
 
   handleBackButton = () => {
@@ -73,6 +86,7 @@ class SearchScreen extends Component {
           onPress={() => {
             this.props.navigation.navigate('SearchResult');
           }}
+          isEnglish={this.props.appSettings.language === Strings.ENGLISH}
         />
         <View style={styles.verticalSpacing} />
       </View>
@@ -84,9 +98,11 @@ class SearchScreen extends Component {
   };
 
   render() {
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.searchContainer}>
-        <SearchHeader onBack={this.onBack} />
+        <SearchHeader onBack={this.onBack} isEnglish={isEnglish} />
         <View style={styles.searchHistoryContainer}>
           <FlatList
             data={tempSearchHistoryData}
@@ -103,7 +119,11 @@ class SearchScreen extends Component {
               source={require('../../assets/icon_search_newicon.png')}
               style={styles.newSearchImage}
             />
-            <Text style={styles.newSearchText}>New Search</Text>
+            <Text style={styles.newSearchText}>
+              {isEnglish
+                ? en.searchHistory.newSearch
+                : he.searchHistory.newSearch}
+            </Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

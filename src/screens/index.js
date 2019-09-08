@@ -6,6 +6,10 @@ import SearchScreen from './SearchScreen';
 import SearchResultScreen from './SearchResultScreen';
 import FilterScreen from './FilterScreen';
 import SynaScreen from './SynaScreen';
+import IntroScreen from './IntroScreen';
+import FavoriteScreen from './FavoriteScreen';
+import MapViewScreen from './MapView';
+import LoginScreen from './LoginScreen';
 
 export {
   HomeScreen,
@@ -16,4 +20,8 @@ export {
   SearchResultScreen,
   FilterScreen,
   SynaScreen,
+  IntroScreen,
+  FavoriteScreen,
+  MapViewScreen,
+  LoginScreen,
 };

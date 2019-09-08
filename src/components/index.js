@@ -5,6 +5,8 @@ import {
   SearchResultHeader,
   FilterHeader,
   SynaHeader,
+  FavoriteHeader,
+  MapViewHeader,
 } from './Headers';
 import {
   SearchButton,
@@ -20,7 +22,13 @@ import {
   SearchHistoryItem,
   SearchResultItem,
 } from './ListItems';
-import {AddModal, FilterModal, NewLessonModal, NewSynModal} from './Modals';
+import {
+  AddModal,
+  FilterModal,
+  NewLessonModal,
+  NewSynModal,
+  ChangeLocationModal,
+} from './Modals';
 import {
   NormalInput,
   NormalPicker,
@@ -39,6 +47,8 @@ export {
   SearchResultHeader,
   FilterHeader,
   SynaHeader,
+  FavoriteHeader,
+  MapViewHeader,
   SearchButton,
   AddButton,
   FilterButton,
@@ -53,6 +63,7 @@ export {
   AddModal,
   FilterModal,
   NewLessonModal,
+  ChangeLocationModal,
   NormalInput,
   NormalPicker,
   LocationInput,

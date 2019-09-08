@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import {AsyncStorage} from 'react-native';
 
 class Storage {
   constructor(key) {
@@ -30,4 +30,4 @@ class Storage {
   }
 }
 
-export default new Storage("com.jewish");
+export default new Storage('com.jewish1');

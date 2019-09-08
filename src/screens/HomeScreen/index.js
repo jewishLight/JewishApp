@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView} from 'react-navigation';
+import {NavigationActions, SafeAreaView, StackActions} from 'react-navigation';
 import {
   View,
   Platform,
@@ -14,6 +14,7 @@ import {styles} from './styles';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
+import {en, he} from '../../constants';
 import {
   HomeHeader,
   SearchButton,
@@ -23,6 +24,7 @@ import {
   FilterModal,
   NewLessonModal,
   NewSynModal,
+  ChangeLocationModal,
 } from '../../components';
 import {AroundEvents} from './AroundEvents';
 import {TodayLessons} from './TodayLessons';
@@ -36,16 +38,20 @@ class HomeScreen extends Component {
   // };
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      language: Strings.ENGLISH,
+    };
   }
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     let language = await LocalStorage.getLanguage();
     if (language) {
+      this.setState({language});
     } else {
-      language = 'English';
-      I18nManager.forceRTL(false);
+      language = Strings.HEBREW;
+      this.setState({language});
+      I18nManager.allowRTL(true);
       await LocalStorage.setLanguage(language);
     }
     this.props.updateLanguage(language);
@@ -60,15 +66,19 @@ class HomeScreen extends Component {
   };
 
   async componentWillReceiveProps(nextProps, nextContext) {
-    if (this.props.appSettings.language !== nextProps.appSettings.language) {
-      this.setState({language: nextProps.appSettings.language});
+    const originLanguage = this.props.appSettings.language;
+    const newLanguage = nextProps.appSettings.language;
+    if (originLanguage !== newLanguage) {
+      this.setState({language: newLanguage});
       if (this.refHomeHeader) {
-        this.refHomeHeader.updateLanguage(nextProps.appSettings.language);
+        this.refHomeHeader.updateLanguage(newLanguage);
       }
     }
   }
 
   render() {
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.container}>
         <View>
@@ -78,28 +88,36 @@ class HomeScreen extends Component {
             ref={ref => {
               this.refHomeHeader = ref;
             }}
-            language={this.props.appSettings.language}
+            language={language}
+            locationText={isEnglish ? en.home.location : he.home.location}
           />
         </View>
         <View style={styles.buttonsLine}>
           <FilterButton onPress={this.onFilter} />
           <View style={styles.addSearchLine}>
-            <AddButton onPress={this.onAdd} />
+            <AddButton
+              onPress={this.onAdd}
+              text={isEnglish ? en.home.add : he.home.add}
+            />
             <View style={styles.horizontalSpacing} />
-            <SearchButton onPress={this.onSearch} />
+            <SearchButton
+              onPress={this.onSearch}
+              text={isEnglish ? en.home.search : he.home.search}
+            />
           </View>
         </View>
         <ScrollView>
-          <AroundEvents onDetails={this.onDetails} />
-          <TodayLessons onDetails={this.onDetails} />
-          <PopularLessons onDetails={this.onDetails} />
-          <RecentLessons onDetails={this.onDetails} />
+          <AroundEvents onDetails={this.onDetails} isEnglish={isEnglish} />
+          <TodayLessons onDetails={this.onDetails} isEnglish={isEnglish} />
+          <PopularLessons onDetails={this.onDetails} isEnglish={isEnglish} />
+          <RecentLessons onDetails={this.onDetails} isEnglish={isEnglish} />
         </ScrollView>
         <AddModal
           ref={ref => {
             this.refAddModal = ref;
           }}
           callBack={this.callBackAddModal}
+          isEnglish={isEnglish}
         />
         <FilterModal
           ref={ref => {
@@ -111,22 +129,31 @@ class HomeScreen extends Component {
             this.refNewLessonModal = ref;
           }}
           onPublish={this.onPublish}
-          direction={
-            this.props.appSettings.language === 'English' ? 'ltr' : 'rtl'
-          }
+          direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
+          isEnglish={isEnglish}
         />
         <NewSynModal
           ref={ref => {
             this.refSynModal = ref;
           }}
           onPublish={this.onAddSyn}
-          direction={
-            this.props.appSettings.language === 'English' ? 'ltr' : 'rtl'
-          }
+          direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
+          isEnglish={isEnglish}
+        />
+        <ChangeLocationModal
+          ref={ref => {
+            this.refChangeLocationModal = ref;
+          }}
+          onSelectLocation={this.onSelectLocation}
+          isEnglish={isEnglish}
         />
       </SafeAreaView>
     );
   }
+
+  onSelectLocation = (index, name) => {
+    // alert(name);
+  };
 
   callBackAddModal = flag => {
     switch (flag) {
@@ -142,9 +169,10 @@ class HomeScreen extends Component {
   };
 
   onHeaderLocation = () => {
-    if (this.refHomeHeader) {
-      this.refHomeHeader.updateLocation('London, UK');
-    }
+    // if (this.refHomeHeader) {
+    //   this.refHomeHeader.updateLocation('London, UK');
+    // }
+    this.refChangeLocationModal.show();
   };
   onHeaderMenu = () => {
     this.props.navigation.openDrawer();
@@ -152,6 +180,12 @@ class HomeScreen extends Component {
 
   onSearch = () => {
     this.props.navigation.navigate('Search');
+    // this.props.navigation.dispatch(
+    //   StackActions.reset({
+    //     index: 0,
+    //     actions: [NavigationActions.navigate({routeName: 'Login'})],
+    //   }),
+    // );
   };
   onAdd = () => {
     if (this.refAddModal) {

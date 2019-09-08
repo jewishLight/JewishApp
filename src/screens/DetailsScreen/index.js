@@ -18,6 +18,8 @@ import {connect} from 'react-redux';
 import {DetailsHeader, LikeButton, CommentButton} from '../../components';
 import {Comments} from './Comments';
 import {Colors} from '../../themes';
+import {Strings} from '../../utils';
+import {en, he} from '../../constants';
 
 class DetailsScreen extends Component {
   static navigationOptions = {
@@ -25,11 +27,14 @@ class DetailsScreen extends Component {
   };
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      language: Strings.ENGLISH,
+    };
   }
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.setState({language: this.props.appSettings.language});
   }
 
   componentWillUnmount(): void {
@@ -41,7 +46,17 @@ class DetailsScreen extends Component {
     return true;
   };
 
+  async componentWillReceiveProps(nextProps, nextContext) {
+    const originLanguage = this.props.appSettings.language;
+    const newLanguage = nextProps.appSettings.language;
+    if (originLanguage !== newLanguage) {
+      this.setState({language: newLanguage});
+    }
+  }
+
   render() {
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <Fragment>
         <SafeAreaView style={styles.topSafeAreaView} />
@@ -65,7 +80,9 @@ class DetailsScreen extends Component {
                       style={styles.detailUserAvatar}
                     />
                     <View style={styles.userDetail}>
-                      <Text style={styles.userRole}>Speaker</Text>
+                      <Text style={styles.userRole}>
+                        {isEnglish ? en.modal.speaker : he.modal.speaker}
+                      </Text>
                       <Text style={styles.userName}>Silvan Radeh Meiv</Text>
                     </View>
                   </View>
@@ -75,7 +92,9 @@ class DetailsScreen extends Component {
                       style={styles.detailUserAvatar}
                     />
                     <View style={styles.userDetail}>
-                      <Text style={styles.userRole}>Speaker</Text>
+                      <Text style={styles.userRole}>
+                        {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                      </Text>
                       <Text style={styles.userName}>Silvan Radeh Meiv</Text>
                     </View>
                   </View>
@@ -109,12 +128,18 @@ class DetailsScreen extends Component {
               <View style={styles.separator} />
               <View style={styles.likeBtnContainer}>
                 <View style={styles.buttonsContainer}>
-                  <LikeButton />
+                  <LikeButton
+                    text={isEnglish ? en.detail.like : he.detail.like}
+                  />
                   <View style={styles.horizontalSpacing} />
-                  <CommentButton />
+                  <CommentButton
+                    text={isEnglish ? en.detail.comments : he.detail.comments}
+                  />
                 </View>
                 <View style={styles.likesContainer}>
-                  <Text style={styles.likesText}>43+ liked</Text>
+                  <Text style={styles.likesText}>
+                    43+ {isEnglish ? en.detail.liked : he.detail.liked}
+                  </Text>
                   <Image
                     source={require('../../assets/icon_detail_liked.png')}
                     style={styles.iconDetailLikedImage}
@@ -122,10 +147,14 @@ class DetailsScreen extends Component {
                 </View>
               </View>
               <View style={styles.paddingSeparator} />
-              <Comments />
+              <Comments isEnglish={isEnglish} />
               <View style={styles.commentInputView}>
                 <TextInput
-                  placeholder={'Type comment here...'}
+                  placeholder={
+                    isEnglish
+                      ? en.detail.typeCommentHere
+                      : he.detail.typeCommentHere
+                  }
                   style={styles.commentInputText}
                 />
                 <TouchableOpacity style={styles.commentSendView}>
@@ -146,7 +175,9 @@ class DetailsScreen extends Component {
     this.props.navigation.goBack();
   };
   onSend = () => {};
-  onFavorite = () => {};
+  onFavorite = () => {
+    this.props.navigation.navigate('Favorite');
+  };
   onEdit = () => {};
 }
 

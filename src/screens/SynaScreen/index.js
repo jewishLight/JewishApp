@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, ScrollView} from 'react-navigation';
+import {SafeAreaView} from 'react-navigation';
 import {
   View,
   Platform,
@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from 'react-native';
 import {
   SynaHeader,
@@ -15,11 +16,17 @@ import {
   TimeTagView,
   LikeButton,
   CommentButton,
+  ChangeLocationModal,
 } from '../../components';
 import {Metric, Colors} from '../../themes';
 import {styles} from './styles';
 import Swiper from 'react-native-swiper';
 import {Comments} from './Comments';
+import {en, he} from '../../constants';
+import {Strings} from '../../utils';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions} from '../../redux';
+import {connect} from 'react-redux';
 
 class SynaScreen extends Component {
   static navigationOptions = {
@@ -28,11 +35,12 @@ class SynaScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {language: Strings.ENGLISH};
   }
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.setState({language: this.props.appSettings.language});
   }
 
   componentWillUnmount(): void {
@@ -43,13 +51,27 @@ class SynaScreen extends Component {
     return true;
   };
 
-  onBack = () => {};
-  onFavorite = () => {};
+  async componentWillReceiveProps(nextProps, nextContext) {
+    const originLanguage = this.props.appSettings.language;
+    const newLanguage = nextProps.appSettings.language;
+    if (originLanguage !== newLanguage) {
+      this.setState({language: newLanguage});
+    }
+  }
+
+  onBack = () => {
+    this.props.navigation.goBack();
+  };
+  onFavorite = () => {
+    this.props.navigation.navigate('Favorite');
+  };
   onShare = () => {};
   onEdit = () => {};
   onSend = () => {};
 
   render() {
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <SynaHeader
@@ -58,6 +80,7 @@ class SynaScreen extends Component {
           onShare={this.onShare}
           onEdit={this.onEdit}
           onSend={this.onSend}
+          isEnglish={isEnglish}
         />
         <ScrollView>
           <Swiper
@@ -138,7 +161,9 @@ class SynaScreen extends Component {
                 alignItems: 'center',
               }}>
               <Text style={{color: '#999999', fontSize: 12, marginTop: 15}}>
-                Last Updated
+                {isEnglish
+                  ? en.synagogue.lastUpdated
+                  : he.synagogue.lastUpdated}
               </Text>
               <View
                 style={{
@@ -150,8 +175,12 @@ class SynaScreen extends Component {
                   alignItems: 'center',
                   marginTop: 10,
                 }}>
-                <Text style={{color: 'white', fontSize: 14}}>20 days</Text>
-                <Text style={{color: 'white', fontSize: 14}}>ago</Text>
+                <Text style={{color: 'white', fontSize: 14}}>
+                  20 {isEnglish ? en.synagogue.days : he.synagogue.days}
+                </Text>
+                <Text style={{color: 'white', fontSize: 14}}>
+                  {isEnglish ? en.synagogue.ago : he.synagogue.ago}
+                </Text>
               </View>
             </View>
           </View>
@@ -161,7 +190,9 @@ class SynaScreen extends Component {
               paddingHorizontal: 15,
               marginTop: 10,
             }}>
-            <Text style={{color: 'black', fontSize: 16}}>Amtities</Text>
+            <Text style={{color: 'black', fontSize: 16}}>
+              {isEnglish ? en.modal.amenities : he.modal.amenities}
+            </Text>
             <AmView />
             <Text style={{color: '#9B9B9B', fontSize: 15, marginTop: 10}}>
               Our distinctive Sephardic character is a source of pride for us,
@@ -170,11 +201,15 @@ class SynaScreen extends Component {
               many Israeli members, a hearty “Shalom”...
             </Text>
             <Text style={{color: 'black', fontSize: 16, marginTop: 10}}>
-              Minamyn times
+              {isEnglish
+                ? en.synagogue.minamynTimes
+                : he.synagogue.minamynTimes}
             </Text>
             <TimeTagView />
             <Text style={{color: 'black', fontSize: 16, marginTop: 10}}>
-              Lessons times
+              {isEnglish
+                ? en.synagogue.lessonsTimes
+                : he.synagogue.lessonsTimes}
             </Text>
             <View
               style={{
@@ -240,10 +275,14 @@ class SynaScreen extends Component {
           <View style={[styles.separator, {marginTop: 15}]} />
           <View style={styles.likeBtnContainer}>
             <View style={styles.buttonsContainer}>
-              <CommentButton />
+              <CommentButton
+                text={isEnglish ? en.detail.comments : he.detail.comments}
+              />
             </View>
             <View style={styles.likesContainer}>
-              <Text style={styles.likesText}>43+ liked</Text>
+              <Text style={styles.likesText}>
+                43+ {isEnglish ? en.detail.liked : he.detail.liked}
+              </Text>
               <Image
                 source={require('../../assets/icon_detail_liked.png')}
                 style={styles.iconDetailLikedImage}
@@ -251,10 +290,14 @@ class SynaScreen extends Component {
             </View>
           </View>
           <View style={styles.paddingSeparator} />
-          <Comments />
+          <Comments isEnglish={isEnglish} />
           <View style={styles.commentInputView}>
             <TextInput
-              placeholder={'Type comment here...'}
+              placeholder={
+                isEnglish
+                  ? en.detail.typeCommentHere
+                  : he.detail.typeCommentHere
+              }
               style={styles.commentInputText}
             />
             <TouchableOpacity style={styles.commentSendView}>
@@ -270,4 +313,19 @@ class SynaScreen extends Component {
   }
 }
 
-export default SynaScreen;
+const mapStateToProps = state => ({
+  ...appSettingsSelector(state),
+});
+const mapDispatchToProps = dispatch => ({
+  updateDeviceStatus: isDeviceTurnON =>
+    dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
+  updateLightStatus: isLightTurnON =>
+    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
+  updateLanguage: language =>
+    dispatch(AppSettingsActions.updateLanguage(language)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SynaScreen);

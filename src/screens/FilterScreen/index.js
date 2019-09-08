@@ -22,6 +22,7 @@ import {Metric, Colors} from '../../themes';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import CustomMarker from './CustomMarker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {en, he} from '../../constants';
 
 const timeRangeValue = [
   '00:00',
@@ -51,7 +52,7 @@ const timeRangeValue = [
   '23:59',
 ];
 
-const radiusValue = [
+const radiusValue_en = [
   '1km radius',
   '2km radius',
   '3km radius',
@@ -62,6 +63,19 @@ const radiusValue = [
   '8km radius',
   '9km radius',
   '10km radius',
+];
+
+const radiusValue_he = [
+  '1 ק"מ',
+  '2 ק"מ',
+  '3 ק"מ',
+  '4 ק"מ',
+  '5 ק"מ',
+  '6 ק"מ',
+  '7 ק"מ',
+  '8 ק"מ',
+  '9 ק"מ',
+  '10 ק"מ',
 ];
 
 class FilterScreen extends Component {
@@ -75,7 +89,12 @@ class FilterScreen extends Component {
       timeRangeSliderValue: [0, 24],
       radiusSliderValue: [0],
       radiusSliderChanging: false,
+      language: Strings.ENGLISH,
     };
+  }
+
+  componentDidMount(): void {
+    this.setState({language: this.props.appSettings.language});
   }
 
   onBack = () => {
@@ -108,6 +127,14 @@ class FilterScreen extends Component {
     });
   };
 
+  async componentWillReceiveProps(nextProps, nextContext) {
+    const originLanguage = this.props.appSettings.language;
+    const newLanguage = nextProps.appSettings.language;
+    if (originLanguage !== newLanguage) {
+      this.setState({language: newLanguage});
+    }
+  }
+
   render():
     | React.ReactElement<any>
     | string
@@ -119,28 +146,42 @@ class FilterScreen extends Component {
     | null
     | undefined {
     const {timeRangeSliderValue, radiusSliderValue} = this.state;
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.filterContainer}>
-        <FilterHeader onBack={this.onBack} />
+        <FilterHeader onBack={this.onBack} isEnglish={isEnglish} />
         <View style={{flex: 1}}>
           <ScrollView>
             <View style={{paddingHorizontal: 20}}>
               <View style={styles.verticalSpacing} />
               <NormalInput
-                placeholder={'Search by Speaker name'}
+                placeholder={
+                  isEnglish
+                    ? en.filter.searchBySpeakerName
+                    : he.filter.searchBySpeakerName
+                }
                 direction={
-                  this.props.appSettings.language === 'English' ? 'ltr' : 'rtl'
+                  this.props.appSettings.language === Strings.ENGLISH
+                    ? 'ltr'
+                    : 'rtl'
                 }
               />
               <View style={styles.verticalSpacing} />
               <NormalInput
-                placeholder={'Search by Location'}
+                placeholder={
+                  isEnglish
+                    ? en.filter.searchByLocation
+                    : he.filter.searchByLocation
+                }
                 direction={
-                  this.props.appSettings.language === 'English' ? 'ltr' : 'rtl'
+                  this.props.appSettings.language === Strings.ENGLISH
+                    ? 'ltr'
+                    : 'rtl'
                 }
               />
               <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
-                Sort results
+                {isEnglish ? en.filter.sortResults : he.filter.sortResults}
               </Text>
               <View style={{height: 50, flexDirection: 'row', marginTop: 10}}>
                 <TouchableOpacity
@@ -158,7 +199,7 @@ class FilterScreen extends Component {
                     style={{width: 16, height: 20, resizeMode: 'contain'}}
                   />
                   <Text style={{color: '#3264EC', fontSize: 16, marginLeft: 5}}>
-                    Nearby
+                    {isEnglish ? en.filter.nearBy : he.filter.nearBy}
                   </Text>
                 </TouchableOpacity>
                 <View style={{width: 20}} />
@@ -177,7 +218,7 @@ class FilterScreen extends Component {
                     style={{width: 19, height: 19, resizeMode: 'contain'}}
                   />
                   <Text style={{color: '#FEB412', fontSize: 16, marginLeft: 5}}>
-                    Nearby
+                    {isEnglish ? en.filter.time : he.filter.time}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -188,9 +229,13 @@ class FilterScreen extends Component {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 20, color: '#3F4046'}}>Time Range</Text>
+                <Text style={{fontSize: 20, color: '#3F4046'}}>
+                  {isEnglish ? en.filter.timeRange : he.filter.timeRange}
+                </Text>
                 <TouchableOpacity style={{paddingLeft: 15, paddingVertical: 5}}>
-                  <Text style={{fontSize: 16, color: '#4542B8'}}>Clear</Text>
+                  <Text style={{fontSize: 16, color: '#4542B8'}}>
+                    {isEnglish ? en.filter.clear : he.filter.clear}
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View style={{marginTop: 10}}>
@@ -248,9 +293,13 @@ class FilterScreen extends Component {
                   justifyContent: 'space-between',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 20, color: '#3F4046'}}>Radius</Text>
+                <Text style={{fontSize: 20, color: '#3F4046'}}>
+                  {isEnglish ? en.searchResult.radius : he.searchResult.radius}
+                </Text>
                 <TouchableOpacity style={{paddingLeft: 15, paddingVertical: 5}}>
-                  <Text style={{fontSize: 16, color: '#4542B8'}}>Clear</Text>
+                  <Text style={{fontSize: 16, color: '#4542B8'}}>
+                    {isEnglish ? en.filter.clear : he.filter.clear}
+                  </Text>
                 </TouchableOpacity>
               </View>
               <View style={{marginTop: 10}}>
@@ -272,7 +321,13 @@ class FilterScreen extends Component {
                   snapped
                   customMarker={() => {
                     return (
-                      <CustomMarker value={radiusValue[radiusSliderValue[0]]} />
+                      <CustomMarker
+                        value={
+                          isEnglish
+                            ? radiusValue_en[radiusSliderValue[0]]
+                            : radiusValue_he[radiusSliderValue[0]]
+                        }
+                      />
                     );
                   }}
                 />
@@ -293,7 +348,9 @@ class FilterScreen extends Component {
                 </Text>
               </View>
               <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
-                Searching Types
+                {isEnglish
+                  ? en.filter.searchingTypes
+                  : he.filter.searchingTypes}
               </Text>
               <View style={{height: 60, marginTop: 10, flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -308,7 +365,9 @@ class FilterScreen extends Component {
                     borderWidth: 1,
                     borderRadius: 5,
                   }}>
-                  <Text style={{color: Colors.separator}}>Syna</Text>
+                  <Text style={{color: Colors.separator}}>
+                    {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                  </Text>
                   <View
                     style={{
                       width: 20,
@@ -332,7 +391,9 @@ class FilterScreen extends Component {
                     borderWidth: 1,
                     borderRadius: 5,
                   }}>
-                  <Text style={{color: Colors.primary}}>Speaker</Text>
+                  <Text style={{color: Colors.primary}}>
+                    {isEnglish ? en.modal.speaker : he.modal.speaker}
+                  </Text>
                   <View
                     style={{
                       width: 20,
@@ -352,7 +413,9 @@ class FilterScreen extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Text style={styles.filterText}>Reset</Text>
+                  <Text style={styles.filterText}>
+                    {isEnglish ? en.filter.reset : he.filter.reset}
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={{
@@ -368,7 +431,7 @@ class FilterScreen extends Component {
                     this.props.navigation.goBack();
                   }}>
                   <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
-                    Filters
+                    {isEnglish ? en.modal.filter : he.modal.filter}
                   </Text>
                 </TouchableOpacity>
               </View>

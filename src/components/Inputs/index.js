@@ -15,6 +15,7 @@ import {Colors, Metric, Strings} from '../../themes';
 import {AddModalCloseButton} from '../../components';
 import RNPickerSelect from 'react-native-picker-select';
 import {Chevron} from 'react-native-shapes';
+import {en, he} from '../../constants';
 
 export class NormalInput extends Component {
   constructor(props) {
@@ -198,6 +199,7 @@ export class DateTimeSetter extends Component {
 
   render() {
     const {mon, tue, wed, thu, fri, sat, sun} = this.state;
+    const isEnglish = this.props.isEnglish;
     return (
       <View
         style={{
@@ -214,9 +216,11 @@ export class DateTimeSetter extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 15, color: 'black'}}>Set Days</Text>
+          <Text style={{fontSize: 15, color: 'black'}}>
+            {isEnglish ? en.modal.setDays : he.modal.setDays}
+          </Text>
           <Text style={{fontSize: 12, color: Colors.lessonLightText}}>
-            Weekly recurrence
+            {isEnglish ? en.modal.weeklyRecurrence : he.modal.weeklyRecurrence}
           </Text>
         </View>
         <View
@@ -393,6 +397,7 @@ export class SynMinTimes extends Component {
 
   render() {
     const {mon, tue, wed, thu, fri, sat, sun, type} = this.state;
+    const isEnglish = this.props.isEnglish;
     return (
       <View
         style={{
@@ -409,7 +414,9 @@ export class SynMinTimes extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 15, color: 'black'}}>Shachrit</Text>
+          <Text style={{fontSize: 15, color: 'black'}}>
+            {isEnglish ? en.modal.shachrit : he.modal.shachrit}
+          </Text>
           <Chevron size={1} color="gray" style={{marginRight: 5}} />
         </View>
         <View
@@ -426,7 +433,9 @@ export class SynMinTimes extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 15, color: 'black'}}>Select date/time</Text>
+          <Text style={{fontSize: 15, color: 'black'}}>
+            {isEnglish ? en.modal.selectDateTime : he.modal.selectDateTime}
+          </Text>
           <Image
             source={require('../../assets/icon_modal_timetable.png')}
             style={{width: 14, height: 14, resizeMode: 'contain'}}
@@ -446,9 +455,17 @@ export class SynMinTimes extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 15, color: 'black'}}>Set Days</Text>
+          <Text style={{fontSize: 15, color: 'black'}}>
+            {isEnglish ? en.modal.setDays : he.modal.setDays}
+          </Text>
           <Text style={{fontSize: 12, color: Colors.lessonLightText}}>
-            {type === 'week' ? 'Weekly recurrence' : 'Daily'}
+            {type === 'week'
+              ? isEnglish
+                ? en.modal.weeklyRecurrence
+                : he.modal.weeklyRecurrence
+              : isEnglish
+              ? en.modal.daily
+              : he.modal.daily}
           </Text>
         </View>
         {type === 'week' && (

@@ -13,6 +13,10 @@ import {
   SearchResultScreen,
   FilterScreen,
   SynaScreen,
+  IntroScreen,
+  FavoriteScreen,
+  MapViewScreen,
+  LoginScreen,
 } from './screens';
 import {Metric} from './themes';
 import SideMenu from './components/SideMenu';
@@ -34,15 +38,19 @@ const DrawerMenu = createDrawerNavigator(
 const Routing = createStackNavigator(
   {
     Splash: {screen: SplashScreen},
+    Intro: {screen: IntroScreen},
     DrawerMenu: {screen: DrawerMenu},
     Details: {screen: DetailsScreen},
     Search: {screen: SearchScreen},
     SearchResult: {screen: SearchResultScreen},
     Filter: {screen: FilterScreen},
     Syna: {screen: SynaScreen},
+    Favorite: {screen: FavoriteScreen},
+    MapView: {screen: MapViewScreen},
+    Login: {screen: LoginScreen},
   },
   {
-    initialRouteName: 'Syna',
+    initialRouteName: 'Splash',
     headerMode: 'none',
   },
 );

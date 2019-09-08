@@ -1,15 +1,15 @@
-import { combineReducers } from "redux";
-import configureStore from "./createStore";
+import {combineReducers} from 'redux';
+import configureStore from './createStore';
 import AppSettingsActions, {
-  appSettingsReducer as appSettings
-} from "./appSettings";
+  appSettingsReducer as appSettings,
+} from './appSettings';
 
 export default () => {
   /* ------------- Assemble The Reducers ------------- */
   const rootReducer = combineReducers({
-    appSettings
+    appSettings,
   });
   return configureStore(rootReducer);
 };
 
-export { AppSettingsActions };
+export {AppSettingsActions};

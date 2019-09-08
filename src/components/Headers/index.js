@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, Image} from 'react-native';
 import {styles} from './styles';
 import {Metric, Colors} from '../../themes';
+import {Strings} from '../../utils';
+import {en, he} from '../../constants';
 
 export class HomeHeader extends Component {
   constructor(props) {
@@ -13,7 +15,6 @@ export class HomeHeader extends Component {
   }
 
   componentDidMount() {
-    console.info('language = ', this.props.language);
     this.setState({
       location: 'Jerusalem, Israel',
       language: this.props.language,
@@ -49,7 +50,7 @@ export class HomeHeader extends Component {
               style={styles.homeHeaderLocationImage}
             />
             <Text style={[Metric.font.h5, styles.homeHeaderLocationText]}>
-              Location
+              {this.props.locationText}
             </Text>
           </View>
           <View style={styles.homeHeaderLocationNameView}>
@@ -68,7 +69,7 @@ export class HomeHeader extends Component {
           }}>
           <Image
             source={
-              language === 'English'
+              language === Strings.ENGLISH
                 ? require('../../assets/icon_flag_usa.png')
                 : require('../../assets/icon_flag_israel.png')
             }
@@ -155,6 +156,7 @@ export class SearchHeader extends Component {
   }
 
   render() {
+    const isEnglish = this.props.isEnglish;
     return (
       <View style={styles.searchHeaderContainer}>
         <TouchableOpacity
@@ -166,7 +168,11 @@ export class SearchHeader extends Component {
             source={require('../../assets/icon_search_back.png')}
             style={styles.searchHeaderBackIcon}
           />
-          <Text style={styles.searchHeaderText}>Search History</Text>
+          <Text style={styles.searchHeaderText}>
+            {isEnglish
+              ? en.searchHistory.searchHistory
+              : he.searchHistory.searchHistory}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -180,6 +186,7 @@ export class SearchResultHeader extends Component {
   }
 
   render() {
+    const isEnglish = this.props.isEnglish;
     return (
       <View style={styles.searchHeaderContainer}>
         <TouchableOpacity
@@ -191,7 +198,9 @@ export class SearchResultHeader extends Component {
             source={require('../../assets/icon_search_back.png')}
             style={styles.searchHeaderBackIcon}
           />
-          <Text style={styles.searchHeaderText}>New Search</Text>
+          <Text style={styles.searchHeaderText}>
+            {isEnglish ? en.searchResult.newSearch : he.searchResult.newSearch}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -205,12 +214,17 @@ export class SearchResultHeader extends Component {
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row',
+          }}
+          onPress={() => {
+            this.props.onMapView();
           }}>
           <Image
             source={require('../../assets/icon_search_header_mapview.png')}
             style={{width: 17, height: 17, resizeMode: 'contain'}}
           />
-          <Text style={{color: 'white', marginLeft: 5}}>MapView</Text>
+          <Text style={{color: 'white', marginLeft: 5}}>
+            {isEnglish ? en.searchResult.mapView : he.searchResult.mapView}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -235,7 +249,9 @@ export class FilterHeader extends Component {
             source={require('../../assets/icon_header_filter_cancel.png')}
             style={styles.filterHeaderBackIcon}
           />
-          <Text style={styles.searchHeaderText}>Filter</Text>
+          <Text style={styles.searchHeaderText}>
+            {this.props.isEnglish ? en.modal.filter : he.modal.filter}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -311,6 +327,56 @@ export class SynaHeader extends Component {
             />
           </TouchableOpacity>
         </View>
+      </View>
+    );
+  }
+}
+
+export class FavoriteHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.searchHeaderContainer}>
+        <TouchableOpacity
+          style={styles.searchHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}>
+          <Image
+            source={require('../../assets/icon_header_filter_cancel.png')}
+            style={styles.filterHeaderBackIcon}
+          />
+          <Text style={styles.searchHeaderText}>Favorite</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
+
+export class MapViewHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <View style={styles.searchHeaderContainer}>
+        <TouchableOpacity
+          style={styles.searchHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}>
+          <Image
+            source={require('../../assets/icon_header_filter_cancel.png')}
+            style={styles.filterHeaderBackIcon}
+          />
+          <Text style={styles.searchHeaderText}>MapView</Text>
+        </TouchableOpacity>
       </View>
     );
   }

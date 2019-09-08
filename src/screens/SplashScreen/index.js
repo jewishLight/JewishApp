@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
 import {SafeAreaView} from 'react-navigation';
-import {View, Platform, BackHandler} from 'react-native';
+import {
+  View,
+  Platform,
+  BackHandler,
+  Text,
+  Image,
+  I18nManager,
+} from 'react-native';
+import {Metric} from '../../themes';
+import {LocalStorage, Strings} from '../../utils';
 
 class SplashScreen extends Component {
   static navigationOptions = {
@@ -14,15 +23,25 @@ class SplashScreen extends Component {
     this.getOnlineDataTimerGone = false;
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    setTimeout(() => {
+    setTimeout(async () => {
       if (this.getOnlineDataTimerGone === false) {
-        this.props.navigation.navigate('DrawerMenu');
+        let introChecked = await LocalStorage.getIntroChecked();
+        if (introChecked) {
+          let isLoggedIn = await LocalStorage.getLoggedIn();
+          if (isLoggedIn) {
+            this.props.navigation.navigate('Home');
+          } else {
+            this.props.navigation.navigate('Login');
+          }
+        } else {
+          this.props.navigation.navigate('Intro');
+        }
       } else {
         this.splashTimerGone = true;
       }
-    }, 100);
+    }, 3000);
   }
 
   componentWillUnmount(): void {
@@ -36,7 +55,52 @@ class SplashScreen extends Component {
   render() {
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-        <View />
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Image
+            source={require('../../assets/img_splash.png')}
+            style={{
+              position: 'absolute',
+              width: Metric.width,
+              height: Metric.height,
+              resizeMode: 'cover',
+            }}
+          />
+          <Image
+            source={require('../../assets/splash_background.png')}
+            style={{
+              position: 'absolute',
+              width: Metric.width,
+              height: Metric.height,
+              resizeMode: 'cover',
+              top: Metric.height * 0.25,
+            }}
+          />
+          <Image
+            source={require('../../assets/splash_background_top.png')}
+            style={{
+              position: 'absolute',
+              width: Metric.width,
+              height: Metric.height,
+              resizeMode: 'cover',
+              bottom: Metric.height * 0.75,
+            }}
+          />
+          <View
+            style={{
+              flex: 1,
+              paddingBottom: Metric.height * 0.3,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Image
+              source={require('../../assets/splash_logo.png')}
+              style={{
+                width: Metric.width * 0.6,
+                resizeMode: 'contain',
+              }}
+            />
+          </View>
+        </View>
       </SafeAreaView>
     );
   }
