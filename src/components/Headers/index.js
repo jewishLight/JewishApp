@@ -77,7 +77,11 @@ export class HomeHeader extends Component {
           />
           <TouchableOpacity style={styles.iconMenuTouch} onPress={this.onMenu}>
             <Image
-              source={require('../../assets/icon_menu.png')}
+              source={
+                language === Strings.ENGLISH
+                  ? require('../../assets/icon_menu.png')
+                  : require('../../assets/icon_menu_rtl.png')
+              }
               style={styles.iconMenuImg}
             />
           </TouchableOpacity>

@@ -96,6 +96,8 @@ class LoginScreen extends Component {
               }}
               onPress={async () => {
                 await LocalStorage.setLoggedIn(true);
+                await LocalStorage.setToken(Strings.TEST_TOKEN);
+                Strings.localToken = Strings.TEST_TOKEN;
                 this.props.navigation.navigate('Home');
               }}>
               <Image
@@ -121,6 +123,8 @@ class LoginScreen extends Component {
               }}
               onPress={async () => {
                 await LocalStorage.setLoggedIn(true);
+                await LocalStorage.setToken(Strings.TEST_TOKEN);
+                Strings.localToken = Strings.TEST_TOKEN;
                 this.props.navigation.navigate('Home');
               }}>
               <Image

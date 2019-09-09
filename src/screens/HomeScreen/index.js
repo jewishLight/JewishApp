@@ -62,6 +62,7 @@ class HomeScreen extends Component {
   }
 
   handleBackButton = () => {
+    BackHandler.exitApp();
     return true;
   };
 

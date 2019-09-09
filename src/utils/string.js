@@ -1,4 +1,5 @@
 export default {
+  // non-editable values
   MODAL_FLAG_ADD_LESSON: 'MODAL_FLAG_ADD_LESSON',
   MODAL_FLAG_ADD_SYN: 'MODAL_FLAG_ADD_SYN',
   LS_LANGUAGE: 'LANGUAGE',
@@ -8,4 +9,10 @@ export default {
   LOGGED_IN: 'LOGGED_IN',
   FLAG_TRUE: 'true',
   FLAG_FALSE: 'false',
+  TOKEN: 'TOKEN',
+  TEST_TOKEN:
+    'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjVkNzI4YWY1NTI5YjczMDk2MDUzNzI4NyIsImVtYWlsIjoia2FyaW1vZGVzaWduQGdtYWlsLmNvbSJ9.XOKnG-eYFmRM9OK_-ikLKWljIdfT9mLzlqYnEWhOKtw',
+
+  // editable values
+  localToken: '',
 };

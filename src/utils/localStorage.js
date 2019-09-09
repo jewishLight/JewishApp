@@ -56,6 +56,20 @@ class LocalStorage {
     } catch (e) {}
     return isLoggedIn === Strings.FLAG_TRUE;
   };
+
+  static setToken = async token => {
+    try {
+      await Storage.setItem(Strings.TOKEN, token);
+    } catch (e) {}
+  };
+
+  static getToken = async () => {
+    let token = null;
+    try {
+      token = await Storage.getItem(Strings.TOKEN);
+    } catch (e) {}
+    return token;
+  };
 }
 
 export default LocalStorage;

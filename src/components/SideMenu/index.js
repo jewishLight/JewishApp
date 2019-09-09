@@ -112,6 +112,8 @@ class SideMenu extends Component {
   onLogout = async () => {
     this.closeMenu();
     await LocalStorage.setLoggedIn(false);
+    await LocalStorage.setToken('');
+    Strings.localToken = '';
     this.props.navigation.dispatch(
       StackActions.reset({
         index: 0,
@@ -168,7 +170,7 @@ class SideMenu extends Component {
                 style={styles.iconMenu}
               />
             </View>
-            <Text style={styles.logoutText}>Logout (Version 0.0.3)</Text>
+            <Text style={styles.logoutText}>Logout (Version 0.0.4)</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
