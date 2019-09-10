@@ -32,6 +32,7 @@ class SplashScreen extends Component {
           let isLoggedIn = await LocalStorage.getLoggedIn();
           if (isLoggedIn) {
             Strings.localToken = await LocalStorage.getToken();
+            Strings.loginType = await LocalStorage.getLoginType();
             this.props.navigation.navigate('Home');
           } else {
             this.props.navigation.navigate('Login');

@@ -7,9 +7,16 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {Metric} from '../../themes';
 import {LocalStorage, Strings} from '../../utils';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from 'react-native-google-signin';
+import config from '../../config';
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -24,6 +31,7 @@ class LoginScreen extends Component {
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this._configureGoogleSignIn();
   }
 
   componentWillUnmount(): void {
@@ -32,6 +40,42 @@ class LoginScreen extends Component {
 
   handleBackButton = () => {
     return true;
+  };
+
+  _configureGoogleSignIn = () => {
+    GoogleSignin.configure({
+      webClientId: config.webClientId,
+      offlineAccess: false,
+    });
+  };
+
+  _signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+
+      await LocalStorage.setLoggedIn(true);
+      await LocalStorage.setToken(Strings.TEST_TOKEN);
+      await LocalStorage.setLoginType(Strings.LOGIN_TYPE_GOOGLE);
+      Strings.loginType = Strings.LOGIN_TYPE_GOOGLE;
+      Strings.localToken = Strings.TEST_TOKEN;
+      this.props.navigation.navigate('Home');
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // sign in was cancelled
+        Alert.alert('cancelled');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation in progress already
+        Alert.alert('in progress');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Alert.alert('play services not available or outdated');
+      } else {
+        Alert.alert('Something went wrong', error.toString());
+        this.setState({
+          error,
+        });
+      }
+    }
   };
 
   render() {
@@ -97,6 +141,8 @@ class LoginScreen extends Component {
               onPress={async () => {
                 await LocalStorage.setLoggedIn(true);
                 await LocalStorage.setToken(Strings.TEST_TOKEN);
+                await LocalStorage.setLoginType(Strings.LOGIN_TYPE_FACEBOOK);
+                Strings.loginType = Strings.LOGIN_TYPE_FACEBOOK;
                 Strings.localToken = Strings.TEST_TOKEN;
                 this.props.navigation.navigate('Home');
               }}>
@@ -124,6 +170,8 @@ class LoginScreen extends Component {
               onPress={async () => {
                 await LocalStorage.setLoggedIn(true);
                 await LocalStorage.setToken(Strings.TEST_TOKEN);
+                await LocalStorage.setLoginType(Strings.LOGIN_TYPE_EMAIL);
+                Strings.loginType = Strings.LOGIN_TYPE_EMAIL;
                 Strings.localToken = Strings.TEST_TOKEN;
                 this.props.navigation.navigate('Home');
               }}>
@@ -135,6 +183,19 @@ class LoginScreen extends Component {
                 Start with email address
               </Text>
             </TouchableOpacity>
+            <GoogleSigninButton
+              style={{
+                width: '90%',
+                backgroundColor: 'transparent',
+                height: 56,
+                borderRadius: 28,
+                marginTop: 20,
+              }}
+              size={GoogleSigninButton.Size.Wide}
+              color={GoogleSigninButton.Color.Dark}
+              onPress={this._signIn}
+              disabled={false}
+            />
           </View>
         </View>
       </SafeAreaView>

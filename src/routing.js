@@ -17,6 +17,7 @@ import {
   FavoriteScreen,
   MapViewScreen,
   LoginScreen,
+  MyProfileScreen,
 } from './screens';
 import {Metric} from './themes';
 import SideMenu from './components/SideMenu';
@@ -48,6 +49,7 @@ const Routing = createStackNavigator(
     Favorite: {screen: FavoriteScreen},
     MapView: {screen: MapViewScreen},
     Login: {screen: LoginScreen},
+    MyProfile: {screen: MyProfileScreen},
   },
   {
     initialRouteName: 'Splash',

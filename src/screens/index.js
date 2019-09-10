@@ -10,6 +10,7 @@ import IntroScreen from './IntroScreen';
 import FavoriteScreen from './FavoriteScreen';
 import MapViewScreen from './MapView';
 import LoginScreen from './LoginScreen';
+import MyProfileScreen from './MyProfileScreen';
 
 export {
   HomeScreen,
@@ -24,4 +25,5 @@ export {
   FavoriteScreen,
   MapViewScreen,
   LoginScreen,
+  MyProfileScreen,
 };

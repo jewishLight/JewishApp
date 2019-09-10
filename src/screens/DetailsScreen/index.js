@@ -18,7 +18,7 @@ import {connect} from 'react-redux';
 import {DetailsHeader, LikeButton, CommentButton} from '../../components';
 import {Comments} from './Comments';
 import {Colors} from '../../themes';
-import {Strings} from '../../utils';
+import {Strings, ApiRequest} from '../../utils';
 import {en, he} from '../../constants';
 
 class DetailsScreen extends Component {
@@ -174,7 +174,16 @@ class DetailsScreen extends Component {
   onBack = () => {
     this.props.navigation.goBack();
   };
-  onSend = () => {};
+  onSend = () => {
+    ApiRequest(
+      'synagogue/favorite?synagogue_id=5d73e770166c9f52982d7cd0',
+      {},
+      'POST',
+      '',
+    )
+      .then(response => {})
+      .catch(error => {});
+  };
   onFavorite = () => {
     this.props.navigation.navigate('Favorite');
   };

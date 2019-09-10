@@ -385,3 +385,56 @@ export class MapViewHeader extends Component {
     );
   }
 }
+
+export class MyProfileHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    const isEnglish = this.props.isEnglish;
+    return (
+      <View style={styles.searchHeaderContainer}>
+        <TouchableOpacity
+          style={styles.searchHeaderBackContainer}
+          onPress={() => {
+            this.props.onBack();
+          }}>
+          <Image
+            source={require('../../assets/icon_search_back.png')}
+            style={styles.searchHeaderBackIcon}
+          />
+          <Text style={styles.searchHeaderText}>My Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            right: 30,
+            bottom: 30,
+            paddingHorizontal: 20,
+            height: 40,
+            borderRadius: 20,
+            backgroundColor: Colors.primary,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}
+          onPress={() => {
+            this.props.onEdit();
+          }}>
+          <Text style={{color: 'white'}}>Edit Profile</Text>
+          <Image
+            source={require('../../assets/icon_myprofile_edit.png')}
+            style={{
+              width: 15,
+              height: 15,
+              resizeMode: 'contain',
+              marginLeft: 5,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}

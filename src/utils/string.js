@@ -12,7 +12,12 @@ export default {
   TOKEN: 'TOKEN',
   TEST_TOKEN:
     'eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IjVkNzI4YWY1NTI5YjczMDk2MDUzNzI4NyIsImVtYWlsIjoia2FyaW1vZGVzaWduQGdtYWlsLmNvbSJ9.XOKnG-eYFmRM9OK_-ikLKWljIdfT9mLzlqYnEWhOKtw',
+  LOGIN_TYPE: 'LOGIN_TYPE',
+  LOGIN_TYPE_FACEBOOK: 'LOGIN_TYPE_FACEBOOK',
+  LOGIN_TYPE_GOOGLE: 'LOGIN_TYPE_GOOGLE',
+  LOGIN_TYPE_EMAIL: 'LOGIN_TYPE_EMAIL',
 
   // editable values
   localToken: '',
+  loginType: '',
 };

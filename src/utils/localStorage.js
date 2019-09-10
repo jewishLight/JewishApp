@@ -70,6 +70,20 @@ class LocalStorage {
     } catch (e) {}
     return token;
   };
+
+  static setLoginType = async loginType => {
+    try {
+      await Storage.setItem(Strings.LOGIN_TYPE, loginType);
+    } catch (e) {}
+  };
+
+  static getLoginType = async () => {
+    let loginType = null;
+    try {
+      loginType = await Storage.getItem(Strings.LOGIN_TYPE);
+    } catch (e) {}
+    return loginType;
+  };
 }
 
 export default LocalStorage;

@@ -9,6 +9,7 @@ import {
   Linking,
   I18nManager,
   NativeModules,
+  Alert,
 } from 'react-native';
 import {styles} from './styles';
 import {Colors} from '../../themes';
@@ -17,6 +18,12 @@ import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {LocalStorage, Strings} from '../../utils';
 import RNRestart from 'react-native-restart';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from 'react-native-google-signin';
+import config from '../../config';
 
 const MENU_ITEM_1 = [
   {
@@ -64,6 +71,17 @@ class SideMenu extends Component {
     };
   }
 
+  componentDidMount(): void {
+    this._configureGoogleSignout();
+  }
+
+  _configureGoogleSignout = () => {
+    GoogleSignin.configure({
+      webClientId: config.webClientId,
+      offlineAccess: false,
+    });
+  };
+
   componentWillReceiveProps(nextProps, nextContext) {
     if (this.props.appSettings.language !== nextProps.appSettings.language) {
       if (nextProps.appSettings.language === Strings.ENGLISH) {
@@ -78,7 +96,7 @@ class SideMenu extends Component {
     this.closeMenu();
     switch (index) {
       case 0:
-        this.props.navigation.navigate('Settings');
+        this.props.navigation.navigate('MyProfile');
         break;
       case 1:
         this.props.navigation.navigate('Settings');
@@ -109,10 +127,22 @@ class SideMenu extends Component {
     this.props.navigation.closeDrawer();
   };
 
+  _googleSignout = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   onLogout = async () => {
     this.closeMenu();
     await LocalStorage.setLoggedIn(false);
     await LocalStorage.setToken('');
+    if (Strings.loginType === Strings.LOGIN_TYPE_GOOGLE) {
+      await this._googleSignout();
+    }
     Strings.localToken = '';
     this.props.navigation.dispatch(
       StackActions.reset({

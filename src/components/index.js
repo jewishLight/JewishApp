@@ -7,6 +7,7 @@ import {
   SynaHeader,
   FavoriteHeader,
   MapViewHeader,
+  MyProfileHeader,
 } from './Headers';
 import {
   SearchButton,
@@ -49,6 +50,7 @@ export {
   SynaHeader,
   FavoriteHeader,
   MapViewHeader,
+  MyProfileHeader,
   SearchButton,
   AddButton,
   FilterButton,
