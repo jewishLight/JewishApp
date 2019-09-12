@@ -20,6 +20,7 @@ import {Comments} from './Comments';
 import {Colors} from '../../themes';
 import {Strings, ApiRequest} from '../../utils';
 import {en, he} from '../../constants';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 class DetailsScreen extends Component {
   static navigationOptions = {
@@ -58,7 +59,7 @@ class DetailsScreen extends Component {
     const {language} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
-      <Fragment>
+      <View style={{flex: 1}}>
         <SafeAreaView style={styles.topSafeAreaView} />
         <SafeAreaView style={styles.bottomSafeAreaView}>
           <DetailsHeader
@@ -67,107 +68,119 @@ class DetailsScreen extends Component {
             onFavorite={this.onFavorite}
             onSend={this.onSend}
           />
-          <KeyboardAvoidingView behavior="height" style={styles.flexFull}>
-            <ScrollView keyboardShouldPersistTaps={'always'}>
-              <View style={styles.detailBasicInfo}>
-                <Text style={styles.detailTitleText}>
-                  The Weekly Shiur - On the parasha
-                </Text>
-                <View style={styles.detailBasic}>
-                  <View style={styles.detailUserContainer}>
-                    <Image
-                      source={require('../../assets/icon_avatar.png')}
-                      style={styles.detailUserAvatar}
-                    />
-                    <View style={styles.userDetail}>
-                      <Text style={styles.userRole}>
-                        {isEnglish ? en.modal.speaker : he.modal.speaker}
-                      </Text>
-                      <Text style={styles.userName}>Silvan Radeh Meiv</Text>
-                    </View>
-                  </View>
-                  <View style={styles.detailUserContainer}>
-                    <Image
-                      source={require('../../assets/icon_detail_building.png')}
-                      style={styles.detailUserAvatar}
-                    />
-                    <View style={styles.userDetail}>
-                      <Text style={styles.userRole}>
-                        {isEnglish ? en.modal.synagogue : he.modal.synagogue}
-                      </Text>
-                      <Text style={styles.userName}>Silvan Radeh Meiv</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={styles.detailClockLocation}>
-                  <View style={styles.detailClockContainer}>
-                    <Image
-                      source={require('../../assets/icon_detail_clock.png')}
-                      style={styles.detailClockImage}
-                    />
-                    <Text style={styles.detailClockText}>Today, 22:30</Text>
-                  </View>
-                  <View style={styles.detailLocationContainer}>
-                    <Image
-                      source={require('../../assets/icon_detail_location.png')}
-                      style={styles.detailLocationImage}
-                    />
-                    <Text style={styles.detailLocationText}>
-                      King George 58, Jerusalem
+
+          <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
+            <View style={styles.detailBasicInfo}>
+              <Text style={styles.detailTitleText}>
+                The Weekly Shiur - On the parasha
+              </Text>
+              <View style={styles.detailBasic}>
+                <View style={styles.detailUserContainer}>
+                  <Image
+                    source={require('../../assets/icon_avatar.png')}
+                    style={styles.detailUserAvatar}
+                  />
+                  <View style={styles.userDetail}>
+                    <Text style={styles.userRole}>
+                      {isEnglish ? en.modal.speaker : he.modal.speaker}
                     </Text>
+                    <Text style={styles.userName}>Silvan Radeh Meiv</Text>
                   </View>
                 </View>
-                <View style={styles.detailDescContainer}>
-                  <Text style={styles.detailDescText}>
-                    Sivan Rahav-Meir’s weekly shiur on the parasha takes place
-                    in Jerusalem every Wednesday evening at 9:00 pm at “Heichal
-                    Shlomo″, King George 58. Entrance is free.
-                  </Text>
-                </View>
-              </View>
-              <View style={styles.separator} />
-              <View style={styles.likeBtnContainer}>
-                <View style={styles.buttonsContainer}>
-                  <LikeButton
-                    text={isEnglish ? en.detail.like : he.detail.like}
-                  />
-                  <View style={styles.horizontalSpacing} />
-                  <CommentButton
-                    text={isEnglish ? en.detail.comments : he.detail.comments}
-                  />
-                </View>
-                <View style={styles.likesContainer}>
-                  <Text style={styles.likesText}>
-                    43+ {isEnglish ? en.detail.liked : he.detail.liked}
-                  </Text>
+                <View style={styles.detailUserContainer}>
                   <Image
-                    source={require('../../assets/icon_detail_liked.png')}
-                    style={styles.iconDetailLikedImage}
+                    source={require('../../assets/icon_detail_building.png')}
+                    style={styles.detailUserAvatar}
                   />
+                  <View style={styles.userDetail}>
+                    <Text style={styles.userRole}>
+                      {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                    </Text>
+                    <Text style={styles.userName}>Silvan Radeh Meiv</Text>
+                  </View>
                 </View>
               </View>
-              <View style={styles.paddingSeparator} />
-              <Comments isEnglish={isEnglish} />
-              <View style={styles.commentInputView}>
-                <TextInput
-                  placeholder={
-                    isEnglish
-                      ? en.detail.typeCommentHere
-                      : he.detail.typeCommentHere
-                  }
-                  style={styles.commentInputText}
+              <View style={styles.detailClockLocation}>
+                <View style={styles.detailClockContainer}>
+                  <Image
+                    source={require('../../assets/icon_detail_clock.png')}
+                    style={styles.detailClockImage}
+                  />
+                  <Text style={styles.detailClockText}>Today, 22:30</Text>
+                </View>
+                <View style={styles.detailLocationContainer}>
+                  <Image
+                    source={require('../../assets/icon_detail_location.png')}
+                    style={styles.detailLocationImage}
+                  />
+                  <Text style={styles.detailLocationText}>
+                    King George 58, Jerusalem
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.detailDescContainer}>
+                <Text style={styles.detailDescText}>
+                  Sivan Rahav-Meir’s weekly shiur on the parasha takes place in
+                  Jerusalem every Wednesday evening at 9:00 pm at “Heichal
+                  Shlomo″, King George 58. Entrance is free.
+                </Text>
+              </View>
+            </View>
+            <View style={styles.separator} />
+            <View style={styles.likeBtnContainer}>
+              <View style={styles.buttonsContainer}>
+                <LikeButton
+                  text={isEnglish ? en.detail.like : he.detail.like}
                 />
-                <TouchableOpacity style={styles.commentSendView}>
-                  <Image
-                    source={require('../../assets/icon_detail_sendbtn.png')}
-                    style={styles.commentSendImage}
-                  />
-                </TouchableOpacity>
+                <View style={styles.horizontalSpacing} />
+                <CommentButton
+                  text={isEnglish ? en.detail.comments : he.detail.comments}
+                />
               </View>
-            </ScrollView>
-          </KeyboardAvoidingView>
+              <View style={styles.likesContainer}>
+                <Text style={styles.likesText}>
+                  43+ {isEnglish ? en.detail.liked : he.detail.liked}
+                </Text>
+                <Image
+                  source={require('../../assets/icon_detail_liked.png')}
+                  style={styles.iconDetailLikedImage}
+                />
+              </View>
+            </View>
+            <View style={styles.paddingSeparator} />
+            <Comments isEnglish={isEnglish} />
+            <View style={styles.commentInputView}>
+              <TextInput
+                placeholder={
+                  isEnglish
+                    ? en.detail.typeCommentHere
+                    : he.detail.typeCommentHere
+                }
+                style={styles.commentInputText}
+              />
+              <TouchableOpacity style={styles.commentSendView}>
+                <Image
+                  source={require('../../assets/icon_detail_sendbtn.png')}
+                  style={styles.commentSendImage}
+                />
+              </TouchableOpacity>
+            </View>
+          </KeyboardAwareScrollView>
         </SafeAreaView>
-      </Fragment>
+        <View
+          style={{
+            height: 30,
+            backgroundColor: '#EDEFF1',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>
+            {isEnglish
+              ? en.memorial.all_over_the_app
+              : he.memorial.all_over_the_app}
+          </Text>
+        </View>
+      </View>
     );
   }
 

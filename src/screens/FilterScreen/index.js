@@ -150,293 +150,314 @@ class FilterScreen extends Component {
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.filterContainer}>
-        <FilterHeader onBack={this.onBack} isEnglish={isEnglish} />
         <View style={{flex: 1}}>
-          <ScrollView>
-            <View style={{paddingHorizontal: 20}}>
-              <View style={styles.verticalSpacing} />
-              <NormalInput
-                placeholder={
-                  isEnglish
-                    ? en.filter.searchBySpeakerName
-                    : he.filter.searchBySpeakerName
-                }
-                direction={
-                  this.props.appSettings.language === Strings.ENGLISH
-                    ? 'ltr'
-                    : 'rtl'
-                }
-              />
-              <View style={styles.verticalSpacing} />
-              <NormalInput
-                placeholder={
-                  isEnglish
-                    ? en.filter.searchByLocation
-                    : he.filter.searchByLocation
-                }
-                direction={
-                  this.props.appSettings.language === Strings.ENGLISH
-                    ? 'ltr'
-                    : 'rtl'
-                }
-              />
-              <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
-                {isEnglish ? en.filter.sortResults : he.filter.sortResults}
-              </Text>
-              <View style={{height: 50, flexDirection: 'row', marginTop: 10}}>
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    height: 50,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 5,
-                    backgroundColor: '#E6E5F5',
-                  }}>
-                  <Image
-                    source={require('../../assets/icon_filter_nearby.png')}
-                    style={{width: 16, height: 20, resizeMode: 'contain'}}
-                  />
-                  <Text style={{color: '#3264EC', fontSize: 16, marginLeft: 5}}>
-                    {isEnglish ? en.filter.nearBy : he.filter.nearBy}
-                  </Text>
-                </TouchableOpacity>
-                <View style={{width: 20}} />
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    height: 50,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 5,
-                    backgroundColor: '#FEF5DF',
-                  }}>
-                  <Image
-                    source={require('../../assets/icon_filter_clock.png')}
-                    style={{width: 19, height: 19, resizeMode: 'contain'}}
-                  />
-                  <Text style={{color: '#FEB412', fontSize: 16, marginLeft: 5}}>
-                    {isEnglish ? en.filter.time : he.filter.time}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: 20,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Text style={{fontSize: 20, color: '#3F4046'}}>
-                  {isEnglish ? en.filter.timeRange : he.filter.timeRange}
-                </Text>
-                <TouchableOpacity style={{paddingLeft: 15, paddingVertical: 5}}>
-                  <Text style={{fontSize: 16, color: '#4542B8'}}>
-                    {isEnglish ? en.filter.clear : he.filter.clear}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{marginTop: 10}}>
-                <MultiSlider
-                  values={[timeRangeSliderValue[0], timeRangeSliderValue[1]]}
-                  selectedStyle={{backgroundColor: Colors.primary, height: 3}}
-                  unselectedStyle={{
-                    backgroundColor: Colors.separator,
-                    height: 3,
-                  }}
-                  sliderLength={Metric.width - 40}
-                  onValuesChange={this.multiSliderValuesChange}
-                  min={0}
-                  max={24}
-                  step={1}
-                  allowOverlap
-                  isMarkersSeparated={true}
-                  snapped
-                  customMarkerLeft={() => {
-                    return (
-                      <CustomMarker
-                        value={timeRangeValue[timeRangeSliderValue[0]]}
-                      />
-                    );
-                  }}
-                  customMarkerRight={() => {
-                    return (
-                      <CustomMarker
-                        value={timeRangeValue[timeRangeSliderValue[1]]}
-                      />
-                    );
-                  }}
+          <FilterHeader onBack={this.onBack} isEnglish={isEnglish} />
+          <View style={{flex: 1}}>
+            <ScrollView>
+              <View style={{paddingHorizontal: 20}}>
+                <View style={styles.verticalSpacing} />
+                <NormalInput
+                  placeholder={
+                    isEnglish
+                      ? en.filter.searchBySpeakerName
+                      : he.filter.searchBySpeakerName
+                  }
+                  direction={
+                    this.props.appSettings.language === Strings.ENGLISH
+                      ? 'ltr'
+                      : 'rtl'
+                  }
                 />
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
-                  00:00
-                </Text>
-                <Text
-                  style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
-                  23:59
-                </Text>
-              </View>
-
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginTop: 20,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Text style={{fontSize: 20, color: '#3F4046'}}>
-                  {isEnglish ? en.searchResult.radius : he.searchResult.radius}
-                </Text>
-                <TouchableOpacity style={{paddingLeft: 15, paddingVertical: 5}}>
-                  <Text style={{fontSize: 16, color: '#4542B8'}}>
-                    {isEnglish ? en.filter.clear : he.filter.clear}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{marginTop: 10}}>
-                <MultiSlider
-                  values={radiusSliderValue}
-                  onValuesChangeStart={this.sliderOneValuesChangeStart}
-                  onValuesChange={this.sliderOneValuesChange}
-                  onValuesChangeFinish={this.sliderOneValuesChangeFinish}
-                  selectedStyle={{backgroundColor: Colors.primary, height: 3}}
-                  unselectedStyle={{
-                    backgroundColor: Colors.separator,
-                    height: 3,
-                  }}
-                  sliderLength={Metric.width - 40}
-                  min={0}
-                  max={9}
-                  step={1}
-                  allowOverlap
-                  snapped
-                  customMarker={() => {
-                    return (
-                      <CustomMarker
-                        value={
-                          isEnglish
-                            ? radiusValue_en[radiusSliderValue[0]]
-                            : radiusValue_he[radiusSliderValue[0]]
-                        }
-                      />
-                    );
-                  }}
+                <View style={styles.verticalSpacing} />
+                <NormalInput
+                  placeholder={
+                    isEnglish
+                      ? en.filter.searchByLocation
+                      : he.filter.searchByLocation
+                  }
+                  direction={
+                    this.props.appSettings.language === Strings.ENGLISH
+                      ? 'ltr'
+                      : 'rtl'
+                  }
                 />
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Text
-                  style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
-                  1k
+                <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
+                  {isEnglish ? en.filter.sortResults : he.filter.sortResults}
                 </Text>
-                <Text
-                  style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
-                  10k
-                </Text>
-              </View>
-              <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
-                {isEnglish
-                  ? en.filter.searchingTypes
-                  : he.filter.searchingTypes}
-              </Text>
-              <View style={{height: 60, marginTop: 10, flexDirection: 'row'}}>
-                <TouchableOpacity
+                <View style={{height: 50, flexDirection: 'row', marginTop: 10}}>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      height: 50,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 5,
+                      backgroundColor: '#E6E5F5',
+                    }}>
+                    <Image
+                      source={require('../../assets/icon_filter_nearby.png')}
+                      style={{width: 16, height: 20, resizeMode: 'contain'}}
+                    />
+                    <Text
+                      style={{color: '#3264EC', fontSize: 16, marginLeft: 5}}>
+                      {isEnglish ? en.filter.nearBy : he.filter.nearBy}
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={{width: 20}} />
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      height: 50,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 5,
+                      backgroundColor: '#FEF5DF',
+                    }}>
+                    <Image
+                      source={require('../../assets/icon_filter_clock.png')}
+                      style={{width: 19, height: 19, resizeMode: 'contain'}}
+                    />
+                    <Text
+                      style={{color: '#FEB412', fontSize: 16, marginLeft: 5}}>
+                      {isEnglish ? en.filter.time : he.filter.time}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View
                   style={{
+                    flexDirection: 'row',
+                    marginTop: 20,
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    flexDirection: 'row',
-                    paddingHorizontal: 10,
-                    flex: 1,
-                    height: 50,
-                    borderColor: Colors.separator,
-                    borderWidth: 1,
-                    borderRadius: 5,
                   }}>
-                  <Text style={{color: Colors.separator}}>
-                    {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                  <Text style={{fontSize: 20, color: '#3F4046'}}>
+                    {isEnglish ? en.filter.timeRange : he.filter.timeRange}
                   </Text>
-                  <View
+                  <TouchableOpacity
+                    style={{paddingLeft: 15, paddingVertical: 5}}>
+                    <Text style={{fontSize: 16, color: '#4542B8'}}>
+                      {isEnglish ? en.filter.clear : he.filter.clear}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={{marginTop: 10}}>
+                  <MultiSlider
+                    values={[timeRangeSliderValue[0], timeRangeSliderValue[1]]}
+                    selectedStyle={{backgroundColor: Colors.primary, height: 3}}
+                    unselectedStyle={{
+                      backgroundColor: Colors.separator,
+                      height: 3,
+                    }}
+                    sliderLength={Metric.width - 40}
+                    onValuesChange={this.multiSliderValuesChange}
+                    min={0}
+                    max={24}
+                    step={1}
+                    allowOverlap
+                    isMarkersSeparated={true}
+                    snapped
+                    customMarkerLeft={() => {
+                      return (
+                        <CustomMarker
+                          value={timeRangeValue[timeRangeSliderValue[0]]}
+                        />
+                      );
+                    }}
+                    customMarkerRight={() => {
+                      return (
+                        <CustomMarker
+                          value={timeRangeValue[timeRangeSliderValue[1]]}
+                        />
+                      );
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    00:00
+                  </Text>
+                  <Text
+                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    23:59
+                  </Text>
+                </View>
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    marginTop: 20,
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{fontSize: 20, color: '#3F4046'}}>
+                    {isEnglish
+                      ? en.searchResult.radius
+                      : he.searchResult.radius}
+                  </Text>
+                  <TouchableOpacity
+                    style={{paddingLeft: 15, paddingVertical: 5}}>
+                    <Text style={{fontSize: 16, color: '#4542B8'}}>
+                      {isEnglish ? en.filter.clear : he.filter.clear}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={{marginTop: 10}}>
+                  <MultiSlider
+                    values={radiusSliderValue}
+                    onValuesChangeStart={this.sliderOneValuesChangeStart}
+                    onValuesChange={this.sliderOneValuesChange}
+                    onValuesChangeFinish={this.sliderOneValuesChangeFinish}
+                    selectedStyle={{backgroundColor: Colors.primary, height: 3}}
+                    unselectedStyle={{
+                      backgroundColor: Colors.separator,
+                      height: 3,
+                    }}
+                    sliderLength={Metric.width - 40}
+                    min={0}
+                    max={9}
+                    step={1}
+                    allowOverlap
+                    snapped
+                    customMarker={() => {
+                      return (
+                        <CustomMarker
+                          value={
+                            isEnglish
+                              ? radiusValue_en[radiusSliderValue[0]]
+                              : radiusValue_he[radiusSliderValue[0]]
+                          }
+                        />
+                      );
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    1k
+                  </Text>
+                  <Text
+                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    10k
+                  </Text>
+                </View>
+                <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
+                  {isEnglish
+                    ? en.filter.searchingTypes
+                    : he.filter.searchingTypes}
+                </Text>
+                <View style={{height: 60, marginTop: 10, flexDirection: 'row'}}>
+                  <TouchableOpacity
                     style={{
-                      width: 20,
-                      height: 20,
-                      borderRadius: 10,
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      paddingHorizontal: 10,
+                      flex: 1,
+                      height: 50,
                       borderColor: Colors.separator,
                       borderWidth: 1,
-                    }}
-                  />
-                </TouchableOpacity>
-                <View style={{width: 10}} />
-                <TouchableOpacity
-                  style={{
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    paddingHorizontal: 10,
-                    flex: 1,
-                    height: 50,
-                    borderColor: Colors.primary,
-                    borderWidth: 1,
-                    borderRadius: 5,
-                  }}>
-                  <Text style={{color: Colors.primary}}>
-                    {isEnglish ? en.modal.speaker : he.modal.speaker}
-                  </Text>
-                  <View
+                      borderRadius: 5,
+                    }}>
+                    <Text style={{color: Colors.separator}}>
+                      {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                    </Text>
+                    <View
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: 10,
+                        borderColor: Colors.separator,
+                        borderWidth: 1,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <View style={{width: 10}} />
+                  <TouchableOpacity
                     style={{
-                      width: 20,
-                      height: 20,
-                      borderRadius: 10,
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                      paddingHorizontal: 10,
+                      flex: 1,
+                      height: 50,
+                      borderColor: Colors.primary,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                    }}>
+                    <Text style={{color: Colors.primary}}>
+                      {isEnglish ? en.modal.speaker : he.modal.speaker}
+                    </Text>
+                    <View
+                      style={{
+                        width: 20,
+                        height: 20,
+                        borderRadius: 10,
+                        backgroundColor: Colors.primary,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={styles.filterButtonContainer}>
+                <View style={styles.filterButton}>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={styles.filterText}>
+                      {isEnglish ? en.filter.reset : he.filter.reset}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flexDirection: 'row',
                       backgroundColor: Colors.primary,
+                      height: 50,
+                      borderRadius: 25,
+                      paddingHorizontal: 40,
                     }}
-                  />
-                </TouchableOpacity>
+                    onPress={() => {
+                      this.props.navigation.goBack();
+                    }}>
+                    <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
+                      {isEnglish ? en.modal.filter : he.modal.filter}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View style={styles.filterButtonContainer}>
-              <View style={styles.filterButton}>
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={styles.filterText}>
-                    {isEnglish ? en.filter.reset : he.filter.reset}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection: 'row',
-                    backgroundColor: Colors.primary,
-                    height: 50,
-                    borderRadius: 25,
-                    paddingHorizontal: 40,
-                  }}
-                  onPress={() => {
-                    this.props.navigation.goBack();
-                  }}>
-                  <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
-                    {isEnglish ? en.modal.filter : he.modal.filter}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </ScrollView>
+            </ScrollView>
+          </View>
+        </View>
+        <View
+          style={{
+            height: 30,
+            backgroundColor: '#EDEFF1',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>
+            {isEnglish
+              ? en.memorial.all_over_the_app
+              : he.memorial.all_over_the_app}
+          </Text>
         </View>
       </SafeAreaView>
     );

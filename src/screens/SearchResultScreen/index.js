@@ -47,7 +47,7 @@ class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      language: Strings.ENGLISH,
+      language: '',
     };
   }
 
@@ -105,87 +105,102 @@ class SearchResultScreen extends Component {
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.searchContainer}>
-        <SearchResultHeader
-          onBack={this.onBack}
-          isEnglish={isEnglish}
-          onMapView={this.onMapView}
-        />
-        <View style={{flex: 1, paddingHorizontal: 10}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: 10,
-              paddingHorizontal: 10,
-            }}>
-            <View style={[styles.searchResultTopTagView, {marginLeft: 0}]}>
-              <Image
-                source={require('../../assets/icon_search_result_clock.png')}
-                style={{width: 15, height: 15, resizeMode: 'contain'}}
-              />
-              <Text
-                style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                16:57 - 19:57
-              </Text>
+        <View style={{flex: 1}}>
+          <SearchResultHeader
+            onBack={this.onBack}
+            isEnglish={isEnglish}
+            onMapView={this.onMapView}
+          />
+          <View style={{flex: 1, paddingHorizontal: 10}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 10,
+                paddingHorizontal: 10,
+              }}>
+              <View style={[styles.searchResultTopTagView, {marginLeft: 0}]}>
+                <Image
+                  source={require('../../assets/icon_search_result_clock.png')}
+                  style={{width: 15, height: 15, resizeMode: 'contain'}}
+                />
+                <Text
+                  style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+                  16:57 - 19:57
+                </Text>
+              </View>
+              <View style={styles.searchResultTopTagView}>
+                <Image
+                  source={require('../../assets/icon_search_result_radius.png')}
+                  style={{width: 14, height: 15, resizeMode: 'contain'}}
+                />
+                <Text
+                  style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+                  3 km{' '}
+                  {isEnglish ? en.searchResult.radius : he.searchResult.radius}
+                </Text>
+              </View>
+              <View style={styles.searchResultTopTagView}>
+                <Image
+                  source={require('../../assets/icon_search_result_syna.png')}
+                  style={{width: 17, height: 17, resizeMode: 'contain'}}
+                />
+                <Text
+                  style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+                  {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                </Text>
+              </View>
             </View>
-            <View style={styles.searchResultTopTagView}>
-              <Image
-                source={require('../../assets/icon_search_result_radius.png')}
-                style={{width: 14, height: 15, resizeMode: 'contain'}}
+            <View style={{padding: 10, paddingBottom: 40}}>
+              <FlatList
+                data={tempSearchHistoryData}
+                renderItem={this.renderSearchHistories}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={this._keyExtractor}
               />
-              <Text
-                style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                3 km{' '}
-                {isEnglish ? en.searchResult.radius : he.searchResult.radius}
-              </Text>
-            </View>
-            <View style={styles.searchResultTopTagView}>
-              <Image
-                source={require('../../assets/icon_search_result_syna.png')}
-                style={{width: 17, height: 17, resizeMode: 'contain'}}
-              />
-              <Text
-                style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                {isEnglish ? en.modal.synagogue : he.modal.synagogue}
-              </Text>
             </View>
           </View>
-          <View style={{padding: 10, paddingBottom: 40}}>
-            <FlatList
-              data={tempSearchHistoryData}
-              renderItem={this.renderSearchHistories}
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={this._keyExtractor}
-            />
+          <View style={styles.newSearchResultButtonContainer}>
+            <View style={styles.searchResultFilterButton}>
+              <Text style={styles.searchResultsText}>
+                4{' '}
+                {isEnglish
+                  ? en.searchResult.resultsFound
+                  : he.searchResult.resultsFound}
+              </Text>
+              <TouchableOpacity
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  flexDirection: 'row',
+                  backgroundColor: Colors.primary,
+                  height: 50,
+                  borderRadius: 25,
+                  paddingHorizontal: 40,
+                }}
+                onPress={this.onFilter}>
+                <Image
+                  source={require('../../assets/icon_search_result_filter.png')}
+                  style={styles.newSearchImage}
+                />
+                <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
+                  {isEnglish ? en.modal.filter : he.modal.filter}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-        <View style={styles.newSearchResultButtonContainer}>
-          <View style={styles.searchResultFilterButton}>
-            <Text style={styles.searchResultsText}>
-              4{' '}
-              {isEnglish
-                ? en.searchResult.resultsFound
-                : he.searchResult.resultsFound}
-            </Text>
-            <TouchableOpacity
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexDirection: 'row',
-                backgroundColor: Colors.primary,
-                height: 50,
-                borderRadius: 25,
-                paddingHorizontal: 40,
-              }}
-              onPress={this.onFilter}>
-              <Image
-                source={require('../../assets/icon_search_result_filter.png')}
-                style={styles.newSearchImage}
-              />
-              <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
-                {isEnglish ? en.modal.filter : he.modal.filter}
-              </Text>
-            </TouchableOpacity>
-          </View>
+        <View
+          style={{
+            height: 30,
+            backgroundColor: '#EDEFF1',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>
+            {isEnglish
+              ? en.memorial.all_over_the_app
+              : he.memorial.all_over_the_app}
+          </Text>
         </View>
       </SafeAreaView>
     );

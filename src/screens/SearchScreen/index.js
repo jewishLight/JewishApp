@@ -102,29 +102,44 @@ class SearchScreen extends Component {
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.searchContainer}>
-        <SearchHeader onBack={this.onBack} isEnglish={isEnglish} />
-        <View style={styles.searchHistoryContainer}>
-          <FlatList
-            data={tempSearchHistoryData}
-            renderItem={this.renderSearchHistories}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={this._keyExtractor}
-          />
-        </View>
-        <View style={styles.newSearchButtonContainer}>
-          <TouchableOpacity
-            style={styles.newSearchButton}
-            onPress={this.onNewSearch}>
-            <Image
-              source={require('../../assets/icon_search_newicon.png')}
-              style={styles.newSearchImage}
+        <View style={{flex: 1}}>
+          <SearchHeader onBack={this.onBack} isEnglish={isEnglish} />
+          <View style={styles.searchHistoryContainer}>
+            <FlatList
+              data={tempSearchHistoryData}
+              renderItem={this.renderSearchHistories}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={this._keyExtractor}
             />
-            <Text style={styles.newSearchText}>
-              {isEnglish
-                ? en.searchHistory.newSearch
-                : he.searchHistory.newSearch}
-            </Text>
-          </TouchableOpacity>
+          </View>
+          <View style={styles.newSearchButtonContainer}>
+            <TouchableOpacity
+              style={styles.newSearchButton}
+              onPress={this.onNewSearch}>
+              <Image
+                source={require('../../assets/icon_search_newicon.png')}
+                style={styles.newSearchImage}
+              />
+              <Text style={styles.newSearchText}>
+                {isEnglish
+                  ? en.searchHistory.newSearch
+                  : he.searchHistory.newSearch}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            height: 30,
+            backgroundColor: '#EDEFF1',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>
+            {isEnglish
+              ? en.memorial.all_over_the_app
+              : he.memorial.all_over_the_app}
+          </Text>
         </View>
       </SafeAreaView>
     );

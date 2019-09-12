@@ -145,7 +145,19 @@ class HomeScreen extends Component {
             isEnglish={isEnglish}
           />
         </View>
-        <View style={{height: 30, backgroundColor: 'black'}} />
+        <View
+          style={{
+            height: 30,
+            backgroundColor: '#EDEFF1',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>
+            {isEnglish
+              ? en.memorial.all_over_the_app
+              : he.memorial.all_over_the_app}
+          </Text>
+        </View>
       </SafeAreaView>
     );
   }
