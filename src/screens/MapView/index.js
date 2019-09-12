@@ -4,6 +4,7 @@ import {View, Platform, BackHandler, Text} from 'react-native';
 import {MapViewHeader} from '../../components';
 import MapView from 'react-native-maps';
 import {Metric} from '../../themes';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 class MapViewScreen extends Component {
   static navigationOptions = {

@@ -94,4 +94,8 @@ export default {
     minamynTimes: 'זמני תפילה',
     lessonsTimes: 'שיעורים פעמים',
   },
+  memorial: {
+    splash_screen: 'לעילוי נשמה פלוני בן אלמוני',
+    all_over_the_app: 'לרפואת אלף בית גימל',
+  },
 };

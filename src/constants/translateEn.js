@@ -95,4 +95,8 @@ export default {
     minamynTimes: 'Minamym times',
     lessonsTimes: 'Lessons times',
   },
+  memorial: {
+    splash_screen: 'For success to David Jefry',
+    all_over_the_app: 'For health to Sarah Cohen',
+  },
 };

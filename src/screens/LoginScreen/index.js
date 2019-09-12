@@ -17,6 +17,10 @@ import {
   statusCodes,
 } from 'react-native-google-signin';
 import config from '../../config';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions} from '../../redux';
+import {connect} from 'react-redux';
+import {en, he} from '../../constants';
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -26,12 +30,16 @@ class LoginScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      language: '',
+    };
   }
 
-  componentDidMount(): void {
+  async componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     this._configureGoogleSignIn();
+    let language = this.props.appSettings.language;
+    this.setState({language});
   }
 
   componentWillUnmount(): void {
@@ -79,6 +87,8 @@ class LoginScreen extends Component {
   };
 
   render() {
+    const {language} = this.state;
+    const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -139,12 +149,12 @@ class LoginScreen extends Component {
                 marginTop: 20,
               }}
               onPress={async () => {
-                await LocalStorage.setLoggedIn(true);
-                await LocalStorage.setToken(Strings.TEST_TOKEN);
-                await LocalStorage.setLoginType(Strings.LOGIN_TYPE_FACEBOOK);
-                Strings.loginType = Strings.LOGIN_TYPE_FACEBOOK;
-                Strings.localToken = Strings.TEST_TOKEN;
-                this.props.navigation.navigate('Home');
+                // await LocalStorage.setLoggedIn(true);
+                // await LocalStorage.setToken(Strings.TEST_TOKEN);
+                // await LocalStorage.setLoginType(Strings.LOGIN_TYPE_FACEBOOK);
+                // Strings.loginType = Strings.LOGIN_TYPE_FACEBOOK;
+                // Strings.localToken = Strings.TEST_TOKEN;
+                // this.props.navigation.navigate('Home');
               }}>
               <Image
                 source={require('../../assets/facebook.png')}
@@ -168,12 +178,12 @@ class LoginScreen extends Component {
                 borderWidth: 1,
               }}
               onPress={async () => {
-                await LocalStorage.setLoggedIn(true);
-                await LocalStorage.setToken(Strings.TEST_TOKEN);
-                await LocalStorage.setLoginType(Strings.LOGIN_TYPE_EMAIL);
-                Strings.loginType = Strings.LOGIN_TYPE_EMAIL;
-                Strings.localToken = Strings.TEST_TOKEN;
-                this.props.navigation.navigate('Home');
+                // await LocalStorage.setLoggedIn(true);
+                // await LocalStorage.setToken(Strings.TEST_TOKEN);
+                // await LocalStorage.setLoginType(Strings.LOGIN_TYPE_EMAIL);
+                // Strings.loginType = Strings.LOGIN_TYPE_EMAIL;
+                // Strings.localToken = Strings.TEST_TOKEN;
+                // this.props.navigation.navigate('Home');
               }}>
               <Image
                 source={require('../../assets/login_nav.png')}
@@ -198,9 +208,37 @@ class LoginScreen extends Component {
             />
           </View>
         </View>
+        <View
+          style={{
+            height: 30,
+            backgroundColor: '#EDEFF1',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text>
+            {isEnglish
+              ? en.memorial.all_over_the_app
+              : he.memorial.all_over_the_app}
+          </Text>
+        </View>
       </SafeAreaView>
     );
   }
 }
 
-export default LoginScreen;
+const mapStateToProps = state => ({
+  ...appSettingsSelector(state),
+});
+const mapDispatchToProps = dispatch => ({
+  updateDeviceStatus: isDeviceTurnON =>
+    dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
+  updateLightStatus: isLightTurnON =>
+    dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
+  updateLanguage: language =>
+    dispatch(AppSettingsActions.updateLanguage(language)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LoginScreen);

@@ -39,22 +39,17 @@ class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      language: Strings.ENGLISH,
+      language: '',
     };
   }
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    let language = await LocalStorage.getLanguage();
-    if (language) {
-      this.setState({language});
-    } else {
-      language = Strings.HEBREW;
-      this.setState({language});
-      I18nManager.allowRTL(true);
-      await LocalStorage.setLanguage(language);
+    let language = this.props.appSettings.language;
+    this.setState({language});
+    if (this.refHomeHeader) {
+      this.refHomeHeader.updateLanguage(language);
     }
-    this.props.updateLanguage(language);
   }
 
   componentWillUnmount(): void {
@@ -82,79 +77,80 @@ class HomeScreen extends Component {
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.container}>
-        <View>
-          <HomeHeader
-            onLocation={this.onHeaderLocation}
-            onMenu={this.onHeaderMenu}
-            ref={ref => {
-              this.refHomeHeader = ref;
-            }}
-            language={language}
-            locationText={isEnglish ? en.home.location : he.home.location}
-          />
-        </View>
-        <View style={styles.buttonsLine}>
-          <FilterButton onPress={this.onFilter} />
-          <View style={styles.addSearchLine}>
-            <AddButton
-              onPress={this.onAdd}
-              text={isEnglish ? en.home.add : he.home.add}
-            />
-            <View style={styles.horizontalSpacing} />
-            <SearchButton
-              onPress={this.onSearch}
-              text={isEnglish ? en.home.search : he.home.search}
+        <View style={{flex: 1}}>
+          <View>
+            <HomeHeader
+              onLocation={this.onHeaderLocation}
+              onMenu={this.onHeaderMenu}
+              ref={ref => {
+                this.refHomeHeader = ref;
+              }}
+              language={language}
+              locationText={isEnglish ? en.home.location : he.home.location}
             />
           </View>
+          <View style={styles.buttonsLine}>
+            <FilterButton onPress={this.onFilter} />
+            <View style={styles.addSearchLine}>
+              <AddButton
+                onPress={this.onAdd}
+                text={isEnglish ? en.home.add : he.home.add}
+              />
+              <View style={styles.horizontalSpacing} />
+              <SearchButton
+                onPress={this.onSearch}
+                text={isEnglish ? en.home.search : he.home.search}
+              />
+            </View>
+          </View>
+          <ScrollView>
+            <AroundEvents onDetails={this.onDetails} isEnglish={isEnglish} />
+            <TodayLessons onDetails={this.onDetails} isEnglish={isEnglish} />
+            <PopularLessons onDetails={this.onDetails} isEnglish={isEnglish} />
+            <RecentLessons onDetails={this.onDetails} isEnglish={isEnglish} />
+          </ScrollView>
+          <AddModal
+            ref={ref => {
+              this.refAddModal = ref;
+            }}
+            callBack={this.callBackAddModal}
+            isEnglish={isEnglish}
+          />
+          <FilterModal
+            ref={ref => {
+              this.refFilterModal = ref;
+            }}
+          />
+          <NewLessonModal
+            ref={ref => {
+              this.refNewLessonModal = ref;
+            }}
+            onPublish={this.onAddLesson}
+            direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
+            isEnglish={isEnglish}
+          />
+          <NewSynModal
+            ref={ref => {
+              this.refSynModal = ref;
+            }}
+            onPublish={this.onAddSyn}
+            direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
+            isEnglish={isEnglish}
+          />
+          <ChangeLocationModal
+            ref={ref => {
+              this.refChangeLocationModal = ref;
+            }}
+            onSelectLocation={this.onSelectLocation}
+            isEnglish={isEnglish}
+          />
         </View>
-        <ScrollView>
-          <AroundEvents onDetails={this.onDetails} isEnglish={isEnglish} />
-          <TodayLessons onDetails={this.onDetails} isEnglish={isEnglish} />
-          <PopularLessons onDetails={this.onDetails} isEnglish={isEnglish} />
-          <RecentLessons onDetails={this.onDetails} isEnglish={isEnglish} />
-        </ScrollView>
-        <AddModal
-          ref={ref => {
-            this.refAddModal = ref;
-          }}
-          callBack={this.callBackAddModal}
-          isEnglish={isEnglish}
-        />
-        <FilterModal
-          ref={ref => {
-            this.refFilterModal = ref;
-          }}
-        />
-        <NewLessonModal
-          ref={ref => {
-            this.refNewLessonModal = ref;
-          }}
-          onPublish={this.onPublish}
-          direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
-          isEnglish={isEnglish}
-        />
-        <NewSynModal
-          ref={ref => {
-            this.refSynModal = ref;
-          }}
-          onPublish={this.onAddSyn}
-          direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
-          isEnglish={isEnglish}
-        />
-        <ChangeLocationModal
-          ref={ref => {
-            this.refChangeLocationModal = ref;
-          }}
-          onSelectLocation={this.onSelectLocation}
-          isEnglish={isEnglish}
-        />
+        <View style={{height: 30, backgroundColor: 'black'}} />
       </SafeAreaView>
     );
   }
 
-  onSelectLocation = (index, name) => {
-    // alert(name);
-  };
+  onSelectLocation = (index, name) => {};
 
   callBackAddModal = flag => {
     switch (flag) {
@@ -201,11 +197,12 @@ class HomeScreen extends Component {
   onDetails = () => {
     this.props.navigation.navigate('Details');
   };
-  onPublish = () => {
+  onAddLesson = () => {
     this.refNewLessonModal.hide();
   };
-  onAddSyn = () => {
+  onAddSyn = (lat, lng, city, name) => {
     this.refSynModal.hide();
+    console.info('name', name);
   };
 }
 

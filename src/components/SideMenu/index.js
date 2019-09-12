@@ -68,11 +68,19 @@ class SideMenu extends Component {
     super(props);
     this.state = {
       MENU_ITEMS: MENU_ITEM_1,
+      language: Strings.HEBREW,
     };
   }
 
   componentDidMount(): void {
     this._configureGoogleSignout();
+    const language = this.props.appSettings.language;
+    this.setState({language});
+    if (language === Strings.ENGLISH) {
+      this.setState({MENU_ITEMS: MENU_ITEM_1});
+    } else {
+      this.setState({MENU_ITEMS: MENU_ITEM_2});
+    }
   }
 
   _configureGoogleSignout = () => {

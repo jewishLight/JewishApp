@@ -17,7 +17,7 @@ export default Creators;
 const defaultState = {
   isDeviceTurnON: false,
   isLightTurnON: true,
-  language: Strings.ENGLISH,
+  language: Strings.HEBREW,
 };
 
 /* ------------- Reducers ------------- */

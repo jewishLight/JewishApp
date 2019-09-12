@@ -36,6 +36,9 @@ export class NormalInput extends Component {
               : {textAlign: 'left'},
           ]}
           placeholder={this.props.placeholder}
+          onChangeText={text => {
+            this.props.onChangeText(text);
+          }}
         />
       </View>
     );

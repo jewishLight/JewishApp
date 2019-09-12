@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "876159427777-ebnd40v8n1lfohbdafe1ivdgbojtvsuf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jewish3",
+            "certificate_hash": "ed2067b423699e6aa036b4261e503a6d3098e03e"
+          }
+        },
+        {
           "client_id": "876159427777-tka11uijaepg8sf502vej180ofqstcue.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

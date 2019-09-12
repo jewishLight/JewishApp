@@ -19,6 +19,7 @@ export class HomeHeader extends Component {
       location: 'Jerusalem, Israel',
       language: this.props.language,
     });
+    // alert(this.props.language);
   }
 
   onLocation = () => {
