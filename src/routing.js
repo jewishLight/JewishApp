@@ -18,6 +18,7 @@ import {
   MapViewScreen,
   LoginScreen,
   MyProfileScreen,
+  NewLessonScreen,
 } from './screens';
 import {Metric} from './themes';
 import SideMenu from './components/SideMenu';
@@ -50,6 +51,7 @@ const Routing = createStackNavigator(
     MapView: {screen: MapViewScreen},
     Login: {screen: LoginScreen},
     MyProfile: {screen: MyProfileScreen},
+    NewLesson: {screen: NewLessonScreen},
   },
   {
     initialRouteName: 'Splash',

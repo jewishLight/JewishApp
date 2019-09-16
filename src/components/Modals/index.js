@@ -17,15 +17,27 @@ import {
   NormalInput,
   NormalPicker,
   LocationInput,
+  NosachPicker,
   DateTimeSetter,
   DescriptionInput,
   SynMinTimes,
   NormalSwitch,
   TagView,
   AtoZList,
+  AmenitiesPicker,
+  SpeakerPicker,
 } from '../../components';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import ImagePicker from 'react-native-image-picker';
+const options = {
+  title: 'Select Avatar',
+  customButtons: [],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 const homePlace = {
   description: 'Home',
@@ -110,7 +122,9 @@ export class FilterModal extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.tagData = [];
+  }
 
   show = () => {
     this.setState({modalVisible: true});
@@ -182,17 +196,54 @@ export class NewLessonModal extends Component {
     super(props);
     this.state = {
       modalVisible: false,
+      subject: '',
+      speakers: [],
+      selectedSpeaker: '',
+      lat: 0,
+      lng: 0,
+      city: '',
+      note: '',
+      contactName: '',
+      phoneNumber: '',
+      mon: false,
+      tue: false,
+      wed: false,
+      thu: false,
+      fri: false,
+      sat: false,
+      sun: false,
+      date: null,
+      selectedAudience: '',
     };
   }
 
   componentDidMount() {}
 
-  show = () => {
+  show = speakers => {
     this.setState({modalVisible: true});
+    let speakerPickerArray = [];
+    speakers.map(item => {
+      if (item.name && item._id) {
+        speakerPickerArray.push({label: item.name, value: item._id});
+      }
+    });
+    this.setState({speakers: speakerPickerArray});
   };
 
   hide = () => {
     this.setState({modalVisible: false});
+  };
+
+  onChangeSpeaker = value => {
+    this.setState({selectedSpeaker: value});
+  };
+
+  onChangeSubject = text => {
+    this.setState({subject: text});
+  };
+
+  setDate = date => {
+    this.setState({date});
   };
 
   render() {
@@ -230,11 +281,31 @@ export class NewLessonModal extends Component {
                       ? en.modal.enterSubjectHere
                       : he.modal.enterSubjectHere
                   }
+                  onChangeText={this.onChangeSubject}
                 />
-                <Text style={styles.newLessonModalPickerTitle}>
-                  {isEnglish ? en.modal.speaker : he.modal.speaker}
-                </Text>
-                <NormalPicker direction={this.props.direction} />
+                <View
+                  style={{
+                    marginTop: 20,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{fontSize: 14}}>
+                    {isEnglish ? en.modal.speaker : he.modal.speaker}
+                  </Text>
+                  <TouchableOpacity
+                    style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={{color: 'blue', fontSize: 14}}>
+                      Add New Speaker
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+                <SpeakerPicker
+                  items={this.state.speakers}
+                  direction={this.props.direction}
+                  onValueChange={this.onChangeSpeaker}
+                />
                 <Text style={styles.newLessonModalPickerTitle}>
                   {isEnglish ? en.modal.location : he.modal.location}
                 </Text>
@@ -254,6 +325,11 @@ export class NewLessonModal extends Component {
                     // 'details' is provided when fetchDetails = true
                     console.log(data);
                     console.log(details);
+                    this.setState({
+                      lat: details.geometry.location.lat,
+                      lng: details.geometry.location.lng,
+                      city: details.address_components[0].long_name,
+                    });
                   }}
                   getDefaultValue={() => {
                     return ''; // text input default value
@@ -304,7 +380,20 @@ export class NewLessonModal extends Component {
                 <Text style={styles.newLessonModalPickerTitle}>
                   {isEnglish ? en.modal.timeAndDate : he.modal.timeAndDate}
                 </Text>
-                <DateTimeSetter
+                {/*<DateTimeSetter*/}
+                {/*  mon={false}*/}
+                {/*  tue={false}*/}
+                {/*  wed={false}*/}
+                {/*  thu={false}*/}
+                {/*  fri={false}*/}
+                {/*  sat={false}*/}
+                {/*  sun={false}*/}
+                {/*  isEnglish={isEnglish}*/}
+                {/*  updateWeekdays={(mon, tue, wed, thu, fri, sat, sun) => {*/}
+                {/*    this.setState({mon, tue, wed, thu, fri, sat, sun});*/}
+                {/*  }}*/}
+                {/*/>*/}
+                <SynMinTimes
                   mon={false}
                   tue={false}
                   wed={false}
@@ -312,12 +401,22 @@ export class NewLessonModal extends Component {
                   fri={false}
                   sat={false}
                   sun={false}
+                  type={'week'}
                   isEnglish={isEnglish}
+                  setDate={this.setDate}
+                  updateWeekdays={(mon, tue, wed, thu, fri, sat, sun) => {
+                    this.setState({mon, tue, wed, thu, fri, sat, sun});
+                  }}
                 />
                 <Text style={styles.newLessonModalPickerTitle}>
                   {isEnglish ? en.modal.description : he.modal.description}
                 </Text>
-                <DescriptionInput direction={this.props.direction} />
+                <DescriptionInput
+                  direction={this.props.direction}
+                  onChangeText={text => {
+                    this.setState({note: text});
+                  }}
+                />
               </View>
               <View style={styles.verticalSpacing} />
               <View style={styles.addModalSeparator} />
@@ -331,6 +430,9 @@ export class NewLessonModal extends Component {
                   placeholder={
                     isEnglish ? en.modal.enterNameHere : he.modal.enterNameHere
                   }
+                  onChangeText={text => {
+                    this.setState({contactName: text});
+                  }}
                 />
                 <Text style={styles.newLessonModalTextInputTitle}>
                   {isEnglish ? en.modal.contactNumber : he.modal.contactNumber}
@@ -342,15 +444,92 @@ export class NewLessonModal extends Component {
                       ? en.modal.enterNumberHere
                       : he.modal.enterNumberHere
                   }
+                  onChangeText={text => {
+                    this.setState({phoneNumber: text});
+                  }}
                 />
                 <Text style={styles.newLessonModalPickerTitle}>
                   {isEnglish ? en.modal.audience : he.modal.audience}
                 </Text>
-                <NormalPicker direction={this.props.direction} />
+                <SpeakerPicker
+                  direction={this.props.direction}
+                  items={[
+                    {
+                      label: isEnglish ? en.audience.men : he.audience.men,
+                      value: 'men',
+                    },
+                    {
+                      label: isEnglish ? en.audience.women : he.audience.women,
+                      value: 'women',
+                    },
+                    {
+                      label: isEnglish
+                        ? en.audience.men_and_women
+                        : he.audience.men_and_women,
+                      value: 'men_and_women',
+                    },
+                  ]}
+                  onValueChange={value => {
+                    this.setState({selectedAudience: value});
+                  }}
+                />
                 <TouchableOpacity
                   style={styles.publishLessonContainer}
                   onPress={() => {
-                    this.props.onPublish();
+                    const {
+                      lat,
+                      lng,
+                      city,
+                      subject,
+                      selectedSpeaker,
+                      note,
+                      contactName,
+                      phoneNumber,
+                      mon,
+                      tue,
+                      wed,
+                      thu,
+                      fri,
+                      sat,
+                      sun,
+                      date,
+                      selectedAudience,
+                    } = this.state;
+                    let days = [];
+                    if (mon) {
+                      days.push(0);
+                    }
+                    if (tue) {
+                      days.push(1);
+                    }
+                    if (wed) {
+                      days.push(2);
+                    }
+                    if (thu) {
+                      days.push(3);
+                    }
+                    if (fri) {
+                      days.push(4);
+                    }
+                    if (sat) {
+                      days.push(5);
+                    }
+                    if (sun) {
+                      days.push(6);
+                    }
+                    this.props.onPublish(
+                      lat,
+                      lng,
+                      city,
+                      subject,
+                      selectedSpeaker,
+                      note,
+                      contactName,
+                      phoneNumber,
+                      days,
+                      date,
+                      selectedAudience,
+                    );
                   }}>
                   <Text style={styles.bigBtnText}>
                     {isEnglish
@@ -379,6 +558,22 @@ export class NewSynModal extends Component {
       lat: 0,
       lng: 0,
       city: '',
+      nosach: '',
+      shtiblach: false,
+      amenities: [],
+      amenities_key: [],
+      showTimeSelector: false,
+      date: null,
+      mon: false,
+      tue: false,
+      wed: false,
+      thu: false,
+      fri: false,
+      sat: false,
+      sun: false,
+      notes: '',
+      phoneNumber: '',
+      avatarSource: null,
     };
   }
 
@@ -390,6 +585,115 @@ export class NewSynModal extends Component {
 
   hide = () => {
     this.setState({modalVisible: false});
+  };
+
+  onNosachSelect = value => {
+    this.setState({nosach: value});
+  };
+
+  onSelectAmenities = key => {
+    if (key != null) {
+      let amenities = this.state.amenities;
+      let amenities_key = this.state.amenities_key;
+      let value = '';
+      switch (key) {
+        case 0:
+          value = this.props.isEnglish
+            ? en.amenities.value_0
+            : he.amenities.value_0;
+          break;
+        case 1:
+          value = this.props.isEnglish
+            ? en.amenities.value_1
+            : he.amenities.value_1;
+          break;
+        case 2:
+          value = this.props.isEnglish
+            ? en.amenities.value_2
+            : he.amenities.value_2;
+          break;
+        case 3:
+          value = this.props.isEnglish
+            ? en.amenities.value_3
+            : he.amenities.value_3;
+          break;
+        default:
+          value = this.props.isEnglish
+            ? en.amenities.value_0
+            : he.amenities.value_0;
+          break;
+      }
+      if (!amenities.includes(value)) {
+        amenities.push(value);
+        amenities_key.push(key);
+      }
+      this.setState({amenities, amenities_key});
+    }
+  };
+
+  onTagViewUpdate = items => {
+    this.setState({amenities: items});
+    let keys = [];
+    if (
+      items.includes(
+        this.props.isEnglish ? en.amenities.value_0 : he.amenities.value_0,
+      )
+    ) {
+      keys.push(0);
+    }
+    if (
+      items.includes(
+        this.props.isEnglish ? en.amenities.value_1 : he.amenities.value_1,
+      )
+    ) {
+      keys.push(1);
+    }
+    if (
+      items.includes(
+        this.props.isEnglish ? en.amenities.value_2 : he.amenities.value_2,
+      )
+    ) {
+      keys.push(2);
+    }
+    if (
+      items.includes(
+        this.props.isEnglish ? en.amenities.value_3 : he.amenities.value_3,
+      )
+    ) {
+      keys.push(3);
+    }
+    this.setState({amenities_key: keys});
+  };
+
+  setDate = date => {
+    this.setState({date});
+  };
+
+  updateWeekdays = (mon, tue, wed, thu, fri, sat, sun) => {
+    this.setState({mon, tue, wed, thu, fri, sat, sun});
+  };
+
+  uploadImage = () => {
+    ImagePicker.showImagePicker(options, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = {uri: response.uri};
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source,
+        });
+      }
+    });
   };
 
   render() {
@@ -436,7 +740,11 @@ export class NewSynModal extends Component {
                   <Text style={styles.newLessonModalPickerTitle}>
                     {isEnglish ? en.modal.nosach : he.modal.nosach}
                   </Text>
-                  <NormalPicker direction={this.props.direction} />
+                  <NosachPicker
+                    isEnglish={isEnglish}
+                    direction={this.props.direction}
+                    onSelect={this.onNosachSelect}
+                  />
 
                   <Text style={styles.newLessonModalPickerTitle}>
                     {isEnglish ? en.modal.location : he.modal.location}
@@ -524,6 +832,8 @@ export class NewSynModal extends Component {
                     sun={false}
                     type={'week'}
                     isEnglish={isEnglish}
+                    setDate={this.setDate}
+                    updateWeekdays={this.updateWeekdays}
                   />
 
                   <View
@@ -547,23 +857,66 @@ export class NewSynModal extends Component {
                     sun={false}
                     type={'day'}
                     isEnglish={isEnglish}
+                    setDate={this.setDate}
+                    updateWeekdays={this.updateWeekdays}
                   />
 
                   <NormalSwitch
                     type={isEnglish ? en.modal.shtiblach : he.modal.shtiblach}
                     initialStatus={false}
+                    onChange={value => {
+                      this.setState({shtiblach: value});
+                    }}
                   />
 
                   <Text style={styles.newLessonModalPickerTitle}>
                     {isEnglish ? en.modal.amenities : he.modal.amenities}
                   </Text>
-                  <NormalPicker direction={this.props.direction} />
-                  <TagView />
+                  <AmenitiesPicker
+                    isEnglish={isEnglish}
+                    direction={this.props.direction}
+                    items={[
+                      {
+                        label: isEnglish
+                          ? en.amenities.value_0
+                          : he.amenities.value_0,
+                        value: 0,
+                      },
+                      {
+                        label: isEnglish
+                          ? en.amenities.value_1
+                          : he.amenities.value_1,
+                        value: 1,
+                      },
+                      {
+                        label: isEnglish
+                          ? en.amenities.value_2
+                          : he.amenities.value_2,
+                        value: 2,
+                      },
+                      {
+                        label: isEnglish
+                          ? en.amenities.value_3
+                          : he.amenities.value_3,
+                        value: 3,
+                      },
+                    ]}
+                    onSelect={this.onSelectAmenities}
+                  />
+                  <TagView
+                    items={this.state.amenities}
+                    itemSelected={this.onTagViewUpdate}
+                  />
 
                   <Text style={styles.newLessonModalPickerTitle}>
                     {isEnglish ? en.modal.notes : he.modal.notes}
                   </Text>
-                  <DescriptionInput direction={this.props.direction} />
+                  <DescriptionInput
+                    direction={this.props.direction}
+                    onChangeText={text => {
+                      this.setState({note: text});
+                    }}
+                  />
 
                   <Text style={styles.newLessonModalPickerTitle}>
                     {isEnglish
@@ -577,6 +930,9 @@ export class NewSynModal extends Component {
                         ? en.modal.enterNumberHere
                         : he.modal.enterNumberHere
                     }
+                    onChangeText={text => {
+                      this.setState({phoneNumber: text});
+                    }}
                   />
                 </View>
 
@@ -606,7 +962,8 @@ export class NewSynModal extends Component {
                         height: 50,
                         borderRadius: 25,
                         marginTop: 5,
-                      }}>
+                      }}
+                      onPress={this.uploadImage}>
                       <Image
                         source={require('../../assets/icon_modal_upload.png')}
                         style={{width: 20, height: 13, resizeMode: 'contain'}}
@@ -621,8 +978,46 @@ export class NewSynModal extends Component {
                   <TouchableOpacity
                     style={styles.publishLessonContainer}
                     onPress={() => {
-                      const {name, lat, lng, city} = this.state;
-                      this.props.onPublish(lat, lng, city, name);
+                      const {
+                        lat,
+                        lng,
+                        city,
+                        name,
+                        nosach,
+                        shtiblach,
+                        amenities_key,
+                        date,
+                        mon,
+                        tue,
+                        wed,
+                        thu,
+                        fri,
+                        sat,
+                        sun,
+                        note,
+                        phoneNumber,
+                        avatarSource,
+                      } = this.state;
+                      this.props.onPublish(
+                        lat,
+                        lng,
+                        city,
+                        name,
+                        nosach,
+                        shtiblach,
+                        amenities_key,
+                        date,
+                        mon,
+                        tue,
+                        wed,
+                        thu,
+                        fri,
+                        sat,
+                        sun,
+                        note,
+                        phoneNumber,
+                        avatarSource,
+                      );
                     }}>
                     <Text style={styles.bigBtnText}>
                       {isEnglish

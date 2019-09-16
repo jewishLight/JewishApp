@@ -16,6 +16,7 @@ import {AddModalCloseButton} from '../../components';
 import RNPickerSelect from 'react-native-picker-select';
 import {Chevron} from 'react-native-shapes';
 import {en, he} from '../../constants';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export class NormalInput extends Component {
   constructor(props) {
@@ -38,6 +39,123 @@ export class NormalInput extends Component {
           placeholder={this.props.placeholder}
           onChangeText={text => {
             this.props.onChangeText(text);
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+export class NosachPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {}
+
+  render() {
+    let isEnglish = this.props.isEnglish;
+    return (
+      <View style={{marginTop: 10}}>
+        <RNPickerSelect
+          style={
+            this.props.direction === 'rtl'
+              ? {
+                  inputIOS: {
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 4,
+                    color: 'black',
+                    paddingRight: 40, //
+                    textAlign: 'right', // to ensure the text is never behind the icon
+                  },
+                  inputAndroid: {
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderWidth: 0.5,
+                    borderColor: 'purple',
+                    borderRadius: 8,
+                    color: 'black',
+                    paddingRight: 40, // to ensure the text is never behind the icon
+                    textAlign: 'right',
+                  },
+                  iconContainer: {
+                    right: 10,
+                  },
+                }
+              : {
+                  inputIOS: {
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 4,
+                    color: 'black',
+                    paddingRight: 40, //
+                    textAlign: 'left', // to ensure the text is never behind the icon
+                  },
+                  inputAndroid: {
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderWidth: 0.5,
+                    borderColor: 'purple',
+                    borderRadius: 8,
+                    color: 'black',
+                    paddingRight: 40, // to ensure the text is never behind the icon
+                    textAlign: 'left',
+                  },
+                  iconContainer: {
+                    right: 10,
+                  },
+                }
+          }
+          onValueChange={value => {
+            this.props.onSelect(value);
+          }}
+          items={[
+            {
+              label: isEnglish ? en.nosach.value_0 : he.nosach.value_0,
+              value: '0',
+            },
+            {
+              label: isEnglish ? en.nosach.value_1 : he.nosach.value_1,
+              value: '1',
+            },
+            {
+              label: isEnglish ? en.nosach.value_2 : he.nosach.value_2,
+              value: '2',
+            },
+            {
+              label: isEnglish ? en.nosach.value_3 : he.nosach.value_3,
+              value: '3',
+            },
+            {
+              label: isEnglish ? en.nosach.value_4 : he.nosach.value_4,
+              value: '4',
+            },
+            {
+              label: isEnglish ? en.nosach.value_5 : he.nosach.value_5,
+              value: '5',
+            },
+          ]}
+          useNativeAndroidPickerStyle={false}
+        />
+        <Image
+          source={require('../../assets/icon_add_modal_picker_downarrow.png')}
+          style={{
+            width: 15,
+            height: 15,
+            resizeMode: 'contain',
+            position: 'absolute',
+            right: 15,
+            top: 13,
           }}
         />
       </View>
@@ -116,10 +234,210 @@ export class NormalPicker extends Component {
           }
           onValueChange={value => console.log(value)}
           items={[
-            {label: 'Football', value: 'football'},
-            {label: 'Baseball', value: 'baseball'},
-            {label: 'Hockey', value: 'hockey'},
+            {
+              label: '0',
+              value: '0',
+            },
+            {
+              label: '1',
+              value: '1',
+            },
+            {
+              label: '2',
+              value: '2',
+            },
+            {
+              label: '3',
+              value: '3',
+            },
+            {
+              label: '4',
+              value: '4',
+            },
+            {
+              label: '5',
+              value: '5',
+            },
           ]}
+          useNativeAndroidPickerStyle={false}
+        />
+        <Image
+          source={require('../../assets/icon_add_modal_picker_downarrow.png')}
+          style={{
+            width: 15,
+            height: 15,
+            resizeMode: 'contain',
+            position: 'absolute',
+            right: 15,
+            top: 13,
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+export class SpeakerPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {}
+
+  render() {
+    return (
+      <View style={{marginTop: 10}}>
+        <RNPickerSelect
+          style={
+            this.props.direction === 'rtl'
+              ? {
+                  inputIOS: {
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 4,
+                    color: 'black',
+                    paddingRight: 40, //
+                    textAlign: 'right', // to ensure the text is never behind the icon
+                  },
+                  inputAndroid: {
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderWidth: 0.5,
+                    borderColor: 'purple',
+                    borderRadius: 8,
+                    color: 'black',
+                    paddingRight: 40, // to ensure the text is never behind the icon
+                    textAlign: 'right',
+                  },
+                  iconContainer: {
+                    right: 10,
+                  },
+                }
+              : {
+                  inputIOS: {
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 4,
+                    color: 'black',
+                    paddingRight: 40, //
+                    textAlign: 'left', // to ensure the text is never behind the icon
+                  },
+                  inputAndroid: {
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderWidth: 0.5,
+                    borderColor: 'purple',
+                    borderRadius: 8,
+                    color: 'black',
+                    paddingRight: 40, // to ensure the text is never behind the icon
+                    textAlign: 'left',
+                  },
+                  iconContainer: {
+                    right: 10,
+                  },
+                }
+          }
+          onValueChange={value => this.props.onValueChange(value)}
+          items={this.props.items}
+          useNativeAndroidPickerStyle={false}
+        />
+        <Image
+          source={require('../../assets/icon_add_modal_picker_downarrow.png')}
+          style={{
+            width: 15,
+            height: 15,
+            resizeMode: 'contain',
+            position: 'absolute',
+            right: 15,
+            top: 13,
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+export class AmenitiesPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {}
+
+  render() {
+    let isEnglish = this.props.isEnglish;
+    return (
+      <View style={{marginTop: 10}}>
+        <RNPickerSelect
+          style={
+            this.props.direction === 'rtl'
+              ? {
+                  inputIOS: {
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 4,
+                    color: 'black',
+                    paddingRight: 40, //
+                    textAlign: 'right', // to ensure the text is never behind the icon
+                  },
+                  inputAndroid: {
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderWidth: 0.5,
+                    borderColor: 'purple',
+                    borderRadius: 8,
+                    color: 'black',
+                    paddingRight: 40, // to ensure the text is never behind the icon
+                    textAlign: 'right',
+                  },
+                  iconContainer: {
+                    right: 10,
+                  },
+                }
+              : {
+                  inputIOS: {
+                    fontSize: 16,
+                    paddingVertical: 12,
+                    paddingHorizontal: 10,
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                    borderRadius: 4,
+                    color: 'black',
+                    paddingRight: 40, //
+                    textAlign: 'left', // to ensure the text is never behind the icon
+                  },
+                  inputAndroid: {
+                    fontSize: 16,
+                    paddingHorizontal: 10,
+                    paddingVertical: 8,
+                    borderWidth: 0.5,
+                    borderColor: 'purple',
+                    borderRadius: 8,
+                    color: 'black',
+                    paddingRight: 40, // to ensure the text is never behind the icon
+                    textAlign: 'left',
+                  },
+                  iconContainer: {
+                    right: 10,
+                  },
+                }
+          }
+          onValueChange={value => this.props.onSelect(value)}
+          items={this.props.items}
           useNativeAndroidPickerStyle={false}
         />
         <Image
@@ -236,6 +554,7 @@ export class DateTimeSetter extends Component {
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(!mon, tue, wed, thu, fri, sat, sun);
               this.setState({mon: !mon});
             }}>
             <View
@@ -245,12 +564,15 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Mon</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.mon : he.weekDay.mon}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, !tue, wed, thu, fri, sat, sun);
               this.setState({tue: !tue});
             }}>
             <View
@@ -260,12 +582,15 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Tue</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.tue : he.weekDay.tue}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, tue, !wed, thu, fri, sat, sun);
               this.setState({wed: !wed});
             }}>
             <View
@@ -275,12 +600,15 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Wed</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.wed : he.weekDay.wed}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, tue, wed, !thu, fri, sat, sun);
               this.setState({thu: !thu});
             }}>
             <View
@@ -290,12 +618,15 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Thu</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.thu : he.weekDay.thu}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, tue, wed, thu, !fri, sat, sun);
               this.setState({fri: !fri});
             }}>
             <View
@@ -305,12 +636,15 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Fri</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.fri : he.weekDay.fri}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, tue, wed, thu, fri, !sat, sun);
               this.setState({sat: !sat});
             }}>
             <View
@@ -320,12 +654,15 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Sat</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.sat : he.weekDay.sat}
+            </Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, tue, wed, thu, fri, sat, !sun);
               this.setState({sun: !sun});
             }}>
             <View
@@ -335,7 +672,9 @@ export class DateTimeSetter extends Component {
                   : styles.newLessonModalDayUnselected
               }
             />
-            <Text style={styles.newLessonModalDayText}>Sun</Text>
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.sun : he.weekDay.sun}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -364,6 +703,9 @@ export class DescriptionInput extends Component {
           placeholder={'Enter description'}
           numberOfLines={10}
           multiline={true}
+          onChangeText={text => {
+            this.props.onChangeText(text);
+          }}
         />
       </View>
     );
@@ -382,6 +724,7 @@ export class SynMinTimes extends Component {
       sat: false,
       sun: false,
       type: 'week',
+      showDateTime: false,
     };
   }
 
@@ -395,11 +738,42 @@ export class SynMinTimes extends Component {
       sat: this.props.sat,
       sun: this.props.sun,
       type: this.props.type,
+      date: new Date(),
+      mode: 'date',
     });
   }
 
+  setDate = (event, date) => {
+    date = date || this.state.date;
+    this.setState({
+      showDateTime: false,
+      date,
+    });
+    this.props.setDate(date);
+  };
+
+  showDateTimePicker = () => {
+    this.setState({showDateTime: true});
+  };
+
+  closeDateTimePicker = () => {
+    this.setState({showDatetime: false});
+  };
+
   render() {
-    const {mon, tue, wed, thu, fri, sat, sun, type} = this.state;
+    const {
+      mon,
+      tue,
+      wed,
+      thu,
+      fri,
+      sat,
+      sun,
+      type,
+      date,
+      mode,
+      showDateTime,
+    } = this.state;
     const isEnglish = this.props.isEnglish;
     return (
       <View
@@ -430,12 +804,13 @@ export class SynMinTimes extends Component {
             marginVertical: 15,
           }}
         />
-        <View
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
-          }}>
+          }}
+          onPress={this.showDateTimePicker}>
           <Text style={{fontSize: 15, color: 'black'}}>
             {isEnglish ? en.modal.selectDateTime : he.modal.selectDateTime}
           </Text>
@@ -443,7 +818,7 @@ export class SynMinTimes extends Component {
             source={require('../../assets/icon_modal_timetable.png')}
             style={{width: 14, height: 14, resizeMode: 'contain'}}
           />
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             flex: 1,
@@ -482,6 +857,7 @@ export class SynMinTimes extends Component {
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(!mon, tue, wed, thu, fri, sat, sun);
                 this.setState({mon: !mon});
               }}>
               <View
@@ -491,12 +867,15 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Mon</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.mon : he.weekDay.mon}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, !tue, wed, thu, fri, sat, sun);
                 this.setState({tue: !tue});
               }}>
               <View
@@ -506,12 +885,15 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Tue</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.tue : he.weekDay.tue}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, tue, !wed, thu, fri, sat, sun);
                 this.setState({wed: !wed});
               }}>
               <View
@@ -521,12 +903,15 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Wed</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.wed : he.weekDay.wed}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, tue, wed, !thu, fri, sat, sun);
                 this.setState({thu: !thu});
               }}>
               <View
@@ -536,12 +921,15 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Thu</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.thu : he.weekDay.thu}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, tue, wed, thu, !fri, sat, sun);
                 this.setState({fri: !fri});
               }}>
               <View
@@ -551,12 +939,15 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Fri</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.fri : he.weekDay.fri}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, tue, wed, thu, fri, !sat, sun);
                 this.setState({sat: !sat});
               }}>
               <View
@@ -566,12 +957,15 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Sat</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.sat : he.weekDay.sat}
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, tue, wed, thu, fri, sat, !sun);
                 this.setState({sun: !sun});
               }}>
               <View
@@ -581,9 +975,20 @@ export class SynMinTimes extends Component {
                     : styles.newLessonModalDayUnselected
                 }
               />
-              <Text style={styles.newLessonModalDayText}>Sun</Text>
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.sun : he.weekDay.sun}
+              </Text>
             </TouchableOpacity>
           </View>
+        )}
+        {showDateTime && (
+          <DateTimePicker
+            value={date}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={this.setDate}
+          />
         )}
       </View>
     );
@@ -623,8 +1028,9 @@ export class NormalSwitch extends Component {
           // tintColor={Colors.primary}
           // thumbColor={Colors.primary}
           trackColor={{true: Colors.primary, false: 'lightgray'}}
-          onValueChange={() => {
-            this.setState({switchValue: !switchValue});
+          onValueChange={value => {
+            this.setState({switchValue: value});
+            this.props.onChange(value);
           }}
         />
       </View>

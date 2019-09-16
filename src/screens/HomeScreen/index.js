@@ -25,12 +25,13 @@ import {
   NewLessonModal,
   NewSynModal,
   ChangeLocationModal,
+  Loading,
 } from '../../components';
 import {AroundEvents} from './AroundEvents';
 import {TodayLessons} from './TodayLessons';
 import {PopularLessons} from './PopularLessons';
 import {RecentLessons} from './RecentLessons';
-import {Strings, LocalStorage} from '../../utils';
+import {Strings, LocalStorage, ApiRequest} from '../../utils';
 
 class HomeScreen extends Component {
   // static navigationOptions = {
@@ -40,8 +41,16 @@ class HomeScreen extends Component {
     super(props);
     this.state = {
       language: '',
+      showLoading: false,
     };
   }
+
+  startLoading = () => {
+    this.setState({showLoading: true});
+  };
+  closeLoading = () => {
+    this.setState({showLoading: false});
+  };
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
@@ -73,7 +82,7 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const {language} = this.state;
+    const {language, showLoading} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.container}>
@@ -121,14 +130,14 @@ class HomeScreen extends Component {
               this.refFilterModal = ref;
             }}
           />
-          <NewLessonModal
-            ref={ref => {
-              this.refNewLessonModal = ref;
-            }}
-            onPublish={this.onAddLesson}
-            direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
-            isEnglish={isEnglish}
-          />
+          {/*<NewLessonModal*/}
+          {/*  ref={ref => {*/}
+          {/*    this.refNewLessonModal = ref;*/}
+          {/*  }}*/}
+          {/*  onPublish={this.onAddLesson}*/}
+          {/*  direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}*/}
+          {/*  isEnglish={isEnglish}*/}
+          {/*/>*/}
           <NewSynModal
             ref={ref => {
               this.refSynModal = ref;
@@ -158,6 +167,7 @@ class HomeScreen extends Component {
               : he.memorial.all_over_the_app}
           </Text>
         </View>
+        {showLoading && <Loading />}
       </SafeAreaView>
     );
   }
@@ -167,7 +177,19 @@ class HomeScreen extends Component {
   callBackAddModal = flag => {
     switch (flag) {
       case Strings.MODAL_FLAG_ADD_LESSON:
-        this.refNewLessonModal.show();
+        this.startLoading();
+        ApiRequest('lesson/speakers', {}, 'GET')
+          .then(response => {
+            this.closeLoading();
+            this.props.navigation.navigate('NewLesson', {
+              speakers: response,
+              onPublish: this.onAddLesson,
+            });
+          })
+          .catch(error => {
+            this.closeLoading();
+            debugger;
+          });
         break;
       case Strings.MODAL_FLAG_ADD_SYN:
         this.refSynModal.show();
@@ -209,12 +231,190 @@ class HomeScreen extends Component {
   onDetails = () => {
     this.props.navigation.navigate('Details');
   };
-  onAddLesson = () => {
-    this.refNewLessonModal.hide();
+
+  onAddLesson = (
+    lat,
+    lng,
+    city,
+    subject,
+    selectedSpeaker,
+    note,
+    contactName,
+    phoneNumber,
+    days,
+    date,
+    selectedAudience,
+  ) => {
+    let location = JSON.stringify({
+      // for test
+      type: 'Point',
+      coordinates: [35.217018, 31.771959],
+    });
+
+    this.startLoading();
+    ApiRequest(
+      'lesson/add',
+      {
+        speakerId: selectedSpeaker,
+        synagogueId: '',
+        lessonSubject: subject,
+        location: location,
+        time: `${date.getHours()}:${date.getMinutes()}`,
+        days: days,
+        audience: selectedAudience,
+        notes: note,
+        contact_name: contactName,
+        contact_number: phoneNumber,
+      },
+      'POST',
+    )
+      .then(response => {
+        this.closeLoading();
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
   };
-  onAddSyn = (lat, lng, city, name) => {
+
+  onAddSyn = (
+    lat,
+    lng,
+    city,
+    name,
+    nosach,
+    shtiblach,
+    amenities_key,
+    date,
+    mon,
+    tue,
+    wed,
+    thu,
+    fri,
+    sat,
+    sun,
+    note,
+    phoneNumber,
+    avatarSource,
+  ) => {
     this.refSynModal.hide();
-    console.info('name', name);
+
+    if (lat === 0 || lng === 0 || city === '') {
+      alert('Please input the location');
+    } else if (name === '') {
+      alert('Please input the name');
+    } else if (nosach === '') {
+      alert('Please input the nosach');
+    } else if (phoneNumber === '') {
+      alert('Please input the phone number');
+    } else if (note === '') {
+      alert('Please input the note');
+    } else {
+      this.startLoading();
+
+      let n = '';
+      switch (nosach) {
+        case 0:
+          n = en.nosach.value_0;
+          break;
+        case 1:
+          n = en.nosach.value_1;
+          break;
+        case 2:
+          n = en.nosach.value_2;
+          break;
+        case 3:
+          n = en.nosach.value_3;
+          break;
+        case 4:
+          n = en.nosach.value_4;
+          break;
+        case 5:
+          n = en.nosach.value_5;
+          break;
+        default:
+          n = en.nosach.value_0;
+          break;
+      }
+
+      let amenities = {};
+      if (amenities_key.includes(0)) {
+        amenities.seferTorah = true;
+      }
+      if (amenities_key.includes(1)) {
+        amenities.disabledAccess = true;
+      }
+      if (amenities_key.includes(2)) {
+        amenities.parking = true;
+      }
+      if (amenities_key.includes(3)) {
+        amenities.womenSection = true;
+      }
+      amenities = JSON.stringify(amenities);
+
+      let days = [];
+      if (mon) {
+        days.push(0);
+      }
+      if (tue) {
+        days.push(1);
+      }
+      if (wed) {
+        days.push(2);
+      }
+      if (thu) {
+        days.push(3);
+      }
+      if (fri) {
+        days.push(4);
+      }
+      if (sat) {
+        days.push(5);
+      }
+      if (sun) {
+        days.push(6);
+      }
+
+      let time = `${date.getHours()}:${date.getMinutes()}`;
+
+      let location = JSON.stringify({
+        // for test
+        type: 'Point',
+        coordinates: [35.217018, 31.771959],
+      });
+      let mikve = JSON.stringify({mikve: shtiblach});
+      let minyans = JSON.stringify([
+        {
+          minyan: '1',
+          timeType: 'exact',
+          days: days,
+          time: time,
+        },
+      ]);
+
+      let url = 'http://ec609136.ngrok.io/synagogue/add';
+
+      let body = {
+        name: name,
+        nosach: n,
+        address: city,
+        location: location,
+        externals: amenities,
+        minyans: minyans,
+        notes: note,
+        phone_number: phoneNumber,
+        image: avatarSource.uri,
+        donation_link: 'paypal',
+        shtiblach: shtiblach,
+      };
+
+      ApiRequest(url, body, 'POST')
+        .then(response => {
+          this.closeLoading();
+        })
+        .catch(error => {
+          this.closeLoading();
+        });
+    }
   };
 }
 

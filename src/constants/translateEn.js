@@ -99,4 +99,32 @@ export default {
     splash_screen: 'For success to David Jefry',
     all_over_the_app: 'For health to Sarah Cohen',
   },
+  nosach: {
+    value_0: 'Ashkenazi',
+    value_1: 'Sefard',
+    value_2: 'Edot Hamizrah',
+    value_3: 'Ar"i',
+    value_4: 'Chabad',
+    value_5: 'Temani',
+  },
+  amenities: {
+    value_0: 'Sefer Torah',
+    value_1: 'Disabled Access',
+    value_2: 'Parking',
+    value_3: 'Women Section',
+  },
+  weekDay: {
+    mon: 'Mon',
+    tue: 'Tue',
+    wed: 'Wed',
+    thu: 'Thu',
+    fri: 'Fri',
+    sat: 'Sat',
+    sun: 'Sun',
+  },
+  audience: {
+    men: 'Men',
+    women: 'Women',
+    men_and_women: 'Men and Women',
+  },
 };

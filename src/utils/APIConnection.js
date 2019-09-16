@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-const BASIC_URL = 'http://ec609136.ngrok.io/';
+const BASIC_URL = 'http://4d14932e.ngrok.io/';
 import {Strings} from '../utils';
 
 export const ApiRequest = (url, body = '', method = 'GET') => {
@@ -16,18 +16,36 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
       body: JSON.stringify(body),
     };
   } else {
-    header = {
-      method,
-      headers: {
-        // Accept: 'application/json',
-        // 'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
-    };
+    if (method === 'GET') {
+      header = {
+        method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    } else if (method === 'POST') {
+      header = {
+        method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      };
+    } else {
+      header = {
+        method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    }
   }
-
-  debugger;
 
   return new Promise(async (resolve, reject) => {
     const onSuccess = async response => {

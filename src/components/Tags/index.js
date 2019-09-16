@@ -4,21 +4,17 @@ import {styles} from './styles';
 import {Metric, Colors} from '../../themes';
 import Tags from 'react-native-tags';
 
-const initialTagsData = ['dog', 'cat', 'chicken', 'football', 'basketball'];
-
 export class TagView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false,
-      initialTags: initialTagsData,
     };
   }
 
   componentDidMount() {}
 
   render() {
-    const {initialTags} = this.state;
     return (
       <Tags
         readonly={true}
@@ -26,12 +22,12 @@ export class TagView extends Component {
         textInputProps={{
           placeholder: 'Any type of animal',
         }}
-        initialTags={initialTags}
+        initialTags={this.props.items}
         onChangeTags={tags => console.log(tags)}
         onTagPress={(index, tagLabel, event, deleted) => {
-          let tags = initialTags;
+          let tags = this.props.items;
           tags.splice(index, 1);
-          this.setState({initialTags: tags});
+          this.props.itemSelected(tags);
         }}
         containerStyle={{
           marginTop: 10,

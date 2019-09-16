@@ -98,4 +98,32 @@ export default {
     splash_screen: 'לעילוי נשמה פלוני בן אלמוני',
     all_over_the_app: 'לרפואת אלף בית גימל',
   },
+  nosach: {
+    value_0: 'אשכנזי',
+    value_1: 'ספרד',
+    value_2: 'עדות המזרח',
+    value_3: 'אר"י',
+    value_4: 'חב"ד',
+    value_5: 'תימני',
+  },
+  amenities: {
+    value_0: 'ספר תורה',
+    value_1: 'נגישות',
+    value_2: 'חניה',
+    value_3: 'עזרת נשים',
+  },
+  weekDay: {
+    mon: 'שני',
+    tue: 'שלישי',
+    wed: 'רביעי',
+    thu: 'חמישי',
+    fri: 'שישי',
+    sat: 'שבת',
+    sun: 'ראשון',
+  },
+  audience: {
+    men: 'גברים',
+    women: 'נשים',
+    men_and_women: 'גברים ונשים',
+  },
 };

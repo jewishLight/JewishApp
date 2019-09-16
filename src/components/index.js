@@ -38,8 +38,12 @@ import {
   DescriptionInput,
   SynMinTimes,
   NormalSwitch,
+  NosachPicker,
+  AmenitiesPicker,
+  SpeakerPicker,
 } from './Inputs';
 import {TagView, AmView, TimeTagView} from './Tags';
+import {Loading} from './Loading';
 
 export {
   HomeHeader,
@@ -71,10 +75,14 @@ export {
   LocationInput,
   DateTimeSetter,
   DescriptionInput,
+  NosachPicker,
   NewSynModal,
   SynMinTimes,
   NormalSwitch,
   TagView,
   AmView,
   TimeTagView,
+  AmenitiesPicker,
+  Loading,
+  SpeakerPicker,
 };
