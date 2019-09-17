@@ -243,35 +243,36 @@ class HomeScreen extends Component {
     phoneNumber,
     days,
     date,
+    datetime,
     selectedAudience,
   ) => {
-    let location = JSON.stringify({
+    let location = {
       // for test
       type: 'Point',
       coordinates: [35.217018, 31.771959],
-    });
+    };
 
+    let body = {
+      speakerId: selectedSpeaker,
+      synagogueId: '',
+      lessonSubject: subject,
+      location: location,
+      time: `${datetime.getHours()}:${datetime.getMinutes()}`,
+      days: days,
+      audience: selectedAudience,
+      notes: note,
+      contact_name: contactName,
+      contact_number: phoneNumber,
+    };
+    debugger;
     this.startLoading();
-    ApiRequest(
-      'lesson/add',
-      {
-        speakerId: selectedSpeaker,
-        synagogueId: '',
-        lessonSubject: subject,
-        location: location,
-        time: `${date.getHours()}:${date.getMinutes()}`,
-        days: days,
-        audience: selectedAudience,
-        notes: note,
-        contact_name: contactName,
-        contact_number: phoneNumber,
-      },
-      'POST',
-    )
+    ApiRequest('lesson/add', body, 'POST')
       .then(response => {
+        debugger;
         this.closeLoading();
       })
       .catch(error => {
+        debugger;
         this.closeLoading();
       });
   };

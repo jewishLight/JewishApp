@@ -739,25 +739,35 @@ export class SynMinTimes extends Component {
       sun: this.props.sun,
       type: this.props.type,
       date: new Date(),
+      datetime: new Date(),
       mode: 'date',
+      showDatePicker: false,
+      showTimePicker: false,
+      datetimemode: 'time',
     });
   }
 
   setDate = (event, date) => {
     date = date || this.state.date;
     this.setState({
-      showDateTime: false,
+      showDatePicker: false,
+      showTimePicker: true,
       date,
     });
     this.props.setDate(date);
   };
 
-  showDateTimePicker = () => {
-    this.setState({showDateTime: true});
+  setTime = (event, datetime) => {
+    datetime = datetime || this.state.datetime;
+    this.setState({
+      showTimePicker: false,
+      datetime,
+    });
+    this.props.setTime(datetime);
   };
 
-  closeDateTimePicker = () => {
-    this.setState({showDatetime: false});
+  showDateTimePicker = () => {
+    this.setState({showDatePicker: true});
   };
 
   render() {
@@ -772,7 +782,10 @@ export class SynMinTimes extends Component {
       type,
       date,
       mode,
-      showDateTime,
+      datetimemode,
+      datetime,
+      showDatePicker,
+      showTimePicker,
     } = this.state;
     const isEnglish = this.props.isEnglish;
     return (
@@ -981,13 +994,22 @@ export class SynMinTimes extends Component {
             </TouchableOpacity>
           </View>
         )}
-        {showDateTime && (
+        {showDatePicker && (
           <DateTimePicker
             value={date}
             mode={mode}
             is24Hour={true}
             display="default"
             onChange={this.setDate}
+          />
+        )}
+        {showTimePicker && (
+          <DateTimePicker
+            value={datetime}
+            mode={datetimemode}
+            is24Hour={true}
+            display="default"
+            onChange={this.setTime}
           />
         )}
       </View>
