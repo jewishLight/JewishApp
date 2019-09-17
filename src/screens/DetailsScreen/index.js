@@ -15,7 +15,12 @@ import {styles} from './styles';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
-import {DetailsHeader, LikeButton, CommentButton} from '../../components';
+import {
+  DetailsHeader,
+  LikeButton,
+  CommentButton,
+  Loading,
+} from '../../components';
 import {Comments} from './Comments';
 import {Colors} from '../../themes';
 import {Strings, ApiRequest} from '../../utils';
@@ -30,12 +35,18 @@ class DetailsScreen extends Component {
     super(props);
     this.state = {
       language: Strings.ENGLISH,
+      commentText: '',
+      showLoading: false,
     };
   }
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.setState({language: this.props.appSettings.language});
+    debugger;
+    console.info(this.props.navigation.state.params.lessonData);
+    this.setState({
+      language: this.props.appSettings.language,
+    });
   }
 
   componentWillUnmount(): void {
@@ -55,9 +66,35 @@ class DetailsScreen extends Component {
     }
   }
 
+  startLoading = () => {
+    this.setState({showLoading: true});
+  };
+
+  closeLoading = () => {
+    this.setState({showLoading: false});
+  };
+
+  onComment = () => {
+    this.startLoading();
+    let body = {
+      lesson_id: this.props.navigation.state.params.lessonData._id,
+      comment_body: this.state.commentText,
+      date: new Date(),
+    };
+    debugger;
+    ApiRequest('lesson/comment', body, 'POST')
+      .then(response => {
+        this.closeLoading();
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
+  };
+
   render() {
-    const {language} = this.state;
+    const {language, showLoading} = this.state;
     const isEnglish = language === Strings.ENGLISH;
+    const {lessonData} = this.props.navigation.state.params;
     return (
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.topSafeAreaView} />
@@ -72,19 +109,25 @@ class DetailsScreen extends Component {
           <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
             <View style={styles.detailBasicInfo}>
               <Text style={styles.detailTitleText}>
-                The Weekly Shiur - On the parasha
+                {lessonData.lessonSubject}
               </Text>
               <View style={styles.detailBasic}>
                 <View style={styles.detailUserContainer}>
                   <Image
-                    source={require('../../assets/icon_avatar.png')}
+                    source={
+                      lessonData.speaker
+                        ? {uri: lessonData.speaker.avatar}
+                        : require('../../assets/icon_avatar.png')
+                    }
                     style={styles.detailUserAvatar}
                   />
                   <View style={styles.userDetail}>
                     <Text style={styles.userRole}>
                       {isEnglish ? en.modal.speaker : he.modal.speaker}
                     </Text>
-                    <Text style={styles.userName}>Silvan Radeh Meiv</Text>
+                    <Text style={styles.userName}>
+                      {lessonData.speaker ? lessonData.speaker.name : ''}
+                    </Text>
                   </View>
                 </View>
                 <View style={styles.detailUserContainer}>
@@ -106,7 +149,9 @@ class DetailsScreen extends Component {
                     source={require('../../assets/icon_detail_clock.png')}
                     style={styles.detailClockImage}
                   />
-                  <Text style={styles.detailClockText}>Today, 22:30</Text>
+                  <Text style={styles.detailClockText}>
+                    Today, {lessonData.timeString}
+                  </Text>
                 </View>
                 <View style={styles.detailLocationContainer}>
                   <Image
@@ -114,15 +159,13 @@ class DetailsScreen extends Component {
                     style={styles.detailLocationImage}
                   />
                   <Text style={styles.detailLocationText}>
-                    King George 58, Jerusalem
+                    {lessonData.address}
                   </Text>
                 </View>
               </View>
               <View style={styles.detailDescContainer}>
                 <Text style={styles.detailDescText}>
-                  Sivan Rahav-Meir’s weekly shiur on the parasha takes place in
-                  Jerusalem every Wednesday evening at 9:00 pm at “Heichal
-                  Shlomo″, King George 58. Entrance is free.
+                  {lessonData.description}
                 </Text>
               </View>
             </View>
@@ -139,7 +182,8 @@ class DetailsScreen extends Component {
               </View>
               <View style={styles.likesContainer}>
                 <Text style={styles.likesText}>
-                  43+ {isEnglish ? en.detail.liked : he.detail.liked}
+                  {lessonData.likes_count}+{' '}
+                  {isEnglish ? en.detail.liked : he.detail.liked}
                 </Text>
                 <Image
                   source={require('../../assets/icon_detail_liked.png')}
@@ -148,7 +192,7 @@ class DetailsScreen extends Component {
               </View>
             </View>
             <View style={styles.paddingSeparator} />
-            <Comments isEnglish={isEnglish} />
+            <Comments isEnglish={isEnglish} item={lessonData.comments} />
             <View style={styles.commentInputView}>
               <TextInput
                 placeholder={
@@ -157,6 +201,10 @@ class DetailsScreen extends Component {
                     : he.detail.typeCommentHere
                 }
                 style={styles.commentInputText}
+                onChangeText={text => {
+                  this.setState({commentText: text});
+                }}
+                onEndEditing={this.onComment}
               />
               <TouchableOpacity style={styles.commentSendView}>
                 <Image
@@ -180,6 +228,7 @@ class DetailsScreen extends Component {
               : he.memorial.all_over_the_app}
           </Text>
         </View>
+        {showLoading && <Loading />}
       </View>
     );
   }

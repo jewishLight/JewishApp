@@ -20,7 +20,12 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   detailBasicInfo: {marginTop: 10, alignItems: 'center'},
-  detailTitleText: {color: 'black', fontSize: 20},
+  detailTitleText: {
+    color: 'black',
+    fontSize: 20,
+    textAlign: 'center',
+    marginHorizontal: 15,
+  },
   detailBasic: {flexDirection: 'row', paddingHorizontal: 15},
   detailClockLocation: {flexDirection: 'row', paddingHorizontal: 15},
   userRole: {color: 'black', fontSize: 12, opacity: 0.35},

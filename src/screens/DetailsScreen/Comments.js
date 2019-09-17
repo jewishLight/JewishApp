@@ -4,34 +4,13 @@ import {CommentListItem} from '../../components';
 import {styles} from './styles';
 import {en, he} from '../../constants';
 
-const tempCommentsData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 5,
-  },
-  {
-    id: 6,
-  },
-];
-
 export class Comments extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => this.props.item._id;
 
   render() {
     const isEnglish = this.props.isEnglish;
@@ -47,7 +26,7 @@ export class Comments extends Component {
         </View>
         <View style={{marginTop: 10}}>
           <FlatList
-            data={tempCommentsData}
+            data={this.props.item}
             renderItem={this.renderComments}
             showsHorizontalScrollIndicator={false}
             keyExtractor={this._keyExtractor}

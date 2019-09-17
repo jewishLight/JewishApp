@@ -50,28 +50,35 @@ export const LessonCard = ({onPress, item}) => (
       />
     </View>
     <View style={styles.lessonDetailView}>
-      <Text style={styles.lessonRoleText}>Speaker: Rabbi David Cohen</Text>
-      <Text style={styles.lessonTitleText}>{item.lessonSubject}</Text>
+      <Text style={styles.lessonRoleText}>
+        Speaker: {item.speaker ? item.speaker.name : ''}
+      </Text>
+      <Text
+        style={styles.lessonTitleText}
+        numberOfLines={1}
+        ellipsizeMode={'tail'}>
+        {item.lessonSubject}
+      </Text>
       <View style={styles.lessonLikeImageView}>
         <Image
           source={require('../../assets/icon_lesson_like.png')}
           style={styles.lessonLikeImage}
         />
-        <Text style={styles.lessonLocationText}>23</Text>
+        <Text style={styles.lessonLocationText}>{item.likes_count}</Text>
       </View>
       <View style={styles.lessonCalendarImageView}>
         <Image
           source={require('../../assets/icon_lesson_calendar.png')}
           style={styles.lessonCalendarImage}
         />
-        <Text style={styles.lessonLocationText}>Sunday 18:00</Text>
+        <Text style={styles.lessonLocationText}>{item.timeString}</Text>
       </View>
       <View style={styles.lessonLocationImageView}>
         <Image
           source={require('../../assets/icon_lesson_location.png')}
           style={styles.lessonLocationImage}
         />
-        <Text style={styles.lessonLocationText}>Jaffa 44</Text>
+        <Text style={styles.lessonLocationText}>{item.address}</Text>
       </View>
     </View>
   </TouchableOpacity>

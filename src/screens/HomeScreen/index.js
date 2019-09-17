@@ -112,28 +112,33 @@ class HomeScreen extends Component {
 
     Promise.all([
       fetchTodayLessons.catch(error => {
+        debugger;
         this.setState({
           todayLessons: [],
         });
         this.closeLoading();
       }),
       fetchPopularLessons.catch(error => {
+        debugger;
         this.setState({
           popularLessons: [],
         });
         this.closeLoading();
       }),
       fetchRecentLessons.catch(error => {
+        debugger;
         this.setState({
           recentLessons: [],
         });
         this.closeLoading();
       }),
       fetchAroundCity.catch(error => {
+        debugger;
         this.setState({aroundEvents: []});
         this.closeLoading();
       }),
     ]).then(responses => {
+      debugger;
       this.setState({
         todayLessons: responses[0],
         popularLessons: responses[1],
@@ -308,8 +313,16 @@ class HomeScreen extends Component {
       this.refFilterModal.show();
     }
   };
-  onDetails = () => {
-    this.props.navigation.navigate('Details');
+  onDetails = lessonId => {
+    this.startLoading();
+    ApiRequest(`lesson/view?id=${lessonId}`)
+      .then(response => {
+        this.closeLoading();
+        this.props.navigation.navigate('Details', {lessonData: response});
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
   };
 
   onAddLesson = (

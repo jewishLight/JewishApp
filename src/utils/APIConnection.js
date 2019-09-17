@@ -17,7 +17,7 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
     };
   } else {
     if (method === 'GET') {
-      if (body === {} || body === '') {
+      if (body === {} || body === '' || body === null) {
         header = {
           method,
           headers: {

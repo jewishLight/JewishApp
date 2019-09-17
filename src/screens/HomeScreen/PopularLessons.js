@@ -46,7 +46,7 @@ export class PopularLessons extends Component {
       <View style={styles.rowView}>
         <LessonCard
           onPress={() => {
-            this.props.onDetails();
+            this.props.onDetails(item._id);
           }}
           item={item}
         />

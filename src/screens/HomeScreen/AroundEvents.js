@@ -22,7 +22,7 @@ export class AroundEvents extends Component {
     this.state = {};
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => item._id;
 
   render() {
     const {aroundEvents} = this.props;
@@ -58,7 +58,7 @@ export class AroundEvents extends Component {
       <View style={styles.rowView}>
         <EventCard
           onPress={() => {
-            this.props.onDetails();
+            this.props.onDetails(item._id);
           }}
           item={item}
         />
