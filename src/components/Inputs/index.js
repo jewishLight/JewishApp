@@ -1047,8 +1047,6 @@ export class NormalSwitch extends Component {
         <Text>{type}</Text>
         <Switch
           value={switchValue}
-          // tintColor={Colors.primary}
-          // thumbColor={Colors.primary}
           trackColor={{true: Colors.primary, false: 'lightgray'}}
           onValueChange={value => {
             this.setState({switchValue: value});

@@ -42,6 +42,10 @@ class HomeScreen extends Component {
     this.state = {
       language: '',
       showLoading: false,
+      todayLessons: [],
+      popularLessons: [],
+      recentLessons: [],
+      aroundEvents: [],
     };
   }
 
@@ -59,6 +63,85 @@ class HomeScreen extends Component {
     if (this.refHomeHeader) {
       this.refHomeHeader.updateLanguage(language);
     }
+
+    this.startLoading();
+
+    const fetchTodayLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/today_lessons')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchPopularLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/popular_lessons')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchRecentLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/recent')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchAroundCity = new Promise((resolve, reject) => {
+      ApiRequest(
+        'home/around_city',
+        {lon: '35.217020', lat: '31.771959'},
+        'POST',
+      )
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    Promise.all([
+      fetchTodayLessons.catch(error => {
+        this.setState({
+          todayLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchPopularLessons.catch(error => {
+        this.setState({
+          popularLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchRecentLessons.catch(error => {
+        this.setState({
+          recentLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchAroundCity.catch(error => {
+        this.setState({aroundEvents: []});
+        this.closeLoading();
+      }),
+    ]).then(responses => {
+      this.setState({
+        todayLessons: responses[0],
+        popularLessons: responses[1],
+        recentLessons: responses[2],
+        aroundEvents: responses[3],
+      });
+      this.closeLoading();
+    });
   }
 
   componentWillUnmount(): void {
@@ -82,7 +165,7 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const {language, showLoading} = this.state;
+    const {language, showLoading, todayLessons, aroundEvents} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.container}>
@@ -113,10 +196,26 @@ class HomeScreen extends Component {
             </View>
           </View>
           <ScrollView>
-            <AroundEvents onDetails={this.onDetails} isEnglish={isEnglish} />
-            <TodayLessons onDetails={this.onDetails} isEnglish={isEnglish} />
-            <PopularLessons onDetails={this.onDetails} isEnglish={isEnglish} />
-            <RecentLessons onDetails={this.onDetails} isEnglish={isEnglish} />
+            <AroundEvents
+              onDetails={this.onDetails}
+              isEnglish={isEnglish}
+              aroundEvents={aroundEvents}
+            />
+            <TodayLessons
+              onDetails={this.onDetails}
+              isEnglish={isEnglish}
+              todayLessons={todayLessons}
+            />
+            <PopularLessons
+              onDetails={this.onDetails}
+              isEnglish={isEnglish}
+              todayLessons={todayLessons}
+            />
+            <RecentLessons
+              onDetails={this.onDetails}
+              isEnglish={isEnglish}
+              todayLessons={todayLessons}
+            />
           </ScrollView>
           <AddModal
             ref={ref => {
@@ -129,22 +228,6 @@ class HomeScreen extends Component {
             ref={ref => {
               this.refFilterModal = ref;
             }}
-          />
-          {/*<NewLessonModal*/}
-          {/*  ref={ref => {*/}
-          {/*    this.refNewLessonModal = ref;*/}
-          {/*  }}*/}
-          {/*  onPublish={this.onAddLesson}*/}
-          {/*  direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}*/}
-          {/*  isEnglish={isEnglish}*/}
-          {/*/>*/}
-          <NewSynModal
-            ref={ref => {
-              this.refSynModal = ref;
-            }}
-            onPublish={this.onAddSyn}
-            direction={language === Strings.ENGLISH ? 'ltr' : 'rtl'}
-            isEnglish={isEnglish}
           />
           <ChangeLocationModal
             ref={ref => {
@@ -192,7 +275,10 @@ class HomeScreen extends Component {
           });
         break;
       case Strings.MODAL_FLAG_ADD_SYN:
-        this.refSynModal.show();
+        this.props.navigation.navigate('NewSyna', {
+          onPublish: this.onAddSyn,
+          isEnglish: this.state.language === Strings.ENGLISH,
+        });
         break;
       default:
         break;
@@ -211,12 +297,6 @@ class HomeScreen extends Component {
 
   onSearch = () => {
     this.props.navigation.navigate('Search');
-    // this.props.navigation.dispatch(
-    //   StackActions.reset({
-    //     index: 0,
-    //     actions: [NavigationActions.navigate({routeName: 'Login'})],
-    //   }),
-    // );
   };
   onAdd = () => {
     if (this.refAddModal) {
@@ -297,8 +377,6 @@ class HomeScreen extends Component {
     phoneNumber,
     avatarSource,
   ) => {
-    this.refSynModal.hide();
-
     if (lat === 0 || lng === 0 || city === '') {
       alert('Please input the location');
     } else if (name === '') {
@@ -407,12 +485,15 @@ class HomeScreen extends Component {
         donation_link: 'paypal',
         shtiblach: shtiblach,
       };
+      debugger;
 
       ApiRequest(url, body, 'POST')
         .then(response => {
+          debugger;
           this.closeLoading();
         })
         .catch(error => {
+          debugger;
           this.closeLoading();
         });
     }

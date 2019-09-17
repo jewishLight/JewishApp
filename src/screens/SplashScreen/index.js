@@ -9,7 +9,7 @@ import {
   I18nManager,
 } from 'react-native';
 import {Metric} from '../../themes';
-import {LocalStorage, Strings} from '../../utils';
+import {LocalStorage, Strings, ApiRequest} from '../../utils';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';

@@ -25,6 +25,7 @@ export class AroundEvents extends Component {
   _keyExtractor = (item, index) => item.id.toString();
 
   render() {
+    const {aroundEvents} = this.props;
     return (
       <View style={styles.aroundEventsView}>
         <View style={styles.aroundEventsTopView}>
@@ -41,7 +42,7 @@ export class AroundEvents extends Component {
         </View>
         <View style={styles.spacingHorizontal}>
           <FlatList
-            data={tempEventsData}
+            data={aroundEvents}
             renderItem={this.renderEventsData}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -59,8 +60,9 @@ export class AroundEvents extends Component {
           onPress={() => {
             this.props.onDetails();
           }}
+          item={item}
         />
-        {index < tempEventsData.length - 1 && (
+        {index < this.props.aroundEvents.length - 1 && (
           <View style={styles.horizontalSpacing} />
         )}
       </View>

@@ -4,27 +4,16 @@ import {LessonCard} from '../../components';
 import {styles} from './styles';
 import {en, he} from '../../constants';
 
-const tempPopularLessonData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-];
-
 export class PopularLessons extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => item._id;
 
   render() {
+    const {todayLessons} = this.props;
     return (
       <View style={styles.aroundEventsView}>
         <View style={styles.aroundEventsTopView}>
@@ -41,7 +30,7 @@ export class PopularLessons extends Component {
         </View>
         <View style={styles.spacingHorizontal}>
           <FlatList
-            data={tempPopularLessonData}
+            data={todayLessons}
             renderItem={this.renderEventsData}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -59,8 +48,9 @@ export class PopularLessons extends Component {
           onPress={() => {
             this.props.onDetails();
           }}
+          item={item}
         />
-        {index < tempPopularLessonData.length - 1 && (
+        {index < this.props.todayLessons.length - 1 && (
           <View style={styles.horizontalSpacing} />
         )}
       </View>

@@ -19,12 +19,14 @@ const tempTodayLessonData = [
 export class TodayLessons extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  componentDidMount(): void {}
+
+  _keyExtractor = (item, index) => item._id;
 
   render() {
+    const {todayLessons} = this.props;
     return (
       <View style={styles.aroundEventsView}>
         <View style={styles.aroundEventsTopView}>
@@ -39,7 +41,7 @@ export class TodayLessons extends Component {
         </View>
         <View style={styles.spacingHorizontal}>
           <FlatList
-            data={tempTodayLessonData}
+            data={todayLessons}
             renderItem={this.renderEventsData}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -57,8 +59,9 @@ export class TodayLessons extends Component {
           onPress={() => {
             this.props.onDetails();
           }}
+          item={item}
         />
-        {index < tempTodayLessonData.length - 1 && (
+        {index < this.props.todayLessons.length - 1 && (
           <View style={styles.horizontalSpacing} />
         )}
       </View>

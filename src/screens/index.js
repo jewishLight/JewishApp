@@ -12,6 +12,7 @@ import MapViewScreen from './MapView';
 import LoginScreen from './LoginScreen';
 import MyProfileScreen from './MyProfileScreen';
 import NewLessonScreen from './NewLessonScreen';
+import NewSynaScreen from './NewSynaScreen';
 
 export {
   HomeScreen,
@@ -28,4 +29,5 @@ export {
   LoginScreen,
   MyProfileScreen,
   NewLessonScreen,
+  NewSynaScreen,
 };

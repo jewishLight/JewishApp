@@ -17,14 +17,26 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
     };
   } else {
     if (method === 'GET') {
-      header = {
-        method,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      };
+      if (body === {} || body === '') {
+        header = {
+          method,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        };
+      } else {
+        header = {
+          method,
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        };
+      }
     } else if (method === 'POST') {
       header = {
         method,
