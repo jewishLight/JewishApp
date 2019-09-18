@@ -73,11 +73,13 @@ export class AmView extends Component {
     super(props);
     this.state = {
       modalVisible: false,
-      initialTags: initialTagsData,
+      initialTags: [],
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.setState({initialTags: this.props.items});
+  }
 
   render() {
     const {initialTags} = this.state;
@@ -130,11 +132,13 @@ export class TimeTagView extends Component {
     super(props);
     this.state = {
       modalVisible: false,
-      initialTags: initialTagsData,
+      initialTags: [],
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.setState({initialTags: this.props.items});
+  }
 
   render() {
     const {initialTags} = this.state;

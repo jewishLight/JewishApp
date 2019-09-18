@@ -90,6 +90,9 @@ class FilterScreen extends Component {
       radiusSliderValue: [0],
       radiusSliderChanging: false,
       language: Strings.ENGLISH,
+      searchType: 0,
+      sort: 0,
+      speakerName: '',
     };
   }
 
@@ -135,6 +138,24 @@ class FilterScreen extends Component {
     }
   }
 
+  onReset = () => {
+    this.setState({
+      searchType: 0,
+      speakerName: '',
+      radiusSliderValue: [0],
+      timeRangeSliderValue: [0, 24],
+    });
+    this.refSpeakerNameInput.clear();
+  };
+
+  onNearby = () => {
+    this.setState({sort: 0});
+  };
+
+  onTime = () => {
+    this.setState({sort: 1});
+  };
+
   render():
     | React.ReactElement<any>
     | string
@@ -146,7 +167,7 @@ class FilterScreen extends Component {
     | null
     | undefined {
     const {timeRangeSliderValue, radiusSliderValue} = this.state;
-    const {language} = this.state;
+    const {language, searchType} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.filterContainer}>
@@ -167,6 +188,13 @@ class FilterScreen extends Component {
                       ? 'ltr'
                       : 'rtl'
                   }
+                  onChangeText={text => {
+                    this.setState({speakerName: text});
+                  }}
+                  ref={ref => {
+                    this.refSpeakerNameInput = ref;
+                  }}
+                  phoneNumber={false}
                 />
                 <View style={styles.verticalSpacing} />
                 <NormalInput
@@ -180,6 +208,7 @@ class FilterScreen extends Component {
                       ? 'ltr'
                       : 'rtl'
                   }
+                  phoneNumber={false}
                 />
                 <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
                   {isEnglish ? en.filter.sortResults : he.filter.sortResults}
@@ -194,7 +223,8 @@ class FilterScreen extends Component {
                       alignItems: 'center',
                       borderRadius: 5,
                       backgroundColor: '#E6E5F5',
-                    }}>
+                    }}
+                    onPress={this.onNearby}>
                     <Image
                       source={require('../../assets/icon_filter_nearby.png')}
                       style={{width: 16, height: 20, resizeMode: 'contain'}}
@@ -214,7 +244,8 @@ class FilterScreen extends Component {
                       alignItems: 'center',
                       borderRadius: 5,
                       backgroundColor: '#FEF5DF',
-                    }}>
+                    }}
+                    onPress={this.onTime}>
                     <Image
                       source={require('../../assets/icon_filter_clock.png')}
                       style={{width: 19, height: 19, resizeMode: 'contain'}}
@@ -361,53 +392,116 @@ class FilterScreen extends Component {
                 </Text>
                 <View style={{height: 60, marginTop: 10, flexDirection: 'row'}}>
                   <TouchableOpacity
-                    style={{
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      paddingHorizontal: 10,
-                      flex: 1,
-                      height: 50,
-                      borderColor: Colors.separator,
-                      borderWidth: 1,
-                      borderRadius: 5,
+                    style={
+                      searchType === 0
+                        ? {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.primary,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                        : {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.separator,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                    }
+                    onPress={() => {
+                      this.setState({searchType: 0});
                     }}>
-                    <Text style={{color: Colors.separator}}>
+                    <Text
+                      style={
+                        searchType === 0
+                          ? {color: Colors.primary}
+                          : {color: Colors.separator}
+                      }>
                       {isEnglish ? en.modal.synagogue : he.modal.synagogue}
                     </Text>
                     <View
-                      style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: 10,
-                        borderColor: Colors.separator,
-                        borderWidth: 1,
-                      }}
+                      style={
+                        searchType === 0
+                          ? {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              backgroundColor: Colors.primary,
+                            }
+                          : {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              borderColor: Colors.separator,
+                              borderWidth: 1,
+                            }
+                      }
                     />
                   </TouchableOpacity>
                   <View style={{width: 10}} />
                   <TouchableOpacity
-                    style={{
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      flexDirection: 'row',
-                      paddingHorizontal: 10,
-                      flex: 1,
-                      height: 50,
-                      borderColor: Colors.primary,
-                      borderWidth: 1,
-                      borderRadius: 5,
+                    style={
+                      searchType === 1
+                        ? {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.primary,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                        : {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.separator,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                    }
+                    onPress={() => {
+                      this.setState({searchType: 1});
                     }}>
-                    <Text style={{color: Colors.primary}}>
+                    <Text
+                      style={
+                        searchType === 1
+                          ? {color: Colors.primary}
+                          : {color: Colors.separator}
+                      }>
                       {isEnglish ? en.modal.speaker : he.modal.speaker}
                     </Text>
                     <View
-                      style={{
-                        width: 20,
-                        height: 20,
-                        borderRadius: 10,
-                        backgroundColor: Colors.primary,
-                      }}
+                      style={
+                        searchType === 1
+                          ? {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              backgroundColor: Colors.primary,
+                            }
+                          : {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              borderColor: Colors.separator,
+                              borderWidth: 1,
+                            }
+                      }
                     />
                   </TouchableOpacity>
                 </View>
@@ -419,7 +513,8 @@ class FilterScreen extends Component {
                       flex: 1,
                       justifyContent: 'center',
                       alignItems: 'center',
-                    }}>
+                    }}
+                    onPress={this.onReset}>
                     <Text style={styles.filterText}>
                       {isEnglish ? en.filter.reset : he.filter.reset}
                     </Text>
@@ -436,6 +531,13 @@ class FilterScreen extends Component {
                     }}
                     onPress={() => {
                       this.props.navigation.goBack();
+                      this.props.navigation.state.params.onFiltered(
+                        this.state.speakerName,
+                        timeRangeValue[this.state.timeRangeSliderValue[0]],
+                        timeRangeValue[this.state.timeRangeSliderValue[1]],
+                        this.state.radiusSliderValue[0] + 1,
+                        this.state.sort === 0 ? 'nearby' : 'time',
+                      );
                     }}>
                     <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
                       {isEnglish ? en.modal.filter : he.modal.filter}

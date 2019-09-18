@@ -4,37 +4,19 @@ import {CommentListItem} from '../../components';
 import {styles} from './styles';
 import {en, he} from '../../constants';
 
-const tempCommentsData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 5,
-  },
-  {
-    id: 6,
-  },
-];
-
 export class Comments extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      comments: [],
+    };
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => item._id;
 
   render() {
     const isEnglish = this.props.isEnglish;
+    const {comments} = this.state;
     return (
       <View style={styles.commentsView}>
         <View style={styles.commentsTopView}>
@@ -47,7 +29,7 @@ export class Comments extends Component {
         </View>
         <View style={{marginTop: 10}}>
           <FlatList
-            data={tempCommentsData}
+            data={comments}
             renderItem={this.renderComments}
             showsHorizontalScrollIndicator={false}
             keyExtractor={this._keyExtractor}
@@ -60,7 +42,7 @@ export class Comments extends Component {
   renderComments = ({item, index}) => {
     return (
       <View style={styles.rowView}>
-        <CommentListItem onPress={() => {}} />
+        <CommentListItem onPress={() => {}} item={item} />
       </View>
     );
   };

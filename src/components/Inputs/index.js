@@ -21,10 +21,16 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 export class NormalInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      text: '',
+    };
   }
 
   componentDidMount() {}
+
+  clear = () => {
+    this.setState({text: ''});
+  };
 
   render() {
     return (
@@ -38,8 +44,11 @@ export class NormalInput extends Component {
           ]}
           placeholder={this.props.placeholder}
           onChangeText={text => {
+            this.setState({text});
             this.props.onChangeText(text);
           }}
+          value={this.state.text}
+          keyboardType={this.props.phoneNumber ? 'phone-pad' : 'default'}
         />
       </View>
     );

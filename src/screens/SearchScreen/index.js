@@ -84,11 +84,12 @@ class SearchScreen extends Component {
   };
 
   renderSearchHistories = ({item, index}) => {
+    let key = `search_key_${index}`;
     return (
-      <View style={styles.searchHistoryRowView}>
+      <View style={styles.searchHistoryRowView} key={key}>
         <SearchHistoryItem
           onPress={() => {
-            this.props.navigation.navigate('SearchResult');
+            this.onNewSearch(item);
           }}
           item={item}
           isEnglish={this.props.appSettings.language === Strings.ENGLISH}
@@ -98,8 +99,37 @@ class SearchScreen extends Component {
     );
   };
 
-  onNewSearch = () => {
-    this.props.navigation.navigate('SearchResult');
+  onNewSearch = cacheBody => {
+    this.startLoading();
+    debugger;
+    let body = null;
+    if (cacheBody) {
+      body = cacheBody;
+    } else {
+      body = {
+        name: '',
+        startTime: '00:00',
+        endTime: '23:59',
+        min_radius: 0,
+        max_radius: 10,
+        lon: 35.21702,
+        lat: 31.771959,
+        sortBy: 'time',
+      };
+    }
+    ApiRequest('search/synagogues', body, 'POST')
+      .then(response => {
+        this.closeLoading();
+        debugger;
+        this.props.navigation.navigate('SearchResult', {
+          searchResult: response,
+          searchBody: body,
+        });
+      })
+      .catch(error => {
+        debugger;
+        this.closeLoading();
+      });
   };
 
   render() {
@@ -124,7 +154,9 @@ class SearchScreen extends Component {
           <View style={styles.newSearchButtonContainer}>
             <TouchableOpacity
               style={styles.newSearchButton}
-              onPress={this.onNewSearch}>
+              onPress={() => {
+                this.onNewSearch();
+              }}>
               <Image
                 source={require('../../assets/icon_search_newicon.png')}
                 style={styles.newSearchImage}

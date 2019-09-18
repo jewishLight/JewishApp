@@ -212,6 +212,7 @@ class NewSynModal extends Component {
               onChangeText={text => {
                 this.setState({name: text});
               }}
+              phoneNumber={false}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -400,6 +401,7 @@ class NewSynModal extends Component {
               onChangeText={text => {
                 this.setState({phoneNumber: text});
               }}
+              phoneNumber={true}
             />
           </View>
 

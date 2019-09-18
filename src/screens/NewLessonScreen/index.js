@@ -128,6 +128,7 @@ class NewLessonScreen extends Component {
                   : he.modal.enterSubjectHere
               }
               onChangeText={this.onChangeSubject}
+              phoneNumber={false}
             />
             <View
               style={{
@@ -262,6 +263,7 @@ class NewLessonScreen extends Component {
               onChangeText={text => {
                 this.setState({contactName: text});
               }}
+              phoneNumber={false}
             />
             <Text style={styles.newLessonModalTextInputTitle}>
               {isEnglish ? en.modal.contactNumber : he.modal.contactNumber}
@@ -274,6 +276,7 @@ class NewLessonScreen extends Component {
               onChangeText={text => {
                 this.setState({phoneNumber: text});
               }}
+              phoneNumber={true}
             />
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.audience : he.modal.audience}

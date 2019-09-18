@@ -54,7 +54,7 @@ export const CommentListItem = ({onPress, item}) => (
 export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
   <TouchableOpacity style={styles.searchHistoryItemContainer} onPress={onPress}>
     <Text style={{color: '#9B9B9B', fontSize: 15}}>
-      {isEnglish ? en.searchHistory.date : he.searchHistory.date} : 23.2.2019
+      {isEnglish ? en.searchHistory.date : he.searchHistory.date} : {item.date}
     </Text>
     <View
       style={{
@@ -68,7 +68,7 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
           source={require('../../assets/icon_search_history_location.png')}
           style={{width: 16, height: 21, resizeMode: 'contain'}}
         />
-        <Text style={{marginLeft: 5, fontSize: 18}}>ABC</Text>
+        <Text style={{marginLeft: 5, fontSize: 18}}>{item.name}</Text>
       </View>
       <Image
         source={require('../../assets/icon_search_history_rightarrow.png')}
@@ -97,7 +97,7 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>
+        <Text style={{color: Colors.primary, fontSize: 12}}>{item.sortBy}</Text>
       </View>
       <View
         style={{
@@ -127,7 +127,7 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
   </TouchableOpacity>
 );
 
-export const SearchResultItem = ({onPress}) => (
+export const SearchResultItem = ({onPress, item}) => (
   <TouchableOpacity style={styles.searchResultItemContainer} onPress={onPress}>
     <View style={styles.searchResultItemImageContainer}>
       <Image
@@ -142,13 +142,15 @@ export const SearchResultItem = ({onPress}) => (
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 16}}>P Time: Mincha</Text>
+        <Text style={{fontSize: 16}} numberOfLines={1} ellipsizeMode={'tail'}>
+          {item.name}
+        </Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            source={require('../../assets/icon_search_result_item_location.png')}
-            style={{width: 11, height: 14, resizeMode: 'contain'}}
-          />
-          <Text style={{color: '#9B9B9B', fontSize: 12}}>400m</Text>
+          {/*<Image*/}
+          {/*  source={require('../../assets/icon_search_result_item_location.png')}*/}
+          {/*  style={{width: 11, height: 14, resizeMode: 'contain'}}*/}
+          {/*/>*/}
+          {/*<Text style={{color: '#9B9B9B', fontSize: 12}}>400m</Text>*/}
         </View>
       </View>
       <View

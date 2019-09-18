@@ -273,6 +273,7 @@ export class NewLessonModal extends Component {
                       : he.modal.enterSubjectHere
                   }
                   onChangeText={this.onChangeSubject}
+                  phoneNumber={false}
                 />
                 <View
                   style={{
@@ -411,6 +412,7 @@ export class NewLessonModal extends Component {
                   onChangeText={text => {
                     this.setState({contactName: text});
                   }}
+                  phoneNumber={false}
                 />
                 <Text style={styles.newLessonModalTextInputTitle}>
                   {isEnglish ? en.modal.contactNumber : he.modal.contactNumber}
@@ -425,6 +427,7 @@ export class NewLessonModal extends Component {
                   onChangeText={text => {
                     this.setState({phoneNumber: text});
                   }}
+                  phoneNumber={true}
                 />
                 <Text style={styles.newLessonModalPickerTitle}>
                   {isEnglish ? en.modal.audience : he.modal.audience}
@@ -713,6 +716,7 @@ export class NewSynModal extends Component {
                     onChangeText={text => {
                       this.setState({name: text});
                     }}
+                    phoneNumber={false}
                   />
 
                   <Text style={styles.newLessonModalPickerTitle}>
@@ -911,6 +915,7 @@ export class NewSynModal extends Component {
                     onChangeText={text => {
                       this.setState({phoneNumber: text});
                     }}
+                    phoneNumber={true}
                   />
                 </View>
 

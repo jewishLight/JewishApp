@@ -13,31 +13,11 @@ import {styles} from './styles';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
-import {SearchResultItem, SearchResultHeader} from '../../components';
+import {SearchResultItem, SearchResultHeader, Loading} from '../../components';
 import {Colors} from '../../themes';
 import {Strings} from '../../utils';
 import {en, he} from '../../constants';
-
-const tempSearchHistoryData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 5,
-  },
-  {
-    id: 6,
-  },
-];
+import {ApiRequest} from '../../utils';
 
 class SearchResultScreen extends Component {
   static navigationOptions = {
@@ -48,14 +28,21 @@ class SearchResultScreen extends Component {
     super(props);
     this.state = {
       language: '',
+      showLoading: false,
+      searchResult: [],
+      searchBody: null,
     };
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => item._id;
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.setState({language: this.props.appSettings.language});
+    this.setState({
+      language: this.props.appSettings.language,
+      searchResult: this.props.navigation.state.params.searchResult,
+      searchBody: this.props.navigation.state.params.searchBody,
+    });
   }
 
   componentWillUnmount(): void {
@@ -86,6 +73,7 @@ class SearchResultScreen extends Component {
           onPress={() => {
             this.props.navigation.navigate('Syna');
           }}
+          item={item}
         />
         <View style={styles.verticalSpacing} />
       </View>
@@ -93,15 +81,45 @@ class SearchResultScreen extends Component {
   };
 
   onFilter = () => {
-    this.props.navigation.navigate('Filter');
+    this.props.navigation.navigate('Filter', {onFiltered: this.onFiltered});
+  };
+
+  onFiltered = (name, startTime, endTime, max_radius, sortBy) => {
+    debugger;
+    this.startLoading();
+    let body = {
+      name,
+      startTime,
+      endTime,
+      min_radius: 0,
+      max_radius: `${max_radius}`,
+      lon: 35.21702,
+      lat: 31.771959,
+      sortBy,
+    };
+    ApiRequest('search/synagogues', body, 'POST')
+      .then(response => {
+        this.closeLoading();
+        this.setState({searchResult: response, searchBody: body});
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
   };
 
   onMapView = () => {
     this.props.navigation.navigate('MapView');
   };
 
+  startLoading = () => {
+    this.setState({showLoading: true});
+  };
+  closeLoading = () => {
+    this.setState({showLoading: false});
+  };
+
   render() {
-    const {language} = this.state;
+    const {language, searchResult, searchBody, showLoading} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.searchContainer}>
@@ -125,7 +143,8 @@ class SearchResultScreen extends Component {
                 />
                 <Text
                   style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                  16:57 - 19:57
+                  {searchBody &&
+                    `${searchBody.startTime} - ${searchBody.endTime}`}
                 </Text>
               </View>
               <View style={styles.searchResultTopTagView}>
@@ -135,7 +154,7 @@ class SearchResultScreen extends Component {
                 />
                 <Text
                   style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                  3 km{' '}
+                  {`${searchBody && searchBody.max_radius}`} km{' '}
                   {isEnglish ? en.searchResult.radius : he.searchResult.radius}
                 </Text>
               </View>
@@ -152,7 +171,7 @@ class SearchResultScreen extends Component {
             </View>
             <View style={{padding: 10, paddingBottom: 40}}>
               <FlatList
-                data={tempSearchHistoryData}
+                data={searchResult}
                 renderItem={this.renderSearchHistories}
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={this._keyExtractor}
@@ -162,7 +181,7 @@ class SearchResultScreen extends Component {
           <View style={styles.newSearchResultButtonContainer}>
             <View style={styles.searchResultFilterButton}>
               <Text style={styles.searchResultsText}>
-                4{' '}
+                {searchResult.length}{' '}
                 {isEnglish
                   ? en.searchResult.resultsFound
                   : he.searchResult.resultsFound}
@@ -202,6 +221,7 @@ class SearchResultScreen extends Component {
               : he.memorial.all_over_the_app}
           </Text>
         </View>
+        {showLoading && <Loading />}
       </SafeAreaView>
     );
   }
