@@ -13,31 +13,11 @@ import {styles} from './styles';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
-import {SearchHistoryItem, SearchHeader} from '../../components';
+import {SearchHistoryItem, SearchHeader, Loading} from '../../components';
 import {Colors} from '../../themes';
 import {Strings} from '../../utils';
 import {en, he} from '../../constants';
-
-const tempSearchHistoryData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-  {
-    id: 4,
-  },
-  {
-    id: 5,
-  },
-  {
-    id: 6,
-  },
-];
+import {ApiRequest} from '../../utils';
 
 class SearchScreen extends Component {
   static navigationOptions = {
@@ -48,19 +28,31 @@ class SearchScreen extends Component {
     super(props);
     this.state = {
       language: Strings.ENGLISH,
+      showLoading: false,
+      searchHistory: [],
     };
   }
 
-  _keyExtractor = (item, index) => item.id.toString();
+  _keyExtractor = (item, index) => item._id;
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.setState({language: this.props.appSettings.language});
+    this.setState({
+      language: this.props.appSettings.language,
+      searchHistory: this.props.navigation.state.params.searchHistory,
+    });
   }
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   }
+
+  startLoading = () => {
+    this.setState({showLoading: true});
+  };
+  closeLoading = () => {
+    this.setState({showLoading: false});
+  };
 
   async componentWillReceiveProps(nextProps, nextContext) {
     const originLanguage = this.props.appSettings.language;
@@ -79,6 +71,18 @@ class SearchScreen extends Component {
     this.props.navigation.goBack();
   };
 
+  onClearSearchHistory = () => {
+    this.startLoading();
+    ApiRequest('search/delete', {}, 'DELETE')
+      .then(response => {
+        this.closeLoading();
+        this.setState({searchHistory: []});
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
+  };
+
   renderSearchHistories = ({item, index}) => {
     return (
       <View style={styles.searchHistoryRowView}>
@@ -86,6 +90,7 @@ class SearchScreen extends Component {
           onPress={() => {
             this.props.navigation.navigate('SearchResult');
           }}
+          item={item}
           isEnglish={this.props.appSettings.language === Strings.ENGLISH}
         />
         <View style={styles.verticalSpacing} />
@@ -98,15 +103,19 @@ class SearchScreen extends Component {
   };
 
   render() {
-    const {language} = this.state;
+    const {showLoading, language, searchHistory} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.searchContainer}>
         <View style={{flex: 1}}>
-          <SearchHeader onBack={this.onBack} isEnglish={isEnglish} />
+          <SearchHeader
+            onBack={this.onBack}
+            onClear={this.onClearSearchHistory}
+            isEnglish={isEnglish}
+          />
           <View style={styles.searchHistoryContainer}>
             <FlatList
-              data={tempSearchHistoryData}
+              data={searchHistory}
               renderItem={this.renderSearchHistories}
               showsHorizontalScrollIndicator={false}
               keyExtractor={this._keyExtractor}
@@ -141,6 +150,7 @@ class SearchScreen extends Component {
               : he.memorial.all_over_the_app}
           </Text>
         </View>
+        {showLoading && <Loading />}
       </SafeAreaView>
     );
   }

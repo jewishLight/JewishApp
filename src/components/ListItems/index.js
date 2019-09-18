@@ -4,30 +4,54 @@ import {styles} from './styles';
 import {Metric, Colors} from '../../themes';
 import {en, he} from '../../constants';
 
-export const CommentListItem = ({onPress}) => (
+const getTimeDifferent = (date1, date2) => {
+  const diffTime = Math.abs(new Date(date1) - new Date(date2) || new Date());
+  const diffSeconds = Math.ceil(diffTime / 1000);
+  if (diffSeconds < 60) {
+    return `${diffSeconds}s`;
+  } else {
+    const diffMinutes = Math.ceil(diffTime / (1000 * 60));
+    if (diffMinutes < 60) {
+      return `${diffMinutes}m`;
+    } else {
+      const diffHours = Math.ceil(diffTime / (1000 * 60 * 60));
+      if (diffHours < 24) {
+        return `${diffHours}h`;
+      } else {
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return `${diffDays}d`;
+      }
+    }
+  }
+};
+
+export const CommentListItem = ({onPress, item}) => (
   <TouchableOpacity style={styles.commentItemContainer} onPress={onPress}>
     <View style={{}}>
       <TouchableOpacity>
         <Image
-          source={require('../../assets/icon_commentlist_avatar.png')}
+          source={
+            item.avatar
+              ? {uri: item.avatar}
+              : require('../../assets/icon_commentlist_avatar.png')
+          }
           style={styles.commentItemAvatar}
         />
       </TouchableOpacity>
     </View>
     <View style={{flex: 1, paddingHorizontal: 10}}>
-      <Text style={styles.commentItemNameText}>Jonathan Levi</Text>
-      <Text style={styles.commentItemDescText}>
-        Lorem ipsum is placeholder text commonly used in the graphic, print, and
-        publishing...
+      <Text style={styles.commentItemNameText}>
+        {item.first_name} {item.last_name}
       </Text>
+      <Text style={styles.commentItemDescText}>{item.comment_body}</Text>
     </View>
     <View style={styles.commentItemTimeText}>
-      <Text>10 min</Text>
+      <Text>{getTimeDifferent(new Date(), item.date)}</Text>
     </View>
   </TouchableOpacity>
 );
 
-export const SearchHistoryItem = ({onPress, isEnglish}) => (
+export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
   <TouchableOpacity style={styles.searchHistoryItemContainer} onPress={onPress}>
     <Text style={{color: '#9B9B9B', fontSize: 15}}>
       {isEnglish ? en.searchHistory.date : he.searchHistory.date} : 23.2.2019

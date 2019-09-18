@@ -554,6 +554,24 @@ export class DateTimeSetter extends Component {
           <TouchableOpacity
             style={styles.newLessonModalDayContainer}
             onPress={() => {
+              this.props.updateWeekdays(mon, tue, wed, thu, fri, sat, !sun);
+              this.setState({sun: !sun});
+            }}>
+            <View
+              style={
+                sun
+                  ? styles.newLessonModalDaySelected
+                  : styles.newLessonModalDayUnselected
+              }
+            />
+            <Text style={styles.newLessonModalDayText}>
+              {isEnglish ? en.weekDay.sun : he.weekDay.sun}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.newLessonModalDayContainer}
+            onPress={() => {
               this.props.updateWeekdays(!mon, tue, wed, thu, fri, sat, sun);
               this.setState({mon: !mon});
             }}>
@@ -656,24 +674,6 @@ export class DateTimeSetter extends Component {
             />
             <Text style={styles.newLessonModalDayText}>
               {isEnglish ? en.weekDay.sat : he.weekDay.sat}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.newLessonModalDayContainer}
-            onPress={() => {
-              this.props.updateWeekdays(mon, tue, wed, thu, fri, sat, !sun);
-              this.setState({sun: !sun});
-            }}>
-            <View
-              style={
-                sun
-                  ? styles.newLessonModalDaySelected
-                  : styles.newLessonModalDayUnselected
-              }
-            />
-            <Text style={styles.newLessonModalDayText}>
-              {isEnglish ? en.weekDay.sun : he.weekDay.sun}
             </Text>
           </TouchableOpacity>
         </View>
@@ -870,6 +870,24 @@ export class SynMinTimes extends Component {
             <TouchableOpacity
               style={styles.newLessonModalDayContainer}
               onPress={() => {
+                this.props.updateWeekdays(mon, tue, wed, thu, fri, sat, !sun);
+                this.setState({sun: !sun});
+              }}>
+              <View
+                style={
+                  sun
+                    ? styles.newLessonModalDaySelected
+                    : styles.newLessonModalDayUnselected
+                }
+              />
+              <Text style={styles.newLessonModalDayText}>
+                {isEnglish ? en.weekDay.sun : he.weekDay.sun}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.newLessonModalDayContainer}
+              onPress={() => {
                 this.props.updateWeekdays(!mon, tue, wed, thu, fri, sat, sun);
                 this.setState({mon: !mon});
               }}>
@@ -972,24 +990,6 @@ export class SynMinTimes extends Component {
               />
               <Text style={styles.newLessonModalDayText}>
                 {isEnglish ? en.weekDay.sat : he.weekDay.sat}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.newLessonModalDayContainer}
-              onPress={() => {
-                this.props.updateWeekdays(mon, tue, wed, thu, fri, sat, !sun);
-                this.setState({sun: !sun});
-              }}>
-              <View
-                style={
-                  sun
-                    ? styles.newLessonModalDaySelected
-                    : styles.newLessonModalDayUnselected
-                }
-              />
-              <Text style={styles.newLessonModalDayText}>
-                {isEnglish ? en.weekDay.sun : he.weekDay.sun}
               </Text>
             </TouchableOpacity>
           </View>

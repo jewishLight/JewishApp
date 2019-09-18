@@ -301,7 +301,15 @@ class HomeScreen extends Component {
   };
 
   onSearch = () => {
-    this.props.navigation.navigate('Search');
+    this.startLoading();
+    ApiRequest(`search`)
+      .then(response => {
+        this.closeLoading();
+        this.props.navigation.navigate('Search', {searchHistory: response});
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
   };
   onAdd = () => {
     if (this.refAddModal) {

@@ -371,19 +371,6 @@ export class NewLessonModal extends Component {
                 <Text style={styles.newLessonModalPickerTitle}>
                   {isEnglish ? en.modal.timeAndDate : he.modal.timeAndDate}
                 </Text>
-                {/*<DateTimeSetter*/}
-                {/*  mon={false}*/}
-                {/*  tue={false}*/}
-                {/*  wed={false}*/}
-                {/*  thu={false}*/}
-                {/*  fri={false}*/}
-                {/*  sat={false}*/}
-                {/*  sun={false}*/}
-                {/*  isEnglish={isEnglish}*/}
-                {/*  updateWeekdays={(mon, tue, wed, thu, fri, sat, sun) => {*/}
-                {/*    this.setState({mon, tue, wed, thu, fri, sat, sun});*/}
-                {/*  }}*/}
-                {/*/>*/}
                 <SynMinTimes
                   mon={false}
                   tue={false}

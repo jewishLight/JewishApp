@@ -179,6 +179,21 @@ export class SearchHeader extends Component {
               : he.searchHistory.searchHistory}
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            width: 100,
+            height: 40,
+            borderRadius: 20,
+            backgroundColor: 'gainsboro',
+            marginTop: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            this.props.onClear();
+          }}>
+          <Text>Clear</Text>
+        </TouchableOpacity>
       </View>
     );
   }

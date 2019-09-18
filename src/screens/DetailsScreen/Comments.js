@@ -39,7 +39,7 @@ export class Comments extends Component {
   renderComments = ({item, index}) => {
     return (
       <View style={styles.rowView}>
-        <CommentListItem onPress={() => {}} />
+        <CommentListItem onPress={() => {}} item={item} />
       </View>
     );
   };

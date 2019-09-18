@@ -37,6 +37,7 @@ class DetailsScreen extends Component {
       language: Strings.ENGLISH,
       commentText: '',
       showLoading: false,
+      comments: [],
     };
   }
 
@@ -46,6 +47,9 @@ class DetailsScreen extends Component {
     console.info(this.props.navigation.state.params.lessonData);
     this.setState({
       language: this.props.appSettings.language,
+    });
+    this.setState({
+      comments: this.props.navigation.state.params.lessonData.comments,
     });
   }
 
@@ -81,18 +85,20 @@ class DetailsScreen extends Component {
       comment_body: this.state.commentText,
       date: new Date(),
     };
-    debugger;
     ApiRequest('lesson/comment', body, 'POST')
       .then(response => {
         this.closeLoading();
+        this.setState({commentText: ''});
+        this.setState({comments: response.comments});
       })
       .catch(error => {
         this.closeLoading();
+        this.setState({commentText: ''});
       });
   };
 
   render() {
-    const {language, showLoading} = this.state;
+    const {language, showLoading, comments} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
     return (
@@ -106,7 +112,9 @@ class DetailsScreen extends Component {
             onSend={this.onSend}
           />
 
-          <KeyboardAwareScrollView keyboardShouldPersistTaps={'always'}>
+          <KeyboardAwareScrollView
+            keyboardShouldPersistTaps={'always'}
+            style={styles.flexFull}>
             <View style={styles.detailBasicInfo}>
               <Text style={styles.detailTitleText}>
                 {lessonData.lessonSubject}
@@ -182,7 +190,7 @@ class DetailsScreen extends Component {
               </View>
               <View style={styles.likesContainer}>
                 <Text style={styles.likesText}>
-                  {lessonData.likes_count}+{' '}
+                  {`${lessonData.likes_count ? lessonData.likes_count : 0} `}
                   {isEnglish ? en.detail.liked : he.detail.liked}
                 </Text>
                 <Image
@@ -192,29 +200,27 @@ class DetailsScreen extends Component {
               </View>
             </View>
             <View style={styles.paddingSeparator} />
-            <Comments isEnglish={isEnglish} item={lessonData.comments} />
-            <View style={styles.commentInputView}>
-              <TextInput
-                placeholder={
-                  isEnglish
-                    ? en.detail.typeCommentHere
-                    : he.detail.typeCommentHere
-                }
-                style={styles.commentInputText}
-                onChangeText={text => {
-                  this.setState({commentText: text});
-                }}
-                onEndEditing={this.onComment}
-              />
-              <TouchableOpacity style={styles.commentSendView}>
-                <Image
-                  source={require('../../assets/icon_detail_sendbtn.png')}
-                  style={styles.commentSendImage}
-                />
-              </TouchableOpacity>
-            </View>
+            <Comments isEnglish={isEnglish} item={comments} />
           </KeyboardAwareScrollView>
         </SafeAreaView>
+        <View style={styles.commentInputView}>
+          <TextInput
+            placeholder={
+              isEnglish ? en.detail.typeCommentHere : he.detail.typeCommentHere
+            }
+            style={styles.commentInputText}
+            onChangeText={text => {
+              this.setState({commentText: text});
+            }}
+            onEndEditing={this.onComment}
+          />
+          <TouchableOpacity style={styles.commentSendView}>
+            <Image
+              source={require('../../assets/icon_detail_sendbtn.png')}
+              style={styles.commentSendImage}
+            />
+          </TouchableOpacity>
+        </View>
         <View
           style={{
             height: 30,
