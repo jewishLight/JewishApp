@@ -60,6 +60,7 @@ export default {
   detail: {
     comments: 'Comments',
     like: 'Like',
+    unlike: 'Unlike',
     liked: 'liked',
     typeCommentHere: 'Type comment here...',
   },

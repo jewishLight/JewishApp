@@ -26,9 +26,8 @@ import {
 import {
   AddModal,
   FilterModal,
-  NewLessonModal,
-  NewSynModal,
   ChangeLocationModal,
+  SearchSynaModal,
 } from './Modals';
 import {
   NormalInput,
@@ -68,7 +67,7 @@ export {
   SearchResultItem,
   AddModal,
   FilterModal,
-  NewLessonModal,
+  SearchSynaModal,
   ChangeLocationModal,
   NormalInput,
   NormalPicker,
@@ -76,7 +75,6 @@ export {
   DateTimeSetter,
   DescriptionInput,
   NosachPicker,
-  NewSynModal,
   SynMinTimes,
   NormalSwitch,
   TagView,

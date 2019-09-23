@@ -60,6 +60,7 @@ export default {
   detail: {
     comments: 'תגובות',
     like: 'אוהב',
+    unlike: 'Unlike',
     liked: 'אהבו',
     typeCommentHere: 'הזן תגובה כאן...',
   },

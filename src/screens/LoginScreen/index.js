@@ -10,7 +10,7 @@ import {
   Alert,
 } from 'react-native';
 import {Metric} from '../../themes';
-import {LocalStorage, Strings} from '../../utils';
+import {ApiRequest, LocalStorage, Strings} from '../../utils';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -21,6 +21,7 @@ import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {en, he} from '../../constants';
+import {Loading} from '../../components';
 
 class LoginScreen extends Component {
   static navigationOptions = {
@@ -32,6 +33,7 @@ class LoginScreen extends Component {
     super(props);
     this.state = {
       language: '',
+      showLoading: false,
     };
   }
 
@@ -61,13 +63,25 @@ class LoginScreen extends Component {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      debugger;
 
-      await LocalStorage.setLoggedIn(true);
-      await LocalStorage.setToken(Strings.TEST_TOKEN);
-      await LocalStorage.setLoginType(Strings.LOGIN_TYPE_GOOGLE);
-      Strings.loginType = Strings.LOGIN_TYPE_GOOGLE;
-      Strings.localToken = Strings.TEST_TOKEN;
-      this.props.navigation.navigate('Home');
+      this.startLoading();
+      let body = {
+        id_token: userInfo.idToken,
+      };
+      ApiRequest('auth/google', body, 'POST')
+        .then(async response => {
+          this.closeLoading();
+          Strings.localToken = response.token;
+          Strings.loginType = Strings.LOGIN_TYPE_GOOGLE;
+          await LocalStorage.setToken(response.token);
+          await LocalStorage.setLoggedIn(true);
+          await LocalStorage.setLoginType(Strings.LOGIN_TYPE_GOOGLE);
+          this.props.navigation.navigate('Home');
+        })
+        .catch(error => {
+          this.closeLoading();
+        });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // sign in was cancelled
@@ -86,8 +100,15 @@ class LoginScreen extends Component {
     }
   };
 
+  startLoading = () => {
+    this.setState({showLoading: true});
+  };
+  closeLoading = () => {
+    this.setState({showLoading: false});
+  };
+
   render() {
-    const {language} = this.state;
+    const {language, showLoading} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -221,6 +242,7 @@ class LoginScreen extends Component {
               : he.memorial.all_over_the_app}
           </Text>
         </View>
+        {showLoading && <Loading />}
       </SafeAreaView>
     );
   }

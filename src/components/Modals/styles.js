@@ -24,6 +24,14 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(0, 0, 0, 0.1)',
     paddingVertical: 20,
   },
+  searchSynModalMainView: {
+    backgroundColor: 'white',
+    height: Metric.height - 50,
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    paddingVertical: 20,
+  },
   addSynBtn: {
     width: '100%',
     height: 50,

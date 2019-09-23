@@ -208,7 +208,7 @@ class SideMenu extends Component {
                 style={styles.iconMenu}
               />
             </View>
-            <Text style={styles.logoutText}>Logout(0.0.8)</Text>
+            <Text style={styles.logoutText}>Logout(0.0.10)</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

@@ -22,10 +22,9 @@ import {
   FilterButton,
   AddModal,
   FilterModal,
-  NewLessonModal,
-  NewSynModal,
   ChangeLocationModal,
   Loading,
+  SearchSynaModal,
 } from '../../components';
 import {AroundEvents} from './AroundEvents';
 import {TodayLessons} from './TodayLessons';
@@ -241,6 +240,12 @@ class HomeScreen extends Component {
             onSelectLocation={this.onSelectLocation}
             isEnglish={isEnglish}
           />
+          <SearchSynaModal
+            ref={ref => {
+              this.refSearchSynaModal = ref;
+            }}
+            isEnglish={isEnglish}
+          />
         </View>
         <View
           style={{
@@ -266,7 +271,7 @@ class HomeScreen extends Component {
     switch (flag) {
       case Strings.MODAL_FLAG_ADD_LESSON:
         this.startLoading();
-        ApiRequest('lesson/speakers', {}, 'GET')
+        ApiRequest('lesson/speakers')
           .then(response => {
             this.closeLoading();
             this.props.navigation.navigate('NewLesson', {
@@ -280,10 +285,11 @@ class HomeScreen extends Component {
           });
         break;
       case Strings.MODAL_FLAG_ADD_SYN:
-        this.props.navigation.navigate('NewSyna', {
-          onPublish: this.onAddSyn,
-          isEnglish: this.state.language === Strings.ENGLISH,
-        });
+        this.refSearchSynaModal.show();
+        // this.props.navigation.navigate('NewSyna', {
+        //   onPublish: this.onAddSyn,
+        //   isEnglish: this.state.language === Strings.ENGLISH,
+        // });
         break;
       default:
         break;

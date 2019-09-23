@@ -155,6 +155,7 @@ export class NosachPicker extends Component {
             },
           ]}
           useNativeAndroidPickerStyle={false}
+          placeholder={{label: '', value: null}}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}
@@ -269,6 +270,7 @@ export class NormalPicker extends Component {
             },
           ]}
           useNativeAndroidPickerStyle={false}
+          placeholder={{label: '', value: null}}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}
@@ -358,6 +360,7 @@ export class SpeakerPicker extends Component {
           onValueChange={value => this.props.onValueChange(value)}
           items={this.props.items}
           useNativeAndroidPickerStyle={false}
+          placeholder={{label: '', value: null}}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}
@@ -448,6 +451,7 @@ export class AmenitiesPicker extends Component {
           onValueChange={value => this.props.onSelect(value)}
           items={this.props.items}
           useNativeAndroidPickerStyle={false}
+          placeholder={{label: '', value: null}}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}

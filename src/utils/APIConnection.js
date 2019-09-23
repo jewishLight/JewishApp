@@ -1,5 +1,6 @@
 import {Platform} from 'react-native';
-const BASIC_URL = 'http://4d14932e.ngrok.io/';
+// const BASIC_URL = 'http://4d14932e.ngrok.io/';
+const BASIC_URL = 'http://jworld.startach.org.il/';
 import {Strings} from '../utils';
 
 export const ApiRequest = (url, body = '', method = 'GET') => {

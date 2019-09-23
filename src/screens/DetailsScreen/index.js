@@ -38,19 +38,29 @@ class DetailsScreen extends Component {
       commentText: '',
       showLoading: false,
       comments: [],
+      isLike: false,
     };
   }
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    debugger;
-    console.info(this.props.navigation.state.params.lessonData);
     this.setState({
       language: this.props.appSettings.language,
     });
     this.setState({
       comments: this.props.navigation.state.params.lessonData.comments,
     });
+
+    let likes = this.props.navigation.state.params.lessonData.likes;
+    let isLike = false;
+    if (likes) {
+      likes.map(item => {
+        if (item === this.props.navigation.state.params.lessonData._id) {
+          isLike = true;
+        }
+      });
+    }
+    this.setState({isLike});
   }
 
   componentWillUnmount(): void {
@@ -97,8 +107,38 @@ class DetailsScreen extends Component {
       });
   };
 
+  onLike = () => {
+    this.startLoading();
+    let body = {
+      lesson_id: this.props.navigation.state.params.lessonData._id,
+    };
+    ApiRequest('lesson/like', body, 'POST')
+      .then(response => {
+        this.closeLoading();
+        this.setState({isLike: true});
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
+  };
+
+  onDislike = () => {
+    this.startLoading();
+    let body = {
+      lesson_id: this.props.navigation.state.params.lessonData._id,
+    };
+    ApiRequest('lesson/unlike', body, 'POST')
+      .then(response => {
+        this.closeLoading();
+        this.setState({isLike: false});
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
+  };
+
   render() {
-    const {language, showLoading, comments} = this.state;
+    const {language, showLoading, comments, isLike} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
     return (
@@ -181,7 +221,16 @@ class DetailsScreen extends Component {
             <View style={styles.likeBtnContainer}>
               <View style={styles.buttonsContainer}>
                 <LikeButton
-                  text={isEnglish ? en.detail.like : he.detail.like}
+                  onPress={isLike ? this.onDislike : this.onLike}
+                  text={
+                    isEnglish
+                      ? isLike
+                        ? en.detail.unlike
+                        : en.detail.like
+                      : isLike
+                      ? he.detail.unlike
+                      : he.detail.like
+                  }
                 />
                 <View style={styles.horizontalSpacing} />
                 <CommentButton
