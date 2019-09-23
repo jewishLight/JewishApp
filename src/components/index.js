@@ -23,12 +23,7 @@ import {
   SearchHistoryItem,
   SearchResultItem,
 } from './ListItems';
-import {
-  AddModal,
-  FilterModal,
-  ChangeLocationModal,
-  SearchSynaModal,
-} from './Modals';
+import {AddModal, FilterModal, ChangeLocationModal} from './Modals';
 import {
   NormalInput,
   NormalPicker,
@@ -67,7 +62,6 @@ export {
   SearchResultItem,
   AddModal,
   FilterModal,
-  SearchSynaModal,
   ChangeLocationModal,
   NormalInput,
   NormalPicker,

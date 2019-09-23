@@ -13,6 +13,7 @@ import LoginScreen from './LoginScreen';
 import MyProfileScreen from './MyProfileScreen';
 import NewLessonScreen from './NewLessonScreen';
 import NewSynaScreen from './NewSynaScreen';
+import SearchSynaScreen from './SearchSynaScreen';
 
 export {
   HomeScreen,
@@ -30,4 +31,5 @@ export {
   MyProfileScreen,
   NewLessonScreen,
   NewSynaScreen,
+  SearchSynaScreen,
 };

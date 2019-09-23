@@ -20,6 +20,7 @@ import {
   MyProfileScreen,
   NewLessonScreen,
   NewSynaScreen,
+  SearchSynaScreen,
 } from './screens';
 import {Metric} from './themes';
 import SideMenu from './components/SideMenu';
@@ -54,6 +55,7 @@ const Routing = createStackNavigator(
     MyProfile: {screen: MyProfileScreen},
     NewLesson: {screen: NewLessonScreen},
     NewSyna: {screen: NewSynaScreen},
+    SearchSyna: {screen: SearchSynaScreen},
   },
   {
     initialRouteName: 'Splash',

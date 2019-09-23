@@ -24,7 +24,6 @@ import {
   FilterModal,
   ChangeLocationModal,
   Loading,
-  SearchSynaModal,
 } from '../../components';
 import {AroundEvents} from './AroundEvents';
 import {TodayLessons} from './TodayLessons';
@@ -240,12 +239,6 @@ class HomeScreen extends Component {
             onSelectLocation={this.onSelectLocation}
             isEnglish={isEnglish}
           />
-          <SearchSynaModal
-            ref={ref => {
-              this.refSearchSynaModal = ref;
-            }}
-            isEnglish={isEnglish}
-          />
         </View>
         <View
           style={{
@@ -285,15 +278,36 @@ class HomeScreen extends Component {
           });
         break;
       case Strings.MODAL_FLAG_ADD_SYN:
-        this.refSearchSynaModal.show();
-        // this.props.navigation.navigate('NewSyna', {
-        //   onPublish: this.onAddSyn,
-        //   isEnglish: this.state.language === Strings.ENGLISH,
-        // });
+        this.props.navigation.navigate('SearchSyna', {
+          isEnglish: this.state.language === Strings.ENGLISH,
+          onSyna: this.onSynaAdd,
+          goSyna: this.goSynaDetail,
+        });
         break;
       default:
         break;
     }
+  };
+
+  onSynaAdd = () => {
+    this.props.navigation.navigate('NewSyna', {
+      onPublish: this.onAddSyn,
+      isEnglish: this.state.language === Strings.ENGLISH,
+    });
+  };
+
+  goSynaDetail = synaId => {
+    this.startLoading();
+    ApiRequest(`synagogue/view?id=${synaId}`)
+      .then(response => {
+        this.closeLoading();
+        this.props.navigation.navigate('Syna', {
+          synaData: response,
+        });
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
   };
 
   onHeaderLocation = () => {
