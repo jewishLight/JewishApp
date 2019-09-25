@@ -54,7 +54,7 @@ class HomeScreen extends Component {
     this.setState({showLoading: false});
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     let language = this.props.appSettings.language;
     this.setState({language});
@@ -62,6 +62,10 @@ class HomeScreen extends Component {
       this.refHomeHeader.updateLanguage(language);
     }
 
+    this.fetchHome();
+  }
+
+  fetchHome = () => {
     this.startLoading();
 
     const fetchTodayLessons = new Promise((resolve, reject) => {
@@ -145,7 +149,7 @@ class HomeScreen extends Component {
       });
       this.closeLoading();
     });
-  }
+  };
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
@@ -168,7 +172,14 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const {language, showLoading, todayLessons, aroundEvents} = this.state;
+    const {
+      language,
+      showLoading,
+      todayLessons,
+      aroundEvents,
+      popularLessons,
+      recentLessons,
+    } = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.container}>
@@ -212,12 +223,12 @@ class HomeScreen extends Component {
             <PopularLessons
               onDetails={this.onDetails}
               isEnglish={isEnglish}
-              todayLessons={todayLessons}
+              todayLessons={popularLessons}
             />
             <RecentLessons
               onDetails={this.onDetails}
               isEnglish={isEnglish}
-              todayLessons={todayLessons}
+              todayLessons={recentLessons}
             />
           </ScrollView>
           <AddModal
@@ -389,8 +400,9 @@ class HomeScreen extends Component {
     this.startLoading();
     ApiRequest('lesson/add', body, 'POST')
       .then(response => {
-        debugger;
         this.closeLoading();
+        debugger;
+        this.fetchHome();
       })
       .catch(error => {
         debugger;

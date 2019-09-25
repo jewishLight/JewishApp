@@ -10,7 +10,12 @@ import {
   Alert,
 } from 'react-native';
 import {Metric} from '../../themes';
-import {ApiRequest, LocalStorage, Strings} from '../../utils';
+import {
+  ApiRequest,
+  ApiRequestWithoutToken,
+  LocalStorage,
+  Strings,
+} from '../../utils';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -63,13 +68,12 @@ class LoginScreen extends Component {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      debugger;
 
       this.startLoading();
       let body = {
         id_token: userInfo.idToken,
       };
-      ApiRequest('auth/google', body, 'POST')
+      ApiRequestWithoutToken('auth/google', body, 'POST')
         .then(async response => {
           this.closeLoading();
           Strings.localToken = response.token;

@@ -29,6 +29,7 @@ import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {SafeAreaView} from 'react-navigation';
+import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
 
 const options = {
   title: 'Select Avatar',
@@ -65,6 +66,7 @@ class NewSynModal extends Component {
       phoneNumber: '',
       avatarSource: null,
       isEnglish: this.props.navigation.state.params.isEnglish,
+      poi: null,
     };
   }
 
@@ -178,6 +180,17 @@ class NewSynModal extends Component {
     });
   };
 
+  onPoiClick = e => {
+    const poi = e.nativeEvent;
+    this.setState({
+      poi,
+      city: poi.name,
+      lat: poi.coordinate.latitude,
+      lng: poi.coordinate.longitude,
+    });
+    this.refGoogleInput.setAddressText(poi.name);
+  };
+
   render() {
     const {isEnglish} = this.state;
     return (
@@ -257,6 +270,7 @@ class NewSynModal extends Component {
                   fontWeight: 'bold',
                 },
                 textInputContainer: {
+                  backgroundColor: 'white',
                   width: Metric.width - 30,
                 },
                 textInput: {},
@@ -287,7 +301,39 @@ class NewSynModal extends Component {
               ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
               predefinedPlaces={[]}
               predefinedPlacesAlwaysVisible={false}
+              ref={ref => (this.refGoogleInput = ref)}
             />
+            <View
+              style={{
+                width: Metric.width - 30,
+                height: 300,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <MapView
+                initialRegion={{
+                  latitude: Strings.currentLatitude,
+                  longitude: Strings.currentLongitude,
+                  latitudeDelta: 0.0222,
+                  longitudeDelta: 0.0121,
+                }}
+                style={{
+                  width: Metric.width - 30,
+                  height: 250,
+                }}
+                onPoiClick={this.onPoiClick}>
+                {this.state.poi && (
+                  <Marker coordinate={this.state.poi.coordinate}>
+                    <Callout>
+                      <View>
+                        <Text>Place Id: {this.state.poi.placeId}</Text>
+                        <Text>Name: {this.state.poi.name}</Text>
+                      </View>
+                    </Callout>
+                  </Marker>
+                )}
+              </MapView>
+            </View>
 
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}

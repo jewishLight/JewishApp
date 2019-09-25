@@ -1,6 +1,6 @@
 import {Platform} from 'react-native';
 // const BASIC_URL = 'http://4d14932e.ngrok.io/';
-const BASIC_URL = 'http://jworld.startach.org.il/';
+const BASIC_URL = 'https://jworld.startach.org.il/';
 import {Strings} from '../utils';
 
 export const ApiRequest = (url, body = '', method = 'GET') => {
@@ -59,6 +59,42 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
       };
     }
   }
+
+  return new Promise(async (resolve, reject) => {
+    const onSuccess = async response => {
+      if (response.status >= 200 && response.status <= 300) {
+        // const fetchResult = await response.json();
+        let data = await response.text();
+        if (Platform.OS === 'android') {
+          data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
+        }
+        data = JSON.parse(data);
+        return resolve(data);
+      }
+      let data = await response.text();
+      if (Platform.OS === 'android') {
+        data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
+      }
+      data = JSON.parse(data);
+      return resolve(data);
+    };
+    fetch(`${BASIC_URL}${url}`, header)
+      .then(onSuccess)
+      .catch(error => reject(error));
+  });
+};
+
+export const ApiRequestWithoutToken = (url, body = '', method = 'GET') => {
+  let header;
+
+  header = {
+    method,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  };
 
   return new Promise(async (resolve, reject) => {
     const onSuccess = async response => {

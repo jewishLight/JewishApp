@@ -20,4 +20,6 @@ export default {
   // editable values
   localToken: '',
   loginType: '',
+  currentLatitude: 0,
+  currentLongitude: 0,
 };

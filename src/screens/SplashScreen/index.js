@@ -14,6 +14,7 @@ import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {en, he} from '../../constants';
+import GetLocation from 'react-native-get-location';
 
 class SplashScreen extends Component {
   static navigationOptions = {
@@ -43,6 +44,16 @@ class SplashScreen extends Component {
       await LocalStorage.setLanguage(language);
       this.props.updateLanguage(language);
     }
+
+    GetLocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
+    })
+      .then(location => {
+        Strings.currentLatitude = location.latitude;
+        Strings.currentLongitude = location.longitude;
+      })
+      .catch(error => {});
 
     setTimeout(async () => {
       if (this.getOnlineDataTimerGone === false) {

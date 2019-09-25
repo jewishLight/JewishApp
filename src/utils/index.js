@@ -1,5 +1,5 @@
 import Strings from './string';
 import LocalStorage from './localStorage';
-import {ApiRequest} from './APIConnection';
+import {ApiRequest, ApiRequestWithoutToken} from './APIConnection';
 
-export {LocalStorage, Strings, ApiRequest};
+export {LocalStorage, Strings, ApiRequest, ApiRequestWithoutToken};

@@ -1,8 +1,14 @@
 import {styles} from './styles';
-import {BackHandler, Text, TouchableOpacity, View} from 'react-native';
+import {
+  BackHandler,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {en, he} from '../../constants';
-import {AddModalCloseButton} from '../../components';
+import {AddModalCloseButton, Loading} from '../../components';
 import {
   DescriptionInput,
   NormalInput,
@@ -15,8 +21,9 @@ import React, {Component} from 'react';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
-import {Strings} from '../../utils';
+import {ApiRequest, Strings} from '../../utils';
 import {SafeAreaView} from 'react-navigation';
+import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
 
 class NewLessonScreen extends Component {
   constructor(props) {
@@ -43,6 +50,11 @@ class NewLessonScreen extends Component {
       datetime: null,
       selectedAudience: '',
       language: '',
+      addNewSpeakerState: false,
+      showLoading: false,
+      newSpeakerName: '',
+      newSpeakerAvatar: '',
+      newSpeakerAbout: '',
     };
   }
 
@@ -97,6 +109,57 @@ class NewLessonScreen extends Component {
     this.setState({datetime});
   };
 
+  addSpeaker = () => {
+    if (!this.state.addNewSpeakerState) {
+      this.setState({addNewSpeakerState: true});
+    }
+  };
+
+  onAddSpeakerFinish = () => {
+    this.startLoading();
+    let body = {
+      name: this.state.newSpeakerName,
+      avatar: this.state.newSpeakerAvatar,
+      about: this.state.newSpeakerAbout,
+    };
+    ApiRequest(`lesson/addSpeaker`, body, 'POST')
+      .then(response => {
+        debugger;
+        this.setState({addNewSpeakerState: false});
+        this.closeLoading();
+        let speakerPickerArray = [];
+        response.speakers.map(item => {
+          if (item.name && item._id) {
+            speakerPickerArray.push({label: item.name, value: item._id});
+          }
+        });
+        this.setState({speakers: speakerPickerArray});
+      })
+      .catch(error => {
+        debugger;
+        this.setState({addNewSpeakerState: false});
+        this.closeLoading();
+      });
+  };
+
+  onPoiClick = e => {
+    const poi = e.nativeEvent;
+    this.setState({
+      poi,
+      city: poi.name,
+      lat: poi.coordinate.latitude,
+      lng: poi.coordinate.longitude,
+    });
+    this.refGoogleInput.setAddressText(poi.name);
+  };
+
+  startLoading = () => {
+    this.setState({showLoading: true});
+  };
+  closeLoading = () => {
+    this.setState({showLoading: false});
+  };
+
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
     return (
@@ -141,7 +204,8 @@ class NewLessonScreen extends Component {
                 {isEnglish ? en.modal.speaker : he.modal.speaker}
               </Text>
               <TouchableOpacity
-                style={{justifyContent: 'center', alignItems: 'center'}}>
+                style={{justifyContent: 'center', alignItems: 'center'}}
+                onPress={this.addSpeaker}>
                 <Text style={{color: 'blue', fontSize: 14}}>
                   Add New Speaker
                 </Text>
@@ -153,6 +217,87 @@ class NewLessonScreen extends Component {
               direction={this.props.direction}
               onValueChange={this.onChangeSpeaker}
             />
+
+            {this.state.addNewSpeakerState && (
+              <View
+                style={{
+                  borderWidth: 1,
+                  borderColor: 'lightgray',
+                  borderRadius: 10,
+                  padding: 10,
+                  marginTop: 10,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text>Name</Text>
+                  <View style={{width: 5}} />
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      height: 40,
+                      borderWidth: 1,
+                      borderColor: 'black',
+                    }}
+                    onChangeText={text => {
+                      this.setState({newSpeakerName: text});
+                    }}
+                  />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}>
+                  <Text>Avatar</Text>
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      width: 120,
+                      height: 40,
+                      borderRadius: 20,
+                      backgroundColor: 'lightgray',
+                    }}>
+                    <Text>Upload</Text>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 10,
+                  }}>
+                  <Text>About</Text>
+                  <View style={{width: 5}} />
+                  <TextInput
+                    style={{
+                      flex: 1,
+                      height: 40,
+                      borderWidth: 1,
+                      borderColor: 'black',
+                    }}
+                    onChangeText={text => {
+                      this.setState({newSpeakerAbout: text});
+                    }}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flex: 1,
+                    height: 40,
+                    borderRadius: 20,
+                    backgroundColor: 'lightgray',
+                    marginTop: 10,
+                  }}
+                  onPress={this.onAddSpeakerFinish}>
+                  <Text>Add</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.location : he.modal.location}
             </Text>
@@ -187,6 +332,7 @@ class NewLessonScreen extends Component {
                 },
                 textInputContainer: {
                   width: Metric.width - 30,
+                  backgroundColor: 'white',
                 },
                 textInput: {},
                 predefinedPlacesDescription: {
@@ -216,7 +362,39 @@ class NewLessonScreen extends Component {
               ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
               predefinedPlaces={[]}
               predefinedPlacesAlwaysVisible={false}
+              ref={ref => (this.refGoogleInput = ref)}
             />
+            <View
+              style={{
+                width: Metric.width - 30,
+                height: 300,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <MapView
+                initialRegion={{
+                  latitude: Strings.currentLatitude,
+                  longitude: Strings.currentLongitude,
+                  latitudeDelta: 0.0222,
+                  longitudeDelta: 0.0121,
+                }}
+                style={{
+                  width: Metric.width - 30,
+                  height: 250,
+                }}
+                onPoiClick={this.onPoiClick}>
+                {this.state.poi && (
+                  <Marker coordinate={this.state.poi.coordinate}>
+                    <Callout>
+                      <View>
+                        <Text>Place Id: {this.state.poi.placeId}</Text>
+                        <Text>Name: {this.state.poi.name}</Text>
+                      </View>
+                    </Callout>
+                  </Marker>
+                )}
+              </MapView>
+            </View>
 
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.timeAndDate : he.modal.timeAndDate}
@@ -348,21 +526,33 @@ class NewLessonScreen extends Component {
                 if (sun) {
                   days.push(6);
                 }
-                this.props.navigation.state.params.onPublish(
-                  lat,
-                  lng,
-                  city,
-                  subject,
-                  selectedSpeaker,
-                  note,
-                  contactName,
-                  phoneNumber,
-                  days,
-                  date,
-                  datetime,
-                  selectedAudience,
-                );
-                this.props.navigation.goBack();
+
+                // error
+                if (!date || !datetime) {
+                  alert('Please input time');
+                } else if (selectedSpeaker === '') {
+                  alert('Please select speaker');
+                } else if (selectedAudience === '') {
+                  alert('Please select audience');
+                } else if (lat === 0 || lng === 0 || city === '') {
+                  alert('Please input the correct address');
+                } else {
+                  this.props.navigation.goBack();
+                  this.props.navigation.state.params.onPublish(
+                    lat,
+                    lng,
+                    city,
+                    subject,
+                    selectedSpeaker,
+                    note,
+                    contactName,
+                    phoneNumber,
+                    days,
+                    date,
+                    datetime,
+                    selectedAudience,
+                  );
+                }
               }}>
               <Text style={styles.bigBtnText}>
                 {isEnglish ? en.modal.publishLessons : he.modal.publishLessons}
@@ -371,6 +561,7 @@ class NewLessonScreen extends Component {
             <View style={styles.verticalSpacingBig} />
           </View>
         </KeyboardAwareScrollView>
+        {this.state.showLoading && <Loading />}
       </SafeAreaView>
     );
   }
