@@ -7,6 +7,7 @@ import {
   Text,
   Image,
   I18nManager,
+  PermissionsAndroid,
 } from 'react-native';
 import {Metric} from '../../themes';
 import {LocalStorage, Strings, ApiRequest} from '../../utils';
@@ -45,6 +46,29 @@ class SplashScreen extends Component {
       await LocalStorage.setLanguage(language);
       this.props.updateLanguage(language);
     }
+
+    async function requestCameraPermission() {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Access Required',
+            message: 'This App needs to Access your location',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          //To Check, If Permission is granted
+          console.info('granted');
+        } else {
+          alert('Permission Denied');
+        }
+      } catch (err) {
+        alert('err', err);
+        console.warn(err);
+      }
+    }
+
+    await requestCameraPermission();
 
     await GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
