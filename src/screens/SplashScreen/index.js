@@ -15,6 +15,7 @@ import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {en, he} from '../../constants';
 import GetLocation from 'react-native-get-location';
+import Geocoder from 'react-native-geocoder';
 
 class SplashScreen extends Component {
   static navigationOptions = {
@@ -45,15 +46,27 @@ class SplashScreen extends Component {
       this.props.updateLanguage(language);
     }
 
-    GetLocation.getCurrentPosition({
+    await GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 15000,
     })
       .then(location => {
+        debugger;
         Strings.currentLatitude = location.latitude;
         Strings.currentLongitude = location.longitude;
       })
       .catch(error => {});
+    //31.771959, 35.217018
+    Geocoder.geocodePosition({
+      lat: Strings.currentLatitude,
+      lng: Strings.currentLongitude,
+    })
+      .then(res => {
+        // res is an Array of geocoding object (see below)
+        debugger;
+        Strings.currentLocationCity = `${res[0].locality}, ${res[0].country}`;
+      })
+      .catch(err => {});
 
     setTimeout(async () => {
       if (this.getOnlineDataTimerGone === false) {
@@ -62,6 +75,7 @@ class SplashScreen extends Component {
           let isLoggedIn = await LocalStorage.getLoggedIn();
           if (isLoggedIn) {
             Strings.localToken = await LocalStorage.getToken();
+            Strings.userId = await LocalStorage.getUserId();
             Strings.loginType = await LocalStorage.getLoginType();
             this.props.navigation.navigate('Home');
           } else {

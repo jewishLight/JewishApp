@@ -71,6 +71,20 @@ class LocalStorage {
     return token;
   };
 
+  static setUserId = async token => {
+    try {
+      await Storage.setItem('USERID', token);
+    } catch (e) {}
+  };
+
+  static getUserId = async () => {
+    let token = null;
+    try {
+      token = await Storage.getItem('USERID');
+    } catch (e) {}
+    return token;
+  };
+
   static setLoginType = async loginType => {
     try {
       await Storage.setItem(Strings.LOGIN_TYPE, loginType);

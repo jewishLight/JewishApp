@@ -16,7 +16,7 @@ export class HomeHeader extends Component {
 
   componentDidMount() {
     this.setState({
-      location: 'Jerusalem, Israel',
+      location: this.props.location,
       language: this.props.language,
     });
     // alert(this.props.language);
@@ -35,7 +35,7 @@ export class HomeHeader extends Component {
   };
 
   updateLocation = location => {
-    // this.setState({ location });
+    this.setState({location});
   };
 
   render() {

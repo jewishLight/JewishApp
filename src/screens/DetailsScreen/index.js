@@ -55,7 +55,7 @@ class DetailsScreen extends Component {
     let isLike = false;
     if (likes) {
       likes.map(item => {
-        if (item === this.props.navigation.state.params.lessonData._id) {
+        if (item === Strings.userId) {
           isLike = true;
         }
       });
@@ -89,6 +89,7 @@ class DetailsScreen extends Component {
   };
 
   onComment = () => {
+    debugger;
     this.startLoading();
     let body = {
       lesson_id: this.props.navigation.state.params.lessonData._id,

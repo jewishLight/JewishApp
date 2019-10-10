@@ -7,16 +7,13 @@ import {en, he} from '../../constants';
 export class Comments extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      comments: [],
-    };
+    this.state = {};
   }
 
   _keyExtractor = (item, index) => item._id;
 
   render() {
     const isEnglish = this.props.isEnglish;
-    const {comments} = this.state;
     return (
       <View style={styles.commentsView}>
         <View style={styles.commentsTopView}>
@@ -24,12 +21,13 @@ export class Comments extends Component {
             {isEnglish ? en.detail.comments : he.detail.comments}
           </Text>
           <Text style={styles.commentsNumberText}>
-            82 {isEnglish ? en.detail.comments : he.detail.comments}
+            {this.props.item.length}{' '}
+            {isEnglish ? en.detail.comments : he.detail.comments}
           </Text>
         </View>
         <View style={{marginTop: 10}}>
           <FlatList
-            data={comments}
+            data={this.props.item}
             renderItem={this.renderComments}
             showsHorizontalScrollIndicator={false}
             keyExtractor={this._keyExtractor}

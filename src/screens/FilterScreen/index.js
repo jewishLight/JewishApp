@@ -11,6 +11,7 @@ import {
   BackHandler,
   Image,
   FlatList,
+  TextInput,
 } from 'react-native';
 import {styles} from './styles';
 import {appSettingsSelector} from '../../redux/selector';
@@ -23,6 +24,10 @@ import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import CustomMarker from './CustomMarker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {en, he} from '../../constants';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
+import LocationItem from '../NewLessonScreen/locationItem';
+import {GoogleAutoComplete} from 'react-native-google-autocomplete';
 
 const timeRangeValue = [
   '00:00',
@@ -93,6 +98,11 @@ class FilterScreen extends Component {
       searchType: 0,
       sort: 0,
       speakerName: '',
+      poi: null,
+      lat: Strings.currentLatitude,
+      lng: Strings.currentLongitude,
+      city: '',
+      address: '',
     };
   }
 
@@ -156,6 +166,27 @@ class FilterScreen extends Component {
     this.setState({sort: 1});
   };
 
+  onPoiClick = e => {
+    const poi = e.nativeEvent;
+    this.setState({
+      poi,
+      city: poi.name,
+      lat: poi.coordinate.latitude,
+      lng: poi.coordinate.longitude,
+    });
+    this.refGoogleInput.setAddressText(poi.name);
+  };
+
+  updateGoogleAutocomplete = nextState => {
+    debugger;
+    this.setState({
+      address: nextState.address,
+      city: nextState.address,
+      lat: nextState.latitude,
+      lng: nextState.longitude,
+    });
+  };
+
   render():
     | React.ReactElement<any>
     | string
@@ -176,6 +207,126 @@ class FilterScreen extends Component {
           <View style={{flex: 1}}>
             <ScrollView>
               <View style={{paddingHorizontal: 20}}>
+                <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
+                  {isEnglish
+                    ? en.filter.searchingTypes
+                    : he.filter.searchingTypes}
+                </Text>
+                <View style={{height: 60, marginTop: 10, flexDirection: 'row'}}>
+                  <TouchableOpacity
+                    style={
+                      searchType === 0
+                        ? {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.primary,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                        : {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.separator,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                    }
+                    onPress={() => {
+                      this.setState({searchType: 0});
+                    }}>
+                    <Text
+                      style={
+                        searchType === 0
+                          ? {color: Colors.primary}
+                          : {color: Colors.separator}
+                      }>
+                      {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+                    </Text>
+                    <View
+                      style={
+                        searchType === 0
+                          ? {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              backgroundColor: Colors.primary,
+                            }
+                          : {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              borderColor: Colors.separator,
+                              borderWidth: 1,
+                            }
+                      }
+                    />
+                  </TouchableOpacity>
+                  <View style={{width: 10}} />
+                  <TouchableOpacity
+                    style={
+                      searchType === 1
+                        ? {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.primary,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                        : {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            flexDirection: 'row',
+                            paddingHorizontal: 10,
+                            flex: 1,
+                            height: 50,
+                            borderColor: Colors.separator,
+                            borderWidth: 1,
+                            borderRadius: 5,
+                          }
+                    }
+                    onPress={() => {
+                      this.setState({searchType: 1});
+                    }}>
+                    <Text
+                      style={
+                        searchType === 1
+                          ? {color: Colors.primary}
+                          : {color: Colors.separator}
+                      }>
+                      {isEnglish ? en.modal.speaker : he.modal.speaker}
+                    </Text>
+                    <View
+                      style={
+                        searchType === 1
+                          ? {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              backgroundColor: Colors.primary,
+                            }
+                          : {
+                              width: 20,
+                              height: 20,
+                              borderRadius: 10,
+                              borderColor: Colors.separator,
+                              borderWidth: 1,
+                            }
+                      }
+                    />
+                  </TouchableOpacity>
+                </View>
                 <View style={styles.verticalSpacing} />
                 <NormalInput
                   placeholder={
@@ -197,19 +348,164 @@ class FilterScreen extends Component {
                   phoneNumber={false}
                 />
                 <View style={styles.verticalSpacing} />
-                <NormalInput
-                  placeholder={
-                    isEnglish
-                      ? en.filter.searchByLocation
-                      : he.filter.searchByLocation
-                  }
-                  direction={
-                    this.props.appSettings.language === Strings.ENGLISH
-                      ? 'ltr'
-                      : 'rtl'
-                  }
-                  phoneNumber={false}
-                />
+
+                <GoogleAutoComplete
+                  apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"
+                  debounce={300}>
+                  {({
+                    inputValue,
+                    handleTextChange,
+                    locationResults,
+                    fetchDetails,
+                    clearSearchs,
+                  }) => (
+                    <React.Fragment>
+                      <TextInput
+                        style={{
+                          height: 40,
+                          width: Metric.width - 30,
+                          borderWidth: 1,
+                          borderRadius: 5,
+                          paddingHorizontal: 16,
+                          borderColor: Colors.separator,
+                        }}
+                        value={this.state.address}
+                        onChangeText={text => {
+                          this.setState({address: text});
+                          handleTextChange(text);
+                        }}
+                        placeholder="Location..."
+                      />
+                      <ScrollView
+                        style={{maxHeight: 100}}
+                        nestedScrollEnabled={true}>
+                        {locationResults.map(el => (
+                          <LocationItem
+                            {...el}
+                            key={el.id}
+                            fetchDetails={fetchDetails}
+                            update={this.updateGoogleAutocomplete}
+                            {...{clearSearchs}}
+                          />
+                        ))}
+                      </ScrollView>
+                    </React.Fragment>
+                  )}
+                </GoogleAutoComplete>
+
+                {/*<GooglePlacesAutocomplete*/}
+                {/*  placeholder="Search"*/}
+                {/*  minLength={2} // minimum length of text to search*/}
+                {/*  autoFocus={false}*/}
+                {/*  fetchDetails={true}*/}
+                {/*  onPress={(data, details = null) => {*/}
+                {/*    // 'details' is provided when fetchDetails = true*/}
+                {/*    console.log(data);*/}
+                {/*    console.log(details);*/}
+                {/*    this.setState({*/}
+                {/*      lat: details.geometry.location.lat,*/}
+                {/*      lng: details.geometry.location.lng,*/}
+                {/*      city: details.address_components[0].long_name,*/}
+                {/*    });*/}
+                {/*  }}*/}
+                {/*  getDefaultValue={() => {*/}
+                {/*    return ''; // text input default value*/}
+                {/*  }}*/}
+                {/*  query={{*/}
+                {/*    // available options: https://developers.google.com/places/web-service/autocomplete*/}
+                {/*    key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',*/}
+                {/*    language: 'en', // language of the results*/}
+                {/*    types: '(cities)', // default: 'geocode'*/}
+                {/*  }}*/}
+                {/*  styles={{*/}
+                {/*    description: {*/}
+                {/*      fontWeight: 'bold',*/}
+                {/*    },*/}
+                {/*    textInputContainer: {*/}
+                {/*      backgroundColor: 'white',*/}
+                {/*      width: Metric.width - 30,*/}
+                {/*    },*/}
+                {/*    textInput: {},*/}
+                {/*    predefinedPlacesDescription: {*/}
+                {/*      color: '#1faadb',*/}
+                {/*    },*/}
+                {/*  }}*/}
+                {/*  currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list*/}
+                {/*  currentLocationLabel="Current location"*/}
+                {/*  nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch*/}
+                {/*  GoogleReverseGeocodingQuery={*/}
+                {/*    {*/}
+                {/*      // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro*/}
+                {/*    }*/}
+                {/*  }*/}
+                {/*  GooglePlacesSearchQuery={{*/}
+                {/*    // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search*/}
+                {/*    rankby: 'distance',*/}
+                {/*    types: 'food',*/}
+                {/*  }}*/}
+                {/*  GooglePlacesDetailsQuery={{*/}
+                {/*    // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details*/}
+                {/*    fields: 'formatted_address',*/}
+                {/*  }}*/}
+                {/*  filterReverseGeocodingByTypes={[*/}
+                {/*    'locality',*/}
+                {/*    'administrative_area_level_3',*/}
+                {/*  ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities*/}
+                {/*  predefinedPlaces={[]}*/}
+                {/*  predefinedPlacesAlwaysVisible={false}*/}
+                {/*  ref={ref => (this.refGoogleInput = ref)}*/}
+                {/*/>*/}
+
+                <View
+                  style={{
+                    width: Metric.width - 30,
+                    height: 300,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <MapView
+                    initialRegion={{
+                      latitude:
+                        this.state.lat === 0
+                          ? Strings.currentLatitude
+                          : this.state.lat,
+                      longitude:
+                        this.state.lng === 0
+                          ? Strings.currentLongitude
+                          : this.state.lng,
+                      latitudeDelta: 0.0222,
+                      longitudeDelta: 0.0121,
+                    }}
+                    region={{
+                      latitude:
+                        this.state.lat === 0
+                          ? Strings.currentLatitude
+                          : this.state.lat,
+                      longitude:
+                        this.state.lng === 0
+                          ? Strings.currentLongitude
+                          : this.state.lng,
+                      latitudeDelta: 0.0222,
+                      longitudeDelta: 0.0121,
+                    }}
+                    style={{
+                      width: Metric.width - 30,
+                      height: 250,
+                    }}
+                    onPoiClick={this.onPoiClick}>
+                    {this.state.poi && (
+                      <Marker coordinate={this.state.poi.coordinate}>
+                        <Callout>
+                          <View>
+                            <Text>Place Id: {this.state.poi.placeId}</Text>
+                            <Text>Name: {this.state.poi.name}</Text>
+                          </View>
+                        </Callout>
+                      </Marker>
+                    )}
+                  </MapView>
+                </View>
+
                 <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
                   {isEnglish ? en.filter.sortResults : he.filter.sortResults}
                 </Text>
@@ -385,126 +681,6 @@ class FilterScreen extends Component {
                     10k
                   </Text>
                 </View>
-                <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
-                  {isEnglish
-                    ? en.filter.searchingTypes
-                    : he.filter.searchingTypes}
-                </Text>
-                <View style={{height: 60, marginTop: 10, flexDirection: 'row'}}>
-                  <TouchableOpacity
-                    style={
-                      searchType === 0
-                        ? {
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            paddingHorizontal: 10,
-                            flex: 1,
-                            height: 50,
-                            borderColor: Colors.primary,
-                            borderWidth: 1,
-                            borderRadius: 5,
-                          }
-                        : {
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            paddingHorizontal: 10,
-                            flex: 1,
-                            height: 50,
-                            borderColor: Colors.separator,
-                            borderWidth: 1,
-                            borderRadius: 5,
-                          }
-                    }
-                    onPress={() => {
-                      this.setState({searchType: 0});
-                    }}>
-                    <Text
-                      style={
-                        searchType === 0
-                          ? {color: Colors.primary}
-                          : {color: Colors.separator}
-                      }>
-                      {isEnglish ? en.modal.synagogue : he.modal.synagogue}
-                    </Text>
-                    <View
-                      style={
-                        searchType === 0
-                          ? {
-                              width: 20,
-                              height: 20,
-                              borderRadius: 10,
-                              backgroundColor: Colors.primary,
-                            }
-                          : {
-                              width: 20,
-                              height: 20,
-                              borderRadius: 10,
-                              borderColor: Colors.separator,
-                              borderWidth: 1,
-                            }
-                      }
-                    />
-                  </TouchableOpacity>
-                  <View style={{width: 10}} />
-                  <TouchableOpacity
-                    style={
-                      searchType === 1
-                        ? {
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            paddingHorizontal: 10,
-                            flex: 1,
-                            height: 50,
-                            borderColor: Colors.primary,
-                            borderWidth: 1,
-                            borderRadius: 5,
-                          }
-                        : {
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            flexDirection: 'row',
-                            paddingHorizontal: 10,
-                            flex: 1,
-                            height: 50,
-                            borderColor: Colors.separator,
-                            borderWidth: 1,
-                            borderRadius: 5,
-                          }
-                    }
-                    onPress={() => {
-                      this.setState({searchType: 1});
-                    }}>
-                    <Text
-                      style={
-                        searchType === 1
-                          ? {color: Colors.primary}
-                          : {color: Colors.separator}
-                      }>
-                      {isEnglish ? en.modal.speaker : he.modal.speaker}
-                    </Text>
-                    <View
-                      style={
-                        searchType === 1
-                          ? {
-                              width: 20,
-                              height: 20,
-                              borderRadius: 10,
-                              backgroundColor: Colors.primary,
-                            }
-                          : {
-                              width: 20,
-                              height: 20,
-                              borderRadius: 10,
-                              borderColor: Colors.separator,
-                              borderWidth: 1,
-                            }
-                      }
-                    />
-                  </TouchableOpacity>
-                </View>
               </View>
               <View style={styles.filterButtonContainer}>
                 <View style={styles.filterButton}>
@@ -537,6 +713,9 @@ class FilterScreen extends Component {
                         timeRangeValue[this.state.timeRangeSliderValue[1]],
                         this.state.radiusSliderValue[0] + 1,
                         this.state.sort === 0 ? 'nearby' : 'time',
+                        this.state.lat,
+                        this.state.lng,
+                        this.state.city,
                       );
                     }}>
                     <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>

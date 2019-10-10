@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -30,6 +31,8 @@ import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import {SafeAreaView} from 'react-navigation';
 import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
+import LocationItem from '../NewLessonScreen/locationItem';
+import {GoogleAutoComplete} from 'react-native-google-autocomplete';
 
 const options = {
   title: 'Select Avatar',
@@ -67,6 +70,7 @@ class NewSynModal extends Component {
       avatarSource: null,
       isEnglish: this.props.navigation.state.params.isEnglish,
       poi: null,
+      address: '',
     };
   }
 
@@ -191,6 +195,16 @@ class NewSynModal extends Component {
     this.refGoogleInput.setAddressText(poi.name);
   };
 
+  updateGoogleAutocomplete = nextState => {
+    debugger;
+    this.setState({
+      address: nextState.address,
+      city: nextState.address,
+      lat: nextState.latitude,
+      lng: nextState.longitude,
+    });
+  };
+
   render() {
     const {isEnglish} = this.state;
     return (
@@ -241,68 +255,113 @@ class NewSynModal extends Component {
               {isEnglish ? en.modal.location : he.modal.location}
             </Text>
 
-            <GooglePlacesAutocomplete
-              placeholder="Search"
-              minLength={2} // minimum length of text to search
-              autoFocus={false}
-              fetchDetails={true}
-              onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                console.log(data);
-                console.log(details);
-                this.setState({
-                  lat: details.geometry.location.lat,
-                  lng: details.geometry.location.lng,
-                  city: details.address_components[0].long_name,
-                });
-              }}
-              getDefaultValue={() => {
-                return ''; // text input default value
-              }}
-              query={{
-                // available options: https://developers.google.com/places/web-service/autocomplete
-                key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',
-                language: 'en', // language of the results
-                types: '(cities)', // default: 'geocode'
-              }}
-              styles={{
-                description: {
-                  fontWeight: 'bold',
-                },
-                textInputContainer: {
-                  backgroundColor: 'white',
-                  width: Metric.width - 30,
-                },
-                textInput: {},
-                predefinedPlacesDescription: {
-                  color: '#1faadb',
-                },
-              }}
-              currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
-              currentLocationLabel="Current location"
-              nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-              GoogleReverseGeocodingQuery={
-                {
-                  // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-                }
-              }
-              GooglePlacesSearchQuery={{
-                // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-                rankby: 'distance',
-                types: 'food',
-              }}
-              GooglePlacesDetailsQuery={{
-                // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
-                fields: 'formatted_address',
-              }}
-              filterReverseGeocodingByTypes={[
-                'locality',
-                'administrative_area_level_3',
-              ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-              predefinedPlaces={[]}
-              predefinedPlacesAlwaysVisible={false}
-              ref={ref => (this.refGoogleInput = ref)}
-            />
+            <GoogleAutoComplete
+              apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"
+              debounce={300}>
+              {({
+                inputValue,
+                handleTextChange,
+                locationResults,
+                fetchDetails,
+                clearSearchs,
+              }) => (
+                <React.Fragment>
+                  <TextInput
+                    style={{
+                      height: 40,
+                      width: Metric.width - 30,
+                      borderWidth: 1,
+                      borderRadius: 5,
+                      paddingHorizontal: 16,
+                      borderColor: Colors.separator,
+                    }}
+                    value={this.state.address}
+                    onChangeText={text => {
+                      this.setState({address: text});
+                      handleTextChange(text);
+                    }}
+                    placeholder="Location..."
+                  />
+                  <ScrollView
+                    style={{maxHeight: 100}}
+                    nestedScrollEnabled={true}>
+                    {locationResults.map(el => (
+                      <LocationItem
+                        {...el}
+                        key={el.id}
+                        fetchDetails={fetchDetails}
+                        update={this.updateGoogleAutocomplete}
+                        {...{clearSearchs}}
+                      />
+                    ))}
+                  </ScrollView>
+                </React.Fragment>
+              )}
+            </GoogleAutoComplete>
+
+            {/*<GooglePlacesAutocomplete*/}
+            {/*  placeholder="Search"*/}
+            {/*  minLength={2} // minimum length of text to search*/}
+            {/*  autoFocus={false}*/}
+            {/*  fetchDetails={true}*/}
+            {/*  onPress={(data, details = null) => {*/}
+            {/*    // 'details' is provided when fetchDetails = true*/}
+            {/*    console.log(data);*/}
+            {/*    console.log(details);*/}
+            {/*    this.setState({*/}
+            {/*      lat: details.geometry.location.lat,*/}
+            {/*      lng: details.geometry.location.lng,*/}
+            {/*      city: details.address_components[0].long_name,*/}
+            {/*    });*/}
+            {/*  }}*/}
+            {/*  getDefaultValue={() => {*/}
+            {/*    return ''; // text input default value*/}
+            {/*  }}*/}
+            {/*  query={{*/}
+            {/*    // available options: https://developers.google.com/places/web-service/autocomplete*/}
+            {/*    key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',*/}
+            {/*    language: 'en', // language of the results*/}
+            {/*    types: '(cities)', // default: 'geocode'*/}
+            {/*  }}*/}
+            {/*  styles={{*/}
+            {/*    description: {*/}
+            {/*      fontWeight: 'bold',*/}
+            {/*    },*/}
+            {/*    textInputContainer: {*/}
+            {/*      backgroundColor: 'white',*/}
+            {/*      width: Metric.width - 30,*/}
+            {/*    },*/}
+            {/*    textInput: {},*/}
+            {/*    predefinedPlacesDescription: {*/}
+            {/*      color: '#1faadb',*/}
+            {/*    },*/}
+            {/*  }}*/}
+            {/*  currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list*/}
+            {/*  currentLocationLabel="Current location"*/}
+            {/*  nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch*/}
+            {/*  GoogleReverseGeocodingQuery={*/}
+            {/*    {*/}
+            {/*      // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro*/}
+            {/*    }*/}
+            {/*  }*/}
+            {/*  GooglePlacesSearchQuery={{*/}
+            {/*    // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search*/}
+            {/*    rankby: 'distance',*/}
+            {/*    types: 'food',*/}
+            {/*  }}*/}
+            {/*  GooglePlacesDetailsQuery={{*/}
+            {/*    // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details*/}
+            {/*    fields: 'formatted_address',*/}
+            {/*  }}*/}
+            {/*  filterReverseGeocodingByTypes={[*/}
+            {/*    'locality',*/}
+            {/*    'administrative_area_level_3',*/}
+            {/*  ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities*/}
+            {/*  predefinedPlaces={[]}*/}
+            {/*  predefinedPlacesAlwaysVisible={false}*/}
+            {/*  ref={ref => (this.refGoogleInput = ref)}*/}
+            {/*/>*/}
+
             <View
               style={{
                 width: Metric.width - 30,
@@ -312,8 +371,26 @@ class NewSynModal extends Component {
               }}>
               <MapView
                 initialRegion={{
-                  latitude: Strings.currentLatitude,
-                  longitude: Strings.currentLongitude,
+                  latitude:
+                    this.state.lat === 0
+                      ? Strings.currentLatitude
+                      : this.state.lat,
+                  longitude:
+                    this.state.lng === 0
+                      ? Strings.currentLongitude
+                      : this.state.lng,
+                  latitudeDelta: 0.0222,
+                  longitudeDelta: 0.0121,
+                }}
+                region={{
+                  latitude:
+                    this.state.lat === 0
+                      ? Strings.currentLatitude
+                      : this.state.lat,
+                  longitude:
+                    this.state.lng === 0
+                      ? Strings.currentLongitude
+                      : this.state.lng,
                   latitudeDelta: 0.0222,
                   longitudeDelta: 0.0121,
                 }}
@@ -432,6 +509,11 @@ class NewSynModal extends Component {
               onChangeText={text => {
                 this.setState({note: text});
               }}
+              placeholder={
+                isEnglish
+                  ? en.modal.enterDescription
+                  : he.modal.enterDescription
+              }
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -522,6 +604,8 @@ class NewSynModal extends Component {
                   alert('Please input the phone number');
                 } else if (note === '') {
                   alert('Please input the note');
+                } else if (!avatarSource) {
+                  alert('Please upload avatar');
                 } else {
                   this.props.navigation.goBack();
                   this.props.navigation.state.params.onPublish(

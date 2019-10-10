@@ -55,10 +55,16 @@ class MapViewScreen extends Component {
             }}>
             <MapView
               initialRegion={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitude: Strings.currentLatitude,
+                longitude: Strings.currentLongitude,
+                latitudeDelta: 0.0222,
+                longitudeDelta: 0.0121,
+              }}
+              region={{
+                latitude: Strings.currentLatitude,
+                longitude: Strings.currentLongitude,
+                latitudeDelta: 0.0222,
+                longitudeDelta: 0.0121,
               }}
               style={{
                 width: Metric.width,

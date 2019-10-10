@@ -153,6 +153,7 @@ export class FilterModal extends Component {
 import AlphaScrollFlatList from 'alpha-scroll-flat-list';
 const ITEM_HEIGHT = 50;
 import people from './names';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 export class ChangeLocationModal extends Component {
   constructor(props) {
@@ -160,6 +161,9 @@ export class ChangeLocationModal extends Component {
 
     this.state = {
       modalVisible: false,
+      lat: 0,
+      lng: 0,
+      city: '',
     };
   }
 
@@ -223,16 +227,90 @@ export class ChangeLocationModal extends Component {
             </View>
             <View style={styles.addModalSeparator} />
             <View style={styles.alphaListModalContainer}>
-              <AlphaScrollFlatList
-                keyExtractor={this.keyExtractor.bind(this)}
-                data={people.sort((prev, next) =>
-                  prev.name.localeCompare(next.name),
-                )}
-                renderItem={this.renderItem}
-                scrollKey={'name'}
-                reverse={false}
-                itemHeight={ITEM_HEIGHT}
-              />
+              {/*<AlphaScrollFlatList*/}
+              {/*  keyExtractor={this.keyExtractor.bind(this)}*/}
+              {/*  data={people.sort((prev, next) =>*/}
+              {/*    prev.name.localeCompare(next.name),*/}
+              {/*  )}*/}
+              {/*  renderItem={this.renderItem}*/}
+              {/*  scrollKey={'name'}*/}
+              {/*  reverse={false}*/}
+              {/*  itemHeight={ITEM_HEIGHT}*/}
+              {/*/>*/}
+              <View
+                style={{
+                  height: 60,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: 17, color: 'red'}}>
+                  Set your home city
+                </Text>
+                <View style={{}}>
+                  <GooglePlacesAutocomplete
+                    placeholder="Search"
+                    minLength={2} // minimum length of text to search
+                    autoFocus={false}
+                    fetchDetails={true}
+                    onPress={(data, details = null) => {
+                      // 'details' is provided when fetchDetails = true
+                      console.log(data);
+                      console.log(details);
+                      this.setState({
+                        lat: details.geometry.location.lat,
+                        lng: details.geometry.location.lng,
+                        city: details.address_components[0].long_name,
+                      });
+                    }}
+                    getDefaultValue={() => {
+                      return ''; // text input default value
+                    }}
+                    query={{
+                      // available options: https://developers.google.com/places/web-service/autocomplete
+                      key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',
+                      language: 'en', // language of the results
+                      types: '(cities)', // default: 'geocode'
+                    }}
+                    styles={{
+                      description: {
+                        fontWeight: 'bold',
+                      },
+                      textInputContainer: {
+                        backgroundColor: 'white',
+                        width: Metric.width - 30,
+                      },
+                      textInput: {},
+                      predefinedPlacesDescription: {
+                        color: '#1faadb',
+                      },
+                    }}
+                    currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list
+                    currentLocationLabel="Current location"
+                    nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                    GoogleReverseGeocodingQuery={
+                      {
+                        // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+                      }
+                    }
+                    GooglePlacesSearchQuery={{
+                      // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+                      rankby: 'distance',
+                      types: 'food',
+                    }}
+                    GooglePlacesDetailsQuery={{
+                      // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+                      fields: 'formatted_address',
+                    }}
+                    filterReverseGeocodingByTypes={[
+                      'locality',
+                      'administrative_area_level_3',
+                    ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+                    predefinedPlaces={[]}
+                    predefinedPlacesAlwaysVisible={false}
+                    ref={ref => (this.refGoogleInput = ref)}
+                  />
+                </View>
+              </View>
             </View>
           </View>
         </View>

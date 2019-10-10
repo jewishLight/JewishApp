@@ -41,11 +41,17 @@ class SynaScreen extends Component {
       synaData: null,
       commentText: '',
       showLoading: false,
+      comments: [],
     };
   }
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    debugger;
+    console.info(this.props.navigation.state.params.synaData.comments);
+    this.setState({
+      comments: this.props.navigation.state.params.synaData.comments,
+    });
     this.setState({
       language: this.props.appSettings.language,
       synaData: this.props.navigation.state.params.synaData,
@@ -78,8 +84,7 @@ class SynaScreen extends Component {
     ApiRequest('synagogue/comment', body, 'POST')
       .then(response => {
         this.closeLoading();
-        this.setState({commentText: ''});
-        this.setState({comments: response.comments});
+        this.setState({commentText: '', comments: response.comments});
       })
       .catch(error => {
         this.closeLoading();
@@ -106,77 +111,163 @@ class SynaScreen extends Component {
   onSend = () => {};
 
   render() {
-    const {language, synaData, showLoading} = this.state;
+    const {language, synaData, showLoading, comments} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     let renderLessons = [];
+    let renderMinyans = [];
     if (synaData) {
-      renderLessons.push(
-        <View
-          style={{
-            flex: 1,
-            padding: 10,
-            backgroundColor: '#ededef',
-            borderRadius: 10,
-            marginTop: 10,
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{color: '#4B5461', fontSize: 14}}>
-                Sivan Rahav Meir
-              </Text>
-              <Text style={{color: '#4B5461', fontSize: 12}}>
-                Big hall, first Door
-              </Text>
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image
-                source={require('../../assets/icon_syna_document.png')}
-                style={{width: 12, height: 13, resizeMode: 'contain'}}
-              />
-              <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
-                11
-              </Text>
-              <Image
-                source={require('../../assets/icon_syna_like.png')}
+      if (synaData.lessons) {
+        synaData.lessons.map(item_lesson => {
+          renderLessons.push(
+            <View
+              style={{
+                flex: 1,
+                padding: 10,
+                backgroundColor: '#ededef',
+                borderRadius: 10,
+                marginTop: 10,
+              }}>
+              <View
                 style={{
-                  width: 12,
-                  height: 10,
-                  resizeMode: 'contain',
-                  marginLeft: 10,
-                }}
-              />
-              <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
-                23
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 5,
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image
-                source={require('../../assets/icon_syna_calendar.png')}
-                style={{width: 12, height: 12, resizeMode: 'contain'}}
-              />
-              <Text style={{color: '#4B5461', fontSize: 14, marginLeft: 5}}>
-                Friday, Saturday, Sunday
-              </Text>
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text style={{color: '#EC4256', fontSize: 12}}>08:00</Text>
-            </View>
-          </View>
-        </View>,
-      );
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={{color: '#4B5461', fontSize: 14}}>
+                    Sivan Rahav Meir
+                  </Text>
+                  <Text style={{color: '#4B5461', fontSize: 12}}>
+                    Big hall, first Door
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    source={require('../../assets/icon_syna_document.png')}
+                    style={{width: 12, height: 13, resizeMode: 'contain'}}
+                  />
+                  <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
+                    11
+                  </Text>
+                  <Image
+                    source={require('../../assets/icon_syna_like.png')}
+                    style={{
+                      width: 12,
+                      height: 10,
+                      resizeMode: 'contain',
+                      marginLeft: 10,
+                    }}
+                  />
+                  <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
+                    23
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: 5,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    source={require('../../assets/icon_syna_calendar.png')}
+                    style={{width: 12, height: 12, resizeMode: 'contain'}}
+                  />
+                  <Text style={{color: '#4B5461', fontSize: 14, marginLeft: 5}}>
+                    Friday, Saturday, Sunday
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={{color: '#EC4256', fontSize: 12}}>08:00</Text>
+                </View>
+              </View>
+            </View>,
+          );
+        });
+      }
+
+      if (synaData.minyans) {
+        synaData.minyans.map(item_minyan => {
+          renderMinyans.push(
+            <View
+              style={{
+                flex: 1,
+                padding: 10,
+                backgroundColor: '#ededef',
+                borderRadius: 10,
+                marginTop: 10,
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={{color: '#4B5461', fontSize: 14}}>
+                    Sivan Rahav Meir
+                  </Text>
+                  <Text style={{color: '#4B5461', fontSize: 12}}>
+                    Big hall, first Door
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    source={require('../../assets/icon_syna_document.png')}
+                    style={{width: 12, height: 13, resizeMode: 'contain'}}
+                  />
+                  <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
+                    11
+                  </Text>
+                  <Image
+                    source={require('../../assets/icon_syna_like.png')}
+                    style={{
+                      width: 12,
+                      height: 10,
+                      resizeMode: 'contain',
+                      marginLeft: 10,
+                    }}
+                  />
+                  <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
+                    23
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginTop: 5,
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    source={require('../../assets/icon_syna_calendar.png')}
+                    style={{width: 12, height: 12, resizeMode: 'contain'}}
+                  />
+                  <Text style={{color: '#4B5461', fontSize: 14, marginLeft: 5}}>
+                    {`${item_minyan.days.includes(0) ? ' Sunday' : ''}`}
+                    {`${item_minyan.days.includes(1) ? ' Monday' : ''}`}
+                    {`${item_minyan.days.includes(2) ? ' Tuesday' : ''}`}
+                    {`${item_minyan.days.includes(3) ? ' Wednesday' : ''}`}
+                    {`${item_minyan.days.includes(4) ? ' Thursday' : ''}`}
+                    {`${item_minyan.days.includes(5) ? ' Friday' : ''}`}
+                    {`${item_minyan.days.includes(6) ? ' Saturday' : ''}`}
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text
+                    style={{
+                      color: '#EC4256',
+                      fontSize: 12,
+                    }}>{`${item_minyan.timeString || ''}`}</Text>
+                </View>
+              </View>
+            </View>,
+          );
+        });
+      }
     } else {
       renderLessons = null;
+      renderMinyans = null;
     }
 
     return synaData ? (
@@ -314,7 +405,8 @@ class SynaScreen extends Component {
                   ? en.synagogue.minamynTimes
                   : he.synagogue.minamynTimes}
               </Text>
-              <TimeTagView />
+              {/*<TimeTagView />*/}
+              {renderMinyans}
               <Text style={{color: 'black', fontSize: 16, marginTop: 10}}>
                 {isEnglish
                   ? en.synagogue.lessonsTimes
@@ -340,7 +432,7 @@ class SynaScreen extends Component {
               </View>
             </View>
             <View style={styles.paddingSeparator} />
-            <Comments isEnglish={isEnglish} item={synaData.comments} />
+            <Comments isEnglish={isEnglish} item={comments} />
           </ScrollView>
         </View>
         <View style={styles.commentInputView}>

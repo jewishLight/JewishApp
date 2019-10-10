@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView} from 'react-navigation';
+import {SafeAreaView, ScrollView} from 'react-navigation';
 import {
   View,
   Platform,
@@ -31,6 +31,7 @@ class SearchResultScreen extends Component {
       showLoading: false,
       searchResult: [],
       searchBody: null,
+      headerItems: [],
     };
   }
 
@@ -38,11 +39,60 @@ class SearchResultScreen extends Component {
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    const searchBody = this.props.navigation.state.params.searchBody;
+    const language = this.props.appSettings.language;
+    const isEnglish = language === Strings.ENGLISH;
     this.setState({
-      language: this.props.appSettings.language,
+      language,
       searchResult: this.props.navigation.state.params.searchResult,
-      searchBody: this.props.navigation.state.params.searchBody,
+      searchBody,
     });
+    console.info(this.props.navigation.state.params.searchResult);
+    let headerItems = [];
+    headerItems.push({
+      _id: 'header_0',
+      view: (
+        <View style={[styles.searchResultTopTagView, {marginLeft: 0}]}>
+          <Image
+            source={require('../../assets/icon_search_result_clock.png')}
+            style={{width: 15, height: 15, resizeMode: 'contain'}}
+          />
+          <Text style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            {searchBody && `${searchBody.startTime} - ${searchBody.endTime}`}
+          </Text>
+        </View>
+      ),
+    });
+    headerItems.push({
+      _id: 'header_1',
+      view: (
+        <View style={styles.searchResultTopTagView}>
+          <Image
+            source={require('../../assets/icon_search_result_radius.png')}
+            style={{width: 14, height: 15, resizeMode: 'contain'}}
+          />
+          <Text style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            {`${searchBody && searchBody.max_radius}`} km{' '}
+            {isEnglish ? en.searchResult.radius : he.searchResult.radius}
+          </Text>
+        </View>
+      ),
+    });
+    headerItems.push({
+      _id: 'header_2',
+      view: (
+        <View style={styles.searchResultTopTagView}>
+          <Image
+            source={require('../../assets/icon_search_result_syna.png')}
+            style={{width: 17, height: 17, resizeMode: 'contain'}}
+          />
+          <Text style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            {isEnglish ? en.modal.synagogue : he.modal.synagogue}
+          </Text>
+        </View>
+      ),
+    });
+    this.setState({headerItems});
   }
 
   componentWillUnmount(): void {
@@ -71,7 +121,18 @@ class SearchResultScreen extends Component {
       <View style={styles.searchHistoryRowView}>
         <SearchResultItem
           onPress={() => {
-            this.props.navigation.navigate('Syna', {synaData: item});
+            this.startLoading();
+            ApiRequest(`synagogue/view?id=${item._id}`)
+              .then(response => {
+                this.closeLoading();
+                this.props.navigation.navigate('Syna', {
+                  synaData: response,
+                  comments: response.comments,
+                });
+              })
+              .catch(error => {
+                this.closeLoading();
+              });
           }}
           item={item}
         />
@@ -80,12 +141,24 @@ class SearchResultScreen extends Component {
     );
   };
 
+  renderTop = ({item, index}) => {
+    return item.view;
+  };
+
   onFilter = () => {
     this.props.navigation.navigate('Filter', {onFiltered: this.onFiltered});
   };
 
-  onFiltered = (name, startTime, endTime, max_radius, sortBy) => {
-    debugger;
+  onFiltered = (
+    name,
+    startTime,
+    endTime,
+    max_radius,
+    sortBy,
+    lat,
+    lng,
+    city,
+  ) => {
     this.startLoading();
     let body = {
       name,
@@ -93,8 +166,8 @@ class SearchResultScreen extends Component {
       endTime,
       min_radius: 0,
       max_radius: `${max_radius}`,
-      lon: 35.21702,
-      lat: 31.771959,
+      lon: lng,
+      lat: lat,
       sortBy,
     };
     ApiRequest('search/synagogues', body, 'POST')
@@ -132,42 +205,17 @@ class SearchResultScreen extends Component {
           <View style={{flex: 1, paddingHorizontal: 10}}>
             <View
               style={{
-                flexDirection: 'row',
                 marginTop: 10,
                 paddingHorizontal: 10,
+                height: 34,
               }}>
-              <View style={[styles.searchResultTopTagView, {marginLeft: 0}]}>
-                <Image
-                  source={require('../../assets/icon_search_result_clock.png')}
-                  style={{width: 15, height: 15, resizeMode: 'contain'}}
-                />
-                <Text
-                  style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                  {searchBody &&
-                    `${searchBody.startTime} - ${searchBody.endTime}`}
-                </Text>
-              </View>
-              <View style={styles.searchResultTopTagView}>
-                <Image
-                  source={require('../../assets/icon_search_result_radius.png')}
-                  style={{width: 14, height: 15, resizeMode: 'contain'}}
-                />
-                <Text
-                  style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                  {`${searchBody && searchBody.max_radius}`} km{' '}
-                  {isEnglish ? en.searchResult.radius : he.searchResult.radius}
-                </Text>
-              </View>
-              <View style={styles.searchResultTopTagView}>
-                <Image
-                  source={require('../../assets/icon_search_result_syna.png')}
-                  style={{width: 17, height: 17, resizeMode: 'contain'}}
-                />
-                <Text
-                  style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-                  {isEnglish ? en.modal.synagogue : he.modal.synagogue}
-                </Text>
-              </View>
+              <FlatList
+                data={this.state.headerItems}
+                renderItem={this.renderTop}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={this._keyExtractor}
+              />
             </View>
             <View style={{padding: 10, paddingBottom: 40}}>
               <FlatList

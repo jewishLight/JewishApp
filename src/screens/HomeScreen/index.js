@@ -101,7 +101,7 @@ class HomeScreen extends Component {
     const fetchAroundCity = new Promise((resolve, reject) => {
       ApiRequest(
         'home/around_city',
-        {lon: '35.217020', lat: '31.771959'},
+        {lon: Strings.currentLongitude, lat: Strings.currentLatitude},
         'POST',
       )
         .then(response => {
@@ -114,33 +114,29 @@ class HomeScreen extends Component {
 
     Promise.all([
       fetchTodayLessons.catch(error => {
-        debugger;
         this.setState({
           todayLessons: [],
         });
         this.closeLoading();
       }),
       fetchPopularLessons.catch(error => {
-        debugger;
         this.setState({
           popularLessons: [],
         });
         this.closeLoading();
       }),
       fetchRecentLessons.catch(error => {
-        debugger;
         this.setState({
           recentLessons: [],
         });
         this.closeLoading();
       }),
       fetchAroundCity.catch(error => {
-        debugger;
         this.setState({aroundEvents: []});
         this.closeLoading();
       }),
     ]).then(responses => {
-      debugger;
+      console.info(Strings.userId);
       this.setState({
         todayLessons: responses[0],
         popularLessons: responses[1],
@@ -188,6 +184,7 @@ class HomeScreen extends Component {
             <HomeHeader
               onLocation={this.onHeaderLocation}
               onMenu={this.onHeaderMenu}
+              location={Strings.currentLocationCity}
               ref={ref => {
                 this.refHomeHeader = ref;
               }}
@@ -285,7 +282,6 @@ class HomeScreen extends Component {
           })
           .catch(error => {
             this.closeLoading();
-            debugger;
           });
         break;
       case Strings.MODAL_FLAG_ADD_SYN:
@@ -325,7 +321,19 @@ class HomeScreen extends Component {
     // if (this.refHomeHeader) {
     //   this.refHomeHeader.updateLocation('London, UK');
     // }
-    this.refChangeLocationModal.show();
+    // this.refChangeLocationModal.show();
+    this.props.navigation.navigate('ChangeLocation', {
+      isEnglish: this.state.language === Strings.ENGLISH,
+      updateLocation: this.updateLocation,
+    });
+  };
+
+  updateLocation = (lat, lng, city) => {
+    if (this.refHomeHeader) {
+      this.refHomeHeader.updateLocation(city);
+    }
+    Strings.currentLatitude = lat;
+    Strings.currentLongitude = lng;
   };
   onHeaderMenu = () => {
     this.props.navigation.openDrawer();
@@ -396,16 +404,13 @@ class HomeScreen extends Component {
       contact_name: contactName,
       contact_number: phoneNumber,
     };
-    debugger;
     this.startLoading();
     ApiRequest('lesson/add', body, 'POST')
       .then(response => {
         this.closeLoading();
-        debugger;
         this.fetchHome();
       })
       .catch(error => {
-        debugger;
         this.closeLoading();
       });
   };
@@ -538,15 +543,12 @@ class HomeScreen extends Component {
         donation_link: 'paypal',
         shtiblach: shtiblach,
       };
-      debugger;
 
       ApiRequest(url, body, 'POST')
         .then(response => {
-          debugger;
           this.closeLoading();
         })
         .catch(error => {
-          debugger;
           this.closeLoading();
         });
     }

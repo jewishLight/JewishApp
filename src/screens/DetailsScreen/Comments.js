@@ -21,7 +21,8 @@ export class Comments extends Component {
             {isEnglish ? en.detail.comments : he.detail.comments}
           </Text>
           <Text style={styles.commentsNumberText}>
-            82 {isEnglish ? en.detail.comments : he.detail.comments}
+            {this.props.item.length}{' '}
+            {isEnglish ? en.detail.comments : he.detail.comments}
           </Text>
         </View>
         <View style={{marginTop: 10}}>

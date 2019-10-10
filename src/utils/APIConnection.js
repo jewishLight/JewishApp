@@ -66,14 +66,14 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
         // const fetchResult = await response.json();
         let data = await response.text();
         if (Platform.OS === 'android') {
-          data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
+          // data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
         }
         data = JSON.parse(data);
         return resolve(data);
       }
       let data = await response.text();
       if (Platform.OS === 'android') {
-        data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
+        // data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
       }
       data = JSON.parse(data);
       return resolve(data);

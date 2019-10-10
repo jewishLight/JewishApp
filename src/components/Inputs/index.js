@@ -360,7 +360,7 @@ export class SpeakerPicker extends Component {
           onValueChange={value => this.props.onValueChange(value)}
           items={this.props.items}
           useNativeAndroidPickerStyle={false}
-          placeholder={{label: '', value: null}}
+          placeholder={{label: this.props.placeholder, value: null}}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}
@@ -713,7 +713,7 @@ export class DescriptionInput extends Component {
               ? {textAlign: 'right'}
               : {textAlign: 'left'},
           ]}
-          placeholder={'Enter description'}
+          placeholder={this.props.placeholder}
           numberOfLines={10}
           multiline={true}
           onChangeText={text => {

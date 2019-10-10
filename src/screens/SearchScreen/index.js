@@ -101,7 +101,6 @@ class SearchScreen extends Component {
 
   onNewSearch = cacheBody => {
     this.startLoading();
-    debugger;
     let body = null;
     if (cacheBody) {
       body = cacheBody;
@@ -112,22 +111,20 @@ class SearchScreen extends Component {
         endTime: '23:59',
         min_radius: 0,
         max_radius: 10,
-        lon: 35.21702,
-        lat: 31.771959,
+        lon: Strings.currentLongitude,
+        lat: Strings.currentLatitude,
         sortBy: 'time',
       };
     }
     ApiRequest('search/synagogues', body, 'POST')
       .then(response => {
         this.closeLoading();
-        debugger;
         this.props.navigation.navigate('SearchResult', {
           searchResult: response,
           searchBody: body,
         });
       })
       .catch(error => {
-        debugger;
         this.closeLoading();
       });
   };

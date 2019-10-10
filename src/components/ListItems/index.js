@@ -3,6 +3,7 @@ import {View, TouchableOpacity, Text, Image} from 'react-native';
 import {styles} from './styles';
 import {Metric, Colors} from '../../themes';
 import {en, he} from '../../constants';
+import moment from 'moment';
 
 const getTimeDifferent = (date1, date2) => {
   const diffTime = Math.abs(new Date(date1) - new Date(date2) || new Date());
@@ -54,7 +55,8 @@ export const CommentListItem = ({onPress, item}) => (
 export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
   <TouchableOpacity style={styles.searchHistoryItemContainer} onPress={onPress}>
     <Text style={{color: '#9B9B9B', fontSize: 15}}>
-      {isEnglish ? en.searchHistory.date : he.searchHistory.date} : {item.date}
+      {isEnglish ? en.searchHistory.date : he.searchHistory.date} :{' '}
+      {moment(item.date).format('YYYY-MM-DD HH:mm')}
     </Text>
     <View
       style={{
@@ -99,30 +101,30 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
         }}>
         <Text style={{color: Colors.primary, fontSize: 12}}>{item.sortBy}</Text>
       </View>
-      <View
-        style={{
-          width: 100,
-          height: 34,
-          borderRadius: 17,
-          backgroundColor: '#E6E5F5',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginLeft: 10,
-        }}>
-        <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>
-      </View>
-      <View
-        style={{
-          width: 100,
-          height: 34,
-          borderRadius: 17,
-          backgroundColor: '#E6E5F5',
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginLeft: 10,
-        }}>
-        <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>
-      </View>
+      {/*<View*/}
+      {/*  style={{*/}
+      {/*    width: 100,*/}
+      {/*    height: 34,*/}
+      {/*    borderRadius: 17,*/}
+      {/*    backgroundColor: '#E6E5F5',*/}
+      {/*    justifyContent: 'center',*/}
+      {/*    alignItems: 'center',*/}
+      {/*    marginLeft: 10,*/}
+      {/*  }}>*/}
+      {/*  <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>*/}
+      {/*</View>*/}
+      {/*<View*/}
+      {/*  style={{*/}
+      {/*    width: 100,*/}
+      {/*    height: 34,*/}
+      {/*    borderRadius: 17,*/}
+      {/*    backgroundColor: '#E6E5F5',*/}
+      {/*    justifyContent: 'center',*/}
+      {/*    alignItems: 'center',*/}
+      {/*    marginLeft: 10,*/}
+      {/*  }}>*/}
+      {/*  <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>*/}
+      {/*</View>*/}
     </View>
   </TouchableOpacity>
 );
@@ -143,7 +145,7 @@ export const SearchResultItem = ({onPress, item}) => (
           alignItems: 'center',
         }}>
         <Text style={{fontSize: 16}} numberOfLines={1} ellipsizeMode={'tail'}>
-          {item.name}
+          {`${item.name}`}
         </Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {/*<Image*/}
@@ -159,18 +161,22 @@ export const SearchResultItem = ({onPress, item}) => (
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <View>
-          <Text style={{fontSize: 16}}>Esh Hatorah</Text>
+        <View style={{flex: 1}}>
+          <Text style={{fontSize: 16}} numberOfLines={1} ellipsizeMode={'tail'}>
+            {item.address}
+          </Text>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Image
               source={require('../../assets/icon_search_result_item_clock.png')}
               style={{width: 15, height: 15, resizeMode: 'contain'}}
             />
             <Text style={{fontSize: 18, color: Colors.primary, marginLeft: 5}}>
-              17:30
+              {`${
+                item.minyans.length > 0 ? item.minyans[0].startTime || '' : ''
+              }`}
             </Text>
             <Text style={{fontSize: 14, color: 'green', marginLeft: 5}}>
-              23 min))
+              {''}
             </Text>
           </View>
         </View>
@@ -185,7 +191,9 @@ export const SearchResultItem = ({onPress, item}) => (
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 14, color: '#9B9B9B'}}>20:30</Text>
+        <Text style={{fontSize: 14, color: '#9B9B9B'}}>{`${
+          item.minyans.length > 1 ? item.minyans[1].startTime || '' : ''
+        }`}</Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={require('../../assets/icon_search_result_item_navigate.png')}

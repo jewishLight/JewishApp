@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 5,
   },
-  newLessonModalDayText: {fontSize: 11, marginLeft: 3, color: Colors.dayText},
+  newLessonModalDayText: {fontSize: 8, marginLeft: 3, color: Colors.dayText},
   newLessonModalDaySelected: {
     width: 20,
     height: 20,

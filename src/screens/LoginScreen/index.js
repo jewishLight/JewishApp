@@ -78,7 +78,9 @@ class LoginScreen extends Component {
           this.closeLoading();
           Strings.localToken = response.token;
           Strings.loginType = Strings.LOGIN_TYPE_GOOGLE;
+          Strings.userId = response.user._id;
           await LocalStorage.setToken(response.token);
+          await LocalStorage.setUserId(response.user._id);
           await LocalStorage.setLoggedIn(true);
           await LocalStorage.setLoginType(Strings.LOGIN_TYPE_GOOGLE);
           this.props.navigation.navigate('Home');

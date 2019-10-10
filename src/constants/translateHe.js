@@ -29,7 +29,7 @@ export default {
     description: 'תיאור',
     enterDescription: 'הזן תיאור...',
     contactName: 'שם איש קשר',
-    enterNameHere: 'Enter name here...',
+    enterNameHere: 'הזן שם איש קשר...',
     contactNumber: 'מספר איש קשר',
     enterNumberHere: 'הזן מספר כאן...',
     audience: 'גבר / נשים',
