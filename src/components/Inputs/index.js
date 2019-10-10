@@ -17,6 +17,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import {Chevron} from 'react-native-shapes';
 import {en, he} from '../../constants';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import moment from 'moment';
 
 export class NormalInput extends Component {
   constructor(props) {
@@ -738,6 +739,12 @@ export class SynMinTimes extends Component {
       sun: false,
       type: 'week',
       showDateTime: false,
+      datetime: null,
+      mode: '',
+      showDatePicker: false,
+      showTimePicker: false,
+      datetimemode: '',
+      minyan: false,
     };
   }
 
@@ -757,6 +764,7 @@ export class SynMinTimes extends Component {
       showDatePicker: false,
       showTimePicker: false,
       datetimemode: 'time',
+      minyan: false,
     });
   }
 
@@ -811,17 +819,31 @@ export class SynMinTimes extends Component {
           borderColor: Colors.lessonLightText,
           marginTop: 10,
         }}>
-        <View
+        <TouchableOpacity
+          onPress={() => {
+            if (this.state.minyan) {
+              this.setState({minyan: false});
+            } else {
+              this.setState({minyan: true});
+            }
+          }}
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 15, color: 'black'}}>
-            {isEnglish ? en.modal.shachrit : he.modal.shachrit}
-          </Text>
+          {this.state.minyan ? (
+            <Text style={{fontSize: 15, color: 'black'}}>
+              {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}
+            </Text>
+          ) : (
+            <Text style={{fontSize: 15, color: 'black'}}>
+              {isEnglish ? en.modal.shachrit : he.modal.shachrit}
+            </Text>
+          )}
+
           <Chevron size={1} color="gray" style={{marginRight: 5}} />
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             flex: 1,
@@ -840,10 +862,15 @@ export class SynMinTimes extends Component {
           <Text style={{fontSize: 15, color: 'black'}}>
             {isEnglish ? en.modal.selectDateTime : he.modal.selectDateTime}
           </Text>
-          <Image
-            source={require('../../assets/icon_modal_timetable.png')}
-            style={{width: 14, height: 14, resizeMode: 'contain'}}
-          />
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={{marginRight: 10}}>{`${moment(
+              this.state.datetime,
+            ).format('YYYY-MM-DD kk:mm:ss')}`}</Text>
+            <Image
+              source={require('../../assets/icon_modal_timetable.png')}
+              style={{width: 14, height: 14, resizeMode: 'contain'}}
+            />
+          </View>
         </TouchableOpacity>
         <View
           style={{

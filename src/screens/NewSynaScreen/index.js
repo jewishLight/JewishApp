@@ -33,6 +33,7 @@ import {SafeAreaView} from 'react-navigation';
 import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
 import LocationItem from '../NewLessonScreen/locationItem';
 import {GoogleAutoComplete} from 'react-native-google-autocomplete';
+import moment from 'moment';
 
 const options = {
   title: 'Select Avatar',
@@ -70,7 +71,8 @@ class NewSynModal extends Component {
       avatarSource: null,
       isEnglish: this.props.navigation.state.params.isEnglish,
       poi: null,
-      address: '',
+      address: Strings.currentLocationCity,
+      addMinTimeFlag: false,
     };
   }
 
@@ -196,7 +198,6 @@ class NewSynModal extends Component {
   };
 
   updateGoogleAutocomplete = nextState => {
-    debugger;
     this.setState({
       address: nextState.address,
       city: nextState.address,
@@ -254,6 +255,8 @@ class NewSynModal extends Component {
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.location : he.modal.location}
             </Text>
+
+            <View style={{height: 10}} />
 
             <GoogleAutoComplete
               apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"
@@ -412,9 +415,22 @@ class NewSynModal extends Component {
               </MapView>
             </View>
 
-            <Text style={styles.newLessonModalPickerTitle}>
-              {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}
-            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={styles.newLessonModalPickerTitle}>
+                {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({addMinTimeFlag: true});
+                }}>
+                <Text style={{color: 'blue'}}>Add</Text>
+              </TouchableOpacity>
+            </View>
             <SynMinTimes
               mon={false}
               tue={false}
@@ -429,30 +445,39 @@ class NewSynModal extends Component {
               updateWeekdays={this.updateWeekdays}
             />
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <View />
-              <Text style={styles.newLessonModalPickerTitleRed}>
-                {isEnglish ? en.modal.remove : he.modal.remove}
-              </Text>
-            </View>
-            <SynMinTimes
-              mon={false}
-              tue={false}
-              wed={false}
-              thu={false}
-              fri={false}
-              sat={false}
-              sun={false}
-              type={'day'}
-              isEnglish={isEnglish}
-              setDate={this.setDate}
-              updateWeekdays={this.updateWeekdays}
-            />
+            {this.state.addMinTimeFlag && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <View />
+                <TouchableOpacity
+                  onPress={() => {
+                    this.setState({addMinTimeFlag: false});
+                  }}>
+                  <Text style={styles.newLessonModalPickerTitleRed}>
+                    {isEnglish ? en.modal.remove : he.modal.remove}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+            {this.state.addMinTimeFlag && (
+              <SynMinTimes
+                mon={false}
+                tue={false}
+                wed={false}
+                thu={false}
+                fri={false}
+                sat={false}
+                sun={false}
+                type={'day'}
+                isEnglish={isEnglish}
+                setDate={this.setDate}
+                updateWeekdays={this.updateWeekdays}
+              />
+            )}
 
             <NormalSwitch
               type={isEnglish ? en.modal.shtiblach : he.modal.shtiblach}

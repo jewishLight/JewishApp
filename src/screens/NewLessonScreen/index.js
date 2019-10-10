@@ -229,7 +229,7 @@ class NewLessonScreen extends Component {
               items={this.state.speakers}
               direction={this.props.direction}
               onValueChange={this.onChangeSpeaker}
-              placeholder={'Change the name'}
+              placeholder={"We don't need to choose from list."}
             />
 
             {this.state.addNewSpeakerState && (
