@@ -181,7 +181,9 @@ class SearchResultScreen extends Component {
   };
 
   onMapView = () => {
-    this.props.navigation.navigate('MapView');
+    this.props.navigation.navigate('MapView', {
+      results: this.state.searchResult,
+    });
   };
 
   startLoading = () => {

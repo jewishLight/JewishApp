@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {SafeAreaView} from 'react-navigation';
 import {View, Platform, BackHandler, Text} from 'react-native';
 import {MapViewHeader} from '../../components';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import {Metric} from '../../themes';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {appSettingsSelector} from '../../redux/selector';
@@ -20,12 +20,17 @@ class MapViewScreen extends Component {
     super(props);
     this.state = {
       language: '',
+      results: [],
     };
   }
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    this.setState({language: this.props.appSettings.language});
+    console.info('search results', this.props.navigation.state.params.results);
+    this.setState({
+      language: this.props.appSettings.language,
+      results: this.props.navigation.state.params.results,
+    });
   }
 
   componentWillUnmount(): void {
@@ -41,7 +46,7 @@ class MapViewScreen extends Component {
   };
 
   render() {
-    const {language} = this.state;
+    const {language, results} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
@@ -69,8 +74,18 @@ class MapViewScreen extends Component {
               style={{
                 width: Metric.width,
                 height: Metric.height - Metric.searchHeaderHeight - 30,
-              }}
-            />
+              }}>
+              {results.map(marker => (
+                <Marker
+                  coordinate={{
+                    latitude: marker.location.coordinates[1],
+                    longitude: marker.location.coordinates[0],
+                  }}
+                  title={marker.address}
+                  description={marker.name}
+                />
+              ))}
+            </MapView>
           </View>
         </View>
         <View
