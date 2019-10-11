@@ -49,7 +49,6 @@ class NewLessonScreen extends Component {
       fri: false,
       sat: false,
       sun: false,
-      date: null,
       datetime: null,
       selectedAudience: '',
       language: '',
@@ -106,9 +105,6 @@ class NewLessonScreen extends Component {
     this.setState({subject: text});
   };
 
-  setDate = date => {
-    this.setState({date});
-  };
   setTime = datetime => {
     this.setState({datetime});
   };
@@ -487,7 +483,6 @@ class NewLessonScreen extends Component {
               sun={false}
               type={'week'}
               isEnglish={isEnglish}
-              setDate={this.setDate}
               setTime={this.setTime}
               updateWeekdays={(mon, tue, wed, thu, fri, sat, sun) => {
                 this.setState({mon, tue, wed, thu, fri, sat, sun});
@@ -583,7 +578,6 @@ class NewLessonScreen extends Component {
                   fri,
                   sat,
                   sun,
-                  date,
                   datetime,
                   selectedAudience,
                 } = this.state;
@@ -631,7 +625,6 @@ class NewLessonScreen extends Component {
                     contactName,
                     phoneNumber,
                     days,
-                    date,
                     datetime,
                     selectedAudience,
                   );

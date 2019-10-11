@@ -382,7 +382,6 @@ class HomeScreen extends Component {
     contactName,
     phoneNumber,
     days,
-    date,
     datetime,
     selectedAudience,
   ) => {

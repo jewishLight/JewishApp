@@ -741,7 +741,6 @@ export class SynMinTimes extends Component {
       showDateTime: false,
       datetime: null,
       mode: '',
-      showDatePicker: false,
       showTimePicker: false,
       datetimemode: '',
       minyan: false,
@@ -758,25 +757,13 @@ export class SynMinTimes extends Component {
       sat: this.props.sat,
       sun: this.props.sun,
       type: this.props.type,
-      date: new Date(),
       datetime: new Date(),
       mode: 'date',
-      showDatePicker: false,
       showTimePicker: false,
       datetimemode: 'time',
       minyan: false,
     });
   }
-
-  setDate = (event, date) => {
-    date = date || this.state.date;
-    this.setState({
-      showDatePicker: false,
-      showTimePicker: true,
-      date,
-    });
-    this.props.setDate(date);
-  };
 
   setTime = (event, datetime) => {
     datetime = datetime || this.state.datetime;
@@ -788,7 +775,7 @@ export class SynMinTimes extends Component {
   };
 
   showDateTimePicker = () => {
-    this.setState({showDatePicker: true});
+    this.setState({showTimePicker: true});
   };
 
   render() {
@@ -805,7 +792,6 @@ export class SynMinTimes extends Component {
       mode,
       datetimemode,
       datetime,
-      showDatePicker,
       showTimePicker,
     } = this.state;
     const isEnglish = this.props.isEnglish;
@@ -865,7 +851,7 @@ export class SynMinTimes extends Component {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={{marginRight: 10}}>{`${moment(
               this.state.datetime,
-            ).format('YYYY-MM-DD kk:mm:ss')}`}</Text>
+            ).format('kk:mm:ss')}`}</Text>
             <Image
               source={require('../../assets/icon_modal_timetable.png')}
               style={{width: 14, height: 14, resizeMode: 'contain'}}
@@ -1033,15 +1019,6 @@ export class SynMinTimes extends Component {
               </Text>
             </TouchableOpacity>
           </View>
-        )}
-        {showDatePicker && (
-          <DateTimePicker
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={this.setDate}
-          />
         )}
         {showTimePicker && (
           <DateTimePicker

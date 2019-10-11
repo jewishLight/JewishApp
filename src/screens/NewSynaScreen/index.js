@@ -58,7 +58,7 @@ class NewSynModal extends Component {
       amenities: [],
       amenities_key: [],
       showTimeSelector: false,
-      date: null,
+      datetime: null,
       mon: false,
       tue: false,
       wed: false,
@@ -155,8 +155,8 @@ class NewSynModal extends Component {
     this.setState({amenities_key: keys});
   };
 
-  setDate = date => {
-    this.setState({date});
+  setTime = datetime => {
+    this.setState({datetime});
   };
 
   updateWeekdays = (mon, tue, wed, thu, fri, sat, sun) => {
@@ -441,7 +441,7 @@ class NewSynModal extends Component {
               sun={false}
               type={'week'}
               isEnglish={isEnglish}
-              setDate={this.setDate}
+              setTime={this.setTime}
               updateWeekdays={this.updateWeekdays}
             />
 
@@ -474,7 +474,7 @@ class NewSynModal extends Component {
                 sun={false}
                 type={'day'}
                 isEnglish={isEnglish}
-                setDate={this.setDate}
+                setTime={this.setTime}
                 updateWeekdays={this.updateWeekdays}
               />
             )}
@@ -607,7 +607,7 @@ class NewSynModal extends Component {
                   nosach,
                   shtiblach,
                   amenities_key,
-                  date,
+                  datetime,
                   mon,
                   tue,
                   wed,
@@ -641,7 +641,7 @@ class NewSynModal extends Component {
                     nosach,
                     shtiblach,
                     amenities_key,
-                    date,
+                    datetime,
                     mon,
                     tue,
                     wed,
