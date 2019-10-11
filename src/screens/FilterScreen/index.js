@@ -328,25 +328,27 @@ class FilterScreen extends Component {
                   </TouchableOpacity>
                 </View>
                 <View style={styles.verticalSpacing} />
-                <NormalInput
-                  placeholder={
-                    isEnglish
-                      ? en.filter.searchBySpeakerName
-                      : he.filter.searchBySpeakerName
-                  }
-                  direction={
-                    this.props.appSettings.language === Strings.ENGLISH
-                      ? 'ltr'
-                      : 'rtl'
-                  }
-                  onChangeText={text => {
-                    this.setState({speakerName: text});
-                  }}
-                  ref={ref => {
-                    this.refSpeakerNameInput = ref;
-                  }}
-                  phoneNumber={false}
-                />
+                {this.state.searchType === 1 && (
+                  <NormalInput
+                    placeholder={
+                      isEnglish
+                        ? en.filter.searchBySpeakerName
+                        : he.filter.searchBySpeakerName
+                    }
+                    direction={
+                      this.props.appSettings.language === Strings.ENGLISH
+                        ? 'ltr'
+                        : 'rtl'
+                    }
+                    onChangeText={text => {
+                      this.setState({speakerName: text});
+                    }}
+                    ref={ref => {
+                      this.refSpeakerNameInput = ref;
+                    }}
+                    phoneNumber={false}
+                  />
+                )}
                 <View style={styles.verticalSpacing} />
 
                 <GoogleAutoComplete
