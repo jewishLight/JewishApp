@@ -207,7 +207,7 @@ class NewSynModal extends Component {
   };
 
   render() {
-    const {isEnglish} = this.state;
+    const {isEnglish, mon, tue, wed, thu, fri, sat, sun} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
@@ -426,7 +426,9 @@ class NewSynModal extends Component {
               </Text>
               <TouchableOpacity
                 onPress={() => {
-                  this.setState({addMinTimeFlag: true});
+                  if (mon || tue || wed || thu || fri || sat || sun) {
+                    this.setState({addMinTimeFlag: true});
+                  }
                 }}>
                 <Text style={{color: 'blue'}}>Add</Text>
               </TouchableOpacity>

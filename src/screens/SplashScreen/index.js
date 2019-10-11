@@ -88,7 +88,9 @@ class SplashScreen extends Component {
       .then(res => {
         // res is an Array of geocoding object (see below)
         debugger;
-        Strings.currentLocationCity = `${res[0].locality}, ${res[0].country}`;
+        Strings.currentLocationCity = `${res[0].streetNumber}, ${
+          res[0].streetName
+        }, ${res[0].locality}, ${res[0].country}`;
       })
       .catch(err => {});
 

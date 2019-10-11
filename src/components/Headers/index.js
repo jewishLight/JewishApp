@@ -55,7 +55,7 @@ export class HomeHeader extends Component {
             </Text>
           </View>
           <View style={styles.homeHeaderLocationNameView}>
-            <Text style={Metric.font.h2}>{location}</Text>
+            <Text style={Metric.font.h4}>{location}</Text>
             <Image
               source={require('../../assets/icon_bottom_arrow_small.png')}
               style={styles.homeHeaderLocationNameImage}
