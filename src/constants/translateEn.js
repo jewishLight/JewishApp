@@ -128,4 +128,11 @@ export default {
     women: 'Women',
     men_and_women: 'Men and Women',
   },
+  menu: {
+    myProfile: 'My Profile',
+    settings: 'Settings',
+    favorite: 'Favorite',
+    switchLanguage: 'Switch Language',
+    logout: 'Logout',
+  },
 };

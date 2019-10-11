@@ -743,7 +743,7 @@ export class SynMinTimes extends Component {
       mode: '',
       showTimePicker: false,
       datetimemode: '',
-      minyan: false,
+      pType: 0,
     };
   }
 

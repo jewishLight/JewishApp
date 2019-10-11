@@ -30,6 +30,7 @@ import {TodayLessons} from './TodayLessons';
 import {PopularLessons} from './PopularLessons';
 import {RecentLessons} from './RecentLessons';
 import {Strings, LocalStorage, ApiRequest} from '../../utils';
+import NetInfo from '@react-native-community/netinfo';
 
 class HomeScreen extends Component {
   // static navigationOptions = {
@@ -63,6 +64,18 @@ class HomeScreen extends Component {
     }
 
     this.fetchHome();
+
+    NetInfo.fetch().then(state => {
+      console.log('Connection type', state.type);
+      console.log('Is connected?', state.isConnected);
+      if (!state.isConnected) {
+        alert(
+          language === Strings.ENGLISH
+            ? 'There is not interetnet connection, please try again later.'
+            : 'אין חיבור לאינטרנט אנא נסו שוב מאוחר יותר.',
+        );
+      }
+    });
   }
 
   fetchHome = () => {
@@ -435,7 +448,11 @@ class HomeScreen extends Component {
     avatarSource,
   ) => {
     if (lat === 0 || lng === 0 || city === '') {
-      alert('Please input the location');
+      alert(
+        this.state.language === Strings.ENGLISH
+          ? 'Please input the location'
+          : 'נא להזין כתובת תקינה',
+      );
     } else if (name === '') {
       alert('Please input the name');
     } else if (nosach === '') {

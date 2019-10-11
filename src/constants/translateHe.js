@@ -60,7 +60,7 @@ export default {
   detail: {
     comments: 'תגובות',
     like: 'אוהב',
-    unlike: 'Unlike',
+    unlike: 'נקה היסטוריה',
     liked: 'אהבו',
     typeCommentHere: 'הזן תגובה כאן...',
   },
@@ -126,5 +126,12 @@ export default {
     men: 'גברים',
     women: 'נשים',
     men_and_women: 'גברים ונשים',
+  },
+  menu: {
+    myProfile: 'הפרופיל שלי',
+    settings: 'הגדרות',
+    favorite: 'מועדפים',
+    switchLanguage: 'עבור לשפה אנגלית',
+    logout: 'התנתק',
   },
 };

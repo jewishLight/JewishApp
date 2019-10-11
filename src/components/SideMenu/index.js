@@ -24,6 +24,7 @@ import {
   statusCodes,
 } from 'react-native-google-signin';
 import config from '../../config';
+import {en, he} from '../../constants';
 
 const MENU_ITEM_1 = [
   {
@@ -47,19 +48,19 @@ const MENU_ITEM_1 = [
 const MENU_ITEM_2 = [
   {
     source: require('../../assets/icon_menu_profile.png'),
-    name: 'My Profile',
+    name: he.menu.myProfile,
   },
   {
     source: require('../../assets/icon_menu_settings.png'),
-    name: 'Settings',
+    name: he.menu.settings,
   },
   {
     source: require('../../assets/icon_menu_favorite.png'),
-    name: 'Favorite',
+    name: he.menu.favorite,
   },
   {
     source: require('../../assets/icon_flag_usa.png'),
-    name: 'Move to English',
+    name: he.menu.switchLanguage,
   },
 ];
 
@@ -188,7 +189,9 @@ class SideMenu extends Component {
               style={styles.imgLogo}
             />
           </View>
-          <Text style={styles.logoText}>Jewish</Text>
+          <Text style={styles.logoText}>{`${
+            this.state.language === Strings.ENGLISH ? 'Je.wish' : "ג'ויש"
+          }`}</Text>
         </TouchableOpacity>
         <FlatList
           data={this.state.MENU_ITEMS}
@@ -208,7 +211,11 @@ class SideMenu extends Component {
                 style={styles.iconMenu}
               />
             </View>
-            <Text style={styles.logoutText}>Logout(v0.0.21)</Text>
+            <Text style={styles.logoutText}>{`${
+              this.state.language === Strings.ENGLISH
+                ? 'Logout'
+                : he.menu.logout
+            } (v0.0.22)`}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
