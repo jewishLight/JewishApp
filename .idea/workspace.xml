@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="241afc0a-cc31-48e1-95b3-13fe5a7f6579" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/screens/NewSpeakerScreen/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/NewSpeakerScreen/styles.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routing.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/NewLessonScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/NewLessonScreen/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/NewLessonScreen/styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/NewLessonScreen/styles.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,34 +20,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/MapView/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="71" column="39" selection-start-line="71" selection-start-column="39" selection-end-line="71" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screens/NewSynaScreen/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="382">
               <caret line="45" selection-start-line="37" selection-end-line="45" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="564" column="35" selection-start-line="564" selection-start-column="35" selection-end-line="564" selection-end-column="35" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -90,6 +65,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Inputs/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screens/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="629">
@@ -102,10 +86,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/app.js">
+        <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="20" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+            <state relative-caret-position="-62">
+              <caret line="263" column="39" lean-forward="true" selection-start-line="263" selection-start-column="39" selection-end-line="263" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="493" column="46" lean-forward="true" selection-start-line="493" selection-start-column="46" selection-end-line="493" selection-end-column="46" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -114,24 +110,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routing.js">
+        <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/Comments.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+            <state relative-caret-position="497">
+              <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
               <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/index.js">
+        <entry file="file://$PROJECT_DIR$/src/components/ListItems/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+            <state relative-caret-position="337">
+              <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
               <folding>
-                <element signature="e#0#32#0" expanded="true" />
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -148,27 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Strings.currentLatitude</find>
-      <find>addModalContainer</find>
-      <find>addModalView</find>
-      <find>addModalDropdownView</find>
-      <find>addModalMainView</find>
-      <find>debugger</find>
-      <find>&lt;SynaHeader</find>
-      <find>onshare</find>
-      <find>image</find>
-      <find>nosach</find>
-      <find>onPublish</find>
-      <find>onaddsyn</find>
-      <find>new speaker</find>
-      <find>add new speaker</find>
-      <find>render</find>
-      <find>startloading</find>
-      <find>newspeaker</find>
-      <find>addNewSpeakerState</find>
-      <find>newSpeakerName</find>
-      <find>newSpeakerAbout</find>
-      <find>setstate</find>
       <find>render()</find>
       <find>onAddSpeakerFinish</find>
       <find>ImagePicker</find>
@@ -178,6 +153,27 @@
       <find>colors.sep</find>
       <find>borderwidth</find>
       <find>speakerPickerArray</find>
+      <find>add new speaker</find>
+      <find>&lt;SpeakerPicker</find>
+      <find>RNPickerSelect</find>
+      <find>custompi</find>
+      <find>custom</find>
+      <find>renderField</find>
+      <find>getLabel</find>
+      <find>renderheader</find>
+      <find>renderOption</find>
+      <find>innerContainer</find>
+      <find>renderhea</find>
+      <find>&lt;image</find>
+      <find>getlabel</find>
+      <find>speakers</find>
+      <find>this.state.speak</find>
+      <find>speaker:</find>
+      <find>speakers:</find>
+      <find>onChangeSpeaker</find>
+      <find>avatar</find>
+      <find>avat</find>
+      <find>image</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -189,7 +185,6 @@
         <option value="$PROJECT_DIR$/src/redux/appSettings.js" />
         <option value="$PROJECT_DIR$/src/screens/IntroScreen/index.js" />
         <option value="$PROJECT_DIR$/src/components/Loading/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/NewLessonScreen/styles.js" />
         <option value="$PROJECT_DIR$/src/screens/NewSynaScreen/styles.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/PopularLessons.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/RecentLessons.js" />
@@ -236,6 +231,7 @@
         <option value="$PROJECT_DIR$/src/routing.js" />
         <option value="$PROJECT_DIR$/src/screens/NewSpeakerScreen/styles.js" />
         <option value="$PROJECT_DIR$/src/screens/NewSpeakerScreen/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/NewLessonScreen/styles.js" />
         <option value="$PROJECT_DIR$/src/screens/NewLessonScreen/index.js" />
       </list>
     </option>
@@ -247,7 +243,7 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-11" />
+    <option name="x" value="-14" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="981" />
@@ -471,7 +467,7 @@
       <workItem from="1570679434865" duration="14213000" />
       <workItem from="1570768354653" duration="17437000" />
       <workItem from="1570860934862" duration="8581000" />
-      <workItem from="1571027508227" duration="12020000" />
+      <workItem from="1571027508227" duration="14532000" />
     </task>
     <task id="LOCAL-00001" summary="my profile page">
       <created>1568011643877</created>
@@ -634,14 +630,21 @@
       <option name="project" value="LOCAL" />
       <updated>1571058084848</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="add icon">
+      <created>1571061848639</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1571061848639</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="552969000" />
+    <option name="totallyTimeSpent" value="555481000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="23" width="1920" height="981" extended-state="0" />
+    <frame x="-14" y="23" width="1920" height="981" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960506" />
@@ -685,23 +688,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="add icon" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="49" column="6" selection-start-line="49" selection-start-column="6" selection-end-line="49" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/AroundEvents.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="59" column="26" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/react-native/Libraries/Components/ScrollView/ScrollView.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
@@ -754,16 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/styles.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="93" column="25" selection-start-line="93" selection-start-column="2" selection-end-line="93" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="366">
@@ -797,16 +773,6 @@
           <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ListItems/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="202" column="20" selection-start-line="202" selection-start-column="20" selection-end-line="202" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -861,16 +827,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Inputs/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14246">
-          <caret line="857" column="14" selection-start-line="857" selection-start-column="14" selection-end-line="857" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1029,16 +985,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="352" column="24" lean-forward="true" selection-start-line="352" selection-start-column="24" selection-end-line="352" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="333">
@@ -1126,12 +1072,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Inputs/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="15" column="28" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/styles.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="166" column="26" lean-forward="true" selection-start-line="165" selection-start-column="4" selection-end-line="166" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/react-native-custom-picker/typings/types.d.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="128" column="2" selection-start-line="128" selection-start-column="2" selection-end-line="128" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="49" column="17" lean-forward="true" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+        <state relative-caret-position="-62">
+          <caret line="263" column="39" lean-forward="true" selection-start-line="263" selection-start-column="39" selection-end-line="263" selection-end-column="39" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="493" column="46" lean-forward="true" selection-start-line="493" selection-start-column="46" selection-end-line="493" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/Comments.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/ListItems/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -21,6 +21,7 @@
     "react": "16.8.6",
     "react-dom": "^16.10.1",
     "react-native": "0.60.5",
+    "react-native-custom-picker": "^0.4.0",
     "react-native-geocoder": "^0.5.0",
     "react-native-gesture-handler": "^1.4.0",
     "react-native-get-location": "^1.2.0",

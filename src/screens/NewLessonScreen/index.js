@@ -6,6 +6,8 @@ import {
   View,
   TextInput,
   ScrollView,
+  Alert,
+  Image,
 } from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {en, he} from '../../constants';
@@ -27,6 +29,7 @@ import {SafeAreaView} from 'react-navigation';
 import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
 import {GoogleAutoComplete} from 'react-native-google-autocomplete';
 import LocationItem from './locationItem';
+import {CustomPicker} from 'react-native-custom-picker';
 
 class NewLessonScreen extends Component {
   constructor(props) {
@@ -70,7 +73,12 @@ class NewLessonScreen extends Component {
     let speakerPickerArray = [];
     speakers.map(item => {
       if (item.name && item._id) {
-        speakerPickerArray.push({label: item.name, value: item._id});
+        speakerPickerArray.push({
+          label: item.name,
+          value: item._id,
+          about: item.about,
+          avatar: item.avatar,
+        });
       }
     });
     this.setState({speakers: speakerPickerArray});
@@ -144,6 +152,50 @@ class NewLessonScreen extends Component {
     });
   };
 
+  renderField = settings => {
+    const {selectedItem, defaultText, getLabel, clear} = settings;
+    return (
+      <View style={styles.container}>
+        <View>
+          {!selectedItem && (
+            <Text style={[styles.text, {color: 'grey'}]}>{defaultText}</Text>
+          )}
+          {selectedItem && (
+            <View style={styles.innerContainer}>
+              <Text style={[styles.text, {color: selectedItem.color}]}>
+                {getLabel(selectedItem)}
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+    );
+  };
+
+  renderOption = settings => {
+    const {item, getLabel} = settings;
+    return (
+      <View style={styles.optionContainer}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Image
+            source={
+              item.avatar.uri
+                ? {uri: item.avatar.uri}
+                : require('../../assets/icon_commentlist_avatar.png')
+            }
+            style={{width: 40, height: 40, resizeMode: 'contain'}}
+          />
+          <Text style={{color: item.color, marginLeft: 5}}>
+            {getLabel(item)}
+          </Text>
+        </View>
+        <View>
+          <Text>{item.about}</Text>
+        </View>
+      </View>
+    );
+  };
+
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
     return (
@@ -196,11 +248,22 @@ class NewLessonScreen extends Component {
               </TouchableOpacity>
             </View>
 
-            <SpeakerPicker
-              items={this.state.speakers}
-              direction={this.props.direction}
-              onValueChange={this.onChangeSpeaker}
+            {/*<SpeakerPicker*/}
+            {/*  items={this.state.speakers}*/}
+            {/*  direction={this.props.direction}*/}
+            {/*  onValueChange={this.onChangeSpeaker}*/}
+            {/*  placeholder={"We don't need to choose from list."}*/}
+            {/*/>*/}
+
+            <CustomPicker
               placeholder={"We don't need to choose from list."}
+              options={this.state.speakers}
+              getLabel={item => item.label}
+              fieldTemplate={this.renderField}
+              optionTemplate={this.renderOption}
+              onValueChange={value => {
+                this.setState({selectedSpeaker: value.value});
+              }}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
