@@ -61,6 +61,10 @@ class NewLessonScreen extends Component {
       newSpeakerAvatar: '',
       newSpeakerAbout: '',
       address: '',
+      marker: {
+        longitude: Strings.currentLongitude,
+        latitude: Strings.currentLatitude,
+      },
     };
   }
 
@@ -133,7 +137,15 @@ class NewLessonScreen extends Component {
       lat: poi.coordinate.latitude,
       lng: poi.coordinate.longitude,
     });
-    this.refGoogleInput.setAddressText(poi.name);
+    this.setState({marker: e.nativeEvent.coordinate});
+  };
+
+  onMapClick = e => {
+    this.setState({
+      marker: e.nativeEvent.coordinate,
+      lat: e.nativeEvent.coordinate.latitude,
+      lng: e.nativeEvent.coordinate.longitude,
+    });
   };
 
   startLoading = () => {
@@ -270,6 +282,8 @@ class NewLessonScreen extends Component {
               {isEnglish ? en.modal.location : he.modal.location}
             </Text>
 
+            <View style={{height: 10}} />
+
             <GoogleAutoComplete
               apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"
               debounce={300}>
@@ -386,26 +400,14 @@ class NewLessonScreen extends Component {
               }}>
               <MapView
                 initialRegion={{
-                  latitude:
-                    this.state.lat === 0
-                      ? Strings.currentLatitude
-                      : this.state.lat,
-                  longitude:
-                    this.state.lng === 0
-                      ? Strings.currentLongitude
-                      : this.state.lng,
+                  latitude: this.state.marker.latitude,
+                  longitude: this.state.marker.longitude,
                   latitudeDelta: 0.0222,
                   longitudeDelta: 0.0121,
                 }}
                 region={{
-                  latitude:
-                    this.state.lat === 0
-                      ? Strings.currentLatitude
-                      : this.state.lat,
-                  longitude:
-                    this.state.lng === 0
-                      ? Strings.currentLongitude
-                      : this.state.lng,
+                  latitude: this.state.marker.latitude,
+                  longitude: this.state.marker.longitude,
                   latitudeDelta: 0.0222,
                   longitudeDelta: 0.0121,
                 }}
@@ -413,16 +415,20 @@ class NewLessonScreen extends Component {
                   width: Metric.width - 30,
                   height: 250,
                 }}
-                onPoiClick={this.onPoiClick}>
-                {this.state.poi && (
-                  <Marker coordinate={this.state.poi.coordinate}>
-                    <Callout>
-                      <View>
-                        <Text>Place Id: {this.state.poi.placeId}</Text>
-                        <Text>Name: {this.state.poi.name}</Text>
-                      </View>
-                    </Callout>
-                  </Marker>
+                onPoiClick={this.onPoiClick}
+                onPress={this.onMapClick}>
+                {/*{this.state.poi && (*/}
+                {/*  <Marker coordinate={this.state.poi.coordinate}>*/}
+                {/*    <Callout>*/}
+                {/*      <View>*/}
+                {/*        <Text>Place Id: {this.state.poi.placeId}</Text>*/}
+                {/*        <Text>Name: {this.state.poi.name}</Text>*/}
+                {/*      </View>*/}
+                {/*    </Callout>*/}
+                {/*  </Marker>*/}
+                {/*)}*/}
+                {this.state.marker && (
+                  <MapView.Marker coordinate={this.state.marker} />
                 )}
               </MapView>
             </View>

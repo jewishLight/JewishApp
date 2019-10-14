@@ -807,10 +807,10 @@ export class SynMinTimes extends Component {
         }}>
         <TouchableOpacity
           onPress={() => {
-            if (this.state.minyan) {
-              this.setState({minyan: false});
+            if (this.state.pType < 2) {
+              this.setState({pType: this.state.pType + 1});
             } else {
-              this.setState({minyan: true});
+              this.setState({pType: 0});
             }
           }}
           style={{
@@ -818,13 +818,17 @@ export class SynMinTimes extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          {this.state.minyan ? (
+          {this.state.pType === 0 ? (
             <Text style={{fontSize: 15, color: 'black'}}>
               {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}
             </Text>
-          ) : (
+          ) : this.state.pType === 1 ? (
             <Text style={{fontSize: 15, color: 'black'}}>
               {isEnglish ? en.modal.shachrit : he.modal.shachrit}
+            </Text>
+          ) : (
+            <Text style={{fontSize: 15, color: 'black'}}>
+              {isEnglish ? en.modal.maariv : he.modal.maariv}
             </Text>
           )}
 

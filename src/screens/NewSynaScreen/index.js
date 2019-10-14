@@ -1,5 +1,5 @@
 import {en, he} from '../../constants';
-import {Strings} from '../../utils';
+import {LocalStorage, Strings} from '../../utils';
 import ImagePicker from 'react-native-image-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {styles} from './styles';
@@ -34,6 +34,7 @@ import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
 import LocationItem from '../NewLessonScreen/locationItem';
 import {GoogleAutoComplete} from 'react-native-google-autocomplete';
 import moment from 'moment';
+import Geocoder from 'react-native-geocoder';
 
 const options = {
   title: 'Select Avatar',
@@ -73,6 +74,10 @@ class NewSynModal extends Component {
       poi: null,
       address: Strings.currentLocationCity,
       addMinTimeFlag: false,
+      marker: {
+        longitude: Strings.currentLongitude,
+        latitude: Strings.currentLatitude,
+      },
     };
   }
 
@@ -194,7 +199,15 @@ class NewSynModal extends Component {
       lat: poi.coordinate.latitude,
       lng: poi.coordinate.longitude,
     });
-    this.refGoogleInput.setAddressText(poi.name);
+    this.setState({marker: e.nativeEvent.coordinate});
+  };
+
+  onMapClick = e => {
+    this.setState({
+      marker: e.nativeEvent.coordinate,
+      lat: e.nativeEvent.coordinate.latitude,
+      lng: e.nativeEvent.coordinate.longitude,
+    });
   };
 
   updateGoogleAutocomplete = nextState => {
@@ -374,26 +387,14 @@ class NewSynModal extends Component {
               }}>
               <MapView
                 initialRegion={{
-                  latitude:
-                    this.state.lat === 0
-                      ? Strings.currentLatitude
-                      : this.state.lat,
-                  longitude:
-                    this.state.lng === 0
-                      ? Strings.currentLongitude
-                      : this.state.lng,
+                  latitude: this.state.marker.latitude,
+                  longitude: this.state.marker.longitude,
                   latitudeDelta: 0.0222,
                   longitudeDelta: 0.0121,
                 }}
                 region={{
-                  latitude:
-                    this.state.lat === 0
-                      ? Strings.currentLatitude
-                      : this.state.lat,
-                  longitude:
-                    this.state.lng === 0
-                      ? Strings.currentLongitude
-                      : this.state.lng,
+                  latitude: this.state.marker.latitude,
+                  longitude: this.state.marker.longitude,
                   latitudeDelta: 0.0222,
                   longitudeDelta: 0.0121,
                 }}
@@ -401,16 +402,20 @@ class NewSynModal extends Component {
                   width: Metric.width - 30,
                   height: 250,
                 }}
-                onPoiClick={this.onPoiClick}>
-                {this.state.poi && (
-                  <Marker coordinate={this.state.poi.coordinate}>
-                    <Callout>
-                      <View>
-                        <Text>Place Id: {this.state.poi.placeId}</Text>
-                        <Text>Name: {this.state.poi.name}</Text>
-                      </View>
-                    </Callout>
-                  </Marker>
+                onPoiClick={this.onPoiClick}
+                onPress={this.onMapClick}>
+                {/*{this.state.poi && (*/}
+                {/*  <Marker coordinate={this.state.poi.coordinate}>*/}
+                {/*    <Callout>*/}
+                {/*      <View>*/}
+                {/*        <Text>Place Id: {this.state.poi.placeId}</Text>*/}
+                {/*        <Text>Name: {this.state.poi.name}</Text>*/}
+                {/*      </View>*/}
+                {/*    </Callout>*/}
+                {/*  </Marker>*/}
+                {/*)}*/}
+                {this.state.marker && (
+                  <MapView.Marker coordinate={this.state.marker} />
                 )}
               </MapView>
             </View>

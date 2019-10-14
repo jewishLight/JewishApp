@@ -43,6 +43,7 @@ export default {
     selectNosach: 'Select nosach...',
     addMinTimes: 'Add min times',
     shachrit: 'Shachrit',
+    maariv: 'Maariv',
     selectDateTime: 'Select date / time',
     remove: 'Remove',
     daily: 'Daily',

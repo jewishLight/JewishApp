@@ -43,6 +43,7 @@ export default {
     selectNosach: 'בחר נוסח...',
     addMinTimes: 'הוסף זמני תפילות',
     shachrit: 'שחרית',
+    maariv: 'ערבית',
     selectDateTime: 'בחר תאריך / זמן',
     remove: 'הסר',
     daily: 'יומי',
