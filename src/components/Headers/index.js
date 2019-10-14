@@ -170,7 +170,11 @@ export class SearchHeader extends Component {
             this.props.onBack();
           }}>
           <Image
-            source={require('../../assets/icon_search_back.png')}
+            source={
+              isEnglish
+                ? require('../../assets/icon_search_back.png')
+                : require('../../assets/icon_search_back_hebrew.png')
+            }
             style={styles.searchHeaderBackIcon}
           />
           <Text style={styles.searchHeaderText}>
@@ -215,7 +219,11 @@ export class SearchResultHeader extends Component {
             this.props.onBack();
           }}>
           <Image
-            source={require('../../assets/icon_search_back.png')}
+            source={
+              isEnglish
+                ? require('../../assets/icon_search_back.png')
+                : require('../../assets/icon_search_back_hebrew.png')
+            }
             style={styles.searchHeaderBackIcon}
           />
           <Text style={styles.searchHeaderText}>
@@ -418,7 +426,11 @@ export class MyProfileHeader extends Component {
             this.props.onBack();
           }}>
           <Image
-            source={require('../../assets/icon_search_back.png')}
+            source={
+              isEnglish
+                ? require('../../assets/icon_search_back.png')
+                : require('../../assets/icon_search_back_hebrew.png')
+            }
             style={styles.searchHeaderBackIcon}
           />
           <Text style={styles.searchHeaderText}>My Profile</Text>

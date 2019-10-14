@@ -135,4 +135,6 @@ export default {
     switchLanguage: 'Switch Language',
     logout: 'Logout',
   },
+  changeLocation: 'Change Location',
+  setYourHomeCity: 'Set your home city',
 };

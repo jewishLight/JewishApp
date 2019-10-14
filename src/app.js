@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StatusBar, Platform} from 'react-native';
+import {StatusBar, Platform, Text} from 'react-native';
 import AppNavigation from './routing';
 
 import i18n from 'i18n-js';
@@ -8,6 +8,10 @@ import he from './constants/translateHe';
 
 StatusBar.setHidden(false);
 StatusBar.setBarStyle('light-content');
+
+Text.defaultProps = {
+  style: {fontFamily: 'Heebo-Black'},
+};
 
 class App extends Component {
   constructor(props) {

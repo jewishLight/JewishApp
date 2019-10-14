@@ -74,6 +74,10 @@ class SynaScreen extends Component {
     }
   }
 
+  onSubmitComment = () => {
+    this.onComment();
+  };
+
   onComment = () => {
     this.startLoading();
     let body = {
@@ -444,9 +448,10 @@ class SynaScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
-            onEndEditing={this.onComment}
           />
-          <TouchableOpacity style={styles.commentSendView}>
+          <TouchableOpacity
+            style={styles.commentSendView}
+            onPress={this.onSubmitComment}>
             <Image
               source={require('../../assets/icon_detail_sendbtn.png')}
               style={styles.commentSendImage}

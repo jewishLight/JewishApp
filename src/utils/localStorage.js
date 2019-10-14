@@ -25,6 +25,48 @@ class LocalStorage {
     }
   };
 
+  static getMyLocation = async () => {
+    let location = null;
+    try {
+      location = await Storage.getItem('MYLOCATION');
+    } catch (e) {}
+    return location;
+  };
+
+  static setMyLocation = async location => {
+    try {
+      Storage.setItem('MYLOCATION', location);
+    } catch (e) {}
+  };
+
+  static getMyLatitude = async () => {
+    let latitude = null;
+    try {
+      latitude = await Storage.getItem('MYLATITUDE');
+    } catch (e) {}
+    return latitude;
+  };
+
+  static setMyLatitude = async latitude => {
+    try {
+      Storage.setItem('MYLATITUDE', latitude);
+    } catch (e) {}
+  };
+
+  static getMyLongitude = async () => {
+    let longitude = null;
+    try {
+      longitude = await Storage.getItem('MYLONGITUDE');
+    } catch (e) {}
+    return longitude;
+  };
+
+  static setMyLongitude = async location => {
+    try {
+      Storage.setItem('MYLONGITUDE', location);
+    } catch (e) {}
+  };
+
   static setIntroChecked = async checked => {
     let stringChecked =
       checked === true ? Strings.FLAG_TRUE : Strings.FLAG_FALSE;

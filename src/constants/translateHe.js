@@ -134,4 +134,6 @@ export default {
     switchLanguage: 'עבור לשפה אנגלית',
     logout: 'התנתק',
   },
+  changeLocation: 'שנה מיקום',
+  setYourHomeCity: 'אנא הזינו את שם העיר המרכזית עליה תרצו לקבל את המידע:',
 };

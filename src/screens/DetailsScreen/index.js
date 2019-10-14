@@ -89,7 +89,6 @@ class DetailsScreen extends Component {
   };
 
   onComment = () => {
-    debugger;
     this.startLoading();
     let body = {
       lesson_id: this.props.navigation.state.params.lessonData._id,
@@ -262,9 +261,10 @@ class DetailsScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
-            onEndEditing={this.onComment}
           />
-          <TouchableOpacity style={styles.commentSendView}>
+          <TouchableOpacity
+            style={styles.commentSendView}
+            onPress={this.onComment}>
             <Image
               source={require('../../assets/icon_detail_sendbtn.png')}
               style={styles.commentSendImage}

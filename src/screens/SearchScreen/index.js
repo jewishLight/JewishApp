@@ -37,6 +37,11 @@ class SearchScreen extends Component {
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    console.info(
+      'search history',
+      this.props.navigation.state.params.searchHistory,
+    );
+    debugger;
     this.setState({
       language: this.props.appSettings.language,
       searchHistory: this.props.navigation.state.params.searchHistory,

@@ -70,29 +70,39 @@ class SplashScreen extends Component {
 
     await requestCameraPermission();
 
-    await GetLocation.getCurrentPosition({
-      enableHighAccuracy: true,
-      timeout: 15000,
-    })
-      .then(location => {
-        debugger;
-        Strings.currentLatitude = location.latitude;
-        Strings.currentLongitude = location.longitude;
+    let myLocation = await LocalStorage.getMyLocation();
+    let myLatitude = await LocalStorage.getMyLatitude();
+    let myLongitude = await LocalStorage.getMyLongitude();
+    if (myLocation && myLatitude && myLongitude) {
+      Strings.currentLatitude = myLatitude;
+      Strings.currentLongitude = myLongitude;
+      Strings.currentLocationCity = myLocation;
+    } else {
+      await GetLocation.getCurrentPosition({
+        enableHighAccuracy: true,
+        timeout: 15000,
       })
-      .catch(error => {});
-    //31.771959, 35.217018
-    Geocoder.geocodePosition({
-      lat: Strings.currentLatitude,
-      lng: Strings.currentLongitude,
-    })
-      .then(res => {
-        // res is an Array of geocoding object (see below)
-        debugger;
-        Strings.currentLocationCity = `${res[0].streetNumber}, ${
-          res[0].streetName
-        }, ${res[0].locality}, ${res[0].country}`;
+        .then(async location => {
+          Strings.currentLatitude = location.latitude;
+          Strings.currentLongitude = location.longitude;
+          await LocalStorage.setMyLatitude(location.latitude.toString());
+          await LocalStorage.setMyLongitude(location.longitude.toString());
+        })
+        .catch(error => {});
+      //31.771959, 35.217018
+      Geocoder.geocodePosition({
+        lat: Strings.currentLatitude,
+        lng: Strings.currentLongitude,
       })
-      .catch(err => {});
+        .then(async res => {
+          // res is an Array of geocoding object (see below)
+          Strings.currentLocationCity = `${res[0].streetNumber}, ${
+            res[0].streetName
+          }, ${res[0].locality}, ${res[0].country}`;
+          await LocalStorage.setMyLocation(Strings.currentLocationCity);
+        })
+        .catch(err => {});
+    }
 
     setTimeout(async () => {
       if (this.getOnlineDataTimerGone === false) {

@@ -217,7 +217,9 @@ export class ChangeLocationModal extends Component {
           <View style={styles.addModalDropdownView} />
           <View style={styles.alphaModalMainView}>
             <View style={styles.addNewLine}>
-              <Text style={styles.addNewText}>Change Location</Text>
+              <Text style={styles.addNewText}>
+                {this.props.isEnglish ? en.changeLocation : he.changeLocation}
+              </Text>
               <AddModalCloseButton
                 onPress={() => {
                   this.hide();
@@ -244,7 +246,9 @@ export class ChangeLocationModal extends Component {
                   alignItems: 'center',
                 }}>
                 <Text style={{fontSize: 17, color: 'red'}}>
-                  Set your home city
+                  {this.props.isEnglish
+                    ? en.setYourHomeCity
+                    : he.setYourHomeCity}
                 </Text>
                 <View style={{}}>
                   <GooglePlacesAutocomplete

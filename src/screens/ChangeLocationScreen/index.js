@@ -14,6 +14,9 @@ import {styles} from './styles';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LocationItem from '../NewLessonScreen/locationItem';
 import {GoogleAutoComplete} from 'react-native-google-autocomplete';
+import GetLocation from 'react-native-get-location';
+import {LocalStorage, Strings} from '../../utils';
+import Geocoder from 'react-native-geocoder';
 
 class ChangeLocationScreen extends Component {
   constructor(props) {
@@ -29,8 +32,7 @@ class ChangeLocationScreen extends Component {
 
   componentDidMount() {}
 
-  updateGoogleAutocomplete = nextState => {
-    debugger;
+  updateGoogleAutocomplete = async nextState => {
     this.setState({
       address: nextState.address,
       city: nextState.address,
@@ -42,6 +44,22 @@ class ChangeLocationScreen extends Component {
       nextState.longitude,
       nextState.address,
     );
+    Strings.currentLatitude = location.latitude;
+    Strings.currentLongitude = location.longitude;
+    await LocalStorage.setMyLatitude(Strings.currentLatitude.toString());
+    await LocalStorage.setMyLongitude(Strings.currentLongitude.toString());
+    Geocoder.geocodePosition({
+      lat: Strings.currentLatitude,
+      lng: Strings.currentLongitude,
+    })
+      .then(async res => {
+        // res is an Array of geocoding object (see below)
+        Strings.currentLocationCity = `${res[0].streetNumber}, ${
+          res[0].streetName
+        }, ${res[0].locality}, ${res[0].country}`;
+        await LocalStorage.setMyLocation(Strings.currentLocationCity);
+      })
+      .catch(err => {});
   };
 
   render() {
