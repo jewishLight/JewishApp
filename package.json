@@ -36,6 +36,7 @@
     "react-native-restart": "0.0.12",
     "react-native-sectionlist-contacts": "^1.1.3",
     "react-native-shapes": "^0.1.0",
+    "react-native-share": "^2.0.0",
     "react-native-swiper": "^1.5.14",
     "react-native-tags": "^2.1.0",
     "react-native-unimodules": "~0.5.2",

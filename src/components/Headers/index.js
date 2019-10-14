@@ -302,7 +302,11 @@ export class SynaHeader extends Component {
           }}>
           <View style={styles.detailsHeaderBackContainerOpacity} />
           <Image
-            source={require('../../assets/icon_header_back.png')}
+            source={
+              this.props.isEnglish
+                ? require('../../assets/icon_header_back.png')
+                : require('../../assets/icon_header_back_he.png')
+            }
             style={styles.detailsHeaderBackIcon}
           />
         </TouchableOpacity>

@@ -18,6 +18,8 @@ import {
   CommentButton,
   ChangeLocationModal,
   Loading,
+  NavigationModal,
+  AddModal,
 } from '../../components';
 import {Metric, Colors} from '../../themes';
 import {styles} from './styles';
@@ -28,6 +30,16 @@ import {ApiRequest, Strings} from '../../utils';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
+import Share from 'react-native-share';
+
+const shareOptions = {
+  title: 'Share via',
+  message: 'some message',
+  url: 'some share url',
+  social: Share.Social.WHATSAPP,
+  whatsAppNumber: '9199999999',
+  filename: 'test',
+};
 
 class SynaScreen extends Component {
   static navigationOptions = {
@@ -47,7 +59,6 @@ class SynaScreen extends Component {
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    debugger;
     console.info(this.props.navigation.state.params.synaData.comments);
     this.setState({
       comments: this.props.navigation.state.params.synaData.comments,
@@ -110,9 +121,48 @@ class SynaScreen extends Component {
     this.setState({showLoading: false});
   };
 
-  onShare = () => {};
+  callBackNavigationModal = callBackId => {
+    switch (callBackId) {
+      case 0:
+        // waze
+        break;
+      case 1:
+        // google maps
+        break;
+      case 2:
+        // movit
+        break;
+      default:
+        // waze
+        break;
+    }
+    this.refNavigationModal.hide();
+    this.props.navigation.navigate('MapView', {
+      results: [],
+    });
+  };
+
+  onShare = async () => {
+    const shareOptions = {
+      title: 'Share file',
+      email: '',
+      social: Share.Social.EMAIL,
+      failOnCancel: false,
+      urls: [],
+    };
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      // setResult(JSON.stringify(ShareResponse, null, 2));
+    } catch (error) {
+      console.log('Error =>', error);
+      // setResult('error: '.concat(getErrorString(error)));
+    }
+  };
   onEdit = () => {};
-  onSend = () => {};
+  onSend = () => {
+    this.refNavigationModal.show();
+  };
 
   render() {
     const {language, synaData, showLoading, comments} = this.state;
@@ -286,32 +336,27 @@ class SynaScreen extends Component {
             isEnglish={isEnglish}
           />
           <ScrollView>
-            <Swiper
-              style={styles.wrapper}
-              width={Metric.width}
-              height={250}
-              dotColor={'white'}
-              activeDotColor={'gray'}
-              showsButtons={false}>
-              <View style={styles.slide1}>
-                <Image
-                  source={require('../../assets/swiper_1.jpg')}
-                  style={{height: 250, resizeMode: 'contain'}}
-                />
-              </View>
-              <View style={styles.slide2}>
-                <Image
-                  source={require('../../assets/swiper_2.jpg')}
-                  style={{height: 250, resizeMode: 'contain'}}
-                />
-              </View>
-              <View style={styles.slide3}>
-                <Image
-                  source={require('../../assets/swiper_3.jpeg')}
-                  style={{height: 250, resizeMode: 'cover'}}
-                />
-              </View>
-            </Swiper>
+            {synaData.image && (
+              <Swiper
+                style={styles.wrapper}
+                width={Metric.width}
+                height={250}
+                dotColor={'white'}
+                activeDotColor={'gray'}
+                showsButtons={false}>
+                {synaData.map(item => {
+                  return (
+                    <View style={styles.slide1}>
+                      <Image
+                        source={{uri: item}}
+                        style={{height: 250, resizeMode: 'contain'}}
+                      />
+                    </View>
+                  );
+                })}
+              </Swiper>
+            )}
+
             <View
               style={{
                 paddingHorizontal: 15,
@@ -438,6 +483,13 @@ class SynaScreen extends Component {
             <View style={styles.paddingSeparator} />
             <Comments isEnglish={isEnglish} item={comments} />
           </ScrollView>
+          <NavigationModal
+            ref={ref => {
+              this.refNavigationModal = ref;
+            }}
+            callBack={this.callBackNavigationModal}
+            isEnglish={isEnglish}
+          />
         </View>
         <View style={styles.commentInputView}>
           <TextInput

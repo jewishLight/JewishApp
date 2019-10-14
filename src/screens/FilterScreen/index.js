@@ -178,7 +178,6 @@ class FilterScreen extends Component {
   };
 
   updateGoogleAutocomplete = nextState => {
-    debugger;
     this.setState({
       address: nextState.address,
       city: nextState.address,

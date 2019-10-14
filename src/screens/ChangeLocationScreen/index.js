@@ -44,8 +44,8 @@ class ChangeLocationScreen extends Component {
       nextState.longitude,
       nextState.address,
     );
-    Strings.currentLatitude = location.latitude;
-    Strings.currentLongitude = location.longitude;
+    Strings.currentLatitude = parseFloat(location.latitude);
+    Strings.currentLongitude = parseFloat(location.longitude);
     await LocalStorage.setMyLatitude(Strings.currentLatitude.toString());
     await LocalStorage.setMyLongitude(Strings.currentLongitude.toString());
     Geocoder.geocodePosition({

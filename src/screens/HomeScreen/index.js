@@ -9,6 +9,7 @@ import {
   I18nManager,
   NativeModules,
   BackHandler,
+  Alert,
 } from 'react-native';
 import {styles} from './styles';
 import {appSettingsSelector} from '../../redux/selector';
@@ -31,6 +32,7 @@ import {PopularLessons} from './PopularLessons';
 import {RecentLessons} from './RecentLessons';
 import {Strings, LocalStorage, ApiRequest} from '../../utils';
 import NetInfo from '@react-native-community/netinfo';
+import Share from 'react-native-share';
 
 class HomeScreen extends Component {
   // static navigationOptions = {
@@ -345,8 +347,8 @@ class HomeScreen extends Component {
     if (this.refHomeHeader) {
       this.refHomeHeader.updateLocation(city);
     }
-    Strings.currentLatitude = lat;
-    Strings.currentLongitude = lng;
+    Strings.currentLatitude = parseFloat(lat);
+    Strings.currentLongitude = parseFloat(lng);
   };
   onHeaderMenu = () => {
     this.props.navigation.openDrawer();
@@ -548,7 +550,7 @@ class HomeScreen extends Component {
 
       let body = {
         name: name,
-        nosach: n,
+        nosach: nosach,
         address: city,
         location: location,
         externals: amenities,

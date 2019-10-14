@@ -74,8 +74,8 @@ class SplashScreen extends Component {
     let myLatitude = await LocalStorage.getMyLatitude();
     let myLongitude = await LocalStorage.getMyLongitude();
     if (myLocation && myLatitude && myLongitude) {
-      Strings.currentLatitude = myLatitude;
-      Strings.currentLongitude = myLongitude;
+      Strings.currentLatitude = parseFloat(myLatitude);
+      Strings.currentLongitude = parseFloat(myLongitude);
       Strings.currentLocationCity = myLocation;
     } else {
       await GetLocation.getCurrentPosition({
@@ -83,8 +83,8 @@ class SplashScreen extends Component {
         timeout: 15000,
       })
         .then(async location => {
-          Strings.currentLatitude = location.latitude;
-          Strings.currentLongitude = location.longitude;
+          Strings.currentLatitude = parseFloat(location.latitude);
+          Strings.currentLongitude = parseFloat(location.longitude);
           await LocalStorage.setMyLatitude(location.latitude.toString());
           await LocalStorage.setMyLongitude(location.longitude.toString());
         })

@@ -6,6 +6,7 @@ import {Colors, Metric} from '../../themes';
 import {Strings} from '../../utils';
 import {en, he} from '../../constants';
 import {AddModalCloseButton} from '../../components';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 export class AddModal extends Component {
   constructor(props) {
@@ -150,11 +151,6 @@ export class FilterModal extends Component {
   }
 }
 
-import AlphaScrollFlatList from 'alpha-scroll-flat-list';
-const ITEM_HEIGHT = 50;
-import people from './names';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-
 export class ChangeLocationModal extends Component {
   constructor(props) {
     super(props);
@@ -229,16 +225,6 @@ export class ChangeLocationModal extends Component {
             </View>
             <View style={styles.addModalSeparator} />
             <View style={styles.alphaListModalContainer}>
-              {/*<AlphaScrollFlatList*/}
-              {/*  keyExtractor={this.keyExtractor.bind(this)}*/}
-              {/*  data={people.sort((prev, next) =>*/}
-              {/*    prev.name.localeCompare(next.name),*/}
-              {/*  )}*/}
-              {/*  renderItem={this.renderItem}*/}
-              {/*  scrollKey={'name'}*/}
-              {/*  reverse={false}*/}
-              {/*  itemHeight={ITEM_HEIGHT}*/}
-              {/*/>*/}
               <View
                 style={{
                   height: 60,
@@ -315,6 +301,74 @@ export class ChangeLocationModal extends Component {
                   />
                 </View>
               </View>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+}
+
+export class NavigationModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false,
+    };
+  }
+
+  componentDidMount() {}
+
+  show = () => {
+    this.setState({modalVisible: true});
+  };
+
+  hide = () => {
+    this.setState({modalVisible: false});
+  };
+
+  render() {
+    const isEnglish = this.props.isEnglish;
+    return (
+      <Modal visible={this.state.modalVisible} style={styles.addModalContainer}>
+        <View style={styles.addModalView}>
+          <View style={styles.addModalDropdownView} />
+          <View style={styles.navigationModalMainView}>
+            <View style={styles.addNewLine}>
+              <Text style={styles.addNewText}>Navigation Modal</Text>
+              <AddModalCloseButton
+                onPress={() => {
+                  this.hide();
+                }}
+                text={isEnglish ? en.modal.close : he.modal.close}
+              />
+            </View>
+            <View style={styles.addModalSeparator} />
+            <View style={styles.addBtnsContainer}>
+              <TouchableOpacity
+                style={styles.addSynBtn}
+                onPress={() => {
+                  this.hide();
+                  this.props.callBack(0);
+                }}>
+                <Text style={styles.synText}>Waze</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.addSynBtn}
+                onPress={() => {
+                  this.hide();
+                  this.props.callBack(1);
+                }}>
+                <Text style={styles.synText}>Google Maps</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.addSynBtn}
+                onPress={() => {
+                  this.hide();
+                  this.props.callBack(2);
+                }}>
+                <Text style={styles.synText}>Movit</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

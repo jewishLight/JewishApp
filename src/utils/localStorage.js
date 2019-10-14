@@ -44,12 +44,12 @@ class LocalStorage {
     try {
       latitude = await Storage.getItem('MYLATITUDE');
     } catch (e) {}
-    return latitude;
+    return parseFloat(latitude);
   };
 
   static setMyLatitude = async latitude => {
     try {
-      Storage.setItem('MYLATITUDE', latitude);
+      Storage.setItem('MYLATITUDE', latitude.toString());
     } catch (e) {}
   };
 
@@ -58,12 +58,12 @@ class LocalStorage {
     try {
       longitude = await Storage.getItem('MYLONGITUDE');
     } catch (e) {}
-    return longitude;
+    return parseFloat(longitude);
   };
 
   static setMyLongitude = async location => {
     try {
-      Storage.setItem('MYLONGITUDE', location);
+      Storage.setItem('MYLONGITUDE', location.toString());
     } catch (e) {}
   };
 
