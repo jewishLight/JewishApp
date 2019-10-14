@@ -61,7 +61,7 @@ class NewLessonScreen extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     let language = this.props.appSettings.language;
     this.setState({language});
@@ -109,37 +109,12 @@ class NewLessonScreen extends Component {
     this.setState({datetime});
   };
 
-  addSpeaker = () => {
-    if (!this.state.addNewSpeakerState) {
-      this.setState({addNewSpeakerState: true});
-    }
+  newSpeaker = speakerPickerArray => {
+    this.setState({speakers: speakerPickerArray});
   };
 
-  onAddSpeakerFinish = () => {
-    this.startLoading();
-    let body = {
-      name: this.state.newSpeakerName,
-      avatar: this.state.newSpeakerAvatar,
-      about: this.state.newSpeakerAbout,
-    };
-    ApiRequest(`lesson/addSpeaker`, body, 'POST')
-      .then(response => {
-        debugger;
-        this.setState({addNewSpeakerState: false});
-        this.closeLoading();
-        let speakerPickerArray = [];
-        response.speakers.map(item => {
-          if (item.name && item._id) {
-            speakerPickerArray.push({label: item.name, value: item._id});
-          }
-        });
-        this.setState({speakers: speakerPickerArray});
-      })
-      .catch(error => {
-        debugger;
-        this.setState({addNewSpeakerState: false});
-        this.closeLoading();
-      });
+  addSpeaker = () => {
+    this.props.navigation.navigate('NewSpeaker', {newSpeaker: this.newSpeaker});
   };
 
   onPoiClick = e => {
@@ -227,86 +202,6 @@ class NewLessonScreen extends Component {
               onValueChange={this.onChangeSpeaker}
               placeholder={"We don't need to choose from list."}
             />
-
-            {this.state.addNewSpeakerState && (
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: 'lightgray',
-                  borderRadius: 10,
-                  padding: 10,
-                  marginTop: 10,
-                }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text>Name</Text>
-                  <View style={{width: 5}} />
-                  <TextInput
-                    style={{
-                      flex: 1,
-                      height: 40,
-                      borderWidth: 1,
-                      borderColor: 'black',
-                    }}
-                    onChangeText={text => {
-                      this.setState({newSpeakerName: text});
-                    }}
-                  />
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Text>Avatar</Text>
-                  <TouchableOpacity
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: 120,
-                      height: 40,
-                      borderRadius: 20,
-                      backgroundColor: 'lightgray',
-                    }}>
-                    <Text>Upload</Text>
-                  </TouchableOpacity>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Text>About</Text>
-                  <View style={{width: 5}} />
-                  <TextInput
-                    style={{
-                      flex: 1,
-                      height: 40,
-                      borderWidth: 1,
-                      borderColor: 'black',
-                    }}
-                    onChangeText={text => {
-                      this.setState({newSpeakerAbout: text});
-                    }}
-                  />
-                </View>
-                <TouchableOpacity
-                  style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flex: 1,
-                    height: 40,
-                    borderRadius: 20,
-                    backgroundColor: 'lightgray',
-                    marginTop: 10,
-                  }}
-                  onPress={this.onAddSpeakerFinish}>
-                  <Text>Add</Text>
-                </TouchableOpacity>
-              </View>
-            )}
 
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.location : he.modal.location}

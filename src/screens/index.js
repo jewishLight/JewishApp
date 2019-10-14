@@ -15,6 +15,7 @@ import NewLessonScreen from './NewLessonScreen';
 import NewSynaScreen from './NewSynaScreen';
 import SearchSynaScreen from './SearchSynaScreen';
 import ChangeLocationScreen from './ChangeLocationScreen';
+import NewSpeakerScreen from './NewSpeakerScreen';
 
 export {
   HomeScreen,
@@ -34,4 +35,5 @@ export {
   NewSynaScreen,
   SearchSynaScreen,
   ChangeLocationScreen,
+  NewSpeakerScreen,
 };
