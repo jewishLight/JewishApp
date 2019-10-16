@@ -70,7 +70,12 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
           source={require('../../assets/icon_search_history_location.png')}
           style={{width: 16, height: 21, resizeMode: 'contain'}}
         />
-        <Text style={{marginLeft: 5, fontSize: 18}}>{item.name}</Text>
+        <Text
+          style={{marginLeft: 5, fontSize: 12}}
+          numberOfLines={1}
+          ellipsizeMode={'tail'}>
+          {item.address}
+        </Text>
       </View>
       <Image
         source={require('../../assets/icon_search_history_rightarrow.png')}
@@ -86,7 +91,9 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
         style={{width: 15, height: 14, resizeMode: 'contain'}}
       />
       <Text style={{marginLeft: 5, color: '#9B9B9B', fontSize: 12}}>
-        Filters
+        {`Filters: ${item.type}, ${item.max_radius}km, startTime: ${
+          item.startTime
+        }, endTime: ${item.endTime}`}
       </Text>
     </View>
     <View style={{flexDirection: 'row', marginTop: 10}}>
@@ -101,30 +108,6 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
         }}>
         <Text style={{color: Colors.primary, fontSize: 12}}>{item.sortBy}</Text>
       </View>
-      {/*<View*/}
-      {/*  style={{*/}
-      {/*    width: 100,*/}
-      {/*    height: 34,*/}
-      {/*    borderRadius: 17,*/}
-      {/*    backgroundColor: '#E6E5F5',*/}
-      {/*    justifyContent: 'center',*/}
-      {/*    alignItems: 'center',*/}
-      {/*    marginLeft: 10,*/}
-      {/*  }}>*/}
-      {/*  <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>*/}
-      {/*</View>*/}
-      {/*<View*/}
-      {/*  style={{*/}
-      {/*    width: 100,*/}
-      {/*    height: 34,*/}
-      {/*    borderRadius: 17,*/}
-      {/*    backgroundColor: '#E6E5F5',*/}
-      {/*    justifyContent: 'center',*/}
-      {/*    alignItems: 'center',*/}
-      {/*    marginLeft: 10,*/}
-      {/*  }}>*/}
-      {/*  <Text style={{color: Colors.primary, fontSize: 12}}>Syna</Text>*/}
-      {/*</View>*/}
     </View>
   </TouchableOpacity>
 );

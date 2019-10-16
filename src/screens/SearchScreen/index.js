@@ -117,6 +117,7 @@ class SearchScreen extends Component {
         max_radius: 10,
         lon: Strings.currentLongitude,
         lat: Strings.currentLatitude,
+        address: Strings.currentLocationCity,
         sortBy: 'time',
       };
     }

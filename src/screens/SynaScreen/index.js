@@ -31,6 +31,7 @@ import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import Share from 'react-native-share';
+import {showLocation} from 'react-native-map-link';
 
 const shareOptions = {
   title: 'Share via',
@@ -121,25 +122,85 @@ class SynaScreen extends Component {
     this.setState({showLoading: false});
   };
 
-  callBackNavigationModal = callBackId => {
+  callBackNavigationModal = async callBackId => {
     switch (callBackId) {
       case 0:
         // waze
+        await showLocation({
+          latitude: Strings.currentLatitude,
+          longitude: Strings.currentLongitude,
+          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
+          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
+          title: 'The House', // optional
+          googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
+          googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
+          alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
+          dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
+          dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
+          cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
+          appsWhiteList: ['waze'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
+          // app: 'uber'  // optionally specify specific app to use
+        });
         break;
       case 1:
         // google maps
+        await showLocation({
+          latitude: Strings.currentLatitude,
+          longitude: Strings.currentLongitude,
+          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
+          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
+          title: 'The House', // optional
+          googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
+          googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
+          alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
+          dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
+          dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
+          cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
+          appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
+          // app: 'uber'  // optionally specify specific app to use
+        });
         break;
       case 2:
         // movit
+        await showLocation({
+          latitude: Strings.currentLatitude,
+          longitude: Strings.currentLongitude,
+          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
+          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
+          title: 'The House', // optional
+          googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
+          googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
+          alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
+          dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
+          dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
+          cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
+          appsWhiteList: ['moovit'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
+          // app: 'uber'  // optionally specify specific app to use
+        });
         break;
       default:
         // waze
+        await showLocation({
+          latitude: Strings.currentLatitude,
+          longitude: Strings.currentLongitude,
+          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
+          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
+          title: 'The House', // optional
+          googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
+          googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
+          alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
+          dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
+          dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
+          cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
+          appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
+          // app: 'uber'  // optionally specify specific app to use
+        });
         break;
     }
     this.refNavigationModal.hide();
-    this.props.navigation.navigate('MapView', {
-      results: [],
-    });
+    // this.props.navigation.navigate('MapView', {
+    //   results: [],
+    // });
   };
 
   onShare = async () => {
@@ -371,7 +432,7 @@ class SynaScreen extends Component {
                   Nosach
                 </Text>
                 <Text style={{color: '#4c4c4c', fontSize: 14}}>
-                  {synaData.nosach}
+                  {synaData.nosach || isEnglish ? en.unDefined : he.unDefined}
                 </Text>
                 <View
                   style={{

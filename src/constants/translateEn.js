@@ -138,4 +138,5 @@ export default {
   },
   changeLocation: 'Change Location',
   setYourHomeCity: 'Set your home city',
+  unDefined: 'UnDefined',
 };

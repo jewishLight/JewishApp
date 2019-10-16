@@ -137,4 +137,5 @@ export default {
   },
   changeLocation: 'שנה מיקום',
   setYourHomeCity: 'אנא הזינו את שם העיר המרכזית עליה תרצו לקבל את המידע:',
+  unDefined: 'טרם הוגדר',
 };
