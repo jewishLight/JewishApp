@@ -3,18 +3,7 @@ import {View, Platform, Text, TouchableOpacity, FlatList} from 'react-native';
 import {LessonCard} from '../../components';
 import {styles} from './styles';
 import {en, he} from '../../constants';
-
-const tempTodayLessonData = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-];
+import {Strings} from '../../utils';
 
 export class TodayLessons extends Component {
   constructor(props) {
@@ -33,11 +22,15 @@ export class TodayLessons extends Component {
           <Text style={styles.eventsText}>
             {this.props.isEnglish ? en.home.todayLessons : he.home.todayLessons}
           </Text>
-          <TouchableOpacity>
-            <Text style={styles.viewAllText}>
-              {this.props.isEnglish ? en.home.viewAll : he.home.viewAll}
-            </Text>
-          </TouchableOpacity>
+          {Strings.APP_VERSION > 1 ? (
+            <TouchableOpacity>
+              <Text style={styles.viewAllText}>
+                {this.props.isEnglish ? en.home.viewAll : he.home.viewAll}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )}
         </View>
         <View style={styles.spacingHorizontal}>
           <FlatList

@@ -627,7 +627,11 @@ class NewSynModal extends Component {
                   avatarSource,
                 } = this.state;
                 if (lat === 0 || lng === 0 || city === '') {
-                  alert('Please input the location');
+                  alert(
+                    isEnglish
+                      ? 'Please input the location'
+                      : 'נא להזין כתובת תקינה',
+                  );
                 } else if (name === '') {
                   alert('Please input the name');
                 } else if (nosach === '') {

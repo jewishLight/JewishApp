@@ -215,7 +215,7 @@ class SideMenu extends Component {
               this.state.language === Strings.ENGLISH
                 ? 'Logout'
                 : he.menu.logout
-            } (v0.0.25)`}</Text>
+            } (v0.0.26)`}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

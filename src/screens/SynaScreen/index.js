@@ -32,6 +32,7 @@ import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 import Share from 'react-native-share';
 import {showLocation} from 'react-native-map-link';
+import moment from 'moment';
 
 const shareOptions = {
   title: 'Share via',
@@ -225,12 +226,20 @@ class SynaScreen extends Component {
     this.refNavigationModal.show();
   };
 
+  calculateDayDifference = date => {
+    let today = moment();
+    let then = moment(date);
+    return today.diff(then, 'days');
+  };
+
   render() {
     const {language, synaData, showLoading, comments} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     let renderLessons = [];
     let renderMinyans = [];
+    let timeDifferent = 0;
     if (synaData) {
+      timeDifferent = this.calculateDayDifference(synaData.last_updated);
       if (synaData.lessons) {
         synaData.lessons.map(item_lesson => {
           renderLessons.push(
@@ -489,11 +498,17 @@ class SynaScreen extends Component {
                     marginTop: 10,
                   }}>
                   <Text style={{color: 'white', fontSize: 14}}>
-                    20 {isEnglish ? en.synagogue.days : he.synagogue.days}
+                    {timeDifferent > 0
+                      ? `${timeDifferent} ${
+                          isEnglish ? en.synagogue.days : he.synagogue.days
+                        }`
+                      : 'today'}
                   </Text>
-                  <Text style={{color: 'white', fontSize: 14}}>
-                    {isEnglish ? en.synagogue.ago : he.synagogue.ago}
-                  </Text>
+                  {timeDifferent > 0 && (
+                    <Text style={{color: 'white', fontSize: 14}}>
+                      {isEnglish ? en.synagogue.ago : he.synagogue.ago}
+                    </Text>
+                  )}
                 </View>
               </View>
             </View>
@@ -561,6 +576,7 @@ class SynaScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
+            value={this.state.commentText}
           />
           <TouchableOpacity
             style={styles.commentSendView}

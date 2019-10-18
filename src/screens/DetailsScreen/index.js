@@ -261,6 +261,7 @@ class DetailsScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
+            value={this.state.commentText}
           />
           <TouchableOpacity
             style={styles.commentSendView}

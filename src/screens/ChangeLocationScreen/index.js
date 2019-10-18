@@ -57,7 +57,9 @@ class ChangeLocationScreen extends Component {
         Strings.currentLocationCity = `${res[0].streetNumber}, ${
           res[0].streetName
         }, ${res[0].locality}, ${res[0].country}`;
+        Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
         await LocalStorage.setMyLocation(Strings.currentLocationCity);
+        await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
       })
       .catch(err => {});
   };
@@ -66,7 +68,11 @@ class ChangeLocationScreen extends Component {
     return (
       <View style={styles.alphaModalMainView}>
         <View style={styles.addNewLine}>
-          <Text style={styles.addNewText}>Change Location</Text>
+          <Text style={styles.addNewText}>
+            {this.props.navigation.state.params.isEnglish
+              ? en.changeLocation
+              : he.changeLocation}
+          </Text>
           <AddModalCloseButton
             onPress={() => {
               this.props.navigation.goBack();
@@ -86,7 +92,11 @@ class ChangeLocationScreen extends Component {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={{fontSize: 17, color: 'red'}}>Set your home city</Text>
+            <Text style={{fontSize: 17, color: 'red'}}>
+              {this.props.navigation.state.params.isEnglish
+                ? en.setYourHomeCity
+                : he.setYourHomeCity}
+            </Text>
           </View>
           <View
             style={{
@@ -187,7 +197,11 @@ class ChangeLocationScreen extends Component {
                       this.setState({address: text});
                       handleTextChange(text);
                     }}
-                    placeholder="Location..."
+                    placeholder={
+                      this.props.navigation.state.params.isEnglish
+                        ? en.modal.location
+                        : he.modal.location
+                    }
                   />
                   <ScrollView
                     style={{maxHeight: 100, width: Metric.width - 30}}

@@ -65,20 +65,39 @@ class HomeScreen extends Component {
       this.refHomeHeader.updateLanguage(language);
     }
 
+    this.checkNetworkStatus(language);
     this.fetchHome();
+  }
 
+  checkNetworkStatus = language => {
     NetInfo.fetch().then(state => {
       console.log('Connection type', state.type);
       console.log('Is connected?', state.isConnected);
       if (!state.isConnected) {
-        alert(
+        Alert.alert(
+          'Warning',
           language === Strings.ENGLISH
             ? 'There is not interetnet connection, please try again later.'
             : 'אין חיבור לאינטרנט אנא נסו שוב מאוחר יותר.',
+          [
+            {
+              text: 'Try again',
+              onPress: () => {
+                this.checkNetworkStatus(language);
+              },
+            },
+            {
+              text: 'Close',
+              onPress: () => {
+                BackHandler.exitApp();
+              },
+            },
+          ],
+          {cancelable: false},
         );
       }
     });
-  }
+  };
 
   fetchHome = () => {
     this.startLoading();
@@ -199,7 +218,7 @@ class HomeScreen extends Component {
             <HomeHeader
               onLocation={this.onHeaderLocation}
               onMenu={this.onHeaderMenu}
-              location={Strings.currentLocationCity}
+              location={Strings.currentOnlyCity}
               ref={ref => {
                 this.refHomeHeader = ref;
               }}
@@ -208,7 +227,12 @@ class HomeScreen extends Component {
             />
           </View>
           <View style={styles.buttonsLine}>
-            <FilterButton onPress={this.onFilter} />
+            {Strings.APP_VERSION > 1 ? (
+              <FilterButton onPress={this.onFilter} />
+            ) : (
+              <View />
+            )}
+
             <View style={styles.addSearchLine}>
               <AddButton
                 onPress={this.onAdd}

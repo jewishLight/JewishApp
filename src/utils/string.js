@@ -17,6 +17,8 @@ export default {
   LOGIN_TYPE_GOOGLE: 'LOGIN_TYPE_GOOGLE',
   LOGIN_TYPE_EMAIL: 'LOGIN_TYPE_EMAIL',
 
+  APP_VERSION: 1,
+
   // editable values
   localToken: '',
   loginType: '',
@@ -24,4 +26,5 @@ export default {
   currentLatitude: 0,
   currentLongitude: 0,
   currentLocationCity: '',
+  currentOnlyCity: '',
 };

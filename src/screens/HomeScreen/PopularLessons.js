@@ -3,6 +3,7 @@ import {View, Platform, Text, TouchableOpacity, FlatList} from 'react-native';
 import {LessonCard} from '../../components';
 import {styles} from './styles';
 import {en, he} from '../../constants';
+import {Strings} from '../../utils';
 
 export class PopularLessons extends Component {
   constructor(props) {
@@ -22,11 +23,15 @@ export class PopularLessons extends Component {
               ? en.home.mostPopularLessons
               : he.home.mostPopularLessons}
           </Text>
-          <TouchableOpacity>
-            <Text style={styles.viewAllText}>
-              {this.props.isEnglish ? en.home.viewAll : he.home.viewAll}
-            </Text>
-          </TouchableOpacity>
+          {Strings.APP_VERSION > 1 ? (
+            <TouchableOpacity>
+              <Text style={styles.viewAllText}>
+                {this.props.isEnglish ? en.home.viewAll : he.home.viewAll}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View />
+          )}
         </View>
         <View style={styles.spacingHorizontal}>
           <FlatList

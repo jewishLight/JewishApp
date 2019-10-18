@@ -118,7 +118,7 @@ class NewSpeakerScreen extends Component {
         const source = {uri: response.uri};
 
         this.setState({
-          newSpeakerAvatar: source,
+          newSpeakerAvatar: response.data,
         });
       }
     });

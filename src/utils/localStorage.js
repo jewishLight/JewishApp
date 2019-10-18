@@ -39,6 +39,20 @@ class LocalStorage {
     } catch (e) {}
   };
 
+  static getMyOnlyCity = async () => {
+    let location = null;
+    try {
+      location = await Storage.getItem('MYONLYCITY');
+    } catch (e) {}
+    return location;
+  };
+
+  static setMyOnlyCity = async location => {
+    try {
+      Storage.setItem('MYONLYCITY', location);
+    } catch (e) {}
+  };
+
   static getMyLatitude = async () => {
     let latitude = null;
     try {

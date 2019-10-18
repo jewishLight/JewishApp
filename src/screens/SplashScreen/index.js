@@ -73,10 +73,12 @@ class SplashScreen extends Component {
     let myLocation = await LocalStorage.getMyLocation();
     let myLatitude = await LocalStorage.getMyLatitude();
     let myLongitude = await LocalStorage.getMyLongitude();
-    if (myLocation && myLatitude && myLongitude) {
+    let myOnlyCity = await LocalStorage.getMyOnlyCity();
+    if (myLocation && myLatitude && myLongitude && myOnlyCity) {
       Strings.currentLatitude = parseFloat(myLatitude);
       Strings.currentLongitude = parseFloat(myLongitude);
       Strings.currentLocationCity = myLocation;
+      Strings.currentOnlyCity = myOnlyCity;
     } else {
       await GetLocation.getCurrentPosition({
         enableHighAccuracy: true,
@@ -99,7 +101,9 @@ class SplashScreen extends Component {
           Strings.currentLocationCity = `${res[0].streetNumber}, ${
             res[0].streetName
           }, ${res[0].locality}, ${res[0].country}`;
+          Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
           await LocalStorage.setMyLocation(Strings.currentLocationCity);
+          await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
         })
         .catch(err => {});
     }
