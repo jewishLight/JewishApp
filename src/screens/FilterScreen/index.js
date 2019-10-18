@@ -173,8 +173,8 @@ class FilterScreen extends Component {
       city: poi.name,
       lat: poi.coordinate.latitude,
       lng: poi.coordinate.longitude,
+      address: poi.name,
     });
-    this.refGoogleInput.setAddressText(poi.name);
   };
 
   updateGoogleAutocomplete = nextState => {
@@ -646,17 +646,21 @@ class FilterScreen extends Component {
                       paddingHorizontal: 40,
                     }}
                     onPress={() => {
-                      this.props.navigation.goBack();
-                      this.props.navigation.state.params.onFiltered(
-                        this.state.speakerName,
-                        timeRangeValue[this.state.timeRangeSliderValue[0]],
-                        timeRangeValue[this.state.timeRangeSliderValue[1]],
-                        this.state.radiusSliderValue[0] + 1,
-                        this.state.sort === 0 ? 'nearby' : 'time',
-                        this.state.lat,
-                        this.state.lng,
-                        this.state.city,
-                      );
+                      if (this.state.city === '') {
+                        alert('Please input the address');
+                      } else {
+                        this.props.navigation.goBack();
+                        this.props.navigation.state.params.onFiltered(
+                          this.state.speakerName,
+                          timeRangeValue[this.state.timeRangeSliderValue[0]],
+                          timeRangeValue[this.state.timeRangeSliderValue[1]],
+                          this.state.radiusSliderValue[0] + 1,
+                          this.state.sort === 0 ? 'nearby' : 'time',
+                          this.state.lat,
+                          this.state.lng,
+                          this.state.address,
+                        );
+                      }
                     }}>
                     <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
                       {isEnglish ? en.modal.filter : he.modal.filter}

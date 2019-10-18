@@ -88,9 +88,11 @@ class ChangeLocationScreen extends Component {
         <KeyboardAwareScrollView style={{flex: 1}}>
           <View
             style={{
+              width: '100%',
               height: 60,
               justifyContent: 'center',
               alignItems: 'center',
+              paddingHorizontal: 15,
             }}>
             <Text style={{fontSize: 17, color: 'red'}}>
               {this.props.navigation.state.params.isEnglish

@@ -53,12 +53,10 @@ class SearchResultScreen extends Component {
       _id: 'header_0',
       view: (
         <View style={[styles.searchResultTopTagView, {marginLeft: 0}]}>
-          <Image
-            source={require('../../assets/icon_search_result_clock.png')}
-            style={{width: 15, height: 15, resizeMode: 'contain'}}
-          />
-          <Text style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-            {searchBody && `${searchBody.startTime} - ${searchBody.endTime}`}
+          <Text
+            numberOfLines={1}
+            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            {searchBody && `${searchBody.address}`}
           </Text>
         </View>
       ),
@@ -66,14 +64,15 @@ class SearchResultScreen extends Component {
     headerItems.push({
       _id: 'header_1',
       view: (
-        <View style={styles.searchResultTopTagView}>
+        <View style={[styles.searchResultTopTagView]}>
           <Image
-            source={require('../../assets/icon_search_result_radius.png')}
-            style={{width: 14, height: 15, resizeMode: 'contain'}}
+            source={require('../../assets/icon_search_result_clock.png')}
+            style={{width: 15, height: 15, resizeMode: 'contain'}}
           />
-          <Text style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-            {`${searchBody && searchBody.max_radius}`} km{' '}
-            {isEnglish ? en.searchResult.radius : he.searchResult.radius}
+          <Text
+            numberOfLines={1}
+            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            {searchBody && `${searchBody.startTime} - ${searchBody.endTime}`}
           </Text>
         </View>
       ),
@@ -83,10 +82,29 @@ class SearchResultScreen extends Component {
       view: (
         <View style={styles.searchResultTopTagView}>
           <Image
+            source={require('../../assets/icon_search_result_radius.png')}
+            style={{width: 14, height: 15, resizeMode: 'contain'}}
+          />
+          <Text
+            numberOfLines={1}
+            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            {`${searchBody && searchBody.max_radius}`} km{' '}
+            {isEnglish ? en.searchResult.radius : he.searchResult.radius}
+          </Text>
+        </View>
+      ),
+    });
+    headerItems.push({
+      _id: 'header_3',
+      view: (
+        <View style={styles.searchResultTopTagView}>
+          <Image
             source={require('../../assets/icon_search_result_syna.png')}
             style={{width: 17, height: 17, resizeMode: 'contain'}}
           />
-          <Text style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+          <Text
+            numberOfLines={1}
+            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
             {isEnglish ? en.modal.synagogue : he.modal.synagogue}
           </Text>
         </View>
@@ -157,7 +175,7 @@ class SearchResultScreen extends Component {
     sortBy,
     lat,
     lng,
-    city,
+    address,
   ) => {
     this.startLoading();
     let body = {
@@ -169,6 +187,7 @@ class SearchResultScreen extends Component {
       lon: lng,
       lat: lat,
       sortBy,
+      address,
     };
     ApiRequest('search/synagogues', body, 'POST')
       .then(response => {
