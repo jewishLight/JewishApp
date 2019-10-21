@@ -138,4 +138,7 @@ export default {
   changeLocation: 'שנה מיקום',
   setYourHomeCity: 'אנא הזינו את שם העיר המרכזית עליה תרצו לקבל את המידע:',
   unDefined: 'טרם הוגדר',
+  notHere: 'לא מצאתם?',
+  clickHereToCreateNewSyna: 'לחצו כאן ליצירת בית כנסת חדש',
+  pleaseTypeTheSynagogueName: 'אנא הזינו את שם בית הכנסת',
 };

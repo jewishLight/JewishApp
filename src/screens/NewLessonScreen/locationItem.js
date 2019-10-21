@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component, PureComponent} from 'react';
 import {
   View,
   Alert,
@@ -13,12 +13,19 @@ export default class LocationItem extends PureComponent {
     Keyboard.dismiss();
     this.props.clearSearchs();
     const res = await this.props.fetchDetails(this.props.place_id);
-    debugger;
-    const {location} = res.geometry;
-    const address = res.formatted_address;
-    const latitude = location.lat;
-    const longitude = location.lng;
-    this.props.update({latitude, longitude, address});
+    let latitude = 0;
+    let longitude = 0;
+    if (res) {
+      const {location} = res.geometry;
+      // const address = res.formatted_address;
+      latitude = location.lat;
+      longitude = location.lng;
+    }
+    this.props.update({
+      latitude,
+      longitude,
+      justCity: this.props.structured_formatting.secondary_text,
+    });
   };
 
   render() {
@@ -32,10 +39,11 @@ export default class LocationItem extends PureComponent {
 
 const styles = StyleSheet.create({
   root: {
+    marginHorizontal: 5,
     height: 40,
     borderBottomWidth: StyleSheet.hairlineWidth,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
   },
 });

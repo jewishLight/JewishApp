@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {
+  Platform,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  FlatList,
 } from 'react-native';
 import {Colors, Metric} from '../../themes';
 import {AddModalCloseButton} from '../../components';
@@ -25,46 +27,138 @@ class ChangeLocationScreen extends Component {
     this.state = {
       lat: 0,
       lng: 0,
-      city: '',
       address: '',
+      isFetching: false,
+      autoCompleteResult: [],
+      showList: false,
     };
   }
 
   componentDidMount() {}
 
-  updateGoogleAutocomplete = async nextState => {
-    this.setState({
-      address: nextState.address,
-      city: nextState.address,
-      lat: nextState.latitude,
-      lng: nextState.longitude,
-    });
-    this.props.navigation.state.params.updateLocation(
-      nextState.latitude,
-      nextState.longitude,
-      nextState.address,
+  _keyExtractor = item => item.id;
+
+  // updateGoogleAutocomplete = async nextState => {
+  //   this.setState({
+  //     address: nextState.justCity,
+  //     lat: nextState.latitude,
+  //     lng: nextState.longitude,
+  //   });
+  //   this.props.navigation.state.params.updateLocation(
+  //     nextState.latitude,
+  //     nextState.longitude,
+  //     nextState.justCity,
+  //   );
+  //   Strings.currentLatitude = parseFloat(nextState.latitude);
+  //   Strings.currentLongitude = parseFloat(nextState.longitude);
+  //   await LocalStorage.setMyLatitude(Strings.currentLatitude.toString());
+  //   await LocalStorage.setMyLongitude(Strings.currentLongitude.toString());
+  //   Geocoder.geocodePosition({
+  //     lat: Strings.currentLatitude,
+  //     lng: Strings.currentLongitude,
+  //   })
+  //     .then(async res => {
+  //       // res is an Array of geocoding object (see below)
+  //       Strings.currentLocationCity = `${res[0].streetNumber}, ${
+  //         res[0].streetName
+  //       }, ${res[0].locality}, ${res[0].country}`;
+  //       Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
+  //       await LocalStorage.setMyLocation(Strings.currentLocationCity);
+  //       await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
+  //     })
+  //     .catch(err => {});
+  // };
+
+  onChangeAutoComplete = async text => {
+    this.setState({address: text});
+    if (text.length > 3 && !this.state.isFetching) {
+      this.setState({isFetching: true});
+      let url = 'https://maps.googleapis.com/maps/api/place/textsearch/json';
+      let params = {
+        query: text,
+        radius: '50000000',
+        key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',
+      };
+      debugger;
+      fetch(`${url}?${this.objToQueryString(params)}`)
+        .then(async response => {
+          let data = await response.text();
+          data = JSON.parse(data);
+          this.setState({
+            autoCompleteResult: data.results,
+            showList: true,
+          });
+          setTimeout(() => {
+            this.setState({isFetching: false});
+          }, 1000);
+        })
+        .catch(error => {
+          setTimeout(() => {
+            this.setState({isFetching: false});
+          }, 1000);
+        });
+    }
+  };
+
+  objToQueryString = obj => {
+    const keyValuePairs = [];
+    for (let i = 0; i < Object.keys(obj).length; i += 1) {
+      keyValuePairs.push(
+        `${encodeURIComponent(Object.keys(obj)[i])}=${encodeURIComponent(
+          Object.values(obj)[i],
+        )}`,
+      );
+    }
+    return keyValuePairs.join('&');
+  };
+
+  parseFormattedAddress = address => {
+    const splitResult = address.split(', ');
+    if (splitResult.length > 1) {
+      return `${splitResult[splitResult.length - 2]}, ${
+        splitResult[splitResult.length - 1]
+      }`;
+    } else {
+      return splitResult;
+    }
+  };
+
+  renderRow = ({item, index}) => {
+    return (
+      <View
+        style={{
+          width: Metric.width - 40,
+          paddingVertical: 5,
+          paddingHorizontal: 10,
+          borderBottomColor: 'lightgray',
+          borderBottomWidth: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}>
+        <TouchableOpacity
+          style={{width: Metric.width - 40}}
+          onPress={() => {
+            const country = this.parseFormattedAddress(item.formatted_address);
+            Strings.currentLatitude = item.geometry.location.lat;
+            Strings.currentLongitude = item.geometry.location.lon;
+            Strings.currentOnlyCity = country;
+            Strings.currentLocationCity = item.formatted_address;
+            this.props.navigation.state.params.updateLocation(
+              Strings.currentLatitude,
+              Strings.currentLongitude,
+              country,
+            );
+            this.setState({address: country, showList: false});
+          }}>
+          <Text style={{fontSize: 14}}>{item.formatted_address}</Text>
+        </TouchableOpacity>
+      </View>
     );
-    Strings.currentLatitude = parseFloat(location.latitude);
-    Strings.currentLongitude = parseFloat(location.longitude);
-    await LocalStorage.setMyLatitude(Strings.currentLatitude.toString());
-    await LocalStorage.setMyLongitude(Strings.currentLongitude.toString());
-    Geocoder.geocodePosition({
-      lat: Strings.currentLatitude,
-      lng: Strings.currentLongitude,
-    })
-      .then(async res => {
-        // res is an Array of geocoding object (see below)
-        Strings.currentLocationCity = `${res[0].streetNumber}, ${
-          res[0].streetName
-        }, ${res[0].locality}, ${res[0].country}`;
-        Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
-        await LocalStorage.setMyLocation(Strings.currentLocationCity);
-        await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
-      })
-      .catch(err => {});
   };
 
   render() {
+    const {autoCompleteResult, showList, address} = this.state;
     return (
       <View style={styles.alphaModalMainView}>
         <View style={styles.addNewLine}>
@@ -106,121 +200,82 @@ class ChangeLocationScreen extends Component {
               alignItems: 'center',
               paddingHorizontal: 15,
             }}>
-            {/*<GooglePlacesAutocomplete*/}
-            {/*  placeholder="Search"*/}
-            {/*  minLength={2} // minimum length of text to search*/}
-            {/*  autoFocus={false}*/}
-            {/*  fetchDetails={true}*/}
-            {/*  onPress={(data, details = null) => {*/}
-            {/*    // 'details' is provided when fetchDetails = true*/}
-            {/*    console.log(data);*/}
-            {/*    console.log(details);*/}
-            {/*    this.setState({*/}
-            {/*      lat: details.geometry.location.lat,*/}
-            {/*      lng: details.geometry.location.lng,*/}
-            {/*      city: details.address_components[0].long_name,*/}
-            {/*    });*/}
-            {/*    this.props.navigation.state.params.updateLocation(*/}
-            {/*      details.geometry.location.lat,*/}
-            {/*      details.geometry.location.lng,*/}
-            {/*      details.address_components[0].long_name,*/}
-            {/*    );*/}
-            {/*  }}*/}
-            {/*  getDefaultValue={() => {*/}
-            {/*    return ''; // text input default value*/}
-            {/*  }}*/}
-            {/*  query={{*/}
-            {/*    // available options: https://developers.google.com/places/web-service/autocomplete*/}
-            {/*    key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',*/}
-            {/*    language: 'en', // language of the results*/}
-            {/*    types: '(cities)', // default: 'geocode'*/}
-            {/*  }}*/}
-            {/*  styles={{*/}
-            {/*    description: {*/}
-            {/*      fontWeight: 'bold',*/}
-            {/*    },*/}
-            {/*    textInputContainer: {*/}
-            {/*      backgroundColor: 'white',*/}
-            {/*      width: Metric.width - 30,*/}
-            {/*    },*/}
-            {/*    textInput: {},*/}
-            {/*    predefinedPlacesDescription: {*/}
-            {/*      color: '#1faadb',*/}
-            {/*    },*/}
-            {/*  }}*/}
-            {/*  currentLocation={false} // Will add a 'Current location' button at the top of the predefined places list*/}
-            {/*  currentLocationLabel="Current location"*/}
-            {/*  nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch*/}
-            {/*  GoogleReverseGeocodingQuery={*/}
-            {/*    {*/}
-            {/*      // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro*/}
-            {/*    }*/}
-            {/*  }*/}
-            {/*  GooglePlacesSearchQuery={{*/}
-            {/*    // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search*/}
-            {/*    rankby: 'distance',*/}
-            {/*    types: 'food',*/}
-            {/*  }}*/}
-            {/*  GooglePlacesDetailsQuery={{*/}
-            {/*    // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details*/}
-            {/*    fields: 'formatted_address',*/}
-            {/*  }}*/}
-            {/*  filterReverseGeocodingByTypes={[*/}
-            {/*    'locality',*/}
-            {/*    'administrative_area_level_3',*/}
-            {/*  ]} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities*/}
-            {/*  predefinedPlaces={[]}*/}
-            {/*  predefinedPlacesAlwaysVisible={false}*/}
-            {/*  ref={ref => (this.refGoogleInput = ref)}*/}
-            {/*/>*/}
+            <TextInput
+              style={{
+                width: '100%',
+                height: 40,
+                borderWidth: 1,
+                borderColor: 'lightgray',
+                borderRadius: 5,
+                paddingHorizontal: 10,
+              }}
+              onChangeText={this.onChangeAutoComplete}
+              value={address}
+            />
 
-            <GoogleAutoComplete
-              apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"
-              debounce={300}>
-              {({
-                inputValue,
-                handleTextChange,
-                locationResults,
-                fetchDetails,
-                clearSearchs,
-              }) => (
-                <React.Fragment>
-                  <TextInput
-                    style={{
-                      height: 40,
-                      width: Metric.width - 30,
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      paddingHorizontal: 16,
-                      borderColor: Colors.separator,
-                    }}
-                    value={this.state.address}
-                    onChangeText={text => {
-                      this.setState({address: text});
-                      handleTextChange(text);
-                    }}
-                    placeholder={
-                      this.props.navigation.state.params.isEnglish
-                        ? en.modal.location
-                        : he.modal.location
-                    }
-                  />
-                  <ScrollView
-                    style={{maxHeight: 100, width: Metric.width - 30}}
-                    nestedScrollEnabled={true}>
-                    {locationResults.map(el => (
-                      <LocationItem
-                        {...el}
-                        key={el.id}
-                        fetchDetails={fetchDetails}
-                        update={this.updateGoogleAutocomplete}
-                        {...{clearSearchs}}
-                      />
-                    ))}
-                  </ScrollView>
-                </React.Fragment>
-              )}
-            </GoogleAutoComplete>
+            {showList && (
+              <View
+                style={{
+                  height: 300,
+                  width: '100%',
+                  borderWidth: 1,
+                  borderColor: 'gray',
+                }}>
+                <FlatList
+                  data={autoCompleteResult}
+                  renderItem={this.renderRow}
+                  keyExtractor={this._keyExtractor}
+                />
+              </View>
+            )}
+
+            {/*<GoogleAutoComplete*/}
+            {/*  apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"*/}
+            {/*  debounce={300}>*/}
+            {/*  {({*/}
+            {/*    inputValue,*/}
+            {/*    handleTextChange,*/}
+            {/*    locationResults,*/}
+            {/*    fetchDetails,*/}
+            {/*    clearSearchs,*/}
+            {/*  }) => (*/}
+            {/*    <React.Fragment>*/}
+            {/*      <TextInput*/}
+            {/*        style={{*/}
+            {/*          height: 40,*/}
+            {/*          width: Metric.width - 30,*/}
+            {/*          borderWidth: 1,*/}
+            {/*          borderRadius: 5,*/}
+            {/*          paddingHorizontal: 16,*/}
+            {/*          borderColor: Colors.separator,*/}
+            {/*        }}*/}
+            {/*        value={this.state.address}*/}
+            {/*        onChangeText={text => {*/}
+            {/*          this.setState({address: text});*/}
+            {/*          handleTextChange(text);*/}
+            {/*        }}*/}
+            {/*        placeholder={*/}
+            {/*          this.props.navigation.state.params.isEnglish*/}
+            {/*            ? en.modal.location*/}
+            {/*            : he.modal.location*/}
+            {/*        }*/}
+            {/*      />*/}
+            {/*      <ScrollView*/}
+            {/*        style={{maxHeight: 100, width: Metric.width - 30}}*/}
+            {/*        nestedScrollEnabled={true}>*/}
+            {/*        {locationResults.map(el => (*/}
+            {/*          <LocationItem*/}
+            {/*            {...el}*/}
+            {/*            key={el.id}*/}
+            {/*            fetchDetails={fetchDetails}*/}
+            {/*            update={this.updateGoogleAutocomplete}*/}
+            {/*            {...{clearSearchs}}*/}
+            {/*          />*/}
+            {/*        ))}*/}
+            {/*      </ScrollView>*/}
+            {/*    </React.Fragment>*/}
+            {/*  )}*/}
+            {/*</GoogleAutoComplete>*/}
           </View>
         </KeyboardAwareScrollView>
       </View>

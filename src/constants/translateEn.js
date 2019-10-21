@@ -139,4 +139,7 @@ export default {
   changeLocation: 'Change Location',
   setYourHomeCity: 'Set your home city',
   unDefined: 'UnDefined',
+  notHere: 'Not Here?',
+  clickHereToCreateNewSyna: 'Click here to create new Synagogue',
+  pleaseTypeTheSynagogueName: 'Please type the Synagogue Name',
 };

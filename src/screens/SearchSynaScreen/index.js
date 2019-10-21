@@ -8,45 +8,6 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {EventCard} from '../../components/Cards';
 import {ApiRequest} from '../../utils';
 
-const data = [
-  {
-    _id: '1',
-    text: 'Test 1',
-  },
-  {
-    _id: '2',
-    text: 'Test 2',
-  },
-  {
-    _id: '3',
-    text: 'Test 3',
-  },
-  {
-    _id: '4',
-    text: 'Test 4',
-  },
-  {
-    _id: '5',
-    text: 'Test 5',
-  },
-  {
-    _id: '6',
-    text: 'Test 6',
-  },
-  {
-    _id: '7',
-    text: 'Test 7',
-  },
-  {
-    _id: '8',
-    text: 'Test 8',
-  },
-  {
-    _id: '9',
-    text: 'Test 9',
-  },
-];
-
 class SearchSynaScreen extends Component {
   constructor(props) {
     super(props);
@@ -102,6 +63,11 @@ class SearchSynaScreen extends Component {
             <TextInput
               style={styles.autoCompleteTextInput}
               onChangeText={this.onChangeSyna}
+              placeholder={
+                isEnglish
+                  ? en.pleaseTypeTheSynagogueName
+                  : he.pleaseTypeTheSynagogueName
+              }
             />
           </View>
           <View style={{flex: 1, paddingHorizontal: 15, paddingTop: 10}}>
@@ -116,9 +82,13 @@ class SearchSynaScreen extends Component {
                 this.props.navigation.goBack();
                 this.props.navigation.state.params.onSyna();
               }}>
-              <Text style={{fontSize: 18}}>Not here?</Text>
-              <Text style={{fontSize: 13}}>
-                Click here to create new Synagogue
+              <Text style={{fontSize: 18, color: '#6461c4'}}>
+                {isEnglish ? en.notHere : he.notHere}
+              </Text>
+              <Text style={{fontSize: 13, color: '#6461c4'}}>
+                {isEnglish
+                  ? en.clickHereToCreateNewSyna
+                  : he.clickHereToCreateNewSyna}
               </Text>
             </TouchableOpacity>
           </View>
