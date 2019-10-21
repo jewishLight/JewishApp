@@ -56,7 +56,7 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
   <TouchableOpacity style={styles.searchHistoryItemContainer} onPress={onPress}>
     <Text style={{color: '#9B9B9B', fontSize: 15}}>
       {isEnglish ? en.searchHistory.date : he.searchHistory.date} :{' '}
-      {moment(item.date).format('YYYY-MM-DD HH:mm')}
+      {moment(item.date).format('DD/MM')}
     </Text>
     <View
       style={{
@@ -78,7 +78,11 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
         </Text>
       </View>
       <Image
-        source={require('../../assets/icon_search_history_rightarrow.png')}
+        source={
+          isEnglish
+            ? require('../../assets/icon_search_history_rightarrow.png')
+            : require('../../assets/icon_search_history_rightarrow_he.png')
+        }
         style={{width: 12, height: 12, resizeMode: 'contain'}}
       />
     </View>

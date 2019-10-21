@@ -18,6 +18,8 @@ import {Colors} from '../../themes';
 import {Strings} from '../../utils';
 import {en, he} from '../../constants';
 import {ApiRequest} from '../../utils';
+import moment from 'moment';
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 
 class SearchScreen extends Component {
   static navigationOptions = {
@@ -37,10 +39,6 @@ class SearchScreen extends Component {
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    console.info(
-      'search history',
-      this.props.navigation.state.params.searchHistory,
-    );
     this.setState({
       language: this.props.appSettings.language,
       searchHistory: this.props.navigation.state.params.searchHistory,
@@ -104,23 +102,74 @@ class SearchScreen extends Component {
   };
 
   onNewSearch = cacheBody => {
+    RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+      interval: 10000,
+      fastInterval: 5000,
+    })
+      .then(data => {
+        if (data === 'already-enabled' || data === 'enabled') {
+          this.startLoading();
+          let body = null;
+          if (cacheBody) {
+            body = cacheBody;
+          } else {
+            body = {
+              name: '',
+              startTime: moment()
+                .subtract(10, 'minutes')
+                .format('HH:mm'),
+              endTime: moment()
+                .add(180, 'minutes')
+                .format('HH:mm'),
+              min_radius: 3,
+              max_radius: 3,
+              lon: Strings.currentLongitude,
+              lat: Strings.currentLatitude,
+              address: Strings.currentLocationCity,
+              sortBy: 'time',
+            };
+          }
+
+          ApiRequest('search/synagogues', body, 'POST')
+            .then(response => {
+              this.closeLoading();
+              this.props.navigation.navigate('SearchResult', {
+                searchResult: response,
+                searchBody: body,
+              });
+            })
+            .catch(error => {
+              this.closeLoading();
+            });
+        }
+      })
+      .catch(err => {
+        this.props.navigation.navigate('Filter', {onFiltered: this.onFiltered});
+      });
+  };
+
+  onFiltered = (
+    name,
+    startTime,
+    endTime,
+    max_radius,
+    sortBy,
+    lat,
+    lng,
+    address,
+  ) => {
     this.startLoading();
-    let body = null;
-    if (cacheBody) {
-      body = cacheBody;
-    } else {
-      body = {
-        name: '',
-        startTime: '00:00',
-        endTime: '23:59',
-        min_radius: 0,
-        max_radius: 10,
-        lon: Strings.currentLongitude,
-        lat: Strings.currentLatitude,
-        address: Strings.currentLocationCity,
-        sortBy: 'time',
-      };
-    }
+    let body = {
+      name,
+      startTime,
+      endTime,
+      min_radius: 0,
+      max_radius: `${max_radius}`,
+      lon: lng,
+      lat: lat,
+      sortBy,
+      address,
+    };
     ApiRequest('search/synagogues', body, 'POST')
       .then(response => {
         this.closeLoading();
