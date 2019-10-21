@@ -128,11 +128,11 @@ class SynaScreen extends Component {
       case 0:
         // waze
         await showLocation({
-          latitude: Strings.currentLatitude,
-          longitude: Strings.currentLongitude,
-          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
-          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
-          title: 'The House', // optional
+          latitude: this.state.synaData.location.coordinates[0],
+          longitude: this.state.synaData.location.coordinates[1],
+          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
           alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
@@ -146,11 +146,11 @@ class SynaScreen extends Component {
       case 1:
         // google maps
         await showLocation({
-          latitude: Strings.currentLatitude,
-          longitude: Strings.currentLongitude,
-          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
-          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
-          title: 'The House', // optional
+          latitude: this.state.synaData.location.coordinates[0],
+          longitude: this.state.synaData.location.coordinates[1],
+          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
           alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
@@ -164,11 +164,11 @@ class SynaScreen extends Component {
       case 2:
         // movit
         await showLocation({
-          latitude: Strings.currentLatitude,
-          longitude: Strings.currentLongitude,
-          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
-          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
-          title: 'The House', // optional
+          latitude: this.state.synaData.location.coordinates[0],
+          longitude: this.state.synaData.location.coordinates[1],
+          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
           alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
@@ -182,11 +182,11 @@ class SynaScreen extends Component {
       default:
         // waze
         await showLocation({
-          latitude: Strings.currentLatitude,
-          longitude: Strings.currentLongitude,
-          sourceLatitude: Strings.currentLatitude, // optionally specify starting location for directions
-          sourceLongitude: Strings.currentLongitude, // not optional if sourceLatitude is specified
-          title: 'The House', // optional
+          latitude: this.state.synaData.location.coordinates[0],
+          longitude: this.state.synaData.location.coordinates[1],
+          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
           alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)

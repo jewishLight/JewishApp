@@ -38,37 +38,6 @@ class ChangeLocationScreen extends Component {
 
   _keyExtractor = item => item.id;
 
-  // updateGoogleAutocomplete = async nextState => {
-  //   this.setState({
-  //     address: nextState.justCity,
-  //     lat: nextState.latitude,
-  //     lng: nextState.longitude,
-  //   });
-  //   this.props.navigation.state.params.updateLocation(
-  //     nextState.latitude,
-  //     nextState.longitude,
-  //     nextState.justCity,
-  //   );
-  //   Strings.currentLatitude = parseFloat(nextState.latitude);
-  //   Strings.currentLongitude = parseFloat(nextState.longitude);
-  //   await LocalStorage.setMyLatitude(Strings.currentLatitude.toString());
-  //   await LocalStorage.setMyLongitude(Strings.currentLongitude.toString());
-  //   Geocoder.geocodePosition({
-  //     lat: Strings.currentLatitude,
-  //     lng: Strings.currentLongitude,
-  //   })
-  //     .then(async res => {
-  //       // res is an Array of geocoding object (see below)
-  //       Strings.currentLocationCity = `${res[0].streetNumber}, ${
-  //         res[0].streetName
-  //       }, ${res[0].locality}, ${res[0].country}`;
-  //       Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
-  //       await LocalStorage.setMyLocation(Strings.currentLocationCity);
-  //       await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
-  //     })
-  //     .catch(err => {});
-  // };
-
   onChangeAutoComplete = async text => {
     this.setState({address: text});
     if (text.length > 3 && !this.state.isFetching) {

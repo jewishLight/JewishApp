@@ -105,8 +105,8 @@ class SearchSynaScreen extends Component {
           this.props.navigation.goBack();
           this.props.navigation.state.params.goSyna(item._id);
         }}>
-        <Text style={{fontSize: 18}}>{item.address}</Text>
-        <Text style={{fontSize: 13}}>Location</Text>
+        <Text style={{fontSize: 18}}>{item.name}</Text>
+        <Text style={{fontSize: 13}}>{item.address}</Text>
       </TouchableOpacity>
     );
   };

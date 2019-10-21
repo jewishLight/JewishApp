@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="241afc0a-cc31-48e1-95b3-13fe5a7f6579" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/translateEn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/translateEn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/translateHe.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/translateHe.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/ChangeLocationScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/ChangeLocationScreen/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/SynaScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/SynaScreen/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,22 +19,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/screens/ChangeLocationScreen/index.js">
+        <entry file="file://$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="452">
-              <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+            <state relative-caret-position="375">
+              <caret line="104" column="41" lean-forward="true" selection-start-line="104" selection-start-column="41" selection-end-line="104" selection-end-column="41" />
               <folding>
-                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#0#32#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -52,17 +41,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>GoogleAutoComplete</find>
-      <find>result</find>
-      <find>fetchDetails</find>
-      <find>fetchdetails</find>
-      <find>GoogleLocationDetailResult</find>
-      <find>GoogleLocationResult</find>
       <find>_handlePress</find>
       <find>locationResults</find>
       <find>file-sys</find>
       <find>cities</find>
-      <find>location</find>
       <find>google</find>
       <find>city</find>
       <find>fetch(</find>
@@ -71,17 +53,24 @@
       <find>_keyExtractor</find>
       <find>renderrow</find>
       <find>-30</find>
-      <find>renderRow</find>
       <find>nor</find>
       <find>fetch</find>
       <find>updateGoogleAutocomplete</find>
-      <find>flatlist</find>
       <find>debugger</find>
       <find>address</find>
       <find>onchangetext</find>
       <find>onChangeAutoComplete</find>
       <find>parseFormattedAddress</find>
       <find>50000</find>
+      <find>synadata.loca</find>
+      <find>location</find>
+      <find>location.</find>
+      <find>waze</find>
+      <find>aroundcity</find>
+      <find>not here</find>
+      <find>onChangeSyna</find>
+      <find>flatlist</find>
+      <find>renderRow</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/node_modules/react-native-google-autocomplete/dist</dir>
@@ -128,7 +117,6 @@
         <option value="$PROJECT_DIR$/src/screens/NewSynaScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/NewSpeakerScreen/index.js" />
         <option value="$PROJECT_DIR$/src/components/SideMenu/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/SynaScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/AroundEvents.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/PopularLessons.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/RecentLessons.js" />
@@ -141,9 +129,10 @@
         <option value="$PROJECT_DIR$/src/screens/SearchResultScreen/index.js" />
         <option value="$PROJECT_DIR$/src/constants/translateEn.js" />
         <option value="$PROJECT_DIR$/src/constants/translateHe.js" />
-        <option value="$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js" />
         <option value="$PROJECT_DIR$/src/screens/ChangeLocationScreen/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/SynaScreen/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js" />
       </list>
     </option>
   </component>
@@ -331,7 +320,7 @@
       <workItem from="1571308820365" duration="11392000" />
       <workItem from="1571372510256" duration="24957000" />
       <workItem from="1571460291412" duration="11175000" />
-      <workItem from="1571632685658" duration="10562000" />
+      <workItem from="1571632685658" duration="12448000" />
     </task>
     <task id="LOCAL-00001" summary="my profile page">
       <created>1568011643877</created>
@@ -536,11 +525,18 @@
       <option name="project" value="LOCAL" />
       <updated>1571423826636</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="add icon">
+      <created>1571661641168</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1571661641168</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="650310000" />
+    <option name="totallyTimeSpent" value="652196000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="5" y="30" width="1909" height="967" extended-state="0" />
@@ -587,16 +583,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="add icon" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/screens/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="18" selection-start-line="37" selection-start-column="18" selection-end-line="37" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/NewSynaScreen/styles.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1526">
@@ -667,16 +653,6 @@
           <caret line="103" column="27" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="27" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8092">
-          <caret line="510" column="20" selection-start-line="510" selection-start-column="20" selection-end-line="510" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -871,16 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4964">
-          <caret line="326" column="41" selection-start-line="326" selection-start-column="41" selection-end-line="326" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/constants/translateHe.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2278">
@@ -965,23 +931,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="111" column="4" lean-forward="true" selection-start-line="99" selection-start-column="2" selection-end-line="111" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/APIConnection.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -999,12 +948,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/ChangeLocationScreen/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="452">
-          <caret line="92" column="19" lean-forward="true" selection-start-line="92" selection-start-column="19" selection-end-line="92" selection-end-column="19" />
+        <state relative-caret-position="255">
+          <caret line="23" column="22" lean-forward="true" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Modals/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="351" column="37" selection-start-line="351" selection-start-column="29" selection-end-line="351" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="125" column="49" lean-forward="true" selection-start-line="125" selection-start-column="49" selection-end-line="125" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/HomeScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="138" column="15" lean-forward="true" selection-start-line="138" selection-start-column="15" selection-end-line="138" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="104" column="41" lean-forward="true" selection-start-line="104" selection-start-column="41" selection-end-line="104" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
