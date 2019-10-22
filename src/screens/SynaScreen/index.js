@@ -128,10 +128,10 @@ class SynaScreen extends Component {
       case 0:
         // waze
         await showLocation({
-          latitude: this.state.synaData.location.coordinates[0],
-          longitude: this.state.synaData.location.coordinates[1],
-          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
-          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          latitude: this.state.synaData.location.coordinates[1],
+          longitude: this.state.synaData.location.coordinates[0],
+          sourceLatitude: this.state.synaData.location.coordinates[1], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[0], // not optional if sourceLatitude is specified
           title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
@@ -146,10 +146,10 @@ class SynaScreen extends Component {
       case 1:
         // google maps
         await showLocation({
-          latitude: this.state.synaData.location.coordinates[0],
-          longitude: this.state.synaData.location.coordinates[1],
-          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
-          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          latitude: this.state.synaData.location.coordinates[1],
+          longitude: this.state.synaData.location.coordinates[0],
+          sourceLatitude: this.state.synaData.location.coordinates[1], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[0], // not optional if sourceLatitude is specified
           title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
@@ -164,10 +164,10 @@ class SynaScreen extends Component {
       case 2:
         // movit
         await showLocation({
-          latitude: this.state.synaData.location.coordinates[0],
-          longitude: this.state.synaData.location.coordinates[1],
-          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
-          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          latitude: this.state.synaData.location.coordinates[1],
+          longitude: this.state.synaData.location.coordinates[0],
+          sourceLatitude: this.state.synaData.location.coordinates[1], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[0], // not optional if sourceLatitude is specified
           title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id
@@ -182,10 +182,10 @@ class SynaScreen extends Component {
       default:
         // waze
         await showLocation({
-          latitude: this.state.synaData.location.coordinates[0],
-          longitude: this.state.synaData.location.coordinates[1],
-          sourceLatitude: this.state.synaData.location.coordinates[0], // optionally specify starting location for directions
-          sourceLongitude: this.state.synaData.location.coordinates[1], // not optional if sourceLatitude is specified
+          latitude: this.state.synaData.location.coordinates[1],
+          longitude: this.state.synaData.location.coordinates[0],
+          sourceLatitude: this.state.synaData.location.coordinates[1], // optionally specify starting location for directions
+          sourceLongitude: this.state.synaData.location.coordinates[0], // not optional if sourceLatitude is specified
           title: this.state.synaData.address, // optional
           googleForceLatLon: false, // optionally force GoogleMaps to use the latlon for the query instead of the title
           googlePlaceId: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M', // optionally specify the google-place-id

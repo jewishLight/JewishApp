@@ -4,6 +4,7 @@ import {styles} from './styles';
 import {Metric, Colors} from '../../themes';
 import {en, he} from '../../constants';
 import moment from 'moment';
+import {ScrollView} from 'react-navigation';
 
 const getTimeDifferent = (date1, date2) => {
   const diffTime = Math.abs(new Date(date1) - new Date(date2) || new Date());
@@ -53,18 +54,19 @@ export const CommentListItem = ({onPress, item}) => (
 );
 
 export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
-  <TouchableOpacity style={styles.searchHistoryItemContainer} onPress={onPress}>
+  <View style={styles.searchHistoryItemContainer}>
     <Text style={{color: '#9B9B9B', fontSize: 15}}>
       {isEnglish ? en.searchHistory.date : he.searchHistory.date} :{' '}
       {moment(item.date).format('DD/MM')}
     </Text>
-    <View
+    <TouchableOpacity
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 5,
-      }}>
+      }}
+      onPress={onPress}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Image
           source={require('../../assets/icon_search_history_location.png')}
@@ -85,7 +87,7 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
         }
         style={{width: 12, height: 12, resizeMode: 'contain'}}
       />
-    </View>
+    </TouchableOpacity>
     <View
       style={{marginVertical: 10, height: 1, backgroundColor: Colors.separator}}
     />
@@ -100,20 +102,78 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
         }, endTime: ${item.endTime}`}
       </Text>
     </View>
-    <View style={{flexDirection: 'row', marginTop: 10}}>
-      <View
-        style={{
-          width: 100,
-          height: 34,
-          borderRadius: 17,
-          backgroundColor: '#E6E5F5',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: Colors.primary, fontSize: 12}}>{item.sortBy}</Text>
+    <ScrollView horizontal={true} nestedScrollEnabled={true}>
+      <View style={{flexDirection: 'row', marginTop: 10}}>
+        <View
+          style={{
+            paddingHorizontal: 10,
+            height: 34,
+            borderRadius: 17,
+            backgroundColor: '#E6E5F5',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: Colors.primary, fontSize: 12}}>Type</Text>
+        </View>
+        <View
+          style={{
+            marginLeft: 10,
+            paddingHorizontal: 10,
+            height: 34,
+            borderRadius: 17,
+            backgroundColor: '#E6E5F5',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: Colors.primary, fontSize: 12}}>
+            {item.sortBy}
+          </Text>
+        </View>
+        <View
+          style={{
+            marginLeft: 10,
+            paddingHorizontal: 10,
+            height: 34,
+            borderRadius: 17,
+            backgroundColor: '#E6E5F5',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: Colors.primary, fontSize: 12}}>{`${parseInt(
+            item.max_radius,
+          ) - parseInt(item.min_radius)} Kilometers`}</Text>
+        </View>
+        <View
+          style={{
+            marginLeft: 10,
+            paddingHorizontal: 10,
+            height: 34,
+            borderRadius: 17,
+            backgroundColor: '#E6E5F5',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: Colors.primary, fontSize: 12}}>{`From ${
+            item.startTime
+          } to ${item.endTime}`}</Text>
+        </View>
+        <View
+          style={{
+            marginLeft: 10,
+            paddingHorizontal: 10,
+            height: 34,
+            borderRadius: 17,
+            backgroundColor: '#E6E5F5',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <Text style={{color: Colors.primary, fontSize: 12}}>{`Location ${
+            item.address
+          }`}</Text>
+        </View>
       </View>
-    </View>
-  </TouchableOpacity>
+    </ScrollView>
+  </View>
 );
 
 export const SearchResultItem = ({onPress, item}) => (
@@ -134,13 +194,7 @@ export const SearchResultItem = ({onPress, item}) => (
         <Text style={{fontSize: 16}} numberOfLines={1} ellipsizeMode={'tail'}>
           {`${item.name}`}
         </Text>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          {/*<Image*/}
-          {/*  source={require('../../assets/icon_search_result_item_location.png')}*/}
-          {/*  style={{width: 11, height: 14, resizeMode: 'contain'}}*/}
-          {/*/>*/}
-          {/*<Text style={{color: '#9B9B9B', fontSize: 12}}>400m</Text>*/}
-        </View>
+        <View style={{flexDirection: 'row', alignItems: 'center'}} />
       </View>
       <View
         style={{

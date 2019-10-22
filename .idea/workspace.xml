@@ -3,12 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="241afc0a-cc31-48e1-95b3-13fe5a7f6579" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ListItems/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ListItems/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/SearchScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/SearchScreen/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideMenu/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideMenu/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/SearchResultScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/SearchResultScreen/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/SynaScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/SynaScreen/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,11 +19,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/screens/SearchScreen/index.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/ListItems/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="157" column="8" lean-forward="true" selection-start-line="157" selection-start-column="8" selection-end-line="157" selection-end-column="8" />
+            <state relative-caret-position="1071">
+              <caret line="69" column="65" selection-start-line="69" selection-start-column="65" selection-end-line="69" selection-end-column="65" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/SideMenu/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="215" column="26" selection-start-line="215" selection-start-column="26" selection-end-line="215" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="202" column="16" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="16" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -36,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screens/SearchResultScreen/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+            <state relative-caret-position="311">
+              <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -56,24 +78,15 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>updateGoogleAutocomplete</find>
-      <find>debugger</find>
-      <find>address</find>
-      <find>onchangetext</find>
-      <find>onChangeAutoComplete</find>
-      <find>parseFormattedAddress</find>
       <find>50000</find>
       <find>synadata.loca</find>
       <find>location</find>
       <find>location.</find>
-      <find>waze</find>
       <find>aroundcity</find>
       <find>not here</find>
       <find>onChangeSyna</find>
       <find>renderRow</find>
       <find>search history</find>
-      <find>flatlist</find>
-      <find>FlatList</find>
       <find>renderSearchHistories</find>
       <find>onsearch</find>
       <find>moment</find>
@@ -86,6 +99,15 @@
       <find>SearchResultScreen</find>
       <find>searchre</find>
       <find>onfiltered</find>
+      <find>fil</find>
+      <find>FlatList</find>
+      <find>flatlist</find>
+      <find>nested</find>
+      <find>26</find>
+      <find>waze</find>
+      <find>results</find>
+      <find>resultsFound</find>
+      <find>headerItems</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/node_modules/react-native-google-autocomplete/dist</dir>
@@ -129,7 +151,6 @@
         <option value="$PROJECT_DIR$/src/screens/DetailsScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/NewSynaScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/NewSpeakerScreen/index.js" />
-        <option value="$PROJECT_DIR$/src/components/SideMenu/index.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/AroundEvents.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/PopularLessons.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/RecentLessons.js" />
@@ -139,15 +160,16 @@
         <option value="$PROJECT_DIR$/src/screens/SplashScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/HomeScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/FilterScreen/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/SearchResultScreen/index.js" />
         <option value="$PROJECT_DIR$/src/constants/translateEn.js" />
         <option value="$PROJECT_DIR$/src/constants/translateHe.js" />
         <option value="$PROJECT_DIR$/src/screens/NewLessonScreen/locationItem.js" />
         <option value="$PROJECT_DIR$/src/screens/ChangeLocationScreen/index.js" />
-        <option value="$PROJECT_DIR$/src/screens/SynaScreen/index.js" />
         <option value="$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js" />
-        <option value="$PROJECT_DIR$/src/components/ListItems/index.js" />
         <option value="$PROJECT_DIR$/src/screens/SearchScreen/index.js" />
+        <option value="$PROJECT_DIR$/src/components/ListItems/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/SynaScreen/index.js" />
+        <option value="$PROJECT_DIR$/src/screens/SearchResultScreen/index.js" />
+        <option value="$PROJECT_DIR$/src/components/SideMenu/index.js" />
       </list>
     </option>
   </component>
@@ -158,8 +180,8 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="5" />
-    <option name="y" value="30" />
+    <option name="x" value="2" />
+    <option name="y" value="28" />
     <option name="width" value="1909" />
     <option name="height" value="967" />
   </component>
@@ -201,6 +223,13 @@
               <item name="Jewish3" type="b2602c69:ProjectViewProjectNode" />
               <item name="Jewish3" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="SideMenu" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Jewish3" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jewish3" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="constants" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -236,13 +265,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
               <item name="SearchScreen" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Jewish3" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jewish3" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="screens" type="462c0819:PsiDirectoryNode" />
-              <item name="SearchSynaScreen" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Jewish3" type="b2602c69:ProjectViewProjectNode" />
@@ -349,7 +371,8 @@
       <workItem from="1571308820365" duration="11392000" />
       <workItem from="1571372510256" duration="24957000" />
       <workItem from="1571460291412" duration="11175000" />
-      <workItem from="1571632685658" duration="14819000" />
+      <workItem from="1571632685658" duration="17186000" />
+      <workItem from="1571718783664" duration="15661000" />
     </task>
     <task id="LOCAL-00001" summary="my profile page">
       <created>1568011643877</created>
@@ -568,14 +591,21 @@
       <option name="project" value="LOCAL" />
       <updated>1571664137422</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="add icon">
+      <created>1571667296760</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1571667296760</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="654567000" />
+    <option name="totallyTimeSpent" value="672595000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="5" y="30" width="1909" height="967" extended-state="0" />
+    <frame x="2" y="28" width="1909" height="967" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25105932" />
@@ -650,16 +680,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="507">
           <caret line="831" column="19" selection-start-line="831" selection-start-column="19" selection-end-line="831" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/SideMenu/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3162">
-          <caret line="212" column="19" selection-start-line="212" selection-start-column="19" selection-end-line="212" selection-end-column="19" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
@@ -859,19 +879,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/pbf/index.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/fs/package.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/all-the-cities/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/pbf/index.js" />
+    <entry file="file://$PROJECT_DIR$/node_modules/fs/package.json" />
+    <entry file="file://$PROJECT_DIR$/node_modules/all-the-cities/index.js" />
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="331">
@@ -961,32 +971,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="125" column="49" lean-forward="true" selection-start-line="125" selection-start-column="49" selection-end-line="125" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screens/SearchSynaScreen/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
           <caret line="104" column="41" lean-forward="true" selection-start-line="104" selection-start-column="41" selection-end-line="104" selection-end-column="41" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ListItems/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="65" column="21" lean-forward="true" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1015,20 +1005,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/SearchResultScreen/index.js">
+    <entry file="file://$PROJECT_DIR$/src/screens/SearchScreen/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="426">
-          <caret line="40" column="24" lean-forward="true" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+        <state relative-caret-position="289">
+          <caret line="91" column="21" lean-forward="true" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screens/SearchScreen/index.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ListItems/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="157" column="8" lean-forward="true" selection-start-line="157" selection-start-column="8" selection-end-line="157" selection-end-column="8" />
+        <state relative-caret-position="1071">
+          <caret line="69" column="65" selection-start-line="69" selection-start-column="65" selection-end-line="69" selection-end-column="65" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/SynaScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="202" column="16" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screens/SearchResultScreen/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="80" column="22" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/SideMenu/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="215" column="26" selection-start-line="215" selection-start-column="26" selection-end-line="215" selection-end-column="26" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

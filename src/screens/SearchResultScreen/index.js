@@ -88,8 +88,10 @@ class SearchResultScreen extends Component {
           <Text
             numberOfLines={1}
             style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
-            {`${searchBody && searchBody.max_radius}`} km{' '}
-            {isEnglish ? en.searchResult.radius : he.searchResult.radius}
+            {`${searchBody &&
+              parseInt(searchBody.max_radius) -
+                parseInt(searchBody.min_radius)}`}{' '}
+            km {isEnglish ? en.searchResult.radius : he.searchResult.radius}
           </Text>
         </View>
       ),
