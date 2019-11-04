@@ -47,6 +47,8 @@ class ChangeLocationScreen extends Component {
         query: text,
         radius: '50000000',
         key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',
+        language: 'iw',
+        region: 'il'
       };
       debugger;
       fetch(`${url}?${this.objToQueryString(params)}`)
