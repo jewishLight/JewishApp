@@ -5,7 +5,9 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "ra": "react-native run-android",
+    "rix": "react-native run-ios --simulator='iPhone X'"
   },
   "dependencies": {
     "@material-ui/core": "^4.4.3",
@@ -63,5 +65,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }
