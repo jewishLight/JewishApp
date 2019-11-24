@@ -33,6 +33,7 @@ class SplashScreen extends Component {
   }
 
   async componentDidMount() {
+    console.log('[SplashScreen] start');
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 
     let language = await LocalStorage.getLanguage();
@@ -64,15 +65,10 @@ class SplashScreen extends Component {
         }
       } catch (err) {
         console.log('TCL: SplashScreen -> requestCameraPermission -> err', err);
-        alert('err', err);
-        console.warn(err);
       }
     }
 
-    //TODO: connect ios when we get ios client id
-    if (Platform.OS == 'android') {
-      await requestCameraPermission();
-    }
+    await requestCameraPermission();
 
     let myLocation = await LocalStorage.getMyLocation();
     let myLatitude = await LocalStorage.getMyLatitude();
@@ -123,7 +119,11 @@ class SplashScreen extends Component {
             Strings.loginType = await LocalStorage.getLoginType();
             this.props.navigation.navigate('Home');
           } else {
-            this.props.navigation.navigate('Login');
+            console.log("TCL: SplashScreen -> componentDidMount -> Login")
+            //TODO: connect ios when we get ios client id
+            if (Platform.OS == 'android') {
+              this.props.navigation.navigate('Login');
+            }
           }
         } else {
           this.props.navigation.navigate('Intro');

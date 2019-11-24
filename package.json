@@ -6,6 +6,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
+    "ra": "react-native run-android",
     "rix": "react-native run-ios --simulator='iPhone X'"
   },
   "dependencies": {
