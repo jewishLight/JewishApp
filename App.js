@@ -1,7 +1,13 @@
 /**
+<<<<<<< HEAD
  *Uriel's Change
  * 
  *  Sample React Native App
+=======
+ *Dovi's Branch 
+ *
+ *Sample React Native App
+>>>>>>> 91bd844c3cd18f27213d14ae7dbb4b768fa19b0d
  * https://github.com/facebook/react-native
  *
  * @format
