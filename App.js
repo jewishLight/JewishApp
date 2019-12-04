@@ -1,5 +1,5 @@
 /**
- *Dovi's Branch 
+ *Yedayas's Branch 
  *
  *Sample React Native App
  * https://github.com/facebook/react-native
