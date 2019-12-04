@@ -1,8 +1,5 @@
 /**
- *Uriel's Change + another change to startach branch
- * 
- *  Sample React Native App
- *Dovi's Branch 
+ *Yedayas's branch commit 12345
  *
  *Sample React Native App
  * https://github.com/facebook/react-native
