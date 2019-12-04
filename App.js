@@ -1,5 +1,5 @@
 /**
- *Yedayas's Branch 
+ *Yedayas's
  *
  *Sample React Native App
  * https://github.com/facebook/react-native
