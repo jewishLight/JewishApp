@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="241afc0a-cc31-48e1-95b3-13fe5a7f6579" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideMenu/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideMenu/index.js" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>50000</find>
+      <find>synadata.loca</find>
+      <find>location</find>
+      <find>location.</find>
+      <find>aroundcity</find>
+      <find>not here</find>
+      <find>onChangeSyna</find>
+      <find>renderRow</find>
+      <find>search history</find>
+      <find>renderSearchHistories</find>
+      <find>onsearch</find>
+      <find>moment</find>
+      <find>ask goo</find>
+      <find>RNAndroidLocationEnabler</find>
+      <find>onfil</find>
+      <find>filter</find>
+      <find>onfilter</find>
+      <find>searchresult</find>
+      <find>SearchResultScreen</find>
+      <find>searchre</find>
+      <find>onfiltered</find>
+      <find>fil</find>
+      <find>FlatList</find>
+      <find>flatlist</find>
+      <find>nested</find>
+      <find>26</find>
+      <find>waze</find>
+      <find>results</find>
+      <find>resultsFound</find>
+      <find>headerItems</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/node_modules/react-native-google-autocomplete/dist</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1TADUotPdryEphj5a7i8P85WBEe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="241afc0a-cc31-48e1-95b3-13fe5a7f6579" name="Default Changelist" comment="" />
+      <created>1567579110439</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1567579110439</updated>
+      <workItem from="1567579112115" duration="21085000" />
+      <workItem from="1567683085424" duration="7135000" />
+      <workItem from="1567744277796" duration="15222000" />
+      <workItem from="1567862706467" duration="248000" />
+      <workItem from="1567926193354" duration="6394000" />
+      <workItem from="1568006531176" duration="31899000" />
+      <workItem from="1568089499004" duration="8176000" />
+      <workItem from="1568129653307" duration="5635000" />
+      <workItem from="1568201481544" duration="24390000" />
+      <workItem from="1568262097856" duration="16268000" />
+      <workItem from="1568349372235" duration="19422000" />
+      <workItem from="1568437695359" duration="4769000" />
+      <workItem from="1568543798427" duration="21628000" />
+      <workItem from="1568608516007" duration="5017000" />
+      <workItem from="1568654863690" duration="11623000" />
+      <workItem from="1568695129576" duration="26072000" />
+      <workItem from="1568780664815" duration="24273000" />
+      <workItem from="1568867567842" duration="9959000" />
+      <workItem from="1568915933628" duration="643000" />
+      <workItem from="1568957230759" duration="25637000" />
+      <workItem from="1569043843455" duration="1217000" />
+      <workItem from="1569161751011" duration="6000" />
+      <workItem from="1569213232385" duration="20679000" />
+      <workItem from="1569299063802" duration="15222000" />
+      <workItem from="1569389633094" duration="19197000" />
+      <workItem from="1569472637433" duration="25117000" />
+      <workItem from="1569559837741" duration="14182000" />
+      <workItem from="1569647616225" duration="7694000" />
+      <workItem from="1569757509772" duration="13102000" />
+      <workItem from="1569817329949" duration="15357000" />
+      <workItem from="1569903680557" duration="15339000" />
+      <workItem from="1569994309845" duration="26257000" />
+      <workItem from="1570077649949" duration="18308000" />
+      <workItem from="1570162723200" duration="11633000" />
+      <workItem from="1570423431734" duration="11890000" />
+      <workItem from="1570639870628" duration="23000" />
+      <workItem from="1570679434865" duration="14213000" />
+      <workItem from="1570768354653" duration="17437000" />
+      <workItem from="1570860934862" duration="8581000" />
+      <workItem from="1571027508227" duration="27873000" />
+      <workItem from="1571120718191" duration="1132000" />
+      <workItem from="1571136223159" duration="8283000" />
+      <workItem from="1571201007149" duration="802000" />
+      <workItem from="1571222280707" duration="9725000" />
+      <workItem from="1571286791431" duration="3460000" />
+      <workItem from="1571308820365" duration="11392000" />
+      <workItem from="1571372510256" duration="24957000" />
+      <workItem from="1571460291412" duration="11175000" />
+      <workItem from="1571632685658" duration="17186000" />
+      <workItem from="1571718783664" duration="15661000" />
+      <workItem from="1572896087446" duration="1716000" />
+      <workItem from="1572928037344" duration="1019000" />
+    </task>
+    <task id="LOCAL-00001" summary="my profile page">
+      <created>1568011643877</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1568011643877</updated>
+    </task>
+    <task id="LOCAL-00002" summary="google authentication">
+      <created>1568120777771</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1568120777771</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix redux">
+      <created>1568262718159</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1568262718159</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add memorial texts">
+      <created>1568307760208</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1568307760208</updated>
+    </task>
+    <task id="LOCAL-00005" summary="move add lesson modal to page">
+      <created>1568668885959</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1568668885959</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add new lesson api">
+      <created>1568703208528</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1568703208528</updated>
+    </task>
+    <task id="LOCAL-00007" summary="home page api">
+      <created>1568732300809</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1568732300809</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add comment on lesson">
+      <created>1568753308024</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1568753308025</updated>
+    </task>
+    <task id="LOCAL-00009" summary="get search history and clear search history">
+      <created>1568809715878</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1568809715879</updated>
+    </task>
+    <task id="LOCAL-00010" summary="filter">
+      <created>1568821043285</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1568821043285</updated>
+    </task>
+    <task id="LOCAL-00011" summary="filter">
+      <created>1569260833537</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1569260833537</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add syna">
+      <created>1569271937866</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1569271937866</updated>
+    </task>
+    <task id="LOCAL-00013" summary="lesson api">
+      <created>1569447842037</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1569447842037</updated>
+    </task>
+    <task id="LOCAL-00014" summary="lesson api">
+      <created>1570712487082</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1570712487082</updated>
+    </task>
+    <task id="LOCAL-00015" summary="lesson api">
+      <created>1570716058660</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1570716058660</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add icon">
+      <created>1570716749528</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1570716749528</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add icon">
+      <created>1570773501086</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1570773501086</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add icon">
+      <created>1570774931979</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1570774931979</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add icon">
+      <created>1570779044009</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1570779044009</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add icon">
+      <created>1570815253706</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1570815253706</updated>
+    </task>
+    <task id="LOCAL-00021" summary="add icon">
+      <created>1570818632659</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1570818632659</updated>
+    </task>
+    <task id="LOCAL-00022" summary="add icon">
+      <created>1571037915480</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1571037915480</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add icon">
+      <created>1571058084848</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1571058084848</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add icon">
+      <created>1571061848639</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1571061848639</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add icon">
+      <created>1571064503881</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1571064503881</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add icon">
+      <created>1571067174285</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1571067174285</updated>
+    </task>
+    <task id="LOCAL-00027" summary="add icon">
+      <created>1571241702282</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1571241702282</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add icon">
+      <created>1571399869449</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1571399869449</updated>
+    </task>
+    <task id="LOCAL-00029" summary="add icon">
+      <created>1571423826636</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1571423826636</updated>
+    </task>
+    <task id="LOCAL-00030" summary="add icon">
+      <created>1571661641168</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1571661641168</updated>
+    </task>
+    <task id="LOCAL-00031" summary="add icon">
+      <created>1571664137422</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1571664137422</updated>
+    </task>
+    <task id="LOCAL-00032" summary="add icon">
+      <created>1571667296760</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1571667296760</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="my profile page" />
+    <MESSAGE value="google authentication" />
+    <MESSAGE value="fix redux" />
+    <MESSAGE value="add memorial texts" />
+    <MESSAGE value="move add lesson modal to page" />
+    <MESSAGE value="add new lesson api" />
+    <MESSAGE value="home page api" />
+    <MESSAGE value="add comment on lesson" />
+    <MESSAGE value="get search history and clear search history" />
+    <MESSAGE value="filter" />
+    <MESSAGE value="add syna" />
+    <MESSAGE value="lesson api" />
+    <MESSAGE value="add icon" />
+    <option name="LAST_COMMIT_MESSAGE" value="add icon" />
+  </component>
+</project>
