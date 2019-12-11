@@ -29,19 +29,19 @@ import {en, he} from '../../constants';
 const MENU_ITEM_1 = [
   {
     source: require('../../assets/icon_menu_profile.png'),
-    name: 'My Profile',
+    name: en.menu.myProfile,
   },
   {
     source: require('../../assets/icon_menu_settings.png'),
-    name: 'Settings',
+    name: en.menu.settings,
   },
   {
     source: require('../../assets/icon_menu_favorite.png'),
-    name: 'Favorite',
+    name: en.menu.favorite,
   },
   {
     source: require('../../assets/icon_flag_israel.png'),
-    name: 'Move to Hebrew',
+    name: en.menu.switchLanguage,
   },
 ];
 
