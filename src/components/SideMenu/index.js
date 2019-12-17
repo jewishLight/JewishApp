@@ -118,11 +118,13 @@ class SideMenu extends Component {
           this.props.updateLanguage(Strings.HEBREW);
           // I18nManager.forceRTL(false);
           I18nManager.allowRTL(true);
+          I18nManager.forceRTL(true);
           RNRestart.Restart();
         } else {
           await LocalStorage.setLanguage(Strings.ENGLISH);
           this.props.updateLanguage(Strings.ENGLISH);
           I18nManager.allowRTL(false);
+          I18nManager.forceRTL(false);
           RNRestart.Restart();
         }
         // NativeModules.DevSettings.reload();

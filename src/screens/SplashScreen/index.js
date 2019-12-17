@@ -43,6 +43,7 @@ class SplashScreen extends Component {
     } else {
       language = Strings.HEBREW;
       this.setState({ language });
+      I18nManager.forceRTL(true);
       I18nManager.allowRTL(true);
       await LocalStorage.setLanguage(language);
       this.props.updateLanguage(language);
