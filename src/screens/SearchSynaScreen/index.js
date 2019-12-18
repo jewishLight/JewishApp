@@ -54,6 +54,7 @@ class SearchSynaScreen extends Component {
               </Text>
             </TouchableOpacity>
           </View>
+
           <View style={styles.addModalSeparator} />
           <View
             style={{
