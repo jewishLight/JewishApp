@@ -16,6 +16,7 @@ import NewSynaScreen from './NewSynaScreen';
 import SearchSynaScreen from './SearchSynaScreen';
 import ChangeLocationScreen from './ChangeLocationScreen';
 import NewSpeakerScreen from './NewSpeakerScreen';
+import EditProfileScreen from './EditProfileScreen'
 
 export {
   HomeScreen,
@@ -36,4 +37,5 @@ export {
   SearchSynaScreen,
   ChangeLocationScreen,
   NewSpeakerScreen,
+  EditProfileScreen,
 };
