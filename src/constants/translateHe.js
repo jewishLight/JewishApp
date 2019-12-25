@@ -135,6 +135,12 @@ export default {
     switchLanguage: 'עבור לשפה אנגלית',
     logout: 'התנתק',
   },
+
+  profile: {
+    enterNewNameHere: 'הזן כאן שם משתמש חדש',
+    enterNewEmailHere: 'הזן כאן את כתובת המייל החדשה',
+  },
+
   changeLocation: 'שנה מיקום',
   setYourHomeCity: 'אנא הזינו את שם העיר המרכזית עליה תרצו לקבל את המידע:',
   unDefined: 'טרם הוגדר',

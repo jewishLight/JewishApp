@@ -136,6 +136,12 @@ export default {
     switchLanguage: 'Switch Language',
     logout: 'Logout',
   },
+
+  profile: {
+    enterNewNameHere: 'Enter new name here',
+    enterNewEmailHere: 'Enter new email address here',
+  },
+
   changeLocation: 'Change Location',
   setYourHomeCity: 'Set your home city',
   unDefined: 'UnDefined',

@@ -54,7 +54,9 @@ class MyProfileScreen extends Component {
     this.props.navigation.goBack();
   };
 
-  onEdit = () => {};
+  onEdit = () => {
+    this.props.navigation.navigate('EditProfile');
+  };
 
   render() {
     const {language} = this.state;
