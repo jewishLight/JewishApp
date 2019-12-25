@@ -17,7 +17,7 @@ import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
 
-class MyProfileScreen extends Component {
+class EditProfileScreen extends Component {
 
     static navigationOptions = {
     gesturesEnabled: Platform.OS !== 'ios',
@@ -74,6 +74,7 @@ class MyProfileScreen extends Component {
         const isEnglish = language === Strings.ENGLISH;
 
         return (
+          <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
 
             <NormalInput
             direction={this.props.direction}
@@ -93,7 +94,7 @@ class MyProfileScreen extends Component {
               }
               onChangeText={this.onChangeEmail}
             />
-        
+         </SafeAreaView>
        );
     }
 }
