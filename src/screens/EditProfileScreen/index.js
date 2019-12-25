@@ -113,4 +113,4 @@ class EditProfileScreen extends Component {
       export default connect(
         mapStateToProps,
         mapDispatchToProps,
-      )(NewLessonScreen);
+      )(EditProfileScreen);
