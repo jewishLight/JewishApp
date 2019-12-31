@@ -157,7 +157,11 @@ class NewLessonScreen extends Component {
 
   updateGoogleAutocomplete = nextState => {
     this.setState({
-      address: nextState.address,
+      marker:{
+        longitude: nextState.longitude,
+        latitude: nextState.latitude,
+      },
+      address: nextState.justCity,
       city: nextState.address,
       lat: nextState.latitude,
       lng: nextState.longitude,
@@ -569,7 +573,7 @@ class NewLessonScreen extends Component {
                 }
 
                 // error
-                if (!date || !datetime) {
+                if (!datetime) {
                   alert('Please input time');
                 } else if (selectedSpeaker === '') {
                   alert('Please select speaker');

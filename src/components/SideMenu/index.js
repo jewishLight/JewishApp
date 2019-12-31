@@ -237,7 +237,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SideMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(SideMenu);

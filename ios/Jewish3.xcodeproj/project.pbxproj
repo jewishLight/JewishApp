@@ -17,15 +17,16 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* Jewish3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* Jewish3Tests.m */; };
 		5299A91DDBA24F6C971A6E44 /* libPods-Jewish3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B360E51E24445EECAC973915 /* libPods-Jewish3.a */; };
-		DA1F7601F6B1624DB65FDB79 /* libPods-Jewish3-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B24A3604A31CC7F80B70E631 /* libPods-Jewish3-tvOSTests.a */; };
-		F5ED3FB6BA1558E638F870D7 /* libPods-Jewish3-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A6C3124E0ECB8FC4066AC5 /* libPods-Jewish3-tvOS.a */; };
+		5AB0AF9842E9442F952276F2 /* Heebo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 925FE14242E94F939488B504 /* Heebo-Medium.ttf */; };
 		5F76FB60E81B451394242ED7 /* Heebo-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 86922828F93B4F56AD27B5A0 /* Heebo-Black.ttf */; };
+		6505C1B897EC487C9B59C5F4 /* Heebo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6C9F312B2244F4F961C47CB /* Heebo-Thin.ttf */; };
+		88BD2C3C466C4AB9A69B4A27 /* Heebo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC76AE34EF9F441E88996799 /* Heebo-Light.ttf */; };
+		904AD5CD23BB228F003C7C25 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 904AD5CC23BB228F003C7C25 /* GoogleService-Info.plist */; };
 		924A3BF1172B42E2BFA19E4B /* Heebo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 30BAEEC04AE849678658D7E9 /* Heebo-Bold.ttf */; };
 		D717558363334D1EA48828D3 /* Heebo-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3819ADC76801416B9F265656 /* Heebo-ExtraBold.ttf */; };
-		88BD2C3C466C4AB9A69B4A27 /* Heebo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AC76AE34EF9F441E88996799 /* Heebo-Light.ttf */; };
-		5AB0AF9842E9442F952276F2 /* Heebo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 925FE14242E94F939488B504 /* Heebo-Medium.ttf */; };
+		DA1F7601F6B1624DB65FDB79 /* libPods-Jewish3-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B24A3604A31CC7F80B70E631 /* libPods-Jewish3-tvOSTests.a */; };
 		E9F3589263354967A37E64A6 /* Heebo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 18F1369E95CD44DFAA82C2E7 /* Heebo-Regular.ttf */; };
-		6505C1B897EC487C9B59C5F4 /* Heebo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B6C9F312B2244F4F961C47CB /* Heebo-Thin.ttf */; };
+		F5ED3FB6BA1558E638F870D7 /* libPods-Jewish3-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A6C3124E0ECB8FC4066AC5 /* libPods-Jewish3-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,29 +58,30 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Jewish3/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Jewish3/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Jewish3/main.m; sourceTree = "<group>"; };
+		18F1369E95CD44DFAA82C2E7 /* Heebo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Regular.ttf"; path = "../assets/fonts/Heebo-Regular.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* Jewish3-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Jewish3-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Jewish3-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Jewish3-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		30BAEEC04AE849678658D7E9 /* Heebo-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Bold.ttf"; path = "../assets/fonts/Heebo-Bold.ttf"; sourceTree = "<group>"; };
+		3819ADC76801416B9F265656 /* Heebo-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-ExtraBold.ttf"; path = "../assets/fonts/Heebo-ExtraBold.ttf"; sourceTree = "<group>"; };
 		5A20B3247FB359C9EFA3B052 /* Pods-Jewish3-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Jewish3-tvOSTests/Pods-Jewish3-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		60A6C3124E0ECB8FC4066AC5 /* libPods-Jewish3-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Jewish3-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6982A521D9EEBBDD6D917BF2 /* Pods-Jewish3-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Jewish3-tvOSTests/Pods-Jewish3-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		76269C927196FB4B1EA7F0A1 /* Pods-Jewish3-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Jewish3-tvOS/Pods-Jewish3-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7FD6D21DB0DBA62229B89C74 /* Pods-Jewish3Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3Tests.debug.xcconfig"; path = "Target Support Files/Pods-Jewish3Tests/Pods-Jewish3Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		86922828F93B4F56AD27B5A0 /* Heebo-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Black.ttf"; path = "../assets/fonts/Heebo-Black.ttf"; sourceTree = "<group>"; };
 		8EB5C29F177AE94DA946DEC3 /* Pods-Jewish3-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Jewish3-tvOS/Pods-Jewish3-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		904AD5CC23BB228F003C7C25 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		925FE14242E94F939488B504 /* Heebo-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Medium.ttf"; path = "../assets/fonts/Heebo-Medium.ttf"; sourceTree = "<group>"; };
 		98EDC992409A2289590BB2BE /* Pods-Jewish3.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3.release.xcconfig"; path = "Target Support Files/Pods-Jewish3/Pods-Jewish3.release.xcconfig"; sourceTree = "<group>"; };
+		AC76AE34EF9F441E88996799 /* Heebo-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Light.ttf"; path = "../assets/fonts/Heebo-Light.ttf"; sourceTree = "<group>"; };
 		B24A3604A31CC7F80B70E631 /* libPods-Jewish3-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Jewish3-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B360E51E24445EECAC973915 /* libPods-Jewish3.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Jewish3.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55D4CE3B647E71D01C31778 /* Pods-Jewish3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3.debug.xcconfig"; path = "Target Support Files/Pods-Jewish3/Pods-Jewish3.debug.xcconfig"; sourceTree = "<group>"; };
+		B6C9F312B2244F4F961C47CB /* Heebo-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Thin.ttf"; path = "../assets/fonts/Heebo-Thin.ttf"; sourceTree = "<group>"; };
 		DDCE88526F959C1F02FC0308 /* Pods-Jewish3Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Jewish3Tests.release.xcconfig"; path = "Target Support Files/Pods-Jewish3Tests/Pods-Jewish3Tests.release.xcconfig"; sourceTree = "<group>"; };
 		E64A55D9BCCCDA4B6B1A29CB /* libPods-Jewish3Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Jewish3Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		86922828F93B4F56AD27B5A0 /* Heebo-Black.ttf */ = {isa = PBXFileReference; name = "Heebo-Black.ttf"; path = "../assets/fonts/Heebo-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		30BAEEC04AE849678658D7E9 /* Heebo-Bold.ttf */ = {isa = PBXFileReference; name = "Heebo-Bold.ttf"; path = "../assets/fonts/Heebo-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3819ADC76801416B9F265656 /* Heebo-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Heebo-ExtraBold.ttf"; path = "../assets/fonts/Heebo-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AC76AE34EF9F441E88996799 /* Heebo-Light.ttf */ = {isa = PBXFileReference; name = "Heebo-Light.ttf"; path = "../assets/fonts/Heebo-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		925FE14242E94F939488B504 /* Heebo-Medium.ttf */ = {isa = PBXFileReference; name = "Heebo-Medium.ttf"; path = "../assets/fonts/Heebo-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		18F1369E95CD44DFAA82C2E7 /* Heebo-Regular.ttf */ = {isa = PBXFileReference; name = "Heebo-Regular.ttf"; path = "../assets/fonts/Heebo-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B6C9F312B2244F4F961C47CB /* Heebo-Thin.ttf */ = {isa = PBXFileReference; name = "Heebo-Thin.ttf"; path = "../assets/fonts/Heebo-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				904AD5CC23BB228F003C7C25 /* GoogleService-Info.plist */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
@@ -174,8 +177,21 @@
 				7FD6D21DB0DBA62229B89C74 /* Pods-Jewish3Tests.debug.xcconfig */,
 				DDCE88526F959C1F02FC0308 /* Pods-Jewish3Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		7358969E15B24EC7829E9B23 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				86922828F93B4F56AD27B5A0 /* Heebo-Black.ttf */,
+				30BAEEC04AE849678658D7E9 /* Heebo-Bold.ttf */,
+				3819ADC76801416B9F265656 /* Heebo-ExtraBold.ttf */,
+				AC76AE34EF9F441E88996799 /* Heebo-Light.ttf */,
+				925FE14242E94F939488B504 /* Heebo-Medium.ttf */,
+				18F1369E95CD44DFAA82C2E7 /* Heebo-Regular.ttf */,
+				B6C9F312B2244F4F961C47CB /* Heebo-Thin.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -211,21 +227,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		7358969E15B24EC7829E9B23 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				86922828F93B4F56AD27B5A0 /* Heebo-Black.ttf */,
-				30BAEEC04AE849678658D7E9 /* Heebo-Bold.ttf */,
-				3819ADC76801416B9F265656 /* Heebo-ExtraBold.ttf */,
-				AC76AE34EF9F441E88996799 /* Heebo-Light.ttf */,
-				925FE14242E94F939488B504 /* Heebo-Medium.ttf */,
-				18F1369E95CD44DFAA82C2E7 /* Heebo-Regular.ttf */,
-				B6C9F312B2244F4F961C47CB /* Heebo-Thin.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -338,6 +339,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -373,6 +375,7 @@
 				D717558363334D1EA48828D3 /* Heebo-ExtraBold.ttf in Resources */,
 				88BD2C3C466C4AB9A69B4A27 /* Heebo-Light.ttf in Resources */,
 				5AB0AF9842E9442F952276F2 /* Heebo-Medium.ttf in Resources */,
+				904AD5CD23BB228F003C7C25 /* GoogleService-Info.plist in Resources */,
 				E9F3589263354967A37E64A6 /* Heebo-Regular.ttf in Resources */,
 				6505C1B897EC487C9B59C5F4 /* Heebo-Thin.ttf in Resources */,
 			);

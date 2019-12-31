@@ -212,7 +212,11 @@ class NewSynModal extends Component {
 
   updateGoogleAutocomplete = nextState => {
     this.setState({
-      address: nextState.address,
+      marker:{
+        longitude: nextState.longitude,
+        latitude: nextState.latitude,
+      },
+      address: nextState.justCity,
       city: nextState.address,
       lat: nextState.latitude,
       lng: nextState.longitude,
@@ -692,7 +696,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NewSynModal);
+export default connect(mapStateToProps, mapDispatchToProps)(NewSynModal);
