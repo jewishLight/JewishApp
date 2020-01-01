@@ -29,19 +29,19 @@ import {en, he} from '../../constants';
 const MENU_ITEM_1 = [
   {
     source: require('../../assets/icon_menu_profile.png'),
-    name: 'My Profile',
+    name: en.menu.myProfile,
   },
   {
     source: require('../../assets/icon_menu_settings.png'),
-    name: 'Settings',
+    name: en.menu.settings,
   },
   {
     source: require('../../assets/icon_menu_favorite.png'),
-    name: 'Favorite',
+    name: en.menu.favorite,
   },
   {
     source: require('../../assets/icon_flag_israel.png'),
-    name: 'Move to Hebrew',
+    name: en.menu.switchLanguage,
   },
 ];
 
@@ -118,11 +118,13 @@ class SideMenu extends Component {
           this.props.updateLanguage(Strings.HEBREW);
           // I18nManager.forceRTL(false);
           I18nManager.allowRTL(true);
+          I18nManager.forceRTL(true);
           RNRestart.Restart();
         } else {
           await LocalStorage.setLanguage(Strings.ENGLISH);
           this.props.updateLanguage(Strings.ENGLISH);
           I18nManager.allowRTL(false);
+          I18nManager.forceRTL(false);
           RNRestart.Restart();
         }
         // NativeModules.DevSettings.reload();

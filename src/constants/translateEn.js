@@ -98,11 +98,11 @@ export default {
     lessonsTimes: 'Lessons times',
   },
   memorial: {
-    splash_screen: 'For success to David Jefry',
-    all_over_the_app: 'For health to Sarah Cohen',
+    splash_screen: 'In memory of David Jefry',
+    all_over_the_app: 'For the health of Sarah Cohen',
   },
   nosach: {
-    value_0: 'Ashkenazi',
+    value_0: 'Ashkenaz',
     value_1: 'Sefard',
     value_2: 'Edot Hamizrah',
     value_3: 'Ar"i',
@@ -133,7 +133,7 @@ export default {
     myProfile: 'My Profile',
     settings: 'Settings',
     favorite: 'Favorite',
-    switchLanguage: 'Switch Language',
+    switchLanguage: 'החלף לעברית',
     logout: 'Logout',
   },
 
@@ -146,6 +146,6 @@ export default {
   setYourHomeCity: 'Set your home city',
   unDefined: 'UnDefined',
   notHere: 'Not Here?',
-  clickHereToCreateNewSyna: 'Click here to create new Synagogue',
+  clickHereToCreateNewSyna: 'Click here to create a new Synagogue',
   pleaseTypeTheSynagogueName: 'Please type the Synagogue Name',
 };

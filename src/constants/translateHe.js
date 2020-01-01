@@ -32,8 +32,8 @@ export default {
     enterNameHere: 'הזן שם איש קשר...',
     contactNumber: 'מספר איש קשר',
     enterNumberHere: 'הזן מספר כאן...',
-    audience: 'גבר / נשים',
-    selectAudience: 'סתם גבר, סתם נשים או גבר ונשים',
+    audience: 'גברים / נשים',
+    selectAudience: 'גברים, נשים או גברים ונשים',
     publishLessons: 'פרסם שיעור',
 
     addNewSynagogue: 'הוספת בית כנסת חדש',
@@ -97,11 +97,11 @@ export default {
     lessonsTimes: 'שיעורים פעמים',
   },
   memorial: {
-    splash_screen: 'לעילוי נשמה פלוני בן אלמוני',
+    splash_screen: 'לעילוי נשמת פלוני בן אלמוני',
     all_over_the_app: 'לרפואת אלף בית גימל',
   },
   nosach: {
-    value_0: 'אשכנזי',
+    value_0: 'אשכנז',
     value_1: 'ספרד',
     value_2: 'עדות המזרח',
     value_3: 'אר"י',
@@ -132,7 +132,7 @@ export default {
     myProfile: 'הפרופיל שלי',
     settings: 'הגדרות',
     favorite: 'מועדפים',
-    switchLanguage: 'עבור לשפה אנגלית',
+    switchLanguage: 'Switch to English',
     logout: 'התנתק',
   },
 
