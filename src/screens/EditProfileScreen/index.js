@@ -1,18 +1,14 @@
 import React, {Component} from 'react';
 import {SafeAreaView} from 'react-navigation';
 import {
-  View,
   Platform,
   BackHandler,
-  Text,
-  Image,
-  I18nManager,
-  TouchableOpacity,
 } from 'react-native';
-import {Colors, Metric} from '../../themes';
-import {LocalStorage, Strings} from '../../utils';
+import {
+  NormalInput,
+} from '../../components';
+import {Strings} from '../../utils';
 import {en, he} from '../../constants';
-import {MyProfileHeader, SearchResultHeader} from '../../components';
 import {appSettingsSelector} from '../../redux/selector';
 import {AppSettingsActions} from '../../redux';
 import {connect} from 'react-redux';
@@ -83,7 +79,7 @@ class EditProfileScreen extends Component {
                 ? en.profile.enterNewNameHere
                 : he.profile.enterNewNameHere
             }
-            onChangeText={this.onChangename}
+            onChangeText={this.onChangeName}
           />
           <NormalInput
               direction={this.props.direction}
@@ -98,19 +94,20 @@ class EditProfileScreen extends Component {
        );
     }
 }
-    const mapStateToProps = state => ({
-        ...appSettingsSelector(state),
-      });
-      const mapDispatchToProps = dispatch => ({
-        updateDeviceStatus: isDeviceTurnON =>
-          dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
-        updateLightStatus: isLightTurnON =>
-          dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
-        updateLanguage: language =>
-          dispatch(AppSettingsActions.updateLanguage(language)),
-      });
-      
-      export default connect(
-        mapStateToProps,
-        mapDispatchToProps,
-      )(EditProfileScreen);
+
+const mapStateToProps = state => ({
+    ...appSettingsSelector(state),
+  });
+  const mapDispatchToProps = dispatch => ({
+    updateDeviceStatus: isDeviceTurnON =>
+      dispatch(AppSettingsActions.updateDeviceStatus(isDeviceTurnON)),
+    updateLightStatus: isLightTurnON =>
+      dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
+    updateLanguage: language =>
+      dispatch(AppSettingsActions.updateLanguage(language)),
+  });
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(EditProfileScreen);
