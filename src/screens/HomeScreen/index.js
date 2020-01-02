@@ -133,7 +133,6 @@ class HomeScreen extends Component {
     });
 
     const fetchAroundCity = new Promise((resolve, reject) => {
-      console.log(Strings.currentLongitude, Strings.currentLatitude)
       ApiRequest(
         'home/around_city',
         {lon: Strings.currentLongitude, lat: Strings.currentLatitude},
