@@ -57,8 +57,12 @@ class MyProfileScreen extends Component {
   onEdit = () => {};
 
   render() {
+    const {user} = this.props;
     const {language} = this.state;
     const isEnglish = language === Strings.ENGLISH;
+    const avatar = user.avatar
+      ? {uri: user.avatar}
+      : require('../../assets/img_noavatar.png');
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <MyProfileHeader
@@ -73,7 +77,7 @@ class MyProfileScreen extends Component {
             marginTop: 20,
           }}>
           <Image
-            source={require('../../assets/img_noavatar.png')}
+            source={avatar}
             style={{width: 150, height: 150, resizeMode: 'contain'}}
           />
         </View>
@@ -82,7 +86,7 @@ class MyProfileScreen extends Component {
             Display Name
           </Text>
           <Text style={{color: '#252325', fontSize: 18, marginTop: 10}}>
-            John Doe
+            {`${user.first_name} ${user.last_name}`}
           </Text>
         </View>
         <View
@@ -93,7 +97,7 @@ class MyProfileScreen extends Component {
             Email
           </Text>
           <Text style={{color: '#252325', fontSize: 18, marginTop: 10}}>
-            johndoe123@gmail.com
+            {user.email}
           </Text>
         </View>
         <View
@@ -146,6 +150,7 @@ class MyProfileScreen extends Component {
 
 const mapStateToProps = state => ({
   ...appSettingsSelector(state),
+  user: state.userReducer.user,
 });
 const mapDispatchToProps = dispatch => ({
   updateDeviceStatus: isDeviceTurnON =>
@@ -156,7 +161,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(MyProfileScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(MyProfileScreen);

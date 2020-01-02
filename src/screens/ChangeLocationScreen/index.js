@@ -39,6 +39,7 @@ class ChangeLocationScreen extends Component {
   _keyExtractor = item => item.id;
 
   onChangeAutoComplete = async text => {
+    const language = this.props.navigation.state.params.isEnglish ? 'us' : 'iw';
     this.setState({address: text});
     if (text.length > 3 && !this.state.isFetching) {
       this.setState({isFetching: true});
@@ -47,10 +48,10 @@ class ChangeLocationScreen extends Component {
         query: text,
         radius: '50000000',
         key: 'AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M',
-        language: 'iw',
-        region: 'il'
+        language,
+        region: 'il',
       };
-      debugger;
+      // debugger;
       fetch(`${url}?${this.objToQueryString(params)}`)
         .then(async response => {
           let data = await response.text();
@@ -95,6 +96,7 @@ class ChangeLocationScreen extends Component {
   };
 
   renderRow = ({item, index}) => {
+    console.log(item);
     return (
       <View
         style={{
@@ -112,7 +114,7 @@ class ChangeLocationScreen extends Component {
           onPress={() => {
             const country = this.parseFormattedAddress(item.formatted_address);
             Strings.currentLatitude = item.geometry.location.lat;
-            Strings.currentLongitude = item.geometry.location.lon;
+            Strings.currentLongitude = item.geometry.location.lng;
             Strings.currentOnlyCity = country;
             Strings.currentLocationCity = item.formatted_address;
             this.props.navigation.state.params.updateLocation(

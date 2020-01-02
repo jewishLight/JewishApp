@@ -543,6 +543,9 @@ class SynaScreen extends Component {
             <View style={styles.likeBtnContainer}>
               <View style={styles.buttonsContainer}>
                 <CommentButton
+                  onPress={() => {
+                    this.refs.commentInput.focus();
+                  }}
                   text={isEnglish ? en.detail.comments : he.detail.comments}
                 />
               </View>
@@ -576,6 +579,7 @@ class SynaScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
+            ref="commentInput"
             value={this.state.commentText}
           />
           <TouchableOpacity
@@ -620,7 +624,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SynaScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SynaScreen);

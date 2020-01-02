@@ -10,7 +10,7 @@ export class Comments extends Component {
     this.state = {};
   }
 
-  _keyExtractor = (item, index) => this.props.item._id;
+  _keyExtractor = (item, index) => `Comments Lesson ${index}`;
 
   render() {
     const isEnglish = this.props.isEnglish;

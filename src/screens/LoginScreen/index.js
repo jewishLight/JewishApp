@@ -23,7 +23,7 @@ import {
 } from 'react-native-google-signin';
 import config from '../../config';
 import {appSettingsSelector} from '../../redux/selector';
-import {AppSettingsActions} from '../../redux';
+import {AppSettingsActions, UserActions} from '../../redux';
 import {connect} from 'react-redux';
 import {en, he} from '../../constants';
 import {Loading} from '../../components';
@@ -75,11 +75,13 @@ class LoginScreen extends Component {
       };
       ApiRequestWithoutToken('auth/google', body, 'POST')
         .then(async response => {
+          this.props.updateUser(response.user);
           this.closeLoading();
           Strings.localToken = response.token;
           Strings.loginType = Strings.LOGIN_TYPE_GOOGLE;
           Strings.userId = response.user._id;
           await LocalStorage.setToken(response.token);
+          await LocalStorage.setUser(JSON.stringify(response.user));
           await LocalStorage.setUserId(response.user._id);
           await LocalStorage.setLoggedIn(true);
           await LocalStorage.setLoginType(Strings.LOGIN_TYPE_GOOGLE);
@@ -264,6 +266,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
   updateLanguage: language =>
     dispatch(AppSettingsActions.updateLanguage(language)),
+  updateUser: user => dispatch(UserActions.updateUser(user)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -190,12 +190,13 @@ class NewLessonScreen extends Component {
 
   renderOption = settings => {
     const {item, getLabel} = settings;
+
     return (
       <View style={styles.optionContainer}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={
-              item.avatar.uri
+              item.avatar && item.avatar.uri
                 ? {uri: item.avatar.uri}
                 : require('../../assets/icon_commentlist_avatar.png')
             }
@@ -214,6 +215,7 @@ class NewLessonScreen extends Component {
 
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
+
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
