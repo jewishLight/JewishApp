@@ -149,13 +149,17 @@ class FilterScreen extends Component {
   }
 
   onReset = () => {
+    const {searchType} = this.state;
+    if (searchType === 1) {
+      this.refSpeakerNameInput.clear();
+    }
+
     this.setState({
       searchType: 0,
       speakerName: '',
       radiusSliderValue: [0],
       timeRangeSliderValue: [0, 24],
     });
-    this.refSpeakerNameInput.clear();
   };
 
   onNearby = () => {
@@ -199,6 +203,7 @@ class FilterScreen extends Component {
     const {timeRangeSliderValue, radiusSliderValue} = this.state;
     const {language, searchType} = this.state;
     const isEnglish = language === Strings.ENGLISH;
+
     return (
       <SafeAreaView style={styles.filterContainer}>
         <View style={{flex: 1}}>
