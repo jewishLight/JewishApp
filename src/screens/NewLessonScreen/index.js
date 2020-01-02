@@ -202,7 +202,12 @@ class NewLessonScreen extends Component {
             }
             style={{width: 40, height: 40, resizeMode: 'contain'}}
           />
-          <Text style={{color: item.color, marginLeft: 5}}>
+          <Text
+            style={{
+              color: item.color,
+              marginLeft: 5,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {getLabel(item)}
           </Text>
         </View>
@@ -254,13 +259,18 @@ class NewLessonScreen extends Component {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 14}}>
+              <Text style={{fontSize: 14, fontFamily: 'Heebo-Regular'}}>
                 {isEnglish ? en.modal.speaker : he.modal.speaker}
               </Text>
               <TouchableOpacity
                 style={{justifyContent: 'center', alignItems: 'center'}}
                 onPress={this.addSpeaker}>
-                <Text style={{color: 'blue', fontSize: 14}}>
+                <Text
+                  style={{
+                    color: 'blue',
+                    fontSize: 14,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   Add New Speaker
                 </Text>
               </TouchableOpacity>
@@ -309,6 +319,7 @@ class NewLessonScreen extends Component {
                       borderRadius: 5,
                       paddingHorizontal: 16,
                       borderColor: Colors.separator,
+                      fontFamily: 'Heebo-Regular',
                     }}
                     value={this.state.address}
                     onChangeText={text => {

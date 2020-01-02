@@ -25,11 +25,22 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginHorizontal: 15,
+    fontFamily: 'Heebo-Regular',
   },
   detailBasic: {flexDirection: 'row', paddingHorizontal: 15},
   detailClockLocation: {flexDirection: 'row', paddingHorizontal: 15},
-  userRole: {color: 'black', fontSize: 12, opacity: 0.35},
-  userName: {color: 'black', fontSize: 14, opacity: 0.67},
+  userRole: {
+    color: 'black',
+    fontSize: 12,
+    opacity: 0.35,
+    fontFamily: 'Heebo-Regular',
+  },
+  userName: {
+    color: 'black',
+    fontSize: 14,
+    opacity: 0.67,
+    fontFamily: 'Heebo-Regular',
+  },
   detailClockImage: {
     width: 24,
     height: 24,
@@ -50,10 +61,14 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  detailClockText: {marginLeft: 5},
-  detailLocationText: {marginLeft: 5},
+  detailClockText: {marginLeft: 5, fontFamily: 'Heebo-Regular'},
+  detailLocationText: {marginLeft: 5, fontFamily: 'Heebo-Regular'},
   detailDescContainer: {marginTop: 30, paddingHorizontal: 13},
-  detailDescText: {color: Colors.lessonLightText, fontSize: 18},
+  detailDescText: {
+    color: Colors.lessonLightText,
+    fontSize: 18,
+    fontFamily: 'Heebo-Regular',
+  },
   separator: {
     backgroundColor: Colors.separator,
     height: 1,
@@ -80,6 +95,7 @@ export const styles = StyleSheet.create({
     color: Colors.lessonLightText,
     fontSize: 15,
     marginRight: 5,
+    fontFamily: 'Heebo-Regular',
   },
   paddingSeparator: {
     backgroundColor: Colors.separator,
@@ -100,14 +116,20 @@ export const styles = StyleSheet.create({
   commentsText: {
     color: 'black',
     fontSize: 17,
+    fontFamily: 'Heebo-Regular',
   },
   commentsNumberText: {
     color: 'black',
     fontSize: 13,
     opacity: 0.5,
+    fontFamily: 'Heebo-Regular',
   },
   iconDetailLikedImage: {width: 80, height: 36, resizeMode: 'contain'},
-  commentInputText: {height: 50, fontSize: 14},
+  commentInputText: {
+    height: 50,
+    fontSize: 14,
+    fontFamily: 'Heebo-Regular',
+  },
   commentSendView: {
     width: 32,
     height: 32,

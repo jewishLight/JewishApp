@@ -308,6 +308,7 @@ class NewSynModal extends Component {
                       borderRadius: 5,
                       paddingHorizontal: 16,
                       borderColor: Colors.separator,
+                      fontFamily: 'Heebo-Regular',
                     }}
                     value={this.state.address}
                     onChangeText={text => {
@@ -453,7 +454,9 @@ class NewSynModal extends Component {
                     this.setState({addMinTimeFlag: true});
                   }
                 }}>
-                <Text style={{color: 'blue'}}>Add</Text>
+                <Text style={{color: 'blue', fontFamily: 'Heebo-Regular'}}>
+                  Add
+                </Text>
               </TouchableOpacity>
             </View>
             <SynMinTimes
@@ -616,7 +619,13 @@ class NewSynModal extends Component {
                   source={require('../../assets/icon_modal_upload.png')}
                   style={{width: 20, height: 13, resizeMode: 'contain'}}
                 />
-                <Text style={{color: 'white', marginLeft: 5, fontSize: 15}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    marginLeft: 5,
+                    fontSize: 15,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   {isEnglish ? en.modal.upload : he.modal.upload}
                 </Text>
               </TouchableOpacity>

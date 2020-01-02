@@ -23,7 +23,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  logoText: {fontSize: 30, color: '#9EA3BA'},
+  logoText: {
+    fontSize: 30,
+    color: '#9EA3BA',
+    fontFamily: 'Heebo-Regular',
+  },
   itemContainer: {
     flexDirection: 'row',
     height: 50,
@@ -40,5 +44,5 @@ export const styles = StyleSheet.create({
     marginBottom: 50,
   },
   separator: {height: 1, backgroundColor: Colors.separator},
-  logoutText: {fontSize: 18},
+  logoutText: {fontSize: 18, fontFamily: 'Heebo-Regular'},
 });

@@ -87,7 +87,7 @@ class NewSpeakerScreen extends Component {
         avatar: this.state.newSpeakerAvatar,
         about: this.state.newSpeakerAbout,
       };
-      ApiRequest(`lesson/addSpeaker`, body, 'POST')
+      ApiRequest('lesson/addSpeaker', body, 'POST')
         .then(response => {
           this.closeLoading();
           let speakerPickerArray = [];
@@ -151,7 +151,7 @@ class NewSpeakerScreen extends Component {
               marginTop: 10,
             }}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Text>Name</Text>
+              <Text style={{fontFamily: 'Heebo-Regular'}}>Name</Text>
               <View style={{width: 5}} />
               <TextInput
                 style={{
@@ -159,6 +159,7 @@ class NewSpeakerScreen extends Component {
                   height: 40,
                   borderWidth: 1,
                   borderColor: Colors.separator,
+                  fontFamily: 'Heebo-Regular',
                 }}
                 onChangeText={text => {
                   this.setState({newSpeakerName: text});
@@ -172,7 +173,7 @@ class NewSpeakerScreen extends Component {
                 alignItems: 'center',
                 marginTop: 10,
               }}>
-              <Text>Avatar</Text>
+              <Text style={{fontFamily: 'Heebo-Regular'}}>Avatar</Text>
               <TouchableOpacity
                 style={{
                   justifyContent: 'center',
@@ -183,7 +184,7 @@ class NewSpeakerScreen extends Component {
                   backgroundColor: 'lightgray',
                 }}
                 onPress={this.onAvatar}>
-                <Text>Upload</Text>
+                <Text style={{fontFamily: 'Heebo-Regular'}}>Upload</Text>
               </TouchableOpacity>
             </View>
             <View
@@ -192,7 +193,7 @@ class NewSpeakerScreen extends Component {
                 alignItems: 'center',
                 marginTop: 10,
               }}>
-              <Text>About</Text>
+              <Text style={{fontFamily: 'Heebo-Regular'}}>About</Text>
               <View style={{width: 5}} />
               <TextInput
                 style={{
@@ -200,6 +201,7 @@ class NewSpeakerScreen extends Component {
                   height: 40,
                   borderWidth: 1,
                   borderColor: Colors.separator,
+                  fontFamily: 'Heebo-Regular',
                 }}
                 onChangeText={text => {
                   this.setState({newSpeakerAbout: text});
@@ -217,7 +219,7 @@ class NewSpeakerScreen extends Component {
                 marginTop: 10,
               }}
               onPress={this.onAddSpeakerFinish}>
-              <Text>Add</Text>
+              <Text style={{fontFamily: 'Heebo-Regular'}}>Add</Text>
             </TouchableOpacity>
           </View>
         </KeyboardAwareScrollView>
@@ -228,7 +230,7 @@ class NewSpeakerScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}
@@ -252,7 +254,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NewSpeakerScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewSpeakerScreen);

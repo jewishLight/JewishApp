@@ -32,5 +32,6 @@ export const styles = StyleSheet.create({
   filterText: {
     color: Colors.searchResultText,
     fontSize: 17,
+    fontFamily: 'Heebo-Regular',
   },
 });

@@ -417,10 +417,20 @@ class SynaScreen extends Component {
                   justifyContent: 'space-between',
                 }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={{color: '#4B5461', fontSize: 14}}>
+                  <Text
+                    style={{
+                      color: '#4B5461',
+                      fontSize: 14,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     Sivan Rahav Meir
                   </Text>
-                  <Text style={{color: '#4B5461', fontSize: 12}}>
+                  <Text
+                    style={{
+                      color: '#4B5461',
+                      fontSize: 12,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     Big hall, first Door
                   </Text>
                 </View>
@@ -429,7 +439,13 @@ class SynaScreen extends Component {
                     source={require('../../assets/icon_syna_document.png')}
                     style={{width: 12, height: 13, resizeMode: 'contain'}}
                   />
-                  <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
+                  <Text
+                    style={{
+                      color: '#9B9B9B',
+                      fontSize: 12,
+                      marginLeft: 5,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     11
                   </Text>
                   <Image
@@ -441,7 +457,13 @@ class SynaScreen extends Component {
                       marginLeft: 10,
                     }}
                   />
-                  <Text style={{color: '#9B9B9B', fontSize: 12, marginLeft: 5}}>
+                  <Text
+                    style={{
+                      color: '#9B9B9B',
+                      fontSize: 12,
+                      marginLeft: 5,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     23
                   </Text>
                 </View>
@@ -457,12 +479,25 @@ class SynaScreen extends Component {
                     source={require('../../assets/icon_syna_calendar.png')}
                     style={{width: 12, height: 12, resizeMode: 'contain'}}
                   />
-                  <Text style={{color: '#4B5461', fontSize: 14, marginLeft: 5}}>
+                  <Text
+                    style={{
+                      color: '#4B5461',
+                      fontSize: 14,
+                      marginLeft: 5,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     Friday, Saturday, Sunday
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={{color: '#EC4256', fontSize: 12}}>08:00</Text>
+                  <Text
+                    style={{
+                      color: '#EC4256',
+                      fontSize: 12,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
+                    08:00
+                  </Text>
                 </View>
               </View>
             </View>,
@@ -758,7 +793,7 @@ class SynaScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}

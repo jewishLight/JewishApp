@@ -11,8 +11,14 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
     borderRadius: 5,
+    fontFamily: 'Heebo-Regular',
   },
-  newLessonModalDayText: {fontSize: 8, marginLeft: 3, color: Colors.dayText},
+  newLessonModalDayText: {
+    fontSize: 8,
+    marginLeft: 3,
+    color: Colors.dayText,
+    fontFamily: 'Heebo-Regular',
+  },
   newLessonModalDaySelected: {
     width: 20,
     height: 20,

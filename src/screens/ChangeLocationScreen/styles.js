@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     height: 50,
     paddingHorizontal: 15,
   },
-  addNewText: {fontSize: 18},
+  addNewText: {fontSize: 18, fontFamily: 'Heebo-Regular'},
   addModalSeparator: {
     marginTop: 10,
     height: 1,

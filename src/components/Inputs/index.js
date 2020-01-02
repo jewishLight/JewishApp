@@ -546,11 +546,18 @@ export class DateTimeSetter extends Component {
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
+            fontFamily: 'Heebo-Regular',
           }}>
           <Text style={{fontSize: 15, color: 'black'}}>
             {isEnglish ? en.modal.setDays : he.modal.setDays}
           </Text>
-          <Text style={{fontSize: 12, color: Colors.lessonLightText}}>
+          fontFamily: 'Heebo-Regular',
+          <Text
+            style={{
+              fontSize: 12,
+              color: Colors.lessonLightText,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {isEnglish ? en.modal.weeklyRecurrence : he.modal.weeklyRecurrence}
           </Text>
         </View>
@@ -815,15 +822,30 @@ export class SynMinTimes extends Component {
             alignItems: 'center',
           }}>
           {this.state.pType === 0 ? (
-            <Text style={{fontSize: 15, color: 'black'}}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: 'black',
+                fontFamily: 'Heebo-Regular',
+              }}>
               {isEnglish ? en.modal.addMinTimes : he.modal.addMinTimes}
             </Text>
           ) : this.state.pType === 1 ? (
-            <Text style={{fontSize: 15, color: 'black'}}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: 'black',
+                fontFamily: 'Heebo-Regular',
+              }}>
               {isEnglish ? en.modal.shachrit : he.modal.shachrit}
             </Text>
           ) : (
-            <Text style={{fontSize: 15, color: 'black'}}>
+            <Text
+              style={{
+                fontSize: 15,
+                color: 'black',
+                fontFamily: 'Heebo-Regular',
+              }}>
               {isEnglish ? en.modal.maariv : he.modal.maariv}
             </Text>
           )}
@@ -845,11 +867,18 @@ export class SynMinTimes extends Component {
             alignItems: 'center',
           }}
           onPress={this.showDateTimePicker}>
-          <Text style={{fontSize: 15, color: 'black'}}>
+          <Text
+            style={{fontSize: 15, color: 'black', fontFamily: 'Heebo-Regular'}}>
             {isEnglish ? en.modal.selectDateTime : he.modal.selectDateTime}
           </Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Text style={{marginRight: 10}}>{`${moment(
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              fontFamily: 'Heebo-Regular',
+            }}>
+            <Text
+              style={{marginRight: 10, fontFamily: 'Heebo-Regular'}}>{`${moment(
               this.state.datetime,
             ).format('kk:mm:ss')}`}</Text>
             <Image
@@ -872,10 +901,16 @@ export class SynMinTimes extends Component {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 15, color: 'black'}}>
+          <Text
+            style={{fontSize: 15, color: 'black', fontFamily: 'Heebo-Regular'}}>
             {isEnglish ? en.modal.setDays : he.modal.setDays}
           </Text>
-          <Text style={{fontSize: 12, color: Colors.lessonLightText}}>
+          <Text
+            style={{
+              fontSize: 12,
+              color: Colors.lessonLightText,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {type === 'week'
               ? isEnglish
                 ? en.modal.weeklyRecurrence
@@ -1061,7 +1096,7 @@ export class NormalSwitch extends Component {
           height: 50,
           marginTop: 15,
         }}>
-        <Text>{type}</Text>
+        <Text style={{fontFamily: 'Heebo-Regular'}}>{type}</Text>
         <Switch
           value={switchValue}
           trackColor={{true: Colors.primary, false: 'lightgray'}}

@@ -38,7 +38,11 @@ export const styles = StyleSheet.create({
     width: Metric.width - 30,
     marginLeft: 15,
   },
-  commentInputText: {height: 50, fontSize: 14},
+  commentInputText: {
+    height: 50,
+    fontSize: 14,
+    fontFamily: 'Heebo-Regular',
+  },
   commentSendView: {
     width: 32,
     height: 32,
@@ -61,11 +65,13 @@ export const styles = StyleSheet.create({
   commentsText: {
     color: 'black',
     fontSize: 17,
+    fontFamily: 'Heebo-Regular',
   },
   commentsNumberText: {
     color: 'black',
     fontSize: 13,
     opacity: 0.5,
+    fontFamily: 'Heebo-Regular',
   },
   likeBtnContainer: {
     flexDirection: 'row',
@@ -87,5 +93,6 @@ export const styles = StyleSheet.create({
     color: Colors.lessonLightText,
     fontSize: 15,
     marginRight: 5,
+    fontFamily: 'Heebo-Regular',
   },
 });

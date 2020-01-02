@@ -63,8 +63,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  lessonText: {color: 'white', fontSize: 18},
-  synText: {color: Colors.primary, fontSize: 18},
+  lessonText: {
+    color: 'white',
+    fontSize: 18,
+    fontFamily: 'Heebo-Regular',
+  },
+  synText: {
+    color: Colors.primary,
+    fontSize: 18,
+    fontFamily: 'Heebo-Regular',
+  },
   addBtnsContainer: {
     flex: 1,
     paddingHorizontal: 15,
@@ -105,15 +113,18 @@ export const styles = StyleSheet.create({
   newLessonModalTextInputTitle: {
     fontSize: 14,
     marginTop: 10,
+    fontFamily: 'Heebo-Regular',
   },
   newLessonModalPickerTitle: {
     fontSize: 14,
     marginTop: 20,
+    fontFamily: 'Heebo-Regular',
   },
   newLessonModalPickerTitleRed: {
     fontSize: 14,
     marginTop: 20,
     color: Colors.redText,
+    fontFamily: 'Heebo-Regular',
   },
   flexFull: {
     flex: 1,
@@ -136,7 +147,11 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
     marginTop: 40,
   },
-  bigBtnText: {color: 'white', fontSize: 20},
+  bigBtnText: {
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'Heebo-Regular',
+  },
   alphabetSidebar: {
     position: 'absolute',
     backgroundColor: 'transparent',
@@ -165,12 +180,16 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  searchContainer: {flex: 1, backgroundColor: Colors.searchPageBackColor},
+  searchContainer: {
+    flex: 1,
+    backgroundColor: Colors.searchPageBackColor,
+  },
   autoCompleteTextInput: {
     borderWidth: 1,
     borderColor: 'gray',
     width: Metric.width - 30,
     height: 40,
     borderRadius: 5,
+    fontFamily: 'Heebo-Regular',
   },
 });

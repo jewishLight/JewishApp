@@ -10,7 +10,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.searchPageBackColor,
   },
-  newSearchText: {color: 'white', fontSize: 18, marginLeft: 10},
+  newSearchText: {
+    color: 'white',
+    fontSize: 18,
+    marginLeft: 10,
+    fontFamily: 'Heebo-Regular',
+  },
   newSearchImage: {width: 16, height: 16, resizeMode: 'contain'},
   newSearchButton: {
     flexDirection: 'row',
@@ -21,8 +26,15 @@ export const styles = StyleSheet.create({
     borderRadius: 25,
   },
   newSearchButtonContainer: {paddingHorizontal: 30, paddingVertical: 20},
-  newSearchResultButtonContainer: {paddingHorizontal: 20, paddingVertical: 20},
-  searchHistoryContainer: {flex: 1, paddingTop: 10, paddingHorizontal: 10},
+  newSearchResultButtonContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+  searchHistoryContainer: {
+    flex: 1,
+    paddingTop: 10,
+    paddingHorizontal: 10,
+  },
   verticalSpacing: {height: 10},
   searchResultTopTagView: {
     paddingHorizontal: 15,
@@ -48,5 +60,6 @@ export const styles = StyleSheet.create({
   searchResultsText: {
     color: Colors.searchResultText,
     fontSize: 17,
+    fontFamily: 'Heebo-Regular',
   },
 });
