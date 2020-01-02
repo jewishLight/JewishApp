@@ -155,6 +155,10 @@ class FilterScreen extends Component {
     }
 
     this.setState({
+      address: '',
+      city: '',
+      lat: Strings.currentLatitude,
+      lng: Strings.currentLongitude,
       searchType: 0,
       speakerName: '',
       radiusSliderValue: [0],
@@ -184,7 +188,7 @@ class FilterScreen extends Component {
   updateGoogleAutocomplete = nextState => {
     this.setState({
       address: nextState.address,
-      city: nextState.address,
+      city: nextState.justCity,
       lat: nextState.latitude,
       lng: nextState.longitude,
     });

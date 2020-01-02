@@ -15,15 +15,17 @@ export default class LocationItem extends PureComponent {
     const res = await this.props.fetchDetails(this.props.place_id);
     let latitude = 0;
     let longitude = 0;
+    let address = this.props.description;
     if (res) {
       const {location} = res.geometry;
-      // const address = res.formatted_address;
+      // address = res.formatted_address;
       latitude = location.lat;
       longitude = location.lng;
     }
     this.props.update({
       latitude,
       longitude,
+      address,
       justCity: this.props.structured_formatting.secondary_text,
     });
   };
