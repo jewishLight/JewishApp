@@ -39,6 +39,7 @@ class DetailsScreen extends Component {
       showLoading: false,
       comments: [],
       isLike: false,
+      likeCount: 0,
     };
   }
 
@@ -49,6 +50,7 @@ class DetailsScreen extends Component {
     });
     this.setState({
       comments: this.props.navigation.state.params.lessonData.comments,
+      likeCount: this.props.navigation.state.params.lessonData.likes_count,
     });
 
     let likes = this.props.navigation.state.params.lessonData.likes;
@@ -108,6 +110,7 @@ class DetailsScreen extends Component {
   };
 
   onLike = () => {
+    const {likeCount} = this.state;
     this.startLoading();
     let body = {
       lesson_id: this.props.navigation.state.params.lessonData._id,
@@ -115,7 +118,7 @@ class DetailsScreen extends Component {
     ApiRequest('lesson/like', body, 'POST')
       .then(response => {
         this.closeLoading();
-        this.setState({isLike: true});
+        this.setState({isLike: true, likeCount: likeCount + 1});
       })
       .catch(error => {
         this.closeLoading();
@@ -123,6 +126,7 @@ class DetailsScreen extends Component {
   };
 
   onDislike = () => {
+    const {likeCount} = this.state;
     this.startLoading();
     let body = {
       lesson_id: this.props.navigation.state.params.lessonData._id,
@@ -130,7 +134,7 @@ class DetailsScreen extends Component {
     ApiRequest('lesson/unlike', body, 'POST')
       .then(response => {
         this.closeLoading();
-        this.setState({isLike: false});
+        this.setState({isLike: false, likeCount: likeCount - 1});
       })
       .catch(error => {
         this.closeLoading();
@@ -138,7 +142,7 @@ class DetailsScreen extends Component {
   };
 
   render() {
-    const {language, showLoading, comments, isLike} = this.state;
+    const {language, showLoading, comments, isLike, likeCount} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
     return (
@@ -235,11 +239,15 @@ class DetailsScreen extends Component {
                 <View style={styles.horizontalSpacing} />
                 <CommentButton
                   text={isEnglish ? en.detail.comments : he.detail.comments}
+                  onPress={() => {
+                    this.refs.commentInput.focus();
+                  }}
                 />
               </View>
               <View style={styles.likesContainer}>
                 <Text style={styles.likesText}>
-                  {`${lessonData.likes_count ? lessonData.likes_count : 0} `}
+                  {/* {`${lessonData.likes_count ? lessonData.likes_count : 0} `} */}
+                  {`${likeCount} `}
                   {isEnglish ? en.detail.liked : he.detail.liked}
                 </Text>
                 <Image
@@ -261,6 +269,7 @@ class DetailsScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
+            ref="commentInput"
             value={this.state.commentText}
           />
           <TouchableOpacity
@@ -319,7 +328,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DetailsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);

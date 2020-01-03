@@ -16,6 +16,23 @@ class LocalStorage {
     return language;
   };
 
+  static setUser = async user => {
+    try {
+      Storage.setItem(Strings.user, user);
+    } catch (e) {}
+  };
+
+  static getUser = async () => {
+    let user = {};
+    try {
+      user = await Storage.getItem(Strings.user);
+      user = JSON.parse(user);
+    } catch (e) {
+      return {};
+    }
+    return user;
+  };
+
   static removeLanguage = async () => {
     try {
       await Storage.removeItem(Strings.LS_LANGUAGE);

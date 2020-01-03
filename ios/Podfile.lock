@@ -149,7 +149,7 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - boost-for-react-native
     - GoogleSignIn
     - GoogleToolboxForMac
@@ -258,4 +258,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 144201c2abec250c3751f393c5f219da591e65f9
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.8.4

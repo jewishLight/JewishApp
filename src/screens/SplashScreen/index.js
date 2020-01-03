@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { SafeAreaView } from 'react-navigation';
+import React, {Component} from 'react';
+import {SafeAreaView} from 'react-navigation';
 import {
   View,
   Platform,
@@ -9,12 +9,12 @@ import {
   I18nManager,
   PermissionsAndroid,
 } from 'react-native';
-import { Metric } from '../../themes';
-import { LocalStorage, Strings, ApiRequest } from '../../utils';
-import { appSettingsSelector } from '../../redux/selector';
-import { AppSettingsActions } from '../../redux';
-import { connect } from 'react-redux';
-import { en, he } from '../../constants';
+import {Metric} from '../../themes';
+import {LocalStorage, Strings, ApiRequest} from '../../utils';
+import {appSettingsSelector} from '../../redux/selector';
+import {AppSettingsActions, UserActions} from '../../redux';
+import {connect} from 'react-redux';
+import {en, he} from '../../constants';
 import GetLocation from 'react-native-get-location';
 import Geocoder from 'react-native-geocoder';
 
@@ -38,11 +38,11 @@ class SplashScreen extends Component {
 
     let language = await LocalStorage.getLanguage();
     if (language) {
-      this.setState({ language });
+      this.setState({language});
       this.props.updateLanguage(language);
     } else {
       language = Strings.HEBREW;
-      this.setState({ language });
+      this.setState({language});
       I18nManager.forceRTL(true);
       I18nManager.allowRTL(true);
       await LocalStorage.setLanguage(language);
@@ -75,6 +75,8 @@ class SplashScreen extends Component {
     let myLatitude = await LocalStorage.getMyLatitude();
     let myLongitude = await LocalStorage.getMyLongitude();
     let myOnlyCity = await LocalStorage.getMyOnlyCity();
+    let user = await LocalStorage.getUser();
+    this.props.updateUser(user);
     if (myLocation && myLatitude && myLongitude && myOnlyCity) {
       Strings.currentLatitude = parseFloat(myLatitude);
       Strings.currentLongitude = parseFloat(myLongitude);
@@ -91,7 +93,7 @@ class SplashScreen extends Component {
           await LocalStorage.setMyLatitude(location.latitude.toString());
           await LocalStorage.setMyLongitude(location.longitude.toString());
         })
-        .catch(error => { });
+        .catch(error => {});
       //31.771959, 35.217018
       Geocoder.geocodePosition({
         lat: Strings.currentLatitude,
@@ -99,14 +101,12 @@ class SplashScreen extends Component {
       })
         .then(async res => {
           // res is an Array of geocoding object (see below)
-          Strings.currentLocationCity = `${res[0].streetNumber}, ${
-            res[0].streetName
-            }, ${res[0].locality}, ${res[0].country}`;
+          Strings.currentLocationCity = `${res[0].streetNumber}, ${res[0].streetName}, ${res[0].locality}, ${res[0].country}`;
           Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
           await LocalStorage.setMyLocation(Strings.currentLocationCity);
           await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
         })
-        .catch(err => { });
+        .catch(err => {});
     }
 
     setTimeout(async () => {
@@ -120,7 +120,7 @@ class SplashScreen extends Component {
             Strings.loginType = await LocalStorage.getLoginType();
             this.props.navigation.navigate('Home');
           } else {
-            console.log("TCL: SplashScreen -> componentDidMount -> Login")
+            console.log('TCL: SplashScreen -> componentDidMount -> Login');
             //TODO: connect ios when we get ios client id
             if (Platform.OS == 'android') {
               this.props.navigation.navigate('Login');
@@ -144,13 +144,13 @@ class SplashScreen extends Component {
   };
 
   render() {
-    const { language } = this.state;
+    const {language} = this.state;
     let isEnglish = language === Strings.ENGLISH;
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-        <View style={{ flex: 1 }}>
+      <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+        <View style={{flex: 1}}>
           <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Image
               source={require('../../assets/img_splash.png')}
               style={{
@@ -223,9 +223,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
   updateLanguage: language =>
     dispatch(AppSettingsActions.updateLanguage(language)),
+  updateUser: user => dispatch(UserActions.updateUser(user)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SplashScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);

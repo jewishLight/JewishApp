@@ -20,6 +20,17 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.203186944452-bcuhjc4lrf7o2o3s9cmji0dmtl1lma4o</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -39,6 +50,16 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Heebo-Black.ttf</string>
+		<string>Heebo-Bold.ttf</string>
+		<string>Heebo-ExtraBold.ttf</string>
+		<string>Heebo-Light.ttf</string>
+		<string>Heebo-Medium.ttf</string>
+		<string>Heebo-Regular.ttf</string>
+		<string>Heebo-Thin.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -53,15 +74,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Heebo-Black.ttf</string>
-		<string>Heebo-Bold.ttf</string>
-		<string>Heebo-ExtraBold.ttf</string>
-		<string>Heebo-Light.ttf</string>
-		<string>Heebo-Medium.ttf</string>
-		<string>Heebo-Regular.ttf</string>
-		<string>Heebo-Thin.ttf</string>
-	</array>
 </dict>
 </plist>

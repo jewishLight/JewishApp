@@ -61,13 +61,11 @@ class SynaScreen extends Component {
 
   componentDidMount(): void {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    console.info(this.props.navigation.state.params.synaData.comments);
-    this.setState({
-      comments: this.props.navigation.state.params.synaData.comments,
-    });
+
     this.setState({
       language: this.props.appSettings.language,
       synaData: this.props.navigation.state.params.synaData,
+      comments: this.props.navigation.state.params.synaData.comments,
     });
   }
 
@@ -221,7 +219,169 @@ class SynaScreen extends Component {
       // setResult('error: '.concat(getErrorString(error)));
     }
   };
-  onEdit = () => {};
+  onEdit = () => {
+    const {navigation} = this.props;
+    const {synaData} = this.state;
+    navigation.navigate('NewSyna', {
+      onPublish: this.onAddSyn,
+      isEnglish: this.state.language === Strings.ENGLISH,
+      synaData,
+    });
+  };
+
+  onAddSyn = (
+    lat,
+    lng,
+    city,
+    name,
+    nosach,
+    shtiblach,
+    amenities_key,
+    // date,
+    datetime,
+    mon,
+    tue,
+    wed,
+    thu,
+    fri,
+    sat,
+    sun,
+    note,
+    phoneNumber,
+    avatarSource,
+    _id,
+  ) => {
+    if (lat === 0 || lng === 0 || city === '') {
+      alert(
+        this.state.language === Strings.ENGLISH
+          ? 'Please input the location'
+          : 'נא להזין כתובת תקינה',
+      );
+    } else if (name === '') {
+      alert('Please input the name');
+    } else if (nosach === '') {
+      alert('Please input the nosach');
+    } else if (phoneNumber === '') {
+      alert('Please input the phone number');
+    } else if (note === '') {
+      alert('Please input the note');
+    } else {
+      this.startLoading();
+
+      let n = '';
+      switch (nosach) {
+        case 0:
+          n = en.nosach.value_0;
+          break;
+        case 1:
+          n = en.nosach.value_1;
+          break;
+        case 2:
+          n = en.nosach.value_2;
+          break;
+        case 3:
+          n = en.nosach.value_3;
+          break;
+        case 4:
+          n = en.nosach.value_4;
+          break;
+        case 5:
+          n = en.nosach.value_5;
+          break;
+        default:
+          n = en.nosach.value_0;
+          break;
+      }
+
+      let amenities = {};
+      if (amenities_key.includes(0)) {
+        amenities.seferTorah = true;
+      }
+      if (amenities_key.includes(1)) {
+        amenities.disabledAccess = true;
+      }
+      if (amenities_key.includes(2)) {
+        amenities.parking = true;
+      }
+      if (amenities_key.includes(3)) {
+        amenities.womenSection = true;
+      }
+      amenities = JSON.stringify(amenities);
+
+      let days = [];
+      if (mon) {
+        days.push(0);
+      }
+      if (tue) {
+        days.push(1);
+      }
+      if (wed) {
+        days.push(2);
+      }
+      if (thu) {
+        days.push(3);
+      }
+      if (fri) {
+        days.push(4);
+      }
+      if (sat) {
+        days.push(5);
+      }
+      if (sun) {
+        days.push(6);
+      }
+
+      if (!datetime) {
+        datetime = new Date();
+      }
+
+      let time = `${datetime.getHours()}:${datetime.getMinutes()}`;
+
+      let location = JSON.stringify({
+        // for test
+        type: 'Point',
+        coordinates: [35.217018, 31.771959],
+      });
+      let mikve = JSON.stringify({mikve: shtiblach});
+      let minyans = JSON.stringify([
+        {
+          minyan: '1',
+          timeType: 'exact',
+          days: days,
+          time: time,
+        },
+      ]);
+
+      let url = 'http://ec609136.ngrok.io/synagogue/update';
+
+      let body = {
+        name: name,
+        nosach: nosach,
+        address: city,
+        location: location,
+        externals: amenities,
+        minyans: minyans,
+        notes: note,
+        phone_number: phoneNumber,
+        image: avatarSource.uri,
+        donation_link: 'paypal',
+        shtiblach: shtiblach,
+      };
+
+      if (_id) {
+        body = {...body, _id};
+      }
+
+      ApiRequest(url, body, 'POST')
+        .then(response => {
+          this.closeLoading();
+        })
+        .catch(error => {
+          this.closeLoading();
+        });
+    }
+  };
+
   onSend = () => {
     this.refNavigationModal.show();
   };
@@ -543,6 +703,9 @@ class SynaScreen extends Component {
             <View style={styles.likeBtnContainer}>
               <View style={styles.buttonsContainer}>
                 <CommentButton
+                  onPress={() => {
+                    this.refs.commentInput.focus();
+                  }}
                   text={isEnglish ? en.detail.comments : he.detail.comments}
                 />
               </View>
@@ -576,6 +739,7 @@ class SynaScreen extends Component {
             onChangeText={text => {
               this.setState({commentText: text});
             }}
+            ref="commentInput"
             value={this.state.commentText}
           />
           <TouchableOpacity
@@ -620,7 +784,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SynaScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SynaScreen);

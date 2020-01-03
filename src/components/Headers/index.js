@@ -175,11 +175,11 @@ export class SearchHeader extends Component {
              // isEnglish
                  require('../../assets/icon_search_back.png')
              //   : require('../../assets/icon_search_back_hebrew.png')
-             
+
             }
             style={styles.searchHeaderBackIcon}
           />
-          
+
         </TouchableOpacity>
         <Text style={styles.searchHeaderText}>
             {isEnglish
@@ -235,7 +235,7 @@ export class SearchResultHeader extends Component {
             {isEnglish ? en.searchResult.newSearch : he.searchResult.newSearch}
           </Text>
         </View>
-       
+
         <TouchableOpacity
           style={{
             position: 'absolute',

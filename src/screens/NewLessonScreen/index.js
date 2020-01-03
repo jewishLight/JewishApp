@@ -157,7 +157,11 @@ class NewLessonScreen extends Component {
 
   updateGoogleAutocomplete = nextState => {
     this.setState({
-      address: nextState.address,
+      marker: {
+        longitude: nextState.longitude,
+        latitude: nextState.latitude,
+      },
+      address: nextState.justCity,
       city: nextState.address,
       lat: nextState.latitude,
       lng: nextState.longitude,
@@ -186,12 +190,13 @@ class NewLessonScreen extends Component {
 
   renderOption = settings => {
     const {item, getLabel} = settings;
+
     return (
       <View style={styles.optionContainer}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={
-              item.avatar.uri
+              item.avatar && item.avatar.uri
                 ? {uri: item.avatar.uri}
                 : require('../../assets/icon_commentlist_avatar.png')
             }
@@ -210,6 +215,7 @@ class NewLessonScreen extends Component {
 
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
+
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
@@ -569,7 +575,7 @@ class NewLessonScreen extends Component {
                 }
 
                 // error
-                if (!date || !datetime) {
+                if (!datetime) {
                   alert('Please input time');
                 } else if (selectedSpeaker === '') {
                   alert('Please select speaker');
@@ -619,7 +625,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NewLessonScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewLessonScreen);

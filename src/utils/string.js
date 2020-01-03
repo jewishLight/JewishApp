@@ -23,6 +23,7 @@ export default {
   localToken: '',
   loginType: '',
   userId: '',
+  user: '',
   currentLatitude: 0,
   currentLongitude: 0,
   currentLocationCity: '',
