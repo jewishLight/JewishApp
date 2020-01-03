@@ -29,7 +29,7 @@ export class NormalInput extends Component {
   };
 
   render() {
-    // console.log(this.state.text)
+    const {...rest} = this.props;
     return (
       <View style={{}}>
         <TextInput
@@ -44,8 +44,9 @@ export class NormalInput extends Component {
             this.setState({text});
             this.props.onChangeText(text);
           }}
-          value={this.props.text}
+          // value={this.state.text}
           keyboardType={this.props.phoneNumber ? 'phone-pad' : 'default'}
+          {...rest}
         />
       </View>
     );
@@ -294,6 +295,7 @@ export class SpeakerPicker extends Component {
   componentDidMount() {}
 
   render() {
+    const {...rest} = this.props;
     return (
       <View style={{marginTop: 10}}>
         <RNPickerSelect
@@ -358,6 +360,7 @@ export class SpeakerPicker extends Component {
           items={this.props.items}
           useNativeAndroidPickerStyle={false}
           placeholder={{label: this.props.placeholder, value: null}}
+          {...rest}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}
@@ -385,6 +388,7 @@ export class AmenitiesPicker extends Component {
 
   render() {
     let isEnglish = this.props.isEnglish;
+    const {...rest} = this.props;
     return (
       <View style={{marginTop: 10}}>
         <RNPickerSelect
@@ -449,6 +453,7 @@ export class AmenitiesPicker extends Component {
           items={this.props.items}
           useNativeAndroidPickerStyle={false}
           placeholder={{label: '', value: null}}
+          {...rest}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}
@@ -708,6 +713,7 @@ export class DescriptionInput extends Component {
   componentDidMount() {}
 
   render() {
+    const {...rest} = this.props;
     return (
       <View style={{}}>
         <TextInput
@@ -723,6 +729,7 @@ export class DescriptionInput extends Component {
           onChangeText={text => {
             this.props.onChangeText(text);
           }}
+          {...rest}
         />
       </View>
     );
@@ -751,16 +758,29 @@ export class SynMinTimes extends Component {
   }
 
   componentDidMount() {
+    const {initialTime, initialDay} = this.props;
+    let time = null;
+    if (initialTime) {
+      const hour = parseInt(initialTime.split(':')[0]);
+      const minute = parseInt(initialTime.split(':')[1]);
+      const date = new Date();
+      date.setHours(hour, minute);
+      time = date;
+    }
+    // console.log('initialTime', initialTime);
+
+    console.log('time', time);
+    console.log('time || new Date()', time || new Date());
     this.setState({
-      mon: this.props.mon,
-      tue: this.props.tue,
-      wed: this.props.wed,
-      thu: this.props.thu,
-      fri: this.props.fri,
-      sat: this.props.sat,
-      sun: this.props.sun,
+      mon: (initialDay && initialDay.includes(0)) || this.props.mon,
+      tue: (initialDay && initialDay.includes(1)) || this.props.tue,
+      wed: (initialDay && initialDay.includes(2)) || this.props.wed,
+      thu: (initialDay && initialDay.includes(3)) || this.props.thu,
+      fri: (initialDay && initialDay.includes(4)) || this.props.fri,
+      sat: (initialDay && initialDay.includes(5)) || this.props.sat,
+      sun: (initialDay && initialDay.includes(6)) || this.props.sun,
       type: this.props.type,
-      datetime: new Date(),
+      datetime: time || new Date(),
       mode: 'date',
       showTimePicker: false,
       datetimemode: 'time',

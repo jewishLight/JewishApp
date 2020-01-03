@@ -20,6 +20,7 @@ import {
   LikeButton,
   CommentButton,
   Loading,
+  AddModal,
 } from '../../components';
 import {Comments} from './Comments';
 import {Colors} from '../../themes';
@@ -141,10 +142,63 @@ class DetailsScreen extends Component {
       });
   };
 
+  onEditLesson = (
+    lat,
+    lng,
+    city,
+    subject,
+    selectedSpeaker,
+    note,
+    contactName,
+    phoneNumber,
+    days,
+    datetime,
+    selectedAudience,
+  ) => {
+    let location = {
+      // for test
+      type: 'Point',
+      coordinates: [lat, lng],
+    };
+    const {
+      lessonData: {_id},
+    } = this.props.navigation.state.params;
+    console.log('datetime', datetime);
+    let body = {
+      id: {id: _id},
+      speakerId: {id: selectedSpeaker},
+      synagogueId: '',
+      lessonSubject: subject,
+      location: location,
+      // time: `${datetime.getHours()}:${datetime.getMinutes()}`,
+      time: datetime,
+      days: days,
+      audience: selectedAudience,
+      notes: note,
+      contact_name: [contactName],
+      contact_number: [phoneNumber],
+    };
+    this.startLoading();
+    console.log('response body', body);
+
+    ApiRequest('lesson/update', body, 'POST')
+      .then(response => {
+        console.log('response success', response);
+        this.closeLoading();
+        // this.fetchHome();
+      })
+      .catch(error => {
+        console.log('response error', error);
+
+        this.closeLoading();
+      });
+  };
+
   render() {
     const {language, showLoading, comments, isLike, likeCount} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
+    console.log('detail screen', lessonData);
     return (
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.topSafeAreaView} />
@@ -315,7 +369,24 @@ class DetailsScreen extends Component {
   onFavorite = () => {
     this.props.navigation.navigate('Favorite');
   };
-  onEdit = () => {};
+  onEdit = () => {
+    const {lessonData} = this.props.navigation.state.params;
+    console.log('onEdit', lessonData);
+    this.startLoading();
+    ApiRequest('lesson/speakers')
+      .then(response => {
+        this.closeLoading();
+        this.props.navigation.navigate('NewLesson', {
+          speakers: response,
+          isEdit: true,
+          onEditLesson: this.onEditLesson,
+          lessonData: lessonData,
+        });
+      })
+      .catch(error => {
+        this.closeLoading();
+      });
+  };
 }
 
 const mapStateToProps = state => ({
@@ -328,4 +399,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DetailsScreen);

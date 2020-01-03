@@ -71,7 +71,10 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
         data = JSON.parse(data);
         return resolve(data);
       }
+      console.log('APIConnection', response);
       let data = await response.text();
+      console.log('APIConnection data', data);
+
       if (Platform.OS === 'android') {
         // data = data.replace(/\r?\n/g, '').replace(/[\u0080-\uFFFF]/g, '');
       }
