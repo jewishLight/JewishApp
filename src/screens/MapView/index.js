@@ -95,7 +95,7 @@ class MapViewScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}

@@ -36,8 +36,13 @@ export const styles = StyleSheet.create({
   },
   homeHeaderLocationText: {
     marginLeft: 5,
+    fontFamily: 'Heebo-Regular',
   },
-  homeHeaderLocationImage: {width: 10, height: 13, resizeMode: 'contain'},
+  homeHeaderLocationImage: {
+    width: 10,
+    height: 13,
+    resizeMode: 'contain',
+  },
   homeHeaderLocationNameImage: {
     marginLeft: 5,
     marginTop: 2,
@@ -120,6 +125,7 @@ export const styles = StyleSheet.create({
     fontSize: 30,
     color: Colors.searchHeaderText,
     marginTop: 5,
+    fontFamily: 'Heebo-Regular',
   },
   filterHeaderBackIcon: {
     width: 18,

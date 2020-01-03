@@ -34,11 +34,30 @@ import {CustomPicker} from 'react-native-custom-picker';
 class NewLessonScreen extends Component {
   constructor(props) {
     super(props);
+    const {lessonData} = this.props.navigation.state.params;
+    const speakers = this.props.navigation.state.params.speakers;
+    const speakerPickerArray = [];
+    speakers.map(item => {
+      if (item.name && item._id) {
+        speakerPickerArray.push({
+          label: item.name,
+          value: item._id,
+          about: item.about,
+          avatar: item.avatar,
+        });
+      }
+    });
+
+    const selectedSpeaker =
+      lessonData &&
+      lessonData.speaker &&
+      speakerPickerArray.find(item => item.value === lessonData.speaker._id);
+
     this.state = {
       modalVisible: false,
       subject: '',
       speakers: [],
-      selectedSpeaker: '',
+      selectedSpeaker: selectedSpeaker,
       lat: 0,
       lng: 0,
       city: '',
@@ -85,7 +104,49 @@ class NewLessonScreen extends Component {
         });
       }
     });
-    this.setState({speakers: speakerPickerArray});
+
+    const {lessonData} = this.props.navigation.state.params;
+    // const {
+    //   lessonSubject,
+    //   address,
+    //   contact_name,
+    //   contact_number,
+    //   notes,
+    //   location,
+    //   audience,
+    //   time,
+    // } = lessonData;
+    const audienceValue = this.checkAudience();
+    // const selectedSpeaker =
+    //   lessonData &&
+    //   lessonData.speaker &&
+    //   speakerPickerArray.find(item => item.value === lessonData.speaker._id);
+    // console.log('didmount selectedSpeaker', selectedSpeaker);
+
+    this.setState({
+      speakers: speakerPickerArray,
+      subject: (lessonData && lessonData.lessonSubject) || '',
+      address: (lessonData && lessonData.address) || '',
+      contactName: (lessonData && lessonData.contact_name) || '',
+      phoneNumber: (lessonData && lessonData.contact_number) || '',
+      note: (lessonData && lessonData.notes) || '',
+      marker: {
+        latitude:
+          (lessonData &&
+            lessonData.location &&
+            lessonData.location.coordinates[0]) ||
+          Strings.currentLongitude,
+        longitude:
+          (lessonData &&
+            lessonData.location &&
+            lessonData.location.coordinates[1]) ||
+          Strings.currentLatitude,
+      },
+      selectedAudience: lessonData && lessonData.audience,
+      datetime: (lessonData && lessonData.time) || null,
+      // selectedSpeaker: selectedSpeaker,
+      audienceValue,
+    });
   }
 
   componentWillUnmount(): void {
@@ -202,7 +263,12 @@ class NewLessonScreen extends Component {
             }
             style={{width: 40, height: 40, resizeMode: 'contain'}}
           />
-          <Text style={{color: item.color, marginLeft: 5}}>
+          <Text
+            style={{
+              color: item.color,
+              marginLeft: 5,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {getLabel(item)}
           </Text>
         </View>
@@ -213,8 +279,39 @@ class NewLessonScreen extends Component {
     );
   };
 
+  checkAudience = () => {
+    const {lessonData} = this.props.navigation.state.params;
+    const isEnglish = this.state.language === Strings.ENGLISH;
+    let audienceValue = '';
+
+    switch (lessonData && lessonData.audience) {
+      case 'men':
+      case 'Men':
+        audienceValue = 'men';
+        break;
+      case 'women':
+      case 'Women':
+        audienceValue = 'women';
+        break;
+      case 'men_and_women':
+      case 'Men and Women':
+        audienceValue = 'men_and_women';
+        break;
+      default:
+        audienceValue = '';
+        break;
+    }
+    return audienceValue;
+  };
+
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
+    const {lessonData} = this.props.navigation.state.params;
+    const {audienceValue, selectedSpeaker} = this.state;
+    const time = (lessonData && lessonData.time) || null;
+    const days = (lessonData && lessonData.days) || null;
+    // const audienceValue = this.checkAudience();
+    // console.log('selectedSpeaker', selectedSpeaker);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -246,6 +343,7 @@ class NewLessonScreen extends Component {
               }
               onChangeText={this.onChangeSubject}
               phoneNumber={false}
+              value={this.state.subject}
             />
             <View
               style={{
@@ -254,13 +352,18 @@ class NewLessonScreen extends Component {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <Text style={{fontSize: 14}}>
+              <Text style={{fontSize: 14, fontFamily: 'Heebo-Regular'}}>
                 {isEnglish ? en.modal.speaker : he.modal.speaker}
               </Text>
               <TouchableOpacity
                 style={{justifyContent: 'center', alignItems: 'center'}}
                 onPress={this.addSpeaker}>
-                <Text style={{color: 'blue', fontSize: 14}}>
+                <Text
+                  style={{
+                    color: 'blue',
+                    fontSize: 14,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   Add New Speaker
                 </Text>
               </TouchableOpacity>
@@ -280,8 +383,10 @@ class NewLessonScreen extends Component {
               fieldTemplate={this.renderField}
               optionTemplate={this.renderOption}
               onValueChange={value => {
+                // console.log('selectedSpeaker', value);
                 this.setState({selectedSpeaker: value.value});
               }}
+              defaultValue={selectedSpeaker}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -309,6 +414,7 @@ class NewLessonScreen extends Component {
                       borderRadius: 5,
                       paddingHorizontal: 16,
                       borderColor: Colors.separator,
+                      fontFamily: 'Heebo-Regular',
                     }}
                     value={this.state.address}
                     onChangeText={text => {
@@ -452,6 +558,8 @@ class NewLessonScreen extends Component {
               sat={false}
               sun={false}
               type={'week'}
+              initialTime={time || null}
+              initialDay={days || null}
               isEnglish={isEnglish}
               setTime={this.setTime}
               updateWeekdays={(mon, tue, wed, thu, fri, sat, sun) => {
@@ -471,6 +579,7 @@ class NewLessonScreen extends Component {
                   ? en.modal.enterDescription
                   : he.modal.enterDescription
               }
+              value={this.state.note}
             />
           </View>
           <View style={styles.verticalSpacing} />
@@ -489,6 +598,7 @@ class NewLessonScreen extends Component {
                 this.setState({contactName: text});
               }}
               phoneNumber={false}
+              value={this.state.contactName}
             />
             <Text style={styles.newLessonModalTextInputTitle}>
               {isEnglish ? en.modal.contactNumber : he.modal.contactNumber}
@@ -502,6 +612,7 @@ class NewLessonScreen extends Component {
                 this.setState({phoneNumber: text});
               }}
               phoneNumber={true}
+              value={this.state.phoneNumber}
             />
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.audience : he.modal.audience}
@@ -525,13 +636,15 @@ class NewLessonScreen extends Component {
                 },
               ]}
               onValueChange={value => {
-                this.setState({selectedAudience: value});
+                this.setState({selectedAudience: value, audienceValue: value});
               }}
-              placeholder={''}
+              placeholder={{label: '', value: null}}
+              value={audienceValue}
             />
             <TouchableOpacity
               style={styles.publishLessonContainer}
               onPress={() => {
+                const {isEdit} = this.props.navigation.state.params;
                 const {
                   lat,
                   lng,
@@ -577,27 +690,43 @@ class NewLessonScreen extends Component {
                 // error
                 if (!datetime) {
                   alert('Please input time');
-                } else if (selectedSpeaker === '') {
+                } else if (selectedSpeaker === '' || !selectedSpeaker) {
                   alert('Please select speaker');
-                } else if (selectedAudience === '') {
+                } else if (selectedAudience === '' || !selectedAudience) {
                   alert('Please select audience');
                 } else if (lat === 0 || lng === 0 || city === '') {
                   alert('Please input the correct address');
                 } else {
                   this.props.navigation.goBack();
-                  this.props.navigation.state.params.onPublish(
-                    lat,
-                    lng,
-                    city,
-                    subject,
-                    selectedSpeaker,
-                    note,
-                    contactName,
-                    phoneNumber,
-                    days,
-                    datetime,
-                    selectedAudience,
-                  );
+                  if (!isEdit) {
+                    this.props.navigation.state.params.onPublish(
+                      lat,
+                      lng,
+                      city,
+                      subject,
+                      selectedSpeaker,
+                      note,
+                      contactName,
+                      phoneNumber,
+                      days,
+                      datetime,
+                      selectedAudience,
+                    );
+                  } else {
+                    this.props.navigation.state.params.onEditLesson(
+                      lat,
+                      lng,
+                      city,
+                      subject,
+                      selectedSpeaker,
+                      note,
+                      contactName,
+                      phoneNumber,
+                      days,
+                      datetime,
+                      selectedAudience,
+                    );
+                  }
                 }
               }}>
               <Text style={styles.bigBtnText}>
@@ -625,4 +754,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewLessonScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewLessonScreen);

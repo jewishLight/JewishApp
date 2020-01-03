@@ -135,6 +135,7 @@ class IntroScreen extends Component {
                   fontSize: 14,
                   textAlign: 'center',
                   marginTop: 10,
+                  fontFamily: 'Heebo-Regular',
                 }}>
                 Lorem ipsum is placeholder text commonly used in the graphic,
                 print, and publishing industries for previewing layouts and
@@ -160,7 +161,12 @@ class IntroScreen extends Component {
                     this.props.navigation.navigate('Login');
                   }
                 }}>
-                <Text style={{color: Colors.primary, fontSize: 14}}>
+                <Text
+                  style={{
+                    color: Colors.primary,
+                    fontSize: 14,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   Continue
                 </Text>
               </TouchableOpacity>
@@ -178,7 +184,12 @@ class IntroScreen extends Component {
                   await LocalStorage.setIntroChecked(true);
                   this.props.navigation.navigate('Login');
                 }}>
-                <Text style={{color: 'white', fontSize: 14}}>
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 14,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   {introStep < 3 ? 'Skip' : 'Done'}
                 </Text>
               </TouchableOpacity>
@@ -192,7 +203,7 @@ class IntroScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}
@@ -215,7 +226,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(IntroScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(IntroScreen);

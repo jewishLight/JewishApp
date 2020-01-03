@@ -190,7 +190,7 @@ export class ChangeLocationModal extends Component {
           onPress={() => {
             this.onSelectLocation(index, item.name);
           }}>
-          <Text>{item.name}</Text>
+          <Text style={{fontFamily: 'Heebo-Regular'}}>{item.name}</Text>
         </TouchableOpacity>
         <View
           style={{
@@ -231,7 +231,12 @@ export class ChangeLocationModal extends Component {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <Text style={{fontSize: 17, color: 'red'}}>
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: 'red',
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   {this.props.isEnglish
                     ? en.setYourHomeCity
                     : he.setYourHomeCity}

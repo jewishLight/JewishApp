@@ -38,10 +38,12 @@ export const styles = StyleSheet.create({
   },
   eventsText: {
     fontSize: 17,
+    fontFamily: 'Heebo-Regular',
   },
   viewAllText: {
     fontSize: 17,
     color: 'gray',
+    fontFamily: 'Heebo-Regular',
   },
   spacingHorizontal: {paddingHorizontal: 15},
 });

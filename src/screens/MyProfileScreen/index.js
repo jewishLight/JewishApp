@@ -82,22 +82,46 @@ class MyProfileScreen extends Component {
           />
         </View>
         <View style={{paddingHorizontal: 20, marginTop: 30}}>
-          <Text style={{color: '#252325', fontSize: 16, opacity: 0.4}}>
+          <Text
+            style={{
+              color: '#252325',
+              fontSize: 16,
+              opacity: 0.4,
+              fontFamily: 'Heebo-Regular',
+            }}>
             Display Name
           </Text>
-          <Text style={{color: '#252325', fontSize: 18, marginTop: 10}}>
-            {`${user.first_name} ${user.last_name}`}
+          <Text
+            style={{
+              color: '#252325',
+              fontSize: 18,
+              marginTop: 10,
+              fontFamily: 'Heebo-Regular',
+            }}>
+            John Doe
           </Text>
         </View>
         <View
           style={{height: 1, backgroundColor: Colors.separator, marginTop: 15}}
         />
         <View style={{paddingHorizontal: 20, marginTop: 15}}>
-          <Text style={{color: '#252325', fontSize: 16, opacity: 0.4}}>
+          <Text
+            style={{
+              color: '#252325',
+              fontSize: 16,
+              opacity: 0.4,
+              fontFamily: 'Heebo-Regular',
+            }}>
             Email
           </Text>
-          <Text style={{color: '#252325', fontSize: 18, marginTop: 10}}>
-            {user.email}
+          <Text
+            style={{
+              color: '#252325',
+              fontSize: 18,
+              marginTop: 10,
+              fontFamily: 'Heebo-Regular',
+            }}>
+            johndoe123@gmail.com
           </Text>
         </View>
         <View
@@ -116,7 +140,13 @@ class MyProfileScreen extends Component {
               style={{width: 19, height: 19, resizeMode: 'contain'}}
             />
           </TouchableOpacity>
-          <Text style={{color: '#9B9B9B', marginLeft: 5, fontSize: 16}}>
+          <Text
+            style={{
+              color: '#9B9B9B',
+              marginLeft: 5,
+              fontSize: 16,
+              fontFamily: 'Heebo-Regular',
+            }}>
             Hide my name in updates
           </Text>
         </View>
@@ -137,7 +167,13 @@ class MyProfileScreen extends Component {
                 source={require('../../assets/icon_profile_logout.png')}
                 style={{width: 21, height: 21, resizeMode: 'contain'}}
               />
-              <Text style={{color: '#EC2139', fontSize: 20, marginLeft: 5}}>
+              <Text
+                style={{
+                  color: '#EC2139',
+                  fontSize: 20,
+                  marginLeft: 5,
+                  fontFamily: 'Heebo-Regular',
+                }}>
                 Logout
               </Text>
             </TouchableOpacity>
@@ -161,4 +197,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyProfileScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MyProfileScreen);

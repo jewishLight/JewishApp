@@ -149,13 +149,21 @@ class FilterScreen extends Component {
   }
 
   onReset = () => {
+    const {searchType} = this.state;
+    if (searchType === 1) {
+      this.refSpeakerNameInput.clear();
+    }
+
     this.setState({
+      address: '',
+      city: '',
+      lat: Strings.currentLatitude,
+      lng: Strings.currentLongitude,
       searchType: 0,
       speakerName: '',
       radiusSliderValue: [0],
       timeRangeSliderValue: [0, 24],
     });
-    this.refSpeakerNameInput.clear();
   };
 
   onNearby = () => {
@@ -180,7 +188,7 @@ class FilterScreen extends Component {
   updateGoogleAutocomplete = nextState => {
     this.setState({
       address: nextState.address,
-      city: nextState.address,
+      city: nextState.justCity,
       lat: nextState.latitude,
       lng: nextState.longitude,
     });
@@ -199,6 +207,7 @@ class FilterScreen extends Component {
     const {timeRangeSliderValue, radiusSliderValue} = this.state;
     const {language, searchType} = this.state;
     const isEnglish = language === Strings.ENGLISH;
+
     return (
       <SafeAreaView style={styles.filterContainer}>
         <View style={{flex: 1}}>
@@ -369,6 +378,7 @@ class FilterScreen extends Component {
                             borderRadius: 5,
                             paddingHorizontal: 16,
                             borderColor: Colors.separator,
+                            fontFamily: 'Heebo-Regular',
                           }}
                           value={this.state.address}
                           onChangeText={text => {
@@ -446,7 +456,13 @@ class FilterScreen extends Component {
                   </View>
                 )}
 
-                <Text style={{fontSize: 20, color: '#3F4046', marginTop: 20}}>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: '#3F4046',
+                    marginTop: 20,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   {isEnglish ? en.filter.sortResults : he.filter.sortResults}
                 </Text>
                 <View style={{height: 50, flexDirection: 'row', marginTop: 10}}>
@@ -466,7 +482,12 @@ class FilterScreen extends Component {
                       style={{width: 16, height: 20, resizeMode: 'contain'}}
                     />
                     <Text
-                      style={{color: '#3264EC', fontSize: 16, marginLeft: 5}}>
+                      style={{
+                        color: '#3264EC',
+                        fontSize: 16,
+                        marginLeft: 5,
+                        fontFamily: 'Heebo-Regular',
+                      }}>
                       {isEnglish ? en.filter.nearBy : he.filter.nearBy}
                     </Text>
                   </TouchableOpacity>
@@ -487,7 +508,12 @@ class FilterScreen extends Component {
                       style={{width: 19, height: 19, resizeMode: 'contain'}}
                     />
                     <Text
-                      style={{color: '#FEB412', fontSize: 16, marginLeft: 5}}>
+                      style={{
+                        color: '#FEB412',
+                        fontSize: 16,
+                        marginLeft: 5,
+                        fontFamily: 'Heebo-Regular',
+                      }}>
                       {isEnglish ? en.filter.time : he.filter.time}
                     </Text>
                   </TouchableOpacity>
@@ -499,12 +525,22 @@ class FilterScreen extends Component {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                   }}>
-                  <Text style={{fontSize: 20, color: '#3F4046'}}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      color: '#3F4046',
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     {isEnglish ? en.filter.timeRange : he.filter.timeRange}
                   </Text>
                   <TouchableOpacity
                     style={{paddingLeft: 15, paddingVertical: 5}}>
-                    <Text style={{fontSize: 16, color: '#4542B8'}}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: '#4542B8',
+                        fontFamily: 'Heebo-Regular',
+                      }}>
                       {isEnglish ? en.filter.clear : he.filter.clear}
                     </Text>
                   </TouchableOpacity>
@@ -548,11 +584,21 @@ class FilterScreen extends Component {
                     alignItems: 'center',
                   }}>
                   <Text
-                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    style={{
+                      fontSize: 10,
+                      color: '#3F4046',
+                      marginBottom: 30,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     00:00
                   </Text>
                   <Text
-                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    style={{
+                      fontSize: 10,
+                      color: '#3F4046',
+                      marginBottom: 30,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     23:59
                   </Text>
                 </View>
@@ -564,14 +610,24 @@ class FilterScreen extends Component {
                     justifyContent: 'space-between',
                     alignItems: 'center',
                   }}>
-                  <Text style={{fontSize: 20, color: '#3F4046'}}>
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      color: '#3F4046',
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     {isEnglish
                       ? en.searchResult.radius
                       : he.searchResult.radius}
                   </Text>
                   <TouchableOpacity
                     style={{paddingLeft: 15, paddingVertical: 5}}>
-                    <Text style={{fontSize: 16, color: '#4542B8'}}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        color: '#4542B8',
+                        fontFamily: 'Heebo-Regular',
+                      }}>
                       {isEnglish ? en.filter.clear : he.filter.clear}
                     </Text>
                   </TouchableOpacity>
@@ -613,11 +669,21 @@ class FilterScreen extends Component {
                     alignItems: 'center',
                   }}>
                   <Text
-                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    style={{
+                      fontSize: 10,
+                      color: '#3F4046',
+                      marginBottom: 30,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     1k
                   </Text>
                   <Text
-                    style={{fontSize: 10, color: '#3F4046', marginBottom: 30}}>
+                    style={{
+                      fontSize: 10,
+                      color: '#3F4046',
+                      marginBottom: 30,
+                      fontFamily: 'Heebo-Regular',
+                    }}>
                     10k
                   </Text>
                 </View>
@@ -678,7 +744,7 @@ class FilterScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}

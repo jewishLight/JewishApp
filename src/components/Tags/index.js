@@ -49,7 +49,7 @@ export class TagView extends Component {
                 borderRadius: 15,
                 flexDirection: 'row',
               }}>
-              <Text>{tag}</Text>
+              <Text style={{fontFamily: 'Heebo-Regular'}}>{tag}</Text>
               <Image
                 source={require('../../assets/icon_modal_tag_cancel.png')}
                 style={{

@@ -101,7 +101,9 @@ class SplashScreen extends Component {
       })
         .then(async res => {
           // res is an Array of geocoding object (see below)
-          Strings.currentLocationCity = `${res[0].streetNumber}, ${res[0].streetName}, ${res[0].locality}, ${res[0].country}`;
+          Strings.currentLocationCity = `${res[0].streetNumber}, ${
+            res[0].streetName
+          }, ${res[0].locality}, ${res[0].country}`;
           Strings.currentOnlyCity = `${res[0].locality}, ${res[0].country}`;
           await LocalStorage.setMyLocation(Strings.currentLocationCity);
           await LocalStorage.setMyOnlyCity(Strings.currentOnlyCity);
@@ -226,4 +228,7 @@ const mapDispatchToProps = dispatch => ({
   updateUser: user => dispatch(UserActions.updateUser(user)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SplashScreen);

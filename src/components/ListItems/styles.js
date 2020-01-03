@@ -9,9 +9,17 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   commentItemAvatar: {width: 55, height: 55, resizeMode: 'contain'},
-  commentItemTimeText: {width: 60, alignItems: 'flex-end'},
-  commentItemNameText: {fontSize: 18},
-  commentItemDescText: {fontSize: 14, color: Colors.lessonLightText},
+  commentItemTimeText: {
+    width: 60,
+    alignItems: 'flex-end',
+    fontFamily: 'Heebo-Regular',
+  },
+  commentItemNameText: {fontSize: 18, fontFamily: 'Heebo-Regular'},
+  commentItemDescText: {
+    fontSize: 14,
+    color: Colors.lessonLightText,
+    fontFamily: 'Heebo-Regular',
+  },
   searchHistoryItemContainer: {
     padding: 10,
     borderRadius: 10,

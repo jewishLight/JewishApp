@@ -55,7 +55,12 @@ class SearchResultScreen extends Component {
         <View style={[styles.searchResultTopTagView, {marginLeft: 0}]}>
           <Text
             numberOfLines={1}
-            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              marginLeft: 5,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {searchBody && `${searchBody.address}`}
           </Text>
         </View>
@@ -71,7 +76,12 @@ class SearchResultScreen extends Component {
           />
           <Text
             numberOfLines={1}
-            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              marginLeft: 5,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {searchBody && `${searchBody.startTime} - ${searchBody.endTime}`}
           </Text>
         </View>
@@ -87,7 +97,12 @@ class SearchResultScreen extends Component {
           />
           <Text
             numberOfLines={1}
-            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              marginLeft: 5,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {`${searchBody &&
               parseInt(searchBody.max_radius) -
                 parseInt(searchBody.min_radius)}`}{' '}
@@ -106,7 +121,12 @@ class SearchResultScreen extends Component {
           />
           <Text
             numberOfLines={1}
-            style={{color: Colors.primary, fontSize: 12, marginLeft: 5}}>
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              marginLeft: 5,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {isEnglish ? en.modal.synagogue : he.modal.synagogue}
           </Text>
         </View>
@@ -272,7 +292,13 @@ class SearchResultScreen extends Component {
                   source={require('../../assets/icon_search_result_filter.png')}
                   style={styles.newSearchImage}
                 />
-                <Text style={{fontSize: 18, color: 'white', marginLeft: 5}}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: 'white',
+                    marginLeft: 5,
+                    fontFamily: 'Heebo-Regular',
+                  }}>
                   {isEnglish ? en.modal.filter : he.modal.filter}
                 </Text>
               </TouchableOpacity>
@@ -286,7 +312,7 @@ class SearchResultScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}
@@ -310,7 +336,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SearchResultScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchResultScreen);

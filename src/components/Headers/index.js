@@ -164,29 +164,27 @@ export class SearchHeader extends Component {
     const isEnglish = this.props.isEnglish;
     return (
       <View style={styles.searchHeaderContainer}>
-      <View>
-        <TouchableOpacity
-          style={styles.searchHeaderBackContainer}
-          onPress={() => {
-            this.props.onBack();
-          }}>
-          <Image
-            source={
-             // isEnglish
-                 require('../../assets/icon_search_back.png')
-             //   : require('../../assets/icon_search_back_hebrew.png')
-
-            }
-            style={styles.searchHeaderBackIcon}
-          />
-
-        </TouchableOpacity>
-        <Text style={styles.searchHeaderText}>
+        <View>
+          <TouchableOpacity
+            style={styles.searchHeaderBackContainer}
+            onPress={() => {
+              this.props.onBack();
+            }}>
+            <Image
+              source={
+                // isEnglish
+                require('../../assets/icon_search_back.png')
+                //   : require('../../assets/icon_search_back_hebrew.png')
+              }
+              style={styles.searchHeaderBackIcon}
+            />
+          </TouchableOpacity>
+          <Text style={styles.searchHeaderText}>
             {isEnglish
               ? en.searchHistory.searchHistory
               : he.searchHistory.searchHistory}
           </Text>
-     </View>
+        </View>
 
         <TouchableOpacity
           style={{
@@ -219,17 +217,18 @@ export class SearchResultHeader extends Component {
     return (
       <View style={styles.searchHeaderContainer}>
         <View style={styles.searchHeaderBackContainer}>
-          <TouchableOpacity onPress={() => {
-            this.props.onBack();
-          }}>
-          <Image
-            source={
-              isEnglish
-                ? require('../../assets/icon_search_back.png')
-                : require('../../assets/icon_search_back_hebrew.png')
-            }
-            style={styles.searchHeaderBackIcon}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              this.props.onBack();
+            }}>
+            <Image
+              source={
+                isEnglish
+                  ? require('../../assets/icon_search_back.png')
+                  : require('../../assets/icon_search_back_hebrew.png')
+              }
+              style={styles.searchHeaderBackIcon}
+            />
           </TouchableOpacity>
           <Text style={styles.searchHeaderText}>
             {isEnglish ? en.searchResult.newSearch : he.searchResult.newSearch}
@@ -437,11 +436,9 @@ export class MyProfileHeader extends Component {
               this.props.onBack();
             }}>
             <Image
-              source={
-                require('../../assets/icon_search_back.png')
-              }
+              source={require('../../assets/icon_search_back.png')}
               style={styles.searchHeaderBackIcon}
-          />
+            />
           </TouchableOpacity>
           <Text style={styles.searchHeaderText}>My Profile</Text>
         </View>

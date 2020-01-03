@@ -83,10 +83,20 @@ class SearchSynaScreen extends Component {
                 this.props.navigation.goBack();
                 this.props.navigation.state.params.onSyna();
               }}>
-              <Text style={{fontSize: 18, color: '#6461c4'}}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  color: '#6461c4',
+                  fontFamily: 'Heebo-Regular',
+                }}>
                 {isEnglish ? en.notHere : he.notHere}
               </Text>
-              <Text style={{fontSize: 13, color: '#6461c4'}}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: '#6461c4',
+                  fontFamily: 'Heebo-Regular',
+                }}>
                 {isEnglish
                   ? en.clickHereToCreateNewSyna
                   : he.clickHereToCreateNewSyna}
@@ -106,8 +116,12 @@ class SearchSynaScreen extends Component {
           this.props.navigation.goBack();
           this.props.navigation.state.params.goSyna(item._id);
         }}>
-        <Text style={{fontSize: 18}}>{item.name}</Text>
-        <Text style={{fontSize: 13}}>{item.address}</Text>
+        <Text style={{fontSize: 18, fontFamily: 'Heebo-Regular'}}>
+          {item.name}
+        </Text>
+        <Text style={{fontSize: 13, fontFamily: 'Heebo-Regular'}}>
+          {item.address}
+        </Text>
       </TouchableOpacity>
     );
   };

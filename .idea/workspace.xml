@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="241afc0a-cc31-48e1-95b3-13fe5a7f6579" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideMenu/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideMenu/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Inputs/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Inputs/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/DetailsScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/DetailsScreen/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/NewLessonScreen/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/NewLessonScreen/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/APIConnection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/APIConnection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/string.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/string.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,9 +67,35 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="86" />
+    <option name="y" value="25" />
+    <option name="width" value="1376" />
+    <option name="height" value="937" />
+  </component>
   <component name="ProjectId" id="1TADUotPdryEphj5a7i8P85WBEe" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="jewish-light" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/project/jewish-light" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -388,6 +417,26 @@
     <option name="localTasksCounter" value="33" />
     <servers />
   </component>
+  <component name="ToolWindowManager">
+    <frame x="86" y="25" width="1376" height="937" extended-state="0" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" visible="true" weight="0.3298893" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Captures" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -397,8 +446,28 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
           </value>
         </entry>
       </map>

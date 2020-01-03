@@ -48,14 +48,21 @@ export const CommentListItem = ({onPress, item}) => (
       <Text style={styles.commentItemDescText}>{item.comment_body}</Text>
     </View>
     <View style={styles.commentItemTimeText}>
-      <Text>{getTimeDifferent(new Date(), item.date)}</Text>
+      <Text style={{fontFamily: 'Heebo-Regular'}}>
+        {getTimeDifferent(new Date(), item.date)}
+      </Text>
     </View>
   </TouchableOpacity>
 );
 
 export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
   <View style={styles.searchHistoryItemContainer}>
-    <Text style={{color: '#9B9B9B', fontSize: 15}}>
+    <Text
+      style={{
+        color: '#9B9B9B',
+        fontSize: 15,
+        fontFamily: 'Heebo-Regular',
+      }}>
       {isEnglish ? en.searchHistory.date : he.searchHistory.date} :{' '}
       {moment(item.date).format('DD/MM')}
     </Text>
@@ -73,7 +80,11 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
           style={{width: 16, height: 21, resizeMode: 'contain'}}
         />
         <Text
-          style={{marginLeft: 5, fontSize: 12}}
+          style={{
+            marginLeft: 5,
+            fontSize: 12,
+            fontFamily: 'Heebo-Regular',
+          }}
           numberOfLines={1}
           ellipsizeMode={'tail'}>
           {item.address}
@@ -89,14 +100,24 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
       />
     </TouchableOpacity>
     <View
-      style={{marginVertical: 10, height: 1, backgroundColor: Colors.separator}}
+      style={{
+        marginVertical: 10,
+        height: 1,
+        backgroundColor: Colors.separator,
+      }}
     />
     <View style={{flexDirection: 'row', alignItems: 'center'}}>
       <Image
         source={require('../../assets/icon_search_history_filter.png')}
         style={{width: 15, height: 14, resizeMode: 'contain'}}
       />
-      <Text style={{marginLeft: 5, color: '#9B9B9B', fontSize: 12}}>
+      <Text
+        style={{
+          marginLeft: 5,
+          color: '#9B9B9B',
+          fontSize: 12,
+          fontFamily: 'Heebo-Regular',
+        }}>
         {`Filters: ${item.type}, ${item.max_radius}km, startTime: ${
           item.startTime
         }, endTime: ${item.endTime}`}
@@ -113,7 +134,14 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{color: Colors.primary, fontSize: 12}}>Type</Text>
+          <Text
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              fontFamily: 'Heebo-Regular',
+            }}>
+            Type
+          </Text>
         </View>
         <View
           style={{
@@ -125,7 +153,12 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{color: Colors.primary, fontSize: 12}}>
+          <Text
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              fontFamily: 'Heebo-Regular',
+            }}>
             {item.sortBy}
           </Text>
         </View>
@@ -139,9 +172,13 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{color: Colors.primary, fontSize: 12}}>{`${parseInt(
-            item.max_radius,
-          ) - parseInt(item.min_radius)} Kilometers`}</Text>
+          <Text
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              fontFamily: 'Heebo-Regular',
+            }}>{`${parseInt(item.max_radius) -
+            parseInt(item.min_radius)} Kilometers`}</Text>
         </View>
         <View
           style={{
@@ -153,9 +190,12 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{color: Colors.primary, fontSize: 12}}>{`From ${
-            item.startTime
-          } to ${item.endTime}`}</Text>
+          <Text
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              fontFamily: 'Heebo-Regular',
+            }}>{`From ${item.startTime} to ${item.endTime}`}</Text>
         </View>
         <View
           style={{
@@ -167,9 +207,12 @@ export const SearchHistoryItem = ({onPress, item, isEnglish}) => (
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{color: Colors.primary, fontSize: 12}}>{`Location ${
-            item.address
-          }`}</Text>
+          <Text
+            style={{
+              color: Colors.primary,
+              fontSize: 12,
+              fontFamily: 'Heebo-Regular',
+            }}>{`Location ${item.address}`}</Text>
         </View>
       </View>
     </ScrollView>
@@ -184,14 +227,22 @@ export const SearchResultItem = ({onPress, item}) => (
         style={{width: 87, height: 90, resizeMode: 'contain'}}
       />
     </View>
-    <View style={{flex: 1, paddingLeft: 10, justifyContent: 'space-between'}}>
+    <View
+      style={{
+        flex: 1,
+        paddingLeft: 10,
+        justifyContent: 'space-between',
+      }}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}>
-        <Text style={{fontSize: 16}} numberOfLines={1} ellipsizeMode={'tail'}>
+        <Text
+          style={{fontSize: 16, fontFamily: 'Heebo-Regular'}}
+          numberOfLines={1}
+          ellipsizeMode={'tail'}>
           {`${item.name}`}
         </Text>
         <View style={{flexDirection: 'row', alignItems: 'center'}} />
@@ -203,7 +254,10 @@ export const SearchResultItem = ({onPress, item}) => (
           alignItems: 'center',
         }}>
         <View style={{flex: 1}}>
-          <Text style={{fontSize: 16}} numberOfLines={1} ellipsizeMode={'tail'}>
+          <Text
+            style={{fontSize: 16, fontFamily: 'Heebo-Regular'}}
+            numberOfLines={1}
+            ellipsizeMode={'tail'}>
             {item.address}
           </Text>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -211,12 +265,24 @@ export const SearchResultItem = ({onPress, item}) => (
               source={require('../../assets/icon_search_result_item_clock.png')}
               style={{width: 15, height: 15, resizeMode: 'contain'}}
             />
-            <Text style={{fontSize: 18, color: Colors.primary, marginLeft: 5}}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: Colors.primary,
+                marginLeft: 5,
+                fontFamily: 'Heebo-Regular',
+              }}>
               {`${
                 item.minyans.length > 0 ? item.minyans[0].startTime || '' : ''
               }`}
             </Text>
-            <Text style={{fontSize: 14, color: 'green', marginLeft: 5}}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: 'green',
+                marginLeft: 5,
+                fontFamily: 'Heebo-Regular',
+              }}>
               {''}
             </Text>
           </View>

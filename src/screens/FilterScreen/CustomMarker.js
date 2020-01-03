@@ -11,7 +11,10 @@ class CustomMarker extends React.Component {
           alignItems: 'center',
           width: 100,
         }}>
-        <Text style={{fontSize: 11, color: '#3F4046'}}>{this.props.value}</Text>
+        <Text
+          style={{fontSize: 11, color: '#3F4046', fontFamily: 'Heebo-Regular'}}>
+          {this.props.value}
+        </Text>
         <View style={{height: 5}} />
         <View
           style={{
@@ -22,7 +25,9 @@ class CustomMarker extends React.Component {
           }}
         />
         <View style={{height: 5}} />
-        <Text style={{fontSize: 11, color: '#3F4046'}} />
+        <Text
+          style={{fontSize: 11, color: '#3F4046', fontFamily: 'Heebo-Regular'}}
+        />
       </View>
     );
   }

@@ -124,7 +124,9 @@ class ChangeLocationScreen extends Component {
             );
             this.setState({address: country, showList: false});
           }}>
-          <Text style={{fontSize: 14}}>{item.formatted_address}</Text>
+          <Text style={{fontSize: 14, fontFamily: 'Heebo-Regular'}}>
+            {item.formatted_address}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -161,7 +163,8 @@ class ChangeLocationScreen extends Component {
               alignItems: 'center',
               paddingHorizontal: 15,
             }}>
-            <Text style={{fontSize: 17, color: 'red'}}>
+            <Text
+              style={{fontSize: 17, color: 'red', fontFamily: 'Heebo-Regular'}}>
               {this.props.navigation.state.params.isEnglish
                 ? en.setYourHomeCity
                 : he.setYourHomeCity}
@@ -181,6 +184,7 @@ class ChangeLocationScreen extends Component {
                 borderColor: 'lightgray',
                 borderRadius: 5,
                 paddingHorizontal: 10,
+                fontFamily: 'Heebo-Regular',
               }}
               onChangeText={this.onChangeAutoComplete}
               value={address}

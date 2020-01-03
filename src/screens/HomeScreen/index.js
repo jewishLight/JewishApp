@@ -294,7 +294,7 @@ class HomeScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text>
+          <Text style={{fontFamily: 'Heebo-Bold'}}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}
@@ -380,7 +380,7 @@ class HomeScreen extends Component {
 
   onSearch = () => {
     this.startLoading();
-    ApiRequest(`search`)
+    ApiRequest('search')
       .then(response => {
         this.closeLoading();
         this.props.navigation.navigate('Search', {searchHistory: response});
