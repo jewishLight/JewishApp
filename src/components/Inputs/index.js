@@ -22,18 +22,14 @@ import moment from 'moment';
 export class NormalInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: '',
-    };
   }
-
-  componentDidMount() {}
 
   clear = () => {
     this.setState({text: ''});
   };
 
   render() {
+    // console.log(this.state.text)
     return (
       <View style={{}}>
         <TextInput
@@ -48,7 +44,7 @@ export class NormalInput extends Component {
             this.setState({text});
             this.props.onChangeText(text);
           }}
-          value={this.state.text}
+          value={this.props.text}
           keyboardType={this.props.phoneNumber ? 'phone-pad' : 'default'}
         />
       </View>

@@ -78,12 +78,25 @@ class NewSynModal extends Component {
         longitude: Strings.currentLongitude,
         latitude: Strings.currentLatitude,
       },
+      _id: null
     };
   }
 
-  async componentDidMount() {
+  componentDidMount = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
+    const {navigation} = this.props;
+    const synaData = navigation.getParam('synaData', null);
+    console.log(synaData);
+    this.setState({
+      _id: synaData._id,
+      name: synaData.name,
+      address: synaData.address,
+      nosach: synaData.nosach,
+      lat: synaData.location.coordinates[1],
+      lng: synaData.location.coordinates[0],
+      city: synaData.address,
+    });
+  };
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
@@ -212,7 +225,7 @@ class NewSynModal extends Component {
 
   updateGoogleAutocomplete = nextState => {
     this.setState({
-      marker:{
+      marker: {
         longitude: nextState.longitude,
         latitude: nextState.latitude,
       },
@@ -224,7 +237,7 @@ class NewSynModal extends Component {
   };
 
   render() {
-    const {isEnglish, mon, tue, wed, thu, fri, sat, sun} = this.state;
+    const {isEnglish, mon, tue, wed, thu, fri, sat, sun, name, phoneNumber} = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
@@ -257,6 +270,7 @@ class NewSynModal extends Component {
               onChangeText={text => {
                 this.setState({name: text});
               }}
+              text={name}
               phoneNumber={false}
             />
 
@@ -566,6 +580,7 @@ class NewSynModal extends Component {
                 this.setState({phoneNumber: text});
               }}
               phoneNumber={true}
+              text={phoneNumber}
             />
           </View>
 
@@ -629,6 +644,7 @@ class NewSynModal extends Component {
                   note,
                   phoneNumber,
                   avatarSource,
+                  _id
                 } = this.state;
                 if (lat === 0 || lng === 0 || city === '') {
                   alert(
@@ -667,6 +683,7 @@ class NewSynModal extends Component {
                     note,
                     phoneNumber,
                     avatarSource,
+                    _id,
                   );
                 }
               }}>

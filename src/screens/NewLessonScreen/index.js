@@ -157,7 +157,7 @@ class NewLessonScreen extends Component {
 
   updateGoogleAutocomplete = nextState => {
     this.setState({
-      marker:{
+      marker: {
         longitude: nextState.longitude,
         latitude: nextState.latitude,
       },
@@ -625,7 +625,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NewLessonScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewLessonScreen);
