@@ -198,7 +198,7 @@ class DetailsScreen extends Component {
     const {language, showLoading, comments, isLike, likeCount} = this.state;
     const isEnglish = language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
-    console.log('detail screen', lessonData);
+    // console.log('detail screen', lessonData);
     return (
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.topSafeAreaView} />

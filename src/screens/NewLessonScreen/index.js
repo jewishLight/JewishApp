@@ -311,7 +311,7 @@ class NewLessonScreen extends Component {
     const time = (lessonData && lessonData.time) || null;
     const days = (lessonData && lessonData.days) || null;
     // const audienceValue = this.checkAudience();
-    console.log('selectedSpeaker', selectedSpeaker);
+    // console.log('selectedSpeaker', selectedSpeaker);
 
     return (
       <SafeAreaView style={styles.container}>
@@ -383,7 +383,7 @@ class NewLessonScreen extends Component {
               fieldTemplate={this.renderField}
               optionTemplate={this.renderOption}
               onValueChange={value => {
-                console.log('selectedSpeaker', value);
+                // console.log('selectedSpeaker', value);
                 this.setState({selectedSpeaker: value.value});
               }}
               defaultValue={selectedSpeaker}
@@ -636,7 +636,7 @@ class NewLessonScreen extends Component {
                 },
               ]}
               onValueChange={value => {
-                this.setState({selectedAudience: value});
+                this.setState({selectedAudience: value, audienceValue: value});
               }}
               placeholder={{label: '', value: null}}
               value={audienceValue}
@@ -690,9 +690,9 @@ class NewLessonScreen extends Component {
                 // error
                 if (!datetime) {
                   alert('Please input time');
-                } else if (selectedSpeaker === '') {
+                } else if (selectedSpeaker === '' || !selectedSpeaker) {
                   alert('Please select speaker');
-                } else if (selectedAudience === '') {
+                } else if (selectedAudience === '' || !selectedAudience) {
                   alert('Please select audience');
                 } else if (lat === 0 || lng === 0 || city === '') {
                   alert('Please input the correct address');
@@ -754,4 +754,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewLessonScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewLessonScreen);

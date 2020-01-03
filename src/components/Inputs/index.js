@@ -769,8 +769,8 @@ export class SynMinTimes extends Component {
     }
     // console.log('initialTime', initialTime);
 
-    console.log('time', time);
-    console.log('time || new Date()', time || new Date());
+    // console.log('time', time);
+    // console.log('time || new Date()', time || new Date());
     this.setState({
       mon: (initialDay && initialDay.includes(0)) || this.props.mon,
       tue: (initialDay && initialDay.includes(1)) || this.props.tue,
