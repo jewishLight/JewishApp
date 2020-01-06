@@ -48,6 +48,16 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
         },
         body: JSON.stringify(body),
       };
+    } else if (method === 'PUT') {
+      header = {
+        method,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      };
     } else {
       header = {
         method,

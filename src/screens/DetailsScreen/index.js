@@ -164,10 +164,13 @@ class DetailsScreen extends Component {
     const {
       lessonData: {_id},
     } = this.props.navigation.state.params;
-    // console.log('selectedSpeaker', selectedSpeaker);
+    console.log('edit lesson selectedSpeaker', selectedSpeaker);
     let body = {
-      id: {id: _id},
-      speakerId: {id: selectedSpeaker.value},
+      id: _id,
+      speakerId:
+        typeof selectedSpeaker === 'string'
+          ? selectedSpeaker
+          : selectedSpeaker.value,
       synagogueId: '',
       lessonSubject: subject,
       location: location,
@@ -176,19 +179,21 @@ class DetailsScreen extends Component {
       days: days,
       audience: selectedAudience,
       notes: note,
-      contact_name: [contactName],
-      contact_number: [phoneNumber],
+      contact_name: contactName,
+      contact_number: phoneNumber,
       address: address,
     };
     this.startLoading();
     console.log('edit lesson', body);
-    ApiRequest('lesson/update', body, 'POST')
+    ApiRequest('lesson/update', body, 'PUT')
       .then(response => {
+        console.log('edit lesson response', response);
+
         this.closeLoading();
         // this.fetchHome();
       })
       .catch(error => {
-        console.log('response error', error);
+        console.log('edit lesson error', error);
 
         this.closeLoading();
       });
