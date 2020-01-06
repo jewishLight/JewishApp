@@ -164,10 +164,10 @@ class DetailsScreen extends Component {
     const {
       lessonData: {_id},
     } = this.props.navigation.state.params;
-    console.log('datetime', datetime);
+    // console.log('selectedSpeaker', selectedSpeaker);
     let body = {
       id: {id: _id},
-      speakerId: {id: selectedSpeaker},
+      speakerId: {id: selectedSpeaker.value},
       synagogueId: '',
       lessonSubject: subject,
       location: location,
@@ -181,7 +181,7 @@ class DetailsScreen extends Component {
       address: address,
     };
     this.startLoading();
-
+    console.log('edit lesson', body);
     ApiRequest('lesson/update', body, 'POST')
       .then(response => {
         this.closeLoading();

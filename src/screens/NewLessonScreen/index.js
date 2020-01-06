@@ -58,8 +58,10 @@ class NewLessonScreen extends Component {
       subject: '',
       speakers: [],
       selectedSpeaker: selectedSpeaker,
-      lat: 0,
-      lng: 0,
+      lat:
+        lessonData && lessonData.location && lessonData.location.coordinates[0],
+      lng:
+        lessonData && lessonData.location && lessonData.location.coordinates[1],
       city: '',
       note: '',
       contactName: '',
@@ -79,7 +81,7 @@ class NewLessonScreen extends Component {
       newSpeakerName: '',
       newSpeakerAvatar: '',
       newSpeakerAbout: '',
-      address: '',
+      address: (lessonData && lessonData.address) || '',
       marker: {
         longitude: Strings.currentLongitude,
         latitude: Strings.currentLatitude,
@@ -695,7 +697,7 @@ class NewLessonScreen extends Component {
                   alert('Please select speaker');
                 } else if (selectedAudience === '' || !selectedAudience) {
                   alert('Please select audience');
-                } else if (lat === 0 || lng === 0 || city === '') {
+                } else if (lat === 0 || lng === 0 || address === '') {
                   alert('Please input the correct address');
                 } else {
                   this.props.navigation.goBack();
@@ -757,7 +759,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(NewLessonScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(NewLessonScreen);

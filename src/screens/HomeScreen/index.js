@@ -443,7 +443,7 @@ class HomeScreen extends Component {
       contact_number: phoneNumber,
       address,
     };
-
+    console.log('add lesson', body);
     this.startLoading();
     ApiRequest('lesson/add', body, 'POST')
       .then(response => {
