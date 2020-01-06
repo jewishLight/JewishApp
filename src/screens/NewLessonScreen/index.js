@@ -222,8 +222,8 @@ class NewLessonScreen extends Component {
         longitude: nextState.longitude,
         latitude: nextState.latitude,
       },
-      address: nextState.justCity,
-      city: nextState.address,
+      address: nextState.address,
+      city: nextState.justCity,
       lat: nextState.latitude,
       lng: nextState.longitude,
     });
@@ -663,6 +663,7 @@ class NewLessonScreen extends Component {
                   sun,
                   datetime,
                   selectedAudience,
+                  address,
                 } = this.state;
                 let days = [];
                 if (mon) {
@@ -703,6 +704,7 @@ class NewLessonScreen extends Component {
                       lat,
                       lng,
                       city,
+                      address,
                       subject,
                       selectedSpeaker,
                       note,
@@ -717,6 +719,7 @@ class NewLessonScreen extends Component {
                       lat,
                       lng,
                       city,
+                      address,
                       subject,
                       selectedSpeaker,
                       note,

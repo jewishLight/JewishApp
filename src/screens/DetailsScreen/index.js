@@ -146,6 +146,7 @@ class DetailsScreen extends Component {
     lat,
     lng,
     city,
+    address,
     subject,
     selectedSpeaker,
     note,
@@ -177,13 +178,12 @@ class DetailsScreen extends Component {
       notes: note,
       contact_name: [contactName],
       contact_number: [phoneNumber],
+      address: address,
     };
     this.startLoading();
-    console.log('response body', body);
 
     ApiRequest('lesson/update', body, 'POST')
       .then(response => {
-        console.log('response success', response);
         this.closeLoading();
         // this.fetchHome();
       })
@@ -399,7 +399,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DetailsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);

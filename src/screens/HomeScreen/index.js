@@ -415,6 +415,7 @@ class HomeScreen extends Component {
     lat,
     lng,
     city,
+    address,
     subject,
     selectedSpeaker,
     note,
@@ -427,9 +428,8 @@ class HomeScreen extends Component {
     let location = {
       // for test
       type: 'Point',
-      coordinates: [35.217018, 31.771959],
+      coordinates: [lat, lng],
     };
-
     let body = {
       speakerId: selectedSpeaker,
       synagogueId: '',
@@ -441,7 +441,9 @@ class HomeScreen extends Component {
       notes: note,
       contact_name: contactName,
       contact_number: phoneNumber,
+      address,
     };
+
     this.startLoading();
     ApiRequest('lesson/add', body, 'POST')
       .then(response => {
