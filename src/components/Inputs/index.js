@@ -749,7 +749,7 @@ export class SynMinTimes extends Component {
       sun: false,
       type: 'week',
       showDateTime: false,
-      datetime: null,
+      datetime: new Date(),
       mode: '',
       showTimePicker: false,
       datetimemode: '',
@@ -790,6 +790,7 @@ export class SynMinTimes extends Component {
 
   setTime = (event, datetime) => {
     datetime = datetime || this.state.datetime;
+    console.log('datetime in setTime', datetime);
     this.setState({
       showTimePicker: false,
       datetime,

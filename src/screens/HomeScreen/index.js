@@ -418,6 +418,7 @@ class HomeScreen extends Component {
     address,
     subject,
     selectedSpeaker,
+    speaker,
     note,
     contactName,
     phoneNumber,
@@ -428,8 +429,10 @@ class HomeScreen extends Component {
     let location = {
       // for test
       type: 'Point',
-      coordinates: [lat, lng],
+      // coordinates: [lat, lng],
+      coordinates: [lng, lat],
     };
+    console.log('datetime', datetime, days);
     let body = {
       speakerId: selectedSpeaker,
       synagogueId: '',

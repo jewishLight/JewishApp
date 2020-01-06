@@ -41,6 +41,7 @@ class DetailsScreen extends Component {
       comments: [],
       isLike: false,
       likeCount: 0,
+      lessonData: props.navigation.state.params.lessonData,
     };
   }
 
@@ -64,7 +65,13 @@ class DetailsScreen extends Component {
       });
     }
     this.setState({isLike});
+    console.log('Detail lesson didMount');
   }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log('Detail getDerivedStateFromProps this.state', this.state);
+  //   console.log('Detail getDerivedStateFromProps', nextProps, prevState);
+  // }
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
@@ -149,6 +156,7 @@ class DetailsScreen extends Component {
     address,
     subject,
     selectedSpeaker,
+    speaker,
     note,
     contactName,
     phoneNumber,
@@ -156,11 +164,21 @@ class DetailsScreen extends Component {
     datetime,
     selectedAudience,
   ) => {
+    const {lessonData} = this.state;
     let location = {
       // for test
       type: 'Point',
-      coordinates: [lat, lng],
+      coordinates: [lng, lat],
     };
+    console.log('selectedSpeaker', selectedSpeaker);
+    const newSpeaker = speaker
+      ? {
+          _id: speaker.value,
+          name: speaker.label,
+          avatar: speaker.avatar,
+          about: speaker.about,
+        }
+      : lessonData.speaker;
     const {
       lessonData: {_id},
     } = this.props.navigation.state.params;
@@ -171,11 +189,16 @@ class DetailsScreen extends Component {
         typeof selectedSpeaker === 'string'
           ? selectedSpeaker
           : selectedSpeaker.value,
+      speaker: newSpeaker,
       synagogueId: '',
       lessonSubject: subject,
       location: location,
+
       // time: `${datetime.getHours()}:${datetime.getMinutes()}`,
-      time: datetime,
+      time:
+        typeof datetime === 'string'
+          ? datetime
+          : `${datetime.getHours()}:${datetime.getMinutes()}`,
       days: days,
       audience: selectedAudience,
       notes: note,
@@ -188,7 +211,8 @@ class DetailsScreen extends Component {
     ApiRequest('lesson/update', body, 'PUT')
       .then(response => {
         console.log('edit lesson response', response);
-
+        const {lessonData} = this.state;
+        this.setState({lessonData: {...lessonData, ...body}});
         this.closeLoading();
         // this.fetchHome();
       })
@@ -200,9 +224,16 @@ class DetailsScreen extends Component {
   };
 
   render() {
-    const {language, showLoading, comments, isLike, likeCount} = this.state;
+    const {
+      language,
+      showLoading,
+      comments,
+      isLike,
+      likeCount,
+      lessonData,
+    } = this.state;
     const isEnglish = language === Strings.ENGLISH;
-    const {lessonData} = this.props.navigation.state.params;
+    // const {lessonData} = this.props.navigation.state.params;
     // console.log('detail screen', lessonData);
     return (
       <View style={{flex: 1}}>
@@ -261,7 +292,7 @@ class DetailsScreen extends Component {
                     style={styles.detailClockImage}
                   />
                   <Text style={styles.detailClockText}>
-                    Today, {lessonData.timeString}
+                    Today, {lessonData.time}
                   </Text>
                 </View>
                 <View style={styles.detailLocationContainer}>
@@ -375,7 +406,8 @@ class DetailsScreen extends Component {
     this.props.navigation.navigate('Favorite');
   };
   onEdit = () => {
-    const {lessonData} = this.props.navigation.state.params;
+    // const {lessonData} = this.props.navigation.state.params;
+    const {lessonData} = this.state;
     console.log('onEdit', lessonData);
     this.startLoading();
     ApiRequest('lesson/speakers')
@@ -404,4 +436,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLightStatus(isLightTurnON)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DetailsScreen);

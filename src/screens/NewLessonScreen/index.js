@@ -48,7 +48,7 @@ class NewLessonScreen extends Component {
       }
     });
 
-    const selectedSpeaker =
+    const speaker =
       lessonData &&
       lessonData.speaker &&
       speakerPickerArray.find(item => item.value === lessonData.speaker._id);
@@ -57,7 +57,9 @@ class NewLessonScreen extends Component {
       modalVisible: false,
       subject: '',
       speakers: [],
-      selectedSpeaker: selectedSpeaker,
+      selectedSpeaker:
+        lessonData && lessonData.speaker && lessonData.speaker._id,
+      speaker: speaker,
       lat:
         lessonData && lessonData.location && lessonData.location.coordinates[0],
       lng:
@@ -73,7 +75,7 @@ class NewLessonScreen extends Component {
       fri: false,
       sat: false,
       sun: false,
-      datetime: null,
+      datetime: new Date(),
       selectedAudience: '',
       language: '',
       addNewSpeakerState: false,
@@ -83,8 +85,8 @@ class NewLessonScreen extends Component {
       newSpeakerAbout: '',
       address: (lessonData && lessonData.address) || '',
       marker: {
-        longitude: Strings.currentLongitude,
         latitude: Strings.currentLatitude,
+        longitude: Strings.currentLongitude,
       },
     };
   }
@@ -133,16 +135,16 @@ class NewLessonScreen extends Component {
       phoneNumber: (lessonData && lessonData.contact_number) || '',
       note: (lessonData && lessonData.notes) || '',
       marker: {
-        latitude:
-          (lessonData &&
-            lessonData.location &&
-            lessonData.location.coordinates[0]) ||
-          Strings.currentLongitude,
         longitude:
           (lessonData &&
             lessonData.location &&
-            lessonData.location.coordinates[1]) ||
+            lessonData.location.coordinates[0]) ||
           Strings.currentLatitude,
+        latitude:
+          (lessonData &&
+            lessonData.location &&
+            lessonData.location.coordinates[1]) ||
+          Strings.currentLongitude,
       },
       selectedAudience: lessonData && lessonData.audience,
       datetime: (lessonData && lessonData.time) || null,
@@ -181,6 +183,7 @@ class NewLessonScreen extends Component {
   };
 
   setTime = datetime => {
+    console.log('dateTime new lesson', datetime);
     this.setState({datetime});
   };
 
@@ -309,7 +312,7 @@ class NewLessonScreen extends Component {
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
-    const {audienceValue, selectedSpeaker} = this.state;
+    const {audienceValue, speaker} = this.state;
     const time = (lessonData && lessonData.time) || null;
     const days = (lessonData && lessonData.days) || null;
     // const audienceValue = this.checkAudience();
@@ -386,9 +389,9 @@ class NewLessonScreen extends Component {
               optionTemplate={this.renderOption}
               onValueChange={value => {
                 // console.log('selectedSpeaker', value);
-                this.setState({selectedSpeaker: value.value});
+                this.setState({selectedSpeaker: value.value, speaker: value});
               }}
-              defaultValue={selectedSpeaker}
+              defaultValue={speaker}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -653,6 +656,7 @@ class NewLessonScreen extends Component {
                   city,
                   subject,
                   selectedSpeaker,
+                  speaker,
                   note,
                   contactName,
                   phoneNumber,
@@ -702,6 +706,7 @@ class NewLessonScreen extends Component {
                 } else {
                   this.props.navigation.goBack();
                   if (!isEdit) {
+                    console.log('datetime onPress Add', datetime, days);
                     this.props.navigation.state.params.onPublish(
                       lat,
                       lng,
@@ -709,6 +714,7 @@ class NewLessonScreen extends Component {
                       address,
                       subject,
                       selectedSpeaker,
+                      speaker,
                       note,
                       contactName,
                       phoneNumber,
@@ -717,6 +723,7 @@ class NewLessonScreen extends Component {
                       selectedAudience,
                     );
                   } else {
+                    console.log('datetime onPress Edit', datetime, days);
                     this.props.navigation.state.params.onEditLesson(
                       lat,
                       lng,
@@ -724,6 +731,7 @@ class NewLessonScreen extends Component {
                       address,
                       subject,
                       selectedSpeaker,
+                      speaker,
                       note,
                       contactName,
                       phoneNumber,
@@ -759,4 +767,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewLessonScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewLessonScreen);
