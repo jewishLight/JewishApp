@@ -42,6 +42,7 @@ class DetailsScreen extends Component {
       isLike: false,
       likeCount: 0,
       lessonData: props.navigation.state.params.lessonData,
+      isEdit: false,
     };
   }
 
@@ -214,7 +215,7 @@ class DetailsScreen extends Component {
         const {lessonData} = this.state;
         this.setState({lessonData: {...lessonData, ...body}});
         this.closeLoading();
-        // this.fetchHome();
+        this.setState({isEdit: true});
       })
       .catch(error => {
         console.log('edit lesson error', error);
@@ -231,10 +232,13 @@ class DetailsScreen extends Component {
       isLike,
       likeCount,
       lessonData,
+      isEdit,
     } = this.state;
     const isEnglish = language === Strings.ENGLISH;
     // const {lessonData} = this.props.navigation.state.params;
     // console.log('detail screen', lessonData);
+    console.log('detail screen', isEdit);
+
     return (
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.topSafeAreaView} />
@@ -394,8 +398,98 @@ class DetailsScreen extends Component {
   }
 
   onBack = () => {
-    this.props.navigation.goBack();
+    const {isEdit} = this.state;
+    if (isEdit) {
+      this.props.navigation.navigate('Home', {
+        isEdit,
+      });
+    } else {
+      this.props.navigation.goBack();
+    }
   };
+
+  fetchHome = () => {
+    this.startLoading();
+
+    const fetchTodayLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/today_lessons')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchPopularLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/popular_lessons')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchRecentLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/recent')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchAroundCity = new Promise((resolve, reject) => {
+      ApiRequest(
+        'home/around_city',
+        {lon: Strings.currentLongitude, lat: Strings.currentLatitude},
+        'POST',
+      )
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    Promise.all([
+      fetchTodayLessons.catch(error => {
+        this.setState({
+          todayLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchPopularLessons.catch(error => {
+        this.setState({
+          popularLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchRecentLessons.catch(error => {
+        this.setState({
+          recentLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchAroundCity.catch(error => {
+        this.setState({aroundEvents: []});
+        this.closeLoading();
+      }),
+    ]).then(responses => {
+      console.info(Strings.userId);
+      this.setState({
+        todayLessons: responses[0],
+        popularLessons: responses[1],
+        recentLessons: responses[2],
+        aroundEvents: responses[3],
+      });
+      this.closeLoading();
+    });
+  };
+
   onSend = () => {
     ApiRequest(
       'synagogue/favorite?synagogue_id=5d73e770166c9f52982d7cd0',
