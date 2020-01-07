@@ -63,6 +63,7 @@ export class NosachPicker extends Component {
 
   render() {
     let isEnglish = this.props.isEnglish;
+    const {...rest} = this.props;
     return (
       <View style={{marginTop: 10}}>
         <RNPickerSelect
@@ -154,6 +155,7 @@ export class NosachPicker extends Component {
           ]}
           useNativeAndroidPickerStyle={false}
           placeholder={{label: '', value: null}}
+          {...rest}
         />
         <Image
           source={require('../../assets/icon_add_modal_picker_downarrow.png')}

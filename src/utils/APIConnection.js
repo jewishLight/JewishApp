@@ -38,17 +38,7 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
           body: JSON.stringify(body),
         };
       }
-    } else if (method === 'POST') {
-      header = {
-        method,
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      };
-    } else if (method === 'PUT') {
+    } else if (method === 'POST' || method === 'PUT') {
       header = {
         method,
         headers: {

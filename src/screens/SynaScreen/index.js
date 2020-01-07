@@ -293,6 +293,7 @@ class SynaScreen extends Component {
           break;
       }
 
+      console.log('amenities_key', amenities_key);
       let amenities = {};
       if (amenities_key.includes(0)) {
         amenities.seferTorah = true;
@@ -306,7 +307,6 @@ class SynaScreen extends Component {
       if (amenities_key.includes(3)) {
         amenities.womenSection = true;
       }
-      amenities = JSON.stringify(amenities);
 
       let days = [];
       if (mon) {
@@ -352,15 +352,15 @@ class SynaScreen extends Component {
         },
       ]);
 
-      let url = 'http://ec609136.ngrok.io/synagogue/update';
+      let url = 'synagogue/update';
 
       let body = {
         name: name,
         nosach: nosach,
         address: city,
-        location: location,
+        location: JSON.parse(location),
         externals: amenities,
-        minyans: minyans,
+        minyans: JSON.parse(minyans),
         notes: note,
         phone_number: phoneNumber,
         image: avatarSource.uri,
@@ -369,11 +369,38 @@ class SynaScreen extends Component {
       };
 
       if (_id) {
-        body = {...body, _id};
+        body = {...body, id: _id};
+        console.log('Update syna body', body);
+        ApiRequest('synagogue/update', body, 'PUT')
+          .then(response => {
+            console.log('Update syna response', response);
+
+            this.closeLoading();
+          })
+          .catch(error => {
+            this.closeLoading();
+          });
+      } else {
+        console.log('Add syna body', body);
+
+        ApiRequest('synagogue/add', body, 'POST')
+          .then(response => {
+            console.log('Add syna response', response);
+
+            this.closeLoading();
+          })
+          .catch(error => {
+            this.closeLoading();
+          });
       }
+
+      console.log('Add syna body', body);
+      console.log('Add syna body', JSON.stringify(body));
 
       ApiRequest(url, body, 'POST')
         .then(response => {
+          console.log('Add syna response', response);
+
           this.closeLoading();
         })
         .catch(error => {
@@ -609,16 +636,12 @@ class SynaScreen extends Component {
                 dotColor={'white'}
                 activeDotColor={'gray'}
                 showsButtons={false}>
-                {synaData.map(item => {
-                  return (
-                    <View style={styles.slide1}>
-                      <Image
-                        source={{uri: item}}
-                        style={{height: 250, resizeMode: 'contain'}}
-                      />
-                    </View>
-                  );
-                })}
+                <View style={styles.slide1}>
+                  <Image
+                    source={{uri: synaData.image}}
+                    style={{height: 250, resizeMode: 'contain'}}
+                  />
+                </View>
               </Swiper>
             )}
 
@@ -819,4 +842,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SynaScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SynaScreen);

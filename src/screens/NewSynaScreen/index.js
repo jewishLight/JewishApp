@@ -48,16 +48,22 @@ const options = {
 class NewSynModal extends Component {
   constructor(props) {
     super(props);
+    const {navigation} = props;
+    const synaData = navigation.getParam('synaData', null);
     this.state = {
       modalVisible: false,
-      name: '',
-      lat: 0,
-      lng: 0,
-      city: '',
-      nosach: '',
-      shtiblach: false,
-      amenities: [],
-      amenities_key: [],
+      name: synaData ? synaData.name : '',
+      lat: synaData ? synaData.location.coordinates[1] : 0,
+      lng: synaData ? synaData.location.coordinates[0] : 0,
+      city: synaData ? synaData.address : '',
+      nosach: synaData ? synaData.nosach : '',
+      shtiblach: synaData ? synaData.shtiblach : false,
+      amenities:
+        synaData && synaData.externals ? Object.keys(synaData.externals) : [],
+      amenities_key:
+        synaData && synaData.externals
+          ? this.checkAmenitiesKey(Object.keys(synaData.externals))
+          : [],
       showTimeSelector: false,
       datetime: null,
       mon: false,
@@ -67,18 +73,22 @@ class NewSynModal extends Component {
       fri: false,
       sat: false,
       sun: false,
-      notes: '',
-      phoneNumber: '',
-      avatarSource: null,
-      isEnglish: this.props.navigation.state.params.isEnglish,
+      notes: synaData ? synaData.notes : '',
+      phoneNumber: synaData ? synaData.phone_number : '',
+      avatarSource: synaData ? synaData.image : null,
+      isEnglish: props.navigation.state.params.isEnglish,
       poi: null,
-      address: Strings.currentLocationCity,
+      address: synaData ? synaData.address : Strings.currentLocationCity,
       addMinTimeFlag: false,
       marker: {
-        longitude: Strings.currentLongitude,
-        latitude: Strings.currentLatitude,
+        longitude: synaData
+          ? synaData.location.coordinates[0]
+          : Strings.currentLongitude,
+        latitude: synaData
+          ? synaData.location.coordinates[1]
+          : Strings.currentLatitude,
       },
-      _id: null
+      // _id: null,
     };
   }
 
@@ -87,15 +97,39 @@ class NewSynModal extends Component {
     const {navigation} = this.props;
     const synaData = navigation.getParam('synaData', null);
     console.log(synaData);
-    this.setState({
-      _id: synaData._id,
-      name: synaData.name,
-      address: synaData.address,
-      nosach: synaData.nosach,
-      lat: synaData.location.coordinates[1],
-      lng: synaData.location.coordinates[0],
-      city: synaData.address,
+    // this.setState({
+    //   // _id: synaData._id,
+    //   name: synaData.name,
+    //   address: synaData.address,
+    //   nosach: synaData.nosach,
+    //   lat: synaData.location.coordinates[1],
+    //   lng: synaData.location.coordinates[0],
+    //   city: synaData.address,
+    // });
+  };
+
+  checkAmenitiesKey = values => {
+    const {isEnglish} = this.props.navigation.state.params;
+    let keys = [];
+    values.map(value => {
+      switch (value) {
+        case isEnglish ? en.amenities.value_0 : he.amenities.value_0:
+          keys.push(0);
+          break;
+        case isEnglish ? en.amenities.value_1 : he.amenities.value_1:
+          keys.push(1);
+          break;
+        case isEnglish ? en.amenities.value_2 : he.amenities.value_2:
+          keys.push(2);
+          break;
+        case isEnglish ? en.amenities.value_3 : he.amenities.value_3:
+          keys.push(2);
+          break;
+        default:
+          break;
+      }
     });
+    return keys;
   };
 
   componentWillUnmount(): void {
@@ -117,6 +151,7 @@ class NewSynModal extends Component {
 
   onSelectAmenities = key => {
     const {isEnglish} = this.state;
+    console.log('onSelectAmenities', key);
     if (key != null) {
       let amenities = this.state.amenities;
       let amenities_key = this.state.amenities_key;
@@ -148,6 +183,7 @@ class NewSynModal extends Component {
 
   onTagViewUpdate = items => {
     const {isEnglish} = this.state;
+    console.log('onTagViewUpdate', items);
     this.setState({amenities: items});
     let keys = [];
     if (
@@ -237,7 +273,20 @@ class NewSynModal extends Component {
   };
 
   render() {
-    const {isEnglish, mon, tue, wed, thu, fri, sat, sun, name, phoneNumber} = this.state;
+    const {
+      isEnglish,
+      mon,
+      tue,
+      wed,
+      thu,
+      fri,
+      sat,
+      sun,
+      name,
+      phoneNumber,
+      notes,
+      nosach,
+    } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
@@ -270,7 +319,7 @@ class NewSynModal extends Component {
               onChangeText={text => {
                 this.setState({name: text});
               }}
-              text={name}
+              value={name}
               phoneNumber={false}
             />
 
@@ -281,6 +330,7 @@ class NewSynModal extends Component {
               isEnglish={isEnglish}
               direction={isEnglish ? 'ltr' : 'rtl'}
               onSelect={this.onNosachSelect}
+              value={nosach}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -567,6 +617,7 @@ class NewSynModal extends Component {
                   ? en.modal.enterDescription
                   : he.modal.enterDescription
               }
+              value={notes}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -583,7 +634,7 @@ class NewSynModal extends Component {
                 this.setState({phoneNumber: text});
               }}
               phoneNumber={true}
-              text={phoneNumber}
+              value={phoneNumber}
             />
           </View>
 
@@ -653,7 +704,6 @@ class NewSynModal extends Component {
                   note,
                   phoneNumber,
                   avatarSource,
-                  _id
                 } = this.state;
                 if (lat === 0 || lng === 0 || city === '') {
                   alert(
@@ -673,27 +723,52 @@ class NewSynModal extends Component {
                   alert('Please upload avatar');
                 } else {
                   this.props.navigation.goBack();
-                  this.props.navigation.state.params.onPublish(
-                    lat,
-                    lng,
-                    city,
-                    name,
-                    nosach,
-                    shtiblach,
-                    amenities_key,
-                    datetime,
-                    mon,
-                    tue,
-                    wed,
-                    thu,
-                    fri,
-                    sat,
-                    sun,
-                    note,
-                    phoneNumber,
-                    avatarSource,
-                    _id,
-                  );
+                  const {navigation} = this.props;
+                  const synaData = navigation.getParam('synaData', null);
+                  if (!synaData) {
+                    this.props.navigation.state.params.onPublish(
+                      lat,
+                      lng,
+                      city,
+                      name,
+                      nosach,
+                      shtiblach,
+                      amenities_key,
+                      datetime,
+                      mon,
+                      tue,
+                      wed,
+                      thu,
+                      fri,
+                      sat,
+                      sun,
+                      note,
+                      phoneNumber,
+                      avatarSource,
+                    );
+                  } else {
+                    this.props.navigation.state.params.onPublish(
+                      lat,
+                      lng,
+                      city,
+                      name,
+                      nosach,
+                      shtiblach,
+                      amenities_key,
+                      datetime,
+                      mon,
+                      tue,
+                      wed,
+                      thu,
+                      fri,
+                      sat,
+                      sun,
+                      note,
+                      phoneNumber,
+                      avatarSource,
+                      synaData._id,
+                    );
+                  }
                 }
               }}>
               <Text style={styles.bigBtnText}>
@@ -722,4 +797,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewSynModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewSynModal);

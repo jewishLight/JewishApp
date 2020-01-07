@@ -87,6 +87,7 @@ class NewSpeakerScreen extends Component {
         avatar: this.state.newSpeakerAvatar,
         about: this.state.newSpeakerAbout,
       };
+      o;
       ApiRequest('lesson/addSpeaker', body, 'POST')
         .then(response => {
           this.closeLoading();
