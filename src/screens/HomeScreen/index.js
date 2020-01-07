@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {NavigationActions, SafeAreaView, StackActions} from 'react-navigation';
+import React, { Component } from 'react';
+import { NavigationActions, SafeAreaView, StackActions } from 'react-navigation';
 import {
   View,
   Platform,
@@ -11,11 +11,11 @@ import {
   BackHandler,
   Alert,
 } from 'react-native';
-import {styles} from './styles';
-import {appSettingsSelector} from '../../redux/selector';
-import {AppSettingsActions} from '../../redux';
-import {connect} from 'react-redux';
-import {en, he} from '../../constants';
+import { styles } from './styles';
+import { appSettingsSelector } from '../../redux/selector';
+import { AppSettingsActions } from '../../redux';
+import { connect } from 'react-redux';
+import { en, he } from '../../constants';
 import {
   HomeHeader,
   SearchButton,
@@ -26,11 +26,11 @@ import {
   ChangeLocationModal,
   Loading,
 } from '../../components';
-import {AroundEvents} from './AroundEvents';
-import {TodayLessons} from './TodayLessons';
-import {PopularLessons} from './PopularLessons';
-import {RecentLessons} from './RecentLessons';
-import {Strings, LocalStorage, ApiRequest} from '../../utils';
+import { AroundEvents } from './AroundEvents';
+import { TodayLessons } from './TodayLessons';
+import { PopularLessons } from './PopularLessons';
+import { RecentLessons } from './RecentLessons';
+import { Strings, LocalStorage, ApiRequest } from '../../utils';
 import NetInfo from '@react-native-community/netinfo';
 import Share from 'react-native-share';
 
@@ -51,16 +51,16 @@ class HomeScreen extends Component {
   }
 
   startLoading = () => {
-    this.setState({showLoading: true});
+    this.setState({ showLoading: true });
   };
   closeLoading = () => {
-    this.setState({showLoading: false});
+    this.setState({ showLoading: false });
   };
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     let language = this.props.appSettings.language;
-    this.setState({language});
+    this.setState({ language });
     if (this.refHomeHeader) {
       this.refHomeHeader.updateLanguage(language);
     }
@@ -93,7 +93,7 @@ class HomeScreen extends Component {
               },
             },
           ],
-          {cancelable: false},
+          { cancelable: false },
         );
       }
     });
@@ -135,7 +135,7 @@ class HomeScreen extends Component {
     const fetchAroundCity = new Promise((resolve, reject) => {
       ApiRequest(
         'home/around_city',
-        {lon: Strings.currentLongitude, lat: Strings.currentLatitude},
+        { lon: Strings.currentLongitude, lat: Strings.currentLatitude },
         'POST',
       )
         .then(response => {
@@ -166,7 +166,7 @@ class HomeScreen extends Component {
         this.closeLoading();
       }),
       fetchAroundCity.catch(error => {
-        this.setState({aroundEvents: []});
+        this.setState({ aroundEvents: [] });
         this.closeLoading();
       }),
     ]).then(responses => {
@@ -193,11 +193,15 @@ class HomeScreen extends Component {
   async componentWillReceiveProps(nextProps, nextContext) {
     const originLanguage = this.props.appSettings.language;
     const newLanguage = nextProps.appSettings.language;
+    const isEdit = nextProps.navigation.getParam('isEdit', false);
     if (originLanguage !== newLanguage) {
-      this.setState({language: newLanguage});
+      this.setState({ language: newLanguage });
       if (this.refHomeHeader) {
         this.refHomeHeader.updateLanguage(newLanguage);
       }
+    }
+    if (isEdit) {
+      this.fetchHome();
     }
   }
 
@@ -213,7 +217,7 @@ class HomeScreen extends Component {
     const isEnglish = language === Strings.ENGLISH;
     return (
       <SafeAreaView style={styles.container}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <View>
             <HomeHeader
               onLocation={this.onHeaderLocation}
@@ -230,8 +234,8 @@ class HomeScreen extends Component {
             {Strings.APP_VERSION > 1 ? (
               <FilterButton onPress={this.onFilter} />
             ) : (
-              <View />
-            )}
+                <View />
+              )}
 
             <View style={styles.addSearchLine}>
               <AddButton
@@ -294,7 +298,7 @@ class HomeScreen extends Component {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <Text style={{fontFamily: 'Heebo-Bold'}}>
+          <Text style={{ fontFamily: 'Heebo-Bold' }}>
             {isEnglish
               ? en.memorial.all_over_the_app
               : he.memorial.all_over_the_app}
@@ -305,7 +309,7 @@ class HomeScreen extends Component {
     );
   }
 
-  onSelectLocation = (index, name) => {};
+  onSelectLocation = (index, name) => { };
 
   callBackAddModal = flag => {
     switch (flag) {
@@ -383,7 +387,7 @@ class HomeScreen extends Component {
     ApiRequest('search')
       .then(response => {
         this.closeLoading();
-        this.props.navigation.navigate('Search', {searchHistory: response});
+        this.props.navigation.navigate('Search', { searchHistory: response });
       })
       .catch(error => {
         this.closeLoading();
@@ -404,7 +408,9 @@ class HomeScreen extends Component {
     ApiRequest(`lesson/view?id=${lessonId}`)
       .then(response => {
         this.closeLoading();
-        this.props.navigation.navigate('Details', {lessonData: response});
+        this.props.navigation.navigate('Details', {
+          lessonData: response,
+        });
       })
       .catch(error => {
         this.closeLoading();
@@ -415,8 +421,10 @@ class HomeScreen extends Component {
     lat,
     lng,
     city,
+    address,
     subject,
     selectedSpeaker,
+    speaker,
     note,
     contactName,
     phoneNumber,
@@ -427,9 +435,10 @@ class HomeScreen extends Component {
     let location = {
       // for test
       type: 'Point',
-      coordinates: [35.217018, 31.771959],
+      // coordinates: [lat, lng],
+      coordinates: [lng, lat],
     };
-
+    console.log('datetime', datetime, days);
     let body = {
       speakerId: selectedSpeaker,
       synagogueId: '',
@@ -441,7 +450,9 @@ class HomeScreen extends Component {
       notes: note,
       contact_name: contactName,
       contact_number: phoneNumber,
+      address,
     };
+    console.log('add lesson', body);
     this.startLoading();
     ApiRequest('lesson/add', body, 'POST')
       .then(response => {
@@ -469,7 +480,7 @@ class HomeScreen extends Component {
     fri,
     sat,
     sun,
-    note,
+    notes,
     phoneNumber,
     avatarSource,
   ) => {
@@ -485,7 +496,7 @@ class HomeScreen extends Component {
       alert('Please input the nosach');
     } else if (phoneNumber === '') {
       alert('Please input the phone number');
-    } else if (note === '') {
+    } else if (notes === '') {
       alert('Please input the note');
     } else {
       this.startLoading();
@@ -558,9 +569,9 @@ class HomeScreen extends Component {
       let location = JSON.stringify({
         // for test
         type: 'Point',
-        coordinates: [35.217018, 31.771959],
+        coordinates: [lng, lat],
       });
-      let mikve = JSON.stringify({mikve: shtiblach});
+      let mikve = JSON.stringify({ mikve: shtiblach });
       let minyans = JSON.stringify([
         {
           minyan: '1',
@@ -570,7 +581,7 @@ class HomeScreen extends Component {
         },
       ]);
 
-      let url = 'http://ec609136.ngrok.io/synagogue/add';
+      let url = 'synagogue/add';
 
       let body = {
         name: name,
@@ -579,7 +590,7 @@ class HomeScreen extends Component {
         location: location,
         externals: amenities,
         minyans: minyans,
-        notes: note,
+        notes: notes,
         phone_number: phoneNumber,
         image: avatarSource.uri,
         donation_link: 'paypal',

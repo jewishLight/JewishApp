@@ -38,7 +38,7 @@ export const ApiRequest = (url, body = '', method = 'GET') => {
           body: JSON.stringify(body),
         };
       }
-    } else if (method === 'POST') {
+    } else if (method === 'POST' || method === 'PUT') {
       header = {
         method,
         headers: {

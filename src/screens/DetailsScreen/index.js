@@ -41,6 +41,8 @@ class DetailsScreen extends Component {
       comments: [],
       isLike: false,
       likeCount: 0,
+      lessonData: props.navigation.state.params.lessonData,
+      isEdit: false,
     };
   }
 
@@ -64,7 +66,13 @@ class DetailsScreen extends Component {
       });
     }
     this.setState({isLike});
+    console.log('Detail lesson didMount');
   }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   console.log('Detail getDerivedStateFromProps this.state', this.state);
+  //   console.log('Detail getDerivedStateFromProps', nextProps, prevState);
+  // }
 
   componentWillUnmount(): void {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
@@ -146,8 +154,10 @@ class DetailsScreen extends Component {
     lat,
     lng,
     city,
+    address,
     subject,
     selectedSpeaker,
+    speaker,
     note,
     contactName,
     phoneNumber,
@@ -155,50 +165,80 @@ class DetailsScreen extends Component {
     datetime,
     selectedAudience,
   ) => {
+    const {lessonData} = this.state;
     let location = {
       // for test
       type: 'Point',
-      coordinates: [lat, lng],
+      coordinates: [lng, lat],
     };
+    console.log('selectedSpeaker', selectedSpeaker);
+    const newSpeaker = speaker
+      ? {
+          _id: speaker.value,
+          name: speaker.label,
+          avatar: speaker.avatar,
+          about: speaker.about,
+        }
+      : lessonData.speaker;
     const {
       lessonData: {_id},
     } = this.props.navigation.state.params;
-    console.log('datetime', datetime);
+    console.log('edit lesson selectedSpeaker', selectedSpeaker);
     let body = {
-      id: {id: _id},
-      speakerId: {id: selectedSpeaker},
+      id: _id,
+      speakerId:
+        typeof selectedSpeaker === 'string'
+          ? selectedSpeaker
+          : selectedSpeaker.value,
+      speaker: newSpeaker,
       synagogueId: '',
       lessonSubject: subject,
       location: location,
+
       // time: `${datetime.getHours()}:${datetime.getMinutes()}`,
-      time: datetime,
+      time:
+        typeof datetime === 'string'
+          ? datetime
+          : `${datetime.getHours()}:${datetime.getMinutes()}`,
       days: days,
       audience: selectedAudience,
       notes: note,
-      contact_name: [contactName],
-      contact_number: [phoneNumber],
+      contact_name: contactName,
+      contact_number: phoneNumber,
+      address: address,
     };
     this.startLoading();
-    console.log('response body', body);
-
-    ApiRequest('lesson/update', body, 'POST')
+    console.log('edit lesson', body);
+    ApiRequest('lesson/update', body, 'PUT')
       .then(response => {
-        console.log('response success', response);
+        console.log('edit lesson response', response);
+        const {lessonData} = this.state;
+        this.setState({lessonData: {...lessonData, ...body}});
         this.closeLoading();
-        // this.fetchHome();
+        this.setState({isEdit: true});
       })
       .catch(error => {
-        console.log('response error', error);
+        console.log('edit lesson error', error);
 
         this.closeLoading();
       });
   };
 
   render() {
-    const {language, showLoading, comments, isLike, likeCount} = this.state;
+    const {
+      language,
+      showLoading,
+      comments,
+      isLike,
+      likeCount,
+      lessonData,
+      isEdit,
+    } = this.state;
     const isEnglish = language === Strings.ENGLISH;
-    const {lessonData} = this.props.navigation.state.params;
+    // const {lessonData} = this.props.navigation.state.params;
     // console.log('detail screen', lessonData);
+    console.log('detail screen', isEdit);
+
     return (
       <View style={{flex: 1}}>
         <SafeAreaView style={styles.topSafeAreaView} />
@@ -221,8 +261,12 @@ class DetailsScreen extends Component {
                 <View style={styles.detailUserContainer}>
                   <Image
                     source={
-                      lessonData.speaker
-                        ? {uri: lessonData.speaker.avatar}
+                      lessonData.speaker && lessonData.speaker.avatar
+                        ? {
+                            uri: `data:image/png;base64,${
+                              lessonData.speaker.avatar
+                            }`,
+                          }
                         : require('../../assets/icon_avatar.png')
                     }
                     style={styles.detailUserAvatar}
@@ -256,7 +300,7 @@ class DetailsScreen extends Component {
                     style={styles.detailClockImage}
                   />
                   <Text style={styles.detailClockText}>
-                    Today, {lessonData.timeString}
+                    Today, {lessonData.time}
                   </Text>
                 </View>
                 <View style={styles.detailLocationContainer}>
@@ -354,8 +398,98 @@ class DetailsScreen extends Component {
   }
 
   onBack = () => {
-    this.props.navigation.goBack();
+    const {isEdit} = this.state;
+    if (isEdit) {
+      this.props.navigation.navigate('Home', {
+        isEdit,
+      });
+    } else {
+      this.props.navigation.goBack();
+    }
   };
+
+  fetchHome = () => {
+    this.startLoading();
+
+    const fetchTodayLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/today_lessons')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchPopularLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/popular_lessons')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchRecentLessons = new Promise((resolve, reject) => {
+      ApiRequest('home/recent')
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    const fetchAroundCity = new Promise((resolve, reject) => {
+      ApiRequest(
+        'home/around_city',
+        {lon: Strings.currentLongitude, lat: Strings.currentLatitude},
+        'POST',
+      )
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+
+    Promise.all([
+      fetchTodayLessons.catch(error => {
+        this.setState({
+          todayLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchPopularLessons.catch(error => {
+        this.setState({
+          popularLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchRecentLessons.catch(error => {
+        this.setState({
+          recentLessons: [],
+        });
+        this.closeLoading();
+      }),
+      fetchAroundCity.catch(error => {
+        this.setState({aroundEvents: []});
+        this.closeLoading();
+      }),
+    ]).then(responses => {
+      console.info(Strings.userId);
+      this.setState({
+        todayLessons: responses[0],
+        popularLessons: responses[1],
+        recentLessons: responses[2],
+        aroundEvents: responses[3],
+      });
+      this.closeLoading();
+    });
+  };
+
   onSend = () => {
     ApiRequest(
       'synagogue/favorite?synagogue_id=5d73e770166c9f52982d7cd0',
@@ -370,7 +504,8 @@ class DetailsScreen extends Component {
     this.props.navigation.navigate('Favorite');
   };
   onEdit = () => {
-    const {lessonData} = this.props.navigation.state.params;
+    // const {lessonData} = this.props.navigation.state.params;
+    const {lessonData} = this.state;
     console.log('onEdit', lessonData);
     this.startLoading();
     ApiRequest('lesson/speakers')

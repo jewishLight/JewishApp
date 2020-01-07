@@ -1,8 +1,9 @@
-import {en, he} from '../../constants';
-import {LocalStorage, Strings} from '../../utils';
+/* eslint-disable */
+import { en, he } from '../../constants';
+import { LocalStorage, Strings } from '../../utils';
 import ImagePicker from 'react-native-image-picker';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {styles} from './styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { styles } from './styles';
 import {
   BackHandler,
   Image,
@@ -23,16 +24,16 @@ import {
   TagView,
   AddModalCloseButton,
 } from '../../components';
-import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {Colors, Metric} from '../../themes';
-import React, {Component} from 'react';
-import {appSettingsSelector} from '../../redux/selector';
-import {AppSettingsActions} from '../../redux';
-import {connect} from 'react-redux';
-import {SafeAreaView} from 'react-navigation';
-import MapView, {Callout, Marker, ProviderPropType} from 'react-native-maps';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { Colors, Metric } from '../../themes';
+import React, { Component } from 'react';
+import { appSettingsSelector } from '../../redux/selector';
+import { AppSettingsActions } from '../../redux';
+import { connect } from 'react-redux';
+import { SafeAreaView } from 'react-navigation';
+import MapView, { Callout, Marker, ProviderPropType } from 'react-native-maps';
 import LocationItem from '../NewLessonScreen/locationItem';
-import {GoogleAutoComplete} from 'react-native-google-autocomplete';
+import { GoogleAutoComplete } from 'react-native-google-autocomplete';
 import moment from 'moment';
 import Geocoder from 'react-native-geocoder';
 
@@ -48,16 +49,23 @@ const options = {
 class NewSynModal extends Component {
   constructor(props) {
     super(props);
+    const { navigation } = props;
+    const synaData = navigation.getParam('synaData', null);
+    console.log(synaData)
     this.state = {
       modalVisible: false,
-      name: '',
-      lat: 0,
-      lng: 0,
-      city: '',
-      nosach: '',
-      shtiblach: false,
-      amenities: [],
-      amenities_key: [],
+      name: synaData ? synaData.name : '',
+      lat: synaData ? synaData.location && synaData.location.coordinates[1] : 0,
+      lng: synaData ? synaData.location && synaData.location.coordinates[0] : 0,
+      city: synaData ? synaData.address : '',
+      nosach: synaData ? synaData.nosach : '',
+      shtiblach: synaData ? synaData.shtiblach : false,
+      amenities:
+        synaData && synaData.externals ? Object.keys(synaData.externals) : [],
+      amenities_key:
+        synaData && synaData.externals
+          ? this.checkAmenitiesKey(Object.keys(synaData.externals))
+          : [],
       showTimeSelector: false,
       datetime: null,
       mon: false,
@@ -67,35 +75,63 @@ class NewSynModal extends Component {
       fri: false,
       sat: false,
       sun: false,
-      notes: '',
-      phoneNumber: '',
-      avatarSource: null,
-      isEnglish: this.props.navigation.state.params.isEnglish,
+      notes: synaData ? synaData.notes : '',
+      phoneNumber: synaData ? synaData.phone_number : '',
+      avatarSource: synaData ? synaData.image : null,
+      isEnglish: props.navigation.state.params.isEnglish,
       poi: null,
-      address: Strings.currentLocationCity,
+      address: synaData ? synaData.address : Strings.currentLocationCity,
       addMinTimeFlag: false,
       marker: {
-        longitude: Strings.currentLongitude,
-        latitude: Strings.currentLatitude,
+        longitude: synaData
+          ? synaData.location && synaData.location.coordinates[0]
+          : Strings.currentLongitude,
+        latitude: synaData
+          ? synaData.location && synaData.location.coordinates[1]
+          : Strings.currentLatitude,
       },
-      _id: null
+      // _id: null,
     };
   }
 
   componentDidMount = () => {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     const synaData = navigation.getParam('synaData', null);
     console.log(synaData);
-    this.setState({
-      _id: synaData._id,
-      name: synaData.name,
-      address: synaData.address,
-      nosach: synaData.nosach,
-      lat: synaData.location.coordinates[1],
-      lng: synaData.location.coordinates[0],
-      city: synaData.address,
+    // this.setState({
+    //   // _id: synaData._id,
+    //   name: synaData.name,
+    //   address: synaData.address,
+    //   nosach: synaData.nosach,
+    //   lat: synaData.location.coordinates[1],
+    //   lng: synaData.location.coordinates[0],
+    //   city: synaData.address,
+    // });
+  };
+
+  checkAmenitiesKey = values => {
+    const { isEnglish } = this.props.navigation.state.params;
+    let keys = [];
+    values.map(value => {
+      switch (value) {
+        case isEnglish ? en.amenities.value_0 : he.amenities.value_0:
+          keys.push(0);
+          break;
+        case isEnglish ? en.amenities.value_1 : he.amenities.value_1:
+          keys.push(1);
+          break;
+        case isEnglish ? en.amenities.value_2 : he.amenities.value_2:
+          keys.push(2);
+          break;
+        case isEnglish ? en.amenities.value_3 : he.amenities.value_3:
+          keys.push(2);
+          break;
+        default:
+          break;
+      }
     });
+    return keys;
   };
 
   componentWillUnmount(): void {
@@ -112,11 +148,11 @@ class NewSynModal extends Component {
   };
 
   onNosachSelect = value => {
-    this.setState({nosach: value});
+    this.setState({ nosach: value });
   };
 
   onSelectAmenities = key => {
-    const {isEnglish} = this.state;
+    const { isEnglish } = this.state;
     if (key != null) {
       let amenities = this.state.amenities;
       let amenities_key = this.state.amenities_key;
@@ -142,13 +178,15 @@ class NewSynModal extends Component {
         amenities.push(value);
         amenities_key.push(key);
       }
-      this.setState({amenities, amenities_key});
+
+      this.setState({ amenities, amenities_key });
     }
   };
 
   onTagViewUpdate = items => {
-    const {isEnglish} = this.state;
-    this.setState({amenities: items});
+    const { isEnglish } = this.state;
+    console.log('onTagViewUpdate', items);
+    this.setState({ amenities: items });
     let keys = [];
     if (
       items.includes(isEnglish ? en.amenities.value_0 : he.amenities.value_0)
@@ -170,15 +208,15 @@ class NewSynModal extends Component {
     ) {
       keys.push(3);
     }
-    this.setState({amenities_key: keys});
+    this.setState({ amenities_key: keys });
   };
 
   setTime = datetime => {
-    this.setState({datetime});
+    this.setState({ datetime });
   };
 
   updateWeekdays = (mon, tue, wed, thu, fri, sat, sun) => {
-    this.setState({mon, tue, wed, thu, fri, sat, sun});
+    this.setState({ mon, tue, wed, thu, fri, sat, sun });
   };
 
   uploadImage = () => {
@@ -192,7 +230,7 @@ class NewSynModal extends Component {
       } else if (response.customButton) {
         console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = {uri: response.uri};
+        const source = { uri: response.uri };
 
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
@@ -212,7 +250,7 @@ class NewSynModal extends Component {
       lat: poi.coordinate.latitude,
       lng: poi.coordinate.longitude,
     });
-    this.setState({marker: e.nativeEvent.coordinate});
+    this.setState({ marker: e.nativeEvent.coordinate });
   };
 
   onMapClick = e => {
@@ -237,12 +275,25 @@ class NewSynModal extends Component {
   };
 
   render() {
-    const {isEnglish, mon, tue, wed, thu, fri, sat, sun, name, phoneNumber} = this.state;
+    const {
+      isEnglish,
+      mon,
+      tue,
+      wed,
+      thu,
+      fri,
+      sat,
+      sun,
+      name,
+      phoneNumber,
+      notes,
+      nosach,
+    } = this.state;
     return (
       <SafeAreaView style={styles.container}>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="always"
-          style={{flex: 1}}>
+          style={{ flex: 1 }}>
           <View style={styles.addNewLine}>
             <Text style={styles.addNewText}>
               {isEnglish ? en.modal.addNewSynagogue : he.modal.addNewSynagogue}
@@ -268,9 +319,9 @@ class NewSynModal extends Component {
                   : he.modal.enterSynagogueNameHere
               }
               onChangeText={text => {
-                this.setState({name: text});
+                this.setState({ name: text });
               }}
-              text={name}
+              value={name}
               phoneNumber={false}
             />
 
@@ -281,13 +332,14 @@ class NewSynModal extends Component {
               isEnglish={isEnglish}
               direction={isEnglish ? 'ltr' : 'rtl'}
               onSelect={this.onNosachSelect}
+              value={nosach}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
               {isEnglish ? en.modal.location : he.modal.location}
             </Text>
 
-            <View style={{height: 10}} />
+            <View style={{ height: 10 }} />
 
             <GoogleAutoComplete
               apiKey="AIzaSyAKlDWP_hkcOoCrUS-hsRXn67qKW0o9n0M"
@@ -299,39 +351,39 @@ class NewSynModal extends Component {
                 fetchDetails,
                 clearSearchs,
               }) => (
-                <React.Fragment>
-                  <TextInput
-                    style={{
-                      height: 40,
-                      width: Metric.width - 30,
-                      borderWidth: 1,
-                      borderRadius: 5,
-                      paddingHorizontal: 16,
-                      borderColor: Colors.separator,
-                      fontFamily: 'Heebo-Regular',
-                    }}
-                    value={this.state.address}
-                    onChangeText={text => {
-                      this.setState({address: text});
-                      handleTextChange(text);
-                    }}
-                    placeholder="Location..."
-                  />
-                  <ScrollView
-                    style={{maxHeight: 100}}
-                    nestedScrollEnabled={true}>
-                    {locationResults.map(el => (
-                      <LocationItem
-                        {...el}
-                        key={el.id}
-                        fetchDetails={fetchDetails}
-                        update={this.updateGoogleAutocomplete}
-                        {...{clearSearchs}}
-                      />
-                    ))}
-                  </ScrollView>
-                </React.Fragment>
-              )}
+                  <React.Fragment>
+                    <TextInput
+                      style={{
+                        height: 40,
+                        width: Metric.width - 30,
+                        borderWidth: 1,
+                        borderRadius: 5,
+                        paddingHorizontal: 16,
+                        borderColor: Colors.separator,
+                        fontFamily: 'Heebo-Regular',
+                      }}
+                      value={this.state.address}
+                      onChangeText={text => {
+                        this.setState({ address: text });
+                        handleTextChange(text);
+                      }}
+                      placeholder="Location..."
+                    />
+                    <ScrollView
+                      style={{ maxHeight: 100 }}
+                      nestedScrollEnabled={true}>
+                      {locationResults.map(el => (
+                        <LocationItem
+                          {...el}
+                          key={el.id}
+                          fetchDetails={fetchDetails}
+                          update={this.updateGoogleAutocomplete}
+                          {...{ clearSearchs }}
+                        />
+                      ))}
+                    </ScrollView>
+                  </React.Fragment>
+                )}
             </GoogleAutoComplete>
 
             {/*<GooglePlacesAutocomplete*/}
@@ -451,10 +503,10 @@ class NewSynModal extends Component {
               <TouchableOpacity
                 onPress={() => {
                   if (mon || tue || wed || thu || fri || sat || sun) {
-                    this.setState({addMinTimeFlag: true});
+                    this.setState({ addMinTimeFlag: true });
                   }
                 }}>
-                <Text style={{color: 'blue', fontFamily: 'Heebo-Regular'}}>
+                <Text style={{ color: 'blue', fontFamily: 'Heebo-Regular' }}>
                   Add
                 </Text>
               </TouchableOpacity>
@@ -483,7 +535,7 @@ class NewSynModal extends Component {
                 <View />
                 <TouchableOpacity
                   onPress={() => {
-                    this.setState({addMinTimeFlag: false});
+                    this.setState({ addMinTimeFlag: false });
                   }}>
                   <Text style={styles.newLessonModalPickerTitleRed}>
                     {isEnglish ? en.modal.remove : he.modal.remove}
@@ -511,7 +563,7 @@ class NewSynModal extends Component {
               type={isEnglish ? en.modal.shtiblach : he.modal.shtiblach}
               initialStatus={false}
               onChange={value => {
-                this.setState({shtiblach: value});
+                this.setState({ shtiblach: value });
               }}
             />
 
@@ -560,13 +612,14 @@ class NewSynModal extends Component {
             <DescriptionInput
               direction={isEnglish ? 'ltr' : 'rtl'}
               onChangeText={text => {
-                this.setState({note: text});
+                this.setState({ notes: text });
               }}
               placeholder={
                 isEnglish
                   ? en.modal.enterDescription
                   : he.modal.enterDescription
               }
+              value={notes}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -580,10 +633,10 @@ class NewSynModal extends Component {
                 isEnglish ? en.modal.enterNumberHere : he.modal.enterNumberHere
               }
               onChangeText={text => {
-                this.setState({phoneNumber: text});
+                this.setState({ phoneNumber: text });
               }}
               phoneNumber={true}
-              text={phoneNumber}
+              value={phoneNumber}
             />
           </View>
 
@@ -617,7 +670,7 @@ class NewSynModal extends Component {
                 onPress={this.uploadImage}>
                 <Image
                   source={require('../../assets/icon_modal_upload.png')}
-                  style={{width: 20, height: 13, resizeMode: 'contain'}}
+                  style={{ width: 20, height: 13, resizeMode: 'contain' }}
                 />
                 <Text
                   style={{
@@ -650,10 +703,9 @@ class NewSynModal extends Component {
                   fri,
                   sat,
                   sun,
-                  note,
+                  notes,
                   phoneNumber,
                   avatarSource,
-                  _id
                 } = this.state;
                 if (lat === 0 || lng === 0 || city === '') {
                   alert(
@@ -667,33 +719,59 @@ class NewSynModal extends Component {
                   alert('Please input the nosach');
                 } else if (phoneNumber === '') {
                   alert('Please input the phone number');
-                } else if (note === '') {
+                } else if (notes === '') {
                   alert('Please input the note');
                 } else if (!avatarSource) {
                   alert('Please upload avatar');
                 } else {
                   this.props.navigation.goBack();
-                  this.props.navigation.state.params.onPublish(
-                    lat,
-                    lng,
-                    city,
-                    name,
-                    nosach,
-                    shtiblach,
-                    amenities_key,
-                    datetime,
-                    mon,
-                    tue,
-                    wed,
-                    thu,
-                    fri,
-                    sat,
-                    sun,
-                    note,
-                    phoneNumber,
-                    avatarSource,
-                    _id,
-                  );
+                  const { navigation } = this.props;
+                  const synaData = navigation.getParam('synaData', null);
+                  console.log(amenities_key)
+                  if (!synaData) {
+                    this.props.navigation.state.params.onPublish(
+                      lat,
+                      lng,
+                      city,
+                      name,
+                      nosach,
+                      shtiblach,
+                      amenities_key,
+                      datetime,
+                      mon,
+                      tue,
+                      wed,
+                      thu,
+                      fri,
+                      sat,
+                      sun,
+                      notes,
+                      phoneNumber,
+                      avatarSource,
+                    );
+                  } else {
+                    this.props.navigation.state.params.onPublish(
+                      lat,
+                      lng,
+                      city,
+                      name,
+                      nosach,
+                      shtiblach,
+                      amenities_key,
+                      datetime,
+                      mon,
+                      tue,
+                      wed,
+                      thu,
+                      fri,
+                      sat,
+                      sun,
+                      note,
+                      phoneNumber,
+                      avatarSource,
+                      synaData._id,
+                    );
+                  }
                 }
               }}>
               <Text style={styles.bigBtnText}>
@@ -722,4 +800,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewSynModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewSynModal);

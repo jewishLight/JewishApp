@@ -48,7 +48,7 @@ class NewLessonScreen extends Component {
       }
     });
 
-    const selectedSpeaker =
+    const speaker =
       lessonData &&
       lessonData.speaker &&
       speakerPickerArray.find(item => item.value === lessonData.speaker._id);
@@ -57,9 +57,13 @@ class NewLessonScreen extends Component {
       modalVisible: false,
       subject: '',
       speakers: [],
-      selectedSpeaker: selectedSpeaker,
-      lat: 0,
-      lng: 0,
+      selectedSpeaker:
+        lessonData && lessonData.speaker && lessonData.speaker._id,
+      speaker: speaker,
+      lat:
+        lessonData && lessonData.location && lessonData.location.coordinates[1],
+      lng:
+        lessonData && lessonData.location && lessonData.location.coordinates[0],
       city: '',
       note: '',
       contactName: '',
@@ -71,7 +75,7 @@ class NewLessonScreen extends Component {
       fri: false,
       sat: false,
       sun: false,
-      datetime: null,
+      datetime: new Date(),
       selectedAudience: '',
       language: '',
       addNewSpeakerState: false,
@@ -79,7 +83,7 @@ class NewLessonScreen extends Component {
       newSpeakerName: '',
       newSpeakerAvatar: '',
       newSpeakerAbout: '',
-      address: '',
+      address: (lessonData && lessonData.address) || '',
       marker: {
         longitude: Strings.currentLongitude,
         latitude: Strings.currentLatitude,
@@ -131,12 +135,12 @@ class NewLessonScreen extends Component {
       phoneNumber: (lessonData && lessonData.contact_number) || '',
       note: (lessonData && lessonData.notes) || '',
       marker: {
-        latitude:
+        longitude:
           (lessonData &&
             lessonData.location &&
             lessonData.location.coordinates[0]) ||
           Strings.currentLongitude,
-        longitude:
+        latitude:
           (lessonData &&
             lessonData.location &&
             lessonData.location.coordinates[1]) ||
@@ -179,6 +183,7 @@ class NewLessonScreen extends Component {
   };
 
   setTime = datetime => {
+    console.log('dateTime new lesson', datetime);
     this.setState({datetime});
   };
 
@@ -222,8 +227,8 @@ class NewLessonScreen extends Component {
         longitude: nextState.longitude,
         latitude: nextState.latitude,
       },
-      address: nextState.justCity,
-      city: nextState.address,
+      address: nextState.address,
+      city: nextState.justCity,
       lat: nextState.latitude,
       lng: nextState.longitude,
     });
@@ -251,14 +256,13 @@ class NewLessonScreen extends Component {
 
   renderOption = settings => {
     const {item, getLabel} = settings;
-
     return (
       <View style={styles.optionContainer}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={
-              item.avatar && item.avatar.uri
-                ? {uri: item.avatar.uri}
+              item.avatar
+                ? {uri: `data:image/png;base64,${item.avatar}`}
                 : require('../../assets/icon_commentlist_avatar.png')
             }
             style={{width: 40, height: 40, resizeMode: 'contain'}}
@@ -307,7 +311,7 @@ class NewLessonScreen extends Component {
   render() {
     const isEnglish = this.state.language === Strings.ENGLISH;
     const {lessonData} = this.props.navigation.state.params;
-    const {audienceValue, selectedSpeaker} = this.state;
+    const {audienceValue, speaker} = this.state;
     const time = (lessonData && lessonData.time) || null;
     const days = (lessonData && lessonData.days) || null;
     // const audienceValue = this.checkAudience();
@@ -384,9 +388,9 @@ class NewLessonScreen extends Component {
               optionTemplate={this.renderOption}
               onValueChange={value => {
                 // console.log('selectedSpeaker', value);
-                this.setState({selectedSpeaker: value.value});
+                this.setState({selectedSpeaker: value.value, speaker: value});
               }}
-              defaultValue={selectedSpeaker}
+              defaultValue={speaker}
             />
 
             <Text style={styles.newLessonModalPickerTitle}>
@@ -651,6 +655,7 @@ class NewLessonScreen extends Component {
                   city,
                   subject,
                   selectedSpeaker,
+                  speaker,
                   note,
                   contactName,
                   phoneNumber,
@@ -663,6 +668,7 @@ class NewLessonScreen extends Component {
                   sun,
                   datetime,
                   selectedAudience,
+                  address,
                 } = this.state;
                 let days = [];
                 if (mon) {
@@ -694,17 +700,20 @@ class NewLessonScreen extends Component {
                   alert('Please select speaker');
                 } else if (selectedAudience === '' || !selectedAudience) {
                   alert('Please select audience');
-                } else if (lat === 0 || lng === 0 || city === '') {
+                } else if (lat === 0 || lng === 0 || address === '') {
                   alert('Please input the correct address');
                 } else {
                   this.props.navigation.goBack();
                   if (!isEdit) {
+                    console.log('datetime onPress Add', datetime, days);
                     this.props.navigation.state.params.onPublish(
                       lat,
                       lng,
                       city,
+                      address,
                       subject,
                       selectedSpeaker,
+                      speaker,
                       note,
                       contactName,
                       phoneNumber,
@@ -713,12 +722,15 @@ class NewLessonScreen extends Component {
                       selectedAudience,
                     );
                   } else {
+                    console.log('datetime onPress Edit', datetime, days);
                     this.props.navigation.state.params.onEditLesson(
                       lat,
                       lng,
                       city,
+                      address,
                       subject,
                       selectedSpeaker,
+                      speaker,
                       note,
                       contactName,
                       phoneNumber,
