@@ -63,6 +63,7 @@ class MyProfileScreen extends Component {
     const avatar = user.avatar
       ? {uri: user.avatar}
       : require('../../assets/img_noavatar.png');
+    console.log('user', user);
     return (
       <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
         <MyProfileHeader
@@ -98,7 +99,7 @@ class MyProfileScreen extends Component {
               marginTop: 10,
               fontFamily: 'Heebo-Regular',
             }}>
-            John Doe
+            {`${user.first_name} ${user.last_name}`}
           </Text>
         </View>
         <View
@@ -121,7 +122,7 @@ class MyProfileScreen extends Component {
               marginTop: 10,
               fontFamily: 'Heebo-Regular',
             }}>
-            johndoe123@gmail.com
+            {user.email}
           </Text>
         </View>
         <View
