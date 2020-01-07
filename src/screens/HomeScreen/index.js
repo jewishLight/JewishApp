@@ -193,11 +193,15 @@ class HomeScreen extends Component {
   async componentWillReceiveProps(nextProps, nextContext) {
     const originLanguage = this.props.appSettings.language;
     const newLanguage = nextProps.appSettings.language;
+    const isEdit = nextProps.navigation.getParam('isEdit', false);
     if (originLanguage !== newLanguage) {
       this.setState({ language: newLanguage });
       if (this.refHomeHeader) {
         this.refHomeHeader.updateLanguage(newLanguage);
       }
+    }
+    if (isEdit) {
+      this.fetchHome();
     }
   }
 
@@ -404,7 +408,9 @@ class HomeScreen extends Component {
     ApiRequest(`lesson/view?id=${lessonId}`)
       .then(response => {
         this.closeLoading();
-        this.props.navigation.navigate('Details', { lessonData: response });
+        this.props.navigation.navigate('Details', {
+          lessonData: response,
+        });
       })
       .catch(error => {
         this.closeLoading();
