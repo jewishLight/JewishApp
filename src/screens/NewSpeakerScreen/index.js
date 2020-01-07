@@ -87,7 +87,7 @@ class NewSpeakerScreen extends Component {
         avatar: this.state.newSpeakerAvatar,
         about: this.state.newSpeakerAbout,
       };
-      o;
+
       ApiRequest('lesson/addSpeaker', body, 'POST')
         .then(response => {
           this.closeLoading();
@@ -255,4 +255,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(AppSettingsActions.updateLanguage(language)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewSpeakerScreen);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(NewSpeakerScreen);

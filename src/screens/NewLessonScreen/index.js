@@ -61,9 +61,9 @@ class NewLessonScreen extends Component {
         lessonData && lessonData.speaker && lessonData.speaker._id,
       speaker: speaker,
       lat:
-        lessonData && lessonData.location && lessonData.location.coordinates[0],
-      lng:
         lessonData && lessonData.location && lessonData.location.coordinates[1],
+      lng:
+        lessonData && lessonData.location && lessonData.location.coordinates[0],
       city: '',
       note: '',
       contactName: '',
@@ -85,8 +85,8 @@ class NewLessonScreen extends Component {
       newSpeakerAbout: '',
       address: (lessonData && lessonData.address) || '',
       marker: {
-        latitude: Strings.currentLatitude,
         longitude: Strings.currentLongitude,
+        latitude: Strings.currentLatitude,
       },
     };
   }
@@ -139,12 +139,12 @@ class NewLessonScreen extends Component {
           (lessonData &&
             lessonData.location &&
             lessonData.location.coordinates[0]) ||
-          Strings.currentLatitude,
+          Strings.currentLongitude,
         latitude:
           (lessonData &&
             lessonData.location &&
             lessonData.location.coordinates[1]) ||
-          Strings.currentLongitude,
+          Strings.currentLatitude,
       },
       selectedAudience: lessonData && lessonData.audience,
       datetime: (lessonData && lessonData.time) || null,
@@ -256,14 +256,13 @@ class NewLessonScreen extends Component {
 
   renderOption = settings => {
     const {item, getLabel} = settings;
-
     return (
       <View style={styles.optionContainer}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             source={
-              item.avatar && item.avatar.uri
-                ? {uri: item.avatar.uri}
+              item.avatar
+                ? {uri: `data:image/png;base64,${item.avatar}`}
                 : require('../../assets/icon_commentlist_avatar.png')
             }
             style={{width: 40, height: 40, resizeMode: 'contain'}}

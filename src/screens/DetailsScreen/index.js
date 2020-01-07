@@ -257,8 +257,12 @@ class DetailsScreen extends Component {
                 <View style={styles.detailUserContainer}>
                   <Image
                     source={
-                      lessonData.speaker
-                        ? {uri: lessonData.speaker.avatar}
+                      lessonData.speaker && lessonData.speaker.avatar
+                        ? {
+                            uri: `data:image/png;base64,${
+                              lessonData.speaker.avatar
+                            }`,
+                          }
                         : require('../../assets/icon_avatar.png')
                     }
                     style={styles.detailUserAvatar}
