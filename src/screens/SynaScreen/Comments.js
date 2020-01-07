@@ -14,6 +14,7 @@ export class Comments extends Component {
 
   render() {
     const isEnglish = this.props.isEnglish;
+
     return (
       <View style={styles.commentsView}>
         <View style={styles.commentsTopView}>
@@ -21,7 +22,7 @@ export class Comments extends Component {
             {isEnglish ? en.detail.comments : he.detail.comments}
           </Text>
           <Text style={styles.commentsNumberText}>
-            {this.props.item.length}{' '}
+            {this.props.item && this.props.item.length}{' '}
             {isEnglish ? en.detail.comments : he.detail.comments}
           </Text>
         </View>
