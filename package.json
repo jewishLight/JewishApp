@@ -16,7 +16,7 @@
     "@react-native-community/netinfo": "^4.4.0",
     "alpha-scroll-flat-list": "^0.2.20",
     "i18n-js": "^3.3.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mui-places-autocomplete": "^2.0.0",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.5.4",
